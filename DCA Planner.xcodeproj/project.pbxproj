@@ -18,6 +18,9 @@
 		0794113D2949EC3200A4F632 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* PriceViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */; };
+		07941146294A19B100A4F632 /* PriceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941145294A19B100A4F632 /* PriceView.swift */; };
+		07941148294A19BC00A4F632 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* PlanView.swift */; };
+		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		0794113C2949EC3200A4F632 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
+		07941145294A19B100A4F632 /* PriceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceView.swift; sourceTree = "<group>"; };
+		07941147294A19BC00A4F632 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,9 @@
 		079411362949E86200A4F632 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				07941145294A19B100A4F632 /* PriceView.swift */,
+				07941147294A19BC00A4F632 /* PlanView.swift */,
+				07941149294A19C800A4F632 /* SettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,9 +199,12 @@
 				079411392949E9CB00A4F632 /* PlanViewController.swift in Sources */,
 				0794113D2949EC3200A4F632 /* PriceViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
+				07941146294A19B100A4F632 /* PriceView.swift in Sources */,
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
 				079411212949E84700A4F632 /* SceneDelegate.swift in Sources */,
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
+				07941148294A19BC00A4F632 /* PlanView.swift in Sources */,
+				0794114A294A19C800A4F632 /* SettingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
