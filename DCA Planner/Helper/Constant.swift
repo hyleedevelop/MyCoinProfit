@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constant {
-    static let menuName1 = "홈"
+    static let menuName1 = "시세조회"
     static let menuName2 = "투자계획"
     static let menuName3 = "설정"
 }

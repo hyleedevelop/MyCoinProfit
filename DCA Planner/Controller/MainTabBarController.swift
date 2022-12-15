@@ -34,16 +34,16 @@ class MainTabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = .blue
         
         // 홈 탭
-        let vc1 = UINavigationController(rootViewController: PriceViewController())
-        vc1.tabBarItem.selectedImage = UIImage(systemName: "house.fill")
+        let vc1 = UINavigationController(rootViewController: AssetViewController())
+        vc1.tabBarItem.selectedImage = UIImage(systemName: "list.clipboard.fill")
         vc1.tabBarItem.title = Constant.menuName1
-        vc1.tabBarItem.image = UIImage(systemName: "house")
+        vc1.tabBarItem.image = UIImage(systemName: "list.clipboard")
         
         // 투자계획 탭
         let vc2 = UINavigationController(rootViewController: PlanViewController())
-        vc2.tabBarItem.selectedImage = UIImage(systemName: "list.clipboard.fill")
+        vc2.tabBarItem.selectedImage = UIImage(systemName: "plus.circle.fill")
         vc2.tabBarItem.title = Constant.menuName2
-        vc2.tabBarItem.image = UIImage(systemName: "list.clipboard")
+        vc2.tabBarItem.image = UIImage(systemName: "plus.circle")
 
         // 설정 탭
         let vc3 = UINavigationController(rootViewController: SettingViewController())

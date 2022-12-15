@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlanView: UIView {
+final class PlanView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.
