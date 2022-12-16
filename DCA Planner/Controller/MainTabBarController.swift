@@ -30,25 +30,24 @@ class MainTabBarController: UITabBarController {
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         }
         
-        tabBar.tintColor = .orange
-        tabBar.unselectedItemTintColor = .blue
+        tabBar.tintColor = Constant.UISetting.MyColor
         
         // 홈 탭
         let vc1 = UINavigationController(rootViewController: AssetViewController())
-        vc1.tabBarItem.selectedImage = UIImage(systemName: "list.clipboard.fill")
-        vc1.tabBarItem.title = Constant.menuName1
-        vc1.tabBarItem.image = UIImage(systemName: "list.clipboard")
+        vc1.tabBarItem.selectedImage = UIImage(systemName: "star.fill")
+        vc1.tabBarItem.title = Constant.Menu.menuName1
+        vc1.tabBarItem.image = UIImage(systemName: "star")
         
         // 투자계획 탭
         let vc2 = UINavigationController(rootViewController: PlanViewController())
         vc2.tabBarItem.selectedImage = UIImage(systemName: "plus.circle.fill")
-        vc2.tabBarItem.title = Constant.menuName2
+        vc2.tabBarItem.title = Constant.Menu.menuName2
         vc2.tabBarItem.image = UIImage(systemName: "plus.circle")
 
         // 설정 탭
         let vc3 = UINavigationController(rootViewController: SettingViewController())
         vc3.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
-        vc3.tabBarItem.title = Constant.menuName3
+        vc3.tabBarItem.title = Constant.Menu.menuName3
         vc3.tabBarItem.image = UIImage(systemName: "gearshape")
         
         viewControllers = [vc1, vc2, vc3]

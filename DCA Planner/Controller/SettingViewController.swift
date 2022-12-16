@@ -34,7 +34,7 @@ class SettingViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = Constant.menuName3
+        navigationItem.title = Constant.Menu.menuName3
     }
 
 }

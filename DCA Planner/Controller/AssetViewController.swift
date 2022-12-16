@@ -29,27 +29,40 @@ class AssetViewController: UIViewController {
     func setupNavBar() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.shadowColor = .clear
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         navigationController?.navigationBar.tintColor = .orange
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        navigationController?.navigationBar.isTranslucent = false
 
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(searchButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .orange
-
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        navigationItem.title = Constant.Menu.menuName1
         
-        navigationController?.navigationBar.isTranslucent = false
-        //navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = Constant.menuName1
+        self.extendedLayoutIncludesOpaqueBars = true
+        
     }
 
     @objc func searchButtonTapped() {
+//        let transition = CATransition()
+//        transition.duration = Constant.Animation.transitionDuration
+//        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+//        transition.type = CATransitionType.push
+//        transition.subtype = CATransitionSubtype.fromRight
+//        navigationController?.view.layer.add(transition, forKey: nil)
+        
         let searchVC = SearchViewController()
         navigationController?.pushViewController(searchVC, animated: true)
+        
+        //self.modalPresentationStyle = .automatic
+        //self.modalTransitionStyle = .coverVertical
+        //self.present(searchVC, animated: true, completion: nil)
+
     }
     
     // TableView 설정
