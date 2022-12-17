@@ -83,7 +83,7 @@ class SearchViewController: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         
         searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "투자할 상품의 이름을 입력하세요"
+        searchController.searchBar.placeholder = "코인이름"
         searchController.searchBar.setValue("닫기", forKey: "cancelButtonText")
         searchController.searchBar.setShowsCancelButton(true, animated: true)
         searchController.searchBar.setImage(UIImage(named: "x.circle"), for: .clear, state: .normal)
@@ -171,8 +171,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
-        cell.movieNameLabel.text = "테슬라"
-        cell.descriptionLabel.text = "172.32달러"
+        cell.movieNameLabel.text = "Bitcoin"
+        cell.descriptionLabel.text = "BTC"
         cell.selectionStyle = .none
         return cell
     }

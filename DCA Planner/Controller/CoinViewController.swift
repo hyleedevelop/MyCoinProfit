@@ -7,8 +7,22 @@
 
 import UIKit
 
-class AssetViewController: UIViewController {
+class CoinViewController: UIViewController {
 
+    private let tableLabel: UILabel = {
+        let label = UILabel()
+        label.text = "즐겨찾기"
+        return label
+    }()
+    
+    private let tableContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 5
+        return view
+    }()
+    
     private let tableView = UITableView()
     
     override func viewDidLoad() {
@@ -17,6 +31,8 @@ class AssetViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         setupNavBar()
+        setupUI()
+        setupTableContainerView()
         setupTableView()
     }
     
@@ -65,25 +81,53 @@ class AssetViewController: UIViewController {
 
     }
     
+    func setupUI() {
+        self.view.addSubview(tableLabel)
+    }
+    
+    // TableView를 담고있는 ContainerView 설정
+    func setupTableContainerView() {
+        self.view.addSubview(tableContainerView)
+        
+        // AutoLayout 설정
+        tableContainerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
+            tableContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
+            tableContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            tableContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -0)
+        ])
+    }
+    
     // TableView 설정
     func setupTableView() {
+        // 대리자 설정
         tableView.dataSource = self
         tableView.delegate = self
+        // Cell 높이 설정
+        tableView.rowHeight = 100
+        // Cell 등록
+        tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "AssetCell")
+        // Cell 사이의 구분선 설정
+//        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         
-        tableView.rowHeight = 120
-        
-        tableView.register(AssetTableViewCell.self, forCellReuseIdentifier: "AssetCell")
-        
+        // Table 테두리 설정
+        tableView.clipsToBounds = true
+        tableView.layer.cornerRadius = 10
+        tableView.layer.borderWidth = 0
+//        tableView.layer.borderColor = CGColor(red: 182/255, green: 226/255, blue: 161/255, alpha: 1)
+
         // View 위에 TableView 올리기
         view.addSubview(tableView)
 
         // AutoLayout 설정
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            tableView.leadingAnchor.constraint(equalTo: tableContainerView.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: tableContainerView.trailingAnchor, constant: -0),
+            tableView.topAnchor.constraint(equalTo: tableContainerView.topAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: tableContainerView.bottomAnchor, constant: -0)
         ])
     }
     
@@ -91,7 +135,7 @@ class AssetViewController: UIViewController {
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension AssetViewController: UITableViewDataSource, UITableViewDelegate {
+extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 8
@@ -99,14 +143,14 @@ extension AssetViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AssetCell", for: indexPath) as! AssetTableViewCell
-        cell.movieNameLabel.text = "테슬라"
-        cell.descriptionLabel.text = "172.32달러"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AssetCell", for: indexPath) as! CoinTableViewCell
+        cell.movieNameLabel.text = "BTC"
+        cell.descriptionLabel.text = "$17,232"
         cell.selectionStyle = .none
         return cell
     }
     
-//    // 셀의 높이 자동 설정
+    // 셀의 높이 자동 설정
 //    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return UITableView.automaticDimension
 //    }

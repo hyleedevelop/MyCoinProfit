@@ -33,10 +33,10 @@ class MainTabBarController: UITabBarController {
         tabBar.tintColor = Constant.UISetting.MyColor
         
         // 홈 탭
-        let vc1 = UINavigationController(rootViewController: AssetViewController())
-        vc1.tabBarItem.selectedImage = UIImage(systemName: "star.fill")
+        let vc1 = UINavigationController(rootViewController: CoinViewController())
+        vc1.tabBarItem.selectedImage = UIImage(systemName: "chart.line.uptrend.xyaxis.circle.fill")
         vc1.tabBarItem.title = Constant.Menu.menuName1
-        vc1.tabBarItem.image = UIImage(systemName: "star")
+        vc1.tabBarItem.image = UIImage(systemName: "chart.line.uptrend.xyaxis.circle")
         
         // 투자계획 탭
         let vc2 = UINavigationController(rootViewController: PlanViewController())

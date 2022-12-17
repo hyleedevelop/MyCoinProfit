@@ -21,14 +21,16 @@ class SettingViewController: UIViewController {
         
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.shadowColor = .clear
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = .blue
-        //navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        navigationController?.navigationBar.isTranslucent = false
 
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.compactAppearance = navigationBarAppearance
 
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         
