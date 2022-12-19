@@ -40,6 +40,11 @@ class SearchViewController: UIViewController {
         super.viewWillAppear(true)
         navigationItem.hidesBackButton = true
         tableView.reloadData()
+//        searchBar.becomeFirstResponder()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        searchController.isActive = true
     }
     
     // 검색 화면으로 넘어갈 때 TabBar 숨기기
@@ -81,7 +86,7 @@ class SearchViewController: UIViewController {
         
         navigationItem.titleView = searchController.searchBar
         searchController.hidesNavigationBarDuringPresentation = false
-        
+        searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "코인이름"
         searchController.searchBar.setValue("닫기", forKey: "cancelButtonText")
@@ -159,20 +164,28 @@ extension SearchViewController: UISearchBarDelegate {
 
 }
 
+extension SearchViewController: UISearchControllerDelegate {
+    func didPresentSearchController(_ searchController: UISearchController) {
+        DispatchQueue.main.async {
+            searchController.searchBar.becomeFirstResponder()
+        }
+    }
+}
+
 //MARK: - TableView 관련 프로토콜
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 0
     }
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
-        cell.movieNameLabel.text = "Bitcoin"
-        cell.descriptionLabel.text = "BTC"
+        cell.movieNameLabel.text = ""
+        cell.descriptionLabel.text = ""
         cell.selectionStyle = .none
         return cell
     }

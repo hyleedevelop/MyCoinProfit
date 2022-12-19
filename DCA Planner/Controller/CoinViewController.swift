@@ -8,16 +8,18 @@
 import UIKit
 
 class CoinViewController: UIViewController {
-
+    
     private let tableLabel: UILabel = {
         let label = UILabel()
-        label.text = "즐겨찾기"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = "시가총액 순"
         return label
     }()
     
     private let tableContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
+        //view.backgroundColor = Constant.UISetting.color2
         view.clipsToBounds = true
         view.layer.cornerRadius = 5
         return view
@@ -34,11 +36,28 @@ class CoinViewController: UIViewController {
         setupUI()
         setupTableContainerView()
         setupTableView()
+        
+//        NetworkManager.shared.fetchCoinData { result in
+//            switch result {
+//            case .success(let coinData):
+//                print(coinData.count)
+//            case .failure(.networkingError):
+//                print("ERROR: networking")
+//            case .failure(.dataError):
+//                print("ERROR: data")
+//            case .failure(.parseError):
+//                print("ERROR: parsSe")
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        
+        // 서버에서 데이터 가져오는 작업을 모두 마친 후에 reload 하기
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // NavigationBar 설정
@@ -83,6 +102,16 @@ class CoinViewController: UIViewController {
     
     func setupUI() {
         self.view.addSubview(tableLabel)
+        
+        // AutoLayout 설정
+        tableLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            tableLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            tableLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            tableLabel.heightAnchor.constraint(equalToConstant: 25)
+        ])
+        
     }
     
     // TableView를 담고있는 ContainerView 설정
@@ -92,10 +121,10 @@ class CoinViewController: UIViewController {
         // AutoLayout 설정
         tableContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 5),
-            tableContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -5),
-            tableContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            tableContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -0)
+            tableContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            tableContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            tableContainerView.topAnchor.constraint(equalTo: tableLabel.bottomAnchor, constant: 10),
+            tableContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0)
         ])
     }
     
@@ -105,12 +134,12 @@ class CoinViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         // Cell 높이 설정
-        tableView.rowHeight = 100
+        tableView.rowHeight = 80
         // Cell 등록
-        tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "AssetCell")
+        tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "CoinCell")
         // Cell 사이의 구분선 설정
-//        tableView.separatorStyle = .singleLine
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
+        //tableView.separatorStyle = .none
         
         // Table 테두리 설정
         tableView.clipsToBounds = true
@@ -138,14 +167,15 @@ class CoinViewController: UIViewController {
 extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 12
     }
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AssetCell", for: indexPath) as! CoinTableViewCell
-        cell.movieNameLabel.text = "BTC"
-        cell.descriptionLabel.text = "$17,232"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
+        cell.coinNameLabel.text = "Bitcoin"
+        cell.coinSymbolLabel.text = "(" + "BTC" + ")"
+        cell.coinPriceLabel.text = "$" + "17,232"
         cell.selectionStyle = .none
         return cell
     }
