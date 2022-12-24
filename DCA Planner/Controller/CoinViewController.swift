@@ -9,13 +9,6 @@ import UIKit
 
 class CoinViewController: UIViewController {
     
-    private let tableLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        label.text = "정렬"
-        return label
-    }()
-    
     private let sortButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("시가총액 높은순", for: .normal)
@@ -114,17 +107,7 @@ class CoinViewController: UIViewController {
     
     // UI 설정
     func setupUI() {
-//        self.view.addSubview(tableLabel)
         self.view.addSubview(sortButton)
-        
-        // AutoLayout 설정
-//        tableLabel.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            tableLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-//            tableLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-//            tableLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-//            tableLabel.heightAnchor.constraint(equalToConstant: 25)
-//        ])
         
         sortButton.addTarget(self, action: #selector(changeSorting), for: .touchUpInside)
         
@@ -227,23 +210,18 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
+        cell.coinImageView.image = UIImage(named: "1.png")
+        cell.coinSymbolLabel.text = coinArray[indexPath.row].symbol
+        cell.coinNameLabel.text = coinArray[indexPath.row].name
+        let priceText = priceFormatter.string(from: NSNumber(floatLiteral: coinArray[indexPath.row].currentPrice))
+        cell.coinPriceLabel.text = priceText
+        let priceChangeValue = coinArray[indexPath.row].priceChangePercentage24H
+        cell.coinPriceChangeLabel.text = String(priceChangeValue) + "%"
+        cell.coinPriceChangeLabel.textColor = priceChangeValue >= 0 ? .green : .red
         
-        if coinArray[indexPath.row].typeIsCrypto == 1 {
-            cell.coinImageView.image = UIImage(named: "1.png")
-            cell.coinSymbolLabel.text = coinArray[indexPath.row].assetID ?? "N/A"
-            cell.coinNameLabel.text = coinArray[indexPath.row].name ?? "N/A"
-            let priceText = priceFormatter.string(from: NSNumber(floatLiteral: coinArray[indexPath.row].priceUSD ?? 0.0))
-            cell.coinPriceLabel.text = priceText
-            let priceChangeValue = Int.random(in: -5...5)
-            cell.coinPriceChangeLabel.text = String(priceChangeValue) + "%"
-            cell.coinPriceChangeLabel.textColor = priceChangeValue >= 0 ? .green : .red
-
-            cell.selectionStyle = .none
-            
-            return cell
-        } else {
-            return UITableViewCell()
-        }
+        cell.selectionStyle = .none
+        
+        return cell
 
     }
     

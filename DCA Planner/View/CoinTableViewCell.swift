@@ -107,7 +107,6 @@ final class CoinTableViewCell: UITableViewCell {
         priceLabelSV.translatesAutoresizingMaskIntoConstraints = false
         cellSV.translatesAutoresizingMaskIntoConstraints = false
         
-        
         NSLayoutConstraint.activate([
             coinImageView.heightAnchor.constraint(equalToConstant: 40),
             coinImageView.widthAnchor.constraint(equalToConstant: 40),
