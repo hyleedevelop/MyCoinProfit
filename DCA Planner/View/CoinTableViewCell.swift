@@ -8,23 +8,22 @@
 import UIKit
 
 final class CoinTableViewCell: UITableViewCell {
-
-    lazy var containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemBackground
-        //view.backgroundColor = Constant.UISetting.color2
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 15
-        return view
+    
+    // 코인 이미지
+    let coinImageView: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
     }()
     
+    // 코인 이름
     let coinNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.numberOfLines = 1
         return label
     }()
-
+    
+    // 코인 심볼
     let coinSymbolLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .light)
@@ -32,51 +31,63 @@ final class CoinTableViewCell: UITableViewCell {
         return label
     }()
     
-    let coinPriceLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    // coinNameLabel + coinSymbolLabel + coinPriceLabel (Horizontal)
-    let horizontalSV: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = .horizontal
-//        sv.distribution = .fill
-//        sv.alignment = .fill
-//        sv.spacing = 5
+    // Vertical SV (코인 이름 + 코인 심볼)
+    lazy var nameLabelSV: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [coinNameLabel, coinSymbolLabel])
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        sv.spacing = 5
         return sv
     }()
     
-    // TableViewCell 생성자 셋팅
+    // 코인 가격
+    let coinPriceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.numberOfLines = 1
+        label.textAlignment = .right
+        return label
+    }()
+    
+    // 24시간 전 대비 코인 가격 변화율
+    let coinPriceChangeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textAlignment = .right
+        return label
+    }()
+    
+    // Vertical SV (코인 가격 + 코인 가격 변화율)
+    lazy var priceLabelSV: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [coinPriceLabel, coinPriceChangeLabel])
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        sv.spacing = 5
+        return sv
+    }()
+    
+    // Horizontal SV (코인 이미지 + Vertical SV + Vertical SV)
+    lazy var cellSV: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [coinImageView, nameLabelSV, priceLabelSV])
+        sv.axis = .horizontal
+        sv.distribution = .fill
+        sv.alignment = .fill
+        sv.spacing = 15
+        return sv
+    }()
+    
+    // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        setupSubview()
-        setupHorizontalSV()
+        self.addSubview(cellSV)
+        updateConstraints()
     }
     
+    // TableViewCell 생성자 셋팅 (2)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    // TableView 위에 하나식 올려놓기
-    func setupSubview() {
-        self.addSubview(containerView)
-        self.addSubview(horizontalSV)
-    }
-    
-    // coinNameLabel + coinSymbolLabel + coinPriceLabel (Horizontal)
-    func setupHorizontalSV() {
-        horizontalSV.addArrangedSubview(coinNameLabel)
-        horizontalSV.addArrangedSubview(coinSymbolLabel)
-        horizontalSV.addArrangedSubview(coinPriceLabel)
-        horizontalSV.alignment = .firstBaseline
-        horizontalSV.distribution = .fill
     }
     
     // AutoLayout 결정하는 시점
@@ -85,46 +96,38 @@ final class CoinTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
     
-    // AutoLayout 설정 (기준점이 되어야 하는 바깥쪽 요소부터)
+    // AutoLayout 설정
     func setupConstraints() {
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalSV.translatesAutoresizingMaskIntoConstraints = false
+        coinImageView.translatesAutoresizingMaskIntoConstraints = false
         coinNameLabel.translatesAutoresizingMaskIntoConstraints = false
         coinSymbolLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabelSV.translatesAutoresizingMaskIntoConstraints = false
         coinPriceLabel.translatesAutoresizingMaskIntoConstraints = false
+        coinPriceChangeLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceLabelSV.translatesAutoresizingMaskIntoConstraints = false
+        cellSV.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            containerView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            containerView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 8),
-            containerView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            coinImageView.heightAnchor.constraint(equalToConstant: 40),
+            coinImageView.widthAnchor.constraint(equalToConstant: 40),
+            coinImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
+            coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            horizontalSV.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
-            horizontalSV.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
-            horizontalSV.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
-            horizontalSV.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12)
+            nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         NSLayoutConstraint.activate([
-            coinNameLabel.leadingAnchor.constraint(equalTo: horizontalSV.leadingAnchor, constant: 0),
-            coinNameLabel.topAnchor.constraint(equalTo: horizontalSV.topAnchor, constant: 5),
-            coinNameLabel.bottomAnchor.constraint(equalTo: horizontalSV.bottomAnchor, constant: -5),
-            coinNameLabel.widthAnchor.constraint(equalToConstant: 70),
+            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20),
+            priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         NSLayoutConstraint.activate([
-            coinSymbolLabel.leadingAnchor.constraint(equalTo: coinNameLabel.trailingAnchor, constant: 5),
-            coinSymbolLabel.topAnchor.constraint(equalTo: horizontalSV.topAnchor, constant: 5),
-            coinSymbolLabel.bottomAnchor.constraint(equalTo: horizontalSV.bottomAnchor, constant: -5),
+            cellSV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
         
-        NSLayoutConstraint.activate([
-            coinPriceLabel.trailingAnchor.constraint(equalTo: horizontalSV.trailingAnchor, constant: -0),
-            coinPriceLabel.topAnchor.constraint(equalTo: horizontalSV.topAnchor, constant: 5),
-            coinPriceLabel.bottomAnchor.constraint(equalTo: horizontalSV.bottomAnchor, constant: -5),
-        ])
         
     }
 

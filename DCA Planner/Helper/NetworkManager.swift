@@ -23,13 +23,17 @@ final class NetworkManager {
     
     /*
      
-     https://rest-sandbox.coinapi.io/v1/assets/?apikey=D663702C-C70B-4FC7-87ED-4E72348F4657
+     https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h
+     
+     https://rest.coinapi.io/v1/assets/?apikey=D663702C-C70B-4FC7-87ED-4E72348F4657
+     https://rest.coinapi.io/v1/assets/filter_asset_id=USD,BTC,ETH?apikey=D663702C-C70B-4FC7-87ED-4E72348F4657
      
      */
     
     // CoinMarketCap API 관련 상수
-    struct Constant {
-        static let baseURL = "https://rest-sandbox.coinapi.io/v1/assets/"
+    struct URLConstant {
+        static let baseURL = "https://rest.coinapi.io/v1/assets/filter_asset_id="
+        static let kind = "USD,BTC,ETH,USDT,USDC,BNB,BUSD,XRP,DOGE,ADA,MATIC"
         static let apikey = "D663702C-C70B-4FC7-87ED-4E72348F4657"
     }
     
@@ -37,11 +41,8 @@ final class NetworkManager {
     func fetchCoinData(completion: @escaping (Result<[CoinData], NetworkError>) -> Void) {
         
         // 1) URL 설정
-        guard let url = URL(string: Constant.baseURL + "?apikey=" + Constant.apikey) else { return }
-        
-        // 1-2) 특정 코인만 검색하는 경우
-        //guard let url = URL(string: Constant.baseURLForOneCoin + "?apikey=" + Constant.apikey)
-        
+        guard let url = URL(string: URLConstant.baseURL + URLConstant.kind + "?apikey=" + URLConstant.apikey) else { return }
+                
         // 2) 네트워킹을 위한 작업 설정
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             // 어떤 에러가 존재한다면 네트워킹 에러를 가지고 종료
@@ -64,17 +65,10 @@ final class NetworkManager {
                 completion(.failure(.parseError))
             }
             
-            
-            
-            
         }
         
         // 3) 네트워킹 작업 시작
         task.resume()
-        
-        
-        
-        
         
     }
     
