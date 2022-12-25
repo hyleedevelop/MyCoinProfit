@@ -9,6 +9,15 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
+    // 레퍼런스 문구
+    let referenceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.text = "Powered by CoinGecko"
+        label.numberOfLines = 1
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,7 +45,19 @@ class SettingViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = Constant.Menu.menuName3
+        navigationItem.title = Constant.MenuSetting.menuName3
     }
 
+//    private func setupReferenceLabel() {
+//        view.addSubview(referenceLabel)
+//
+//        referenceLabel.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            referenceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            referenceLabel.topAnchor.constraint(equalTo: tableContainerView.bottomAnchor, constant: 5),
+//            //referenceLabel.widthAnchor.constraint(equalToConstant: 150),
+//            referenceLabel.heightAnchor.constraint(equalToConstant: 15),
+//        ])
+//    }
+    
 }

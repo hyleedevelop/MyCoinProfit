@@ -36,7 +36,7 @@ class PlanViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = Constant.Menu.menuName2
+        navigationItem.title = Constant.MenuSetting.menuName2
     }
 
 }

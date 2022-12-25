@@ -24,8 +24,6 @@ final class NetworkManager {
     /*
      
      https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h
-    
-     https://rest.coinapi.io/v1/assets/filter_asset_id=USD,BTC,ETH?apikey=D663702C-C70B-4FC7-87ED-4E72348F4657
      
      */
     
@@ -44,28 +42,30 @@ final class NetworkManager {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             // 어떤 에러가 존재한다면 네트워킹 에러를 가지고 종료
             if let error = error {
-                print("DEBUG: Error \(error.localizedDescription)")
+                print("[DEBUG] Error \(error.localizedDescription)")
                 completion(.failure(.networkingError))
                 return
             }
             
-            if let response = response as? HTTPURLResponse {
-                print("DEBUG: Response code \(response.statusCode)")
-            }
+            //if let response = response as? HTTPURLResponse {
+            //    print("[DEBUG] Response code \(response.statusCode)")
+            //}
             
             // 네트워킹은 성공했으나 데이터를 담아오는데 문제가 있다면 에러를 가지고 종료
             guard let data = data else {
                 completion(.failure(.dataError))
                 return
             }
-            let dataAsString = String(data: data, encoding: .utf8)
-            print("DEBUG: Data \(dataAsString ?? "does not exist!")")
+            //let dataAsString = String(data: data, encoding: .utf8)
+            //print("[DEBUG]: Data \(dataAsString ?? "does not exist!")")
             
             // JSON parsing
             do {
                 let coinInfo = try JSONDecoder().decode([CoinData].self, from: data)
+                //print("[DEBUG]: Coins \(coinInfo)")
                 completion(.success(coinInfo))
             } catch {
+                print("[DEBUG]: Failed to decode with error: \(error)")
                 completion(.failure(.parseError))
             }
             
