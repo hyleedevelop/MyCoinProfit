@@ -23,6 +23,7 @@
 		07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */; };
 		07941148294A19BC00A4F632 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* PlanView.swift */; };
 		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
+		07BC84E429594373003776D7 /* CoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E329594373003776D7 /* CoinView.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */; };
 		07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616ED294AB0E500F057BE /* NetworkManager.swift */; };
 		07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EF294AB0ED00F057BE /* CoreDataManager.swift */; };
@@ -48,6 +49,7 @@
 		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
 		07941147294A19BC00A4F632 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		07BC84E329594373003776D7 /* CoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinView.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
 		07C616ED294AB0E500F057BE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		07C616EF294AB0ED00F057BE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
+				07BC84E329594373003776D7 /* CoinView.swift */,
 				0790C8D9294CA6DC00805EEE /* SearchTableViewCell.swift */,
 				07941147294A19BC00A4F632 /* PlanView.swift */,
 				07941149294A19C800A4F632 /* SettingView.swift */,
@@ -231,6 +234,7 @@
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07C616F4294AC5B000F057BE /* SearchViewController.swift in Sources */,
 				07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */,
+				07BC84E429594373003776D7 /* CoinView.swift in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
 				079411392949E9CB00A4F632 /* PlanViewController.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,

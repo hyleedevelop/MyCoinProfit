@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class CoinTableViewCell: UITableViewCell {
     
@@ -75,7 +76,7 @@ final class CoinTableViewCell: UITableViewCell {
         sv.axis = .vertical
         sv.distribution = .fill
         sv.alignment = .fill
-        sv.spacing = 8
+        sv.spacing = 7
         return sv
     }()
     
@@ -88,6 +89,37 @@ final class CoinTableViewCell: UITableViewCell {
         sv.spacing = 15
         return sv
     }()
+    
+    // VC에서 처리한 값을 텍스트나 이미지 값으로 넣기
+    func configure(with coin: CoinData, arrayIndex index: Int, currency isUSD: Bool) {
+        // 코인 랭크 넣기
+        coinRank.text = String(index + 1)
+        
+        // 코인 이미지 넣기 (KingFisher 사용)
+        let imageURL = URL(string: coin.image)
+        coinImageView.kf.setImage(with: imageURL)
+        coinImageView.kf.indicatorType = .activity
+        
+        // 코인 이름 넣기
+        coinNameLabel.text = coin.name
+        
+        // 코인 심볼 넣기
+        coinSymbolLabel.text = coin.symbol.uppercased()
+        
+        // 코인 가격 넣기
+        let priceText: String
+        if isUSD {
+            priceText = coin.currentPrice.toUSD()
+        } else {
+            priceText = (1279.5 * coin.currentPrice).toKRW()
+        }
+        coinPriceLabel.text = priceText
+        
+        // 코인 가격 24시간 변화율 넣기
+        let priceChangeValue = round(coin.priceChangePercentage24H*100)/100
+        coinPriceChangeLabel.text = String(priceChangeValue) + "%"
+        coinPriceChangeLabel.textColor = priceChangeValue >= 0 ? Constant.ColorSetting.positiveColor : Constant.ColorSetting.negativeColor
+    }
     
     // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

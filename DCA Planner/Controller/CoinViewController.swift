@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Kingfisher
 
 class CoinViewController: UIViewController {
     
@@ -96,11 +95,11 @@ class CoinViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
+        setupData()
         setupNavBar()
         setupButton()
         setupTableContainerView()
         setupTableView()
-        setupData()
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +110,35 @@ class CoinViewController: UIViewController {
 //            self.tableView.reloadData()
 //        }
 //    }
+    
+    // 네트워킹을 통해 서버에서 데이터 가져오기
+    private func setupData() {
+        NetworkManager.shared.fetchCoinData { [weak self] result in
+            switch result {
+            case .success(let coinData):
+                
+                /* 정렬기준 결정 */
+                //let sortedCoinData = coinData.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+                //let sortedCoinData = coinData.sorted(by: { $0.marketCap > $1.marketCap })
+                //self?.coinArray = sortedCoinData
+                
+                self?.coinArray = coinData
+
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                
+            case .failure(.networkingError):
+                print("ERROR: networking")
+                
+            case .failure(.dataError):
+                print("ERROR: data")
+                
+            case .failure(.parseError):
+                print("ERROR: parse")
+            }
+        }
+    }
     
     // NavigationBar 설정
     private func setupNavBar() {
@@ -222,37 +250,6 @@ class CoinViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: tableContainerView.bottomAnchor, constant: -0)
         ])
     }
-    
-
-    
-    // 네트워킹을 통해 서버에서 데이터 가져오기
-    private func setupData() {
-        NetworkManager.shared.fetchCoinData { [weak self] result in
-            switch result {
-            case .success(let coinData):
-                
-                /* 정렬기준 결정 */
-                //let sortedCoinData = coinData.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
-                //let sortedCoinData = coinData.sorted(by: { $0.marketCap > $1.marketCap })
-                //self?.coinArray = sortedCoinData
-                
-                self?.coinArray = coinData
-
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-                
-            case .failure(.networkingError):
-                print("ERROR: networking")
-                
-            case .failure(.dataError):
-                print("ERROR: data")
-                
-            case .failure(.parseError):
-                print("ERROR: parse")
-            }
-        }
-    }
         
     @objc private func currencySwitchButtonTapped() {
         currencySwitchButton.layer.borderColor = UIColor.label.cgColor
@@ -335,41 +332,9 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
-        
-        // 코인 랭크 넣기
-        cell.coinRank.text = String(indexPath.row + 1)
-        
-        // 코인 이미지 넣기 (KingFisher 사용)
-        let imageURL = URL(string: coinArray[indexPath.row].image)
-        cell.coinImageView.kf.setImage(with: imageURL)
-        cell.coinImageView.kf.indicatorType = .activity
-
-        // 코인 이름 넣기
-        cell.coinNameLabel.text = coinArray[indexPath.row].name
-        
-        // 코인 심볼 넣기
-        cell.coinSymbolLabel.text = coinArray[indexPath.row].symbol.uppercased()
-
-        // 코인 가격 넣기
-        let priceText: String
-        if isUSD {
-            priceText = coinArray[indexPath.row].currentPrice.toUSD()
-        } else {
-            priceText = (1279.5*coinArray[indexPath.row].currentPrice).toKRW()
-        }
-        cell.coinPriceLabel.text = priceText
-        
-        // 코인 가격 24시간 변화율 넣기
-        let priceChangeValue = round(coinArray[indexPath.row].priceChangePercentage24H*100)/100
-        cell.coinPriceChangeLabel.text = String(priceChangeValue) + "%"
-        cell.coinPriceChangeLabel.textColor = priceChangeValue >= 0 ? Constant.ColorSetting.positiveColor : Constant.ColorSetting.negativeColor
-        
-        // 즐겨찾기(☆) 버튼
-        //cell.watchlistButton.addTarget(self, action: #selector(watchlistButtonMarked), for: .touchUpInside)
-        
-        // 셀 선택 시 아무런 반응 없도록 설정
+        let coin = coinArray[indexPath.row]
+        cell.configure(with: coin, arrayIndex: indexPath.row, currency: isUSD)
         cell.selectionStyle = .none
-        
         return cell
     }
     
