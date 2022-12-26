@@ -24,6 +24,8 @@
 		07941148294A19BC00A4F632 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* PlanView.swift */; };
 		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
 		07BC84E429594373003776D7 /* CoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E329594373003776D7 /* CoinView.swift */; };
+		07BC84E6295946F8003776D7 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E5295946F8003776D7 /* CurrencyData.swift */; };
+		07BC84E829599BED003776D7 /* BackupCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E729599BED003776D7 /* BackupCode.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */; };
 		07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616ED294AB0E500F057BE /* NetworkManager.swift */; };
 		07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EF294AB0ED00F057BE /* CoreDataManager.swift */; };
@@ -50,6 +52,8 @@
 		07941147294A19BC00A4F632 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		07BC84E329594373003776D7 /* CoinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinView.swift; sourceTree = "<group>"; };
+		07BC84E5295946F8003776D7 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
+		07BC84E729599BED003776D7 /* BackupCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCode.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
 		07C616ED294AB0E500F057BE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		07C616EF294AB0ED00F057BE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				0794111E2949E84700A4F632 /* AppDelegate.swift */,
 				079411202949E84700A4F632 /* SceneDelegate.swift */,
+				07BC84E729599BED003776D7 /* BackupCode.swift */,
 				079411242949E84700A4F632 /* Main.storyboard */,
 				0794112A2949E84700A4F632 /* Assets.xcassets */,
 				0794112C2949E84700A4F632 /* LaunchScreen.storyboard */,
@@ -140,6 +145,7 @@
 			children = (
 				07C616EF294AB0ED00F057BE /* CoreDataManager.swift */,
 				07CF8F5C294DBE7F007D8C33 /* CoinData.swift */,
+				07BC84E5295946F8003776D7 /* CurrencyData.swift */,
 				07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */,
 			);
 			path = Model;
@@ -240,12 +246,14 @@
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CoinData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
+				07BC84E6295946F8003776D7 /* CurrencyData.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
 				07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */,
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
 				079411212949E84700A4F632 /* SceneDelegate.swift in Sources */,
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
 				07941148294A19BC00A4F632 /* PlanView.swift in Sources */,
+				07BC84E829599BED003776D7 /* BackupCode.swift in Sources */,
 				0790C8DA294CA6DC00805EEE /* SearchTableViewCell.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */,
 				0794114A294A19C800A4F632 /* SettingView.swift in Sources */,

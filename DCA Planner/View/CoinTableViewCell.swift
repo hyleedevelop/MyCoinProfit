@@ -11,7 +11,7 @@ import Kingfisher
 final class CoinTableViewCell: UITableViewCell {
     
     // 순번
-    let coinRank: UILabel = {
+    private let coinRank: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .systemGray2
@@ -21,13 +21,13 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // 코인 이미지
-    let coinImageView: UIImageView = {
+    private let coinImageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
     
     // 코인 심볼
-    let coinSymbolLabel: UILabel = {
+    private let coinSymbolLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.numberOfLines = 1
@@ -35,7 +35,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // 코인 이름
-    let coinNameLabel: UILabel = {
+    private let coinNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = .darkGray
@@ -44,7 +44,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
         
     // Vertical SV (코인 이름 + 코인 심볼)
-    lazy var nameLabelSV: UIStackView = {
+    private lazy var nameLabelSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinSymbolLabel, coinNameLabel])
         sv.axis = .vertical
         sv.distribution = .fill
@@ -54,7 +54,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // 코인 가격
-    let coinPriceLabel: UILabel = {
+    private let coinPriceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.numberOfLines = 1
@@ -63,7 +63,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // 코인 가격 24시간 변화율
-    let coinPriceChangeLabel: UILabel = {
+    private let coinPriceChangeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .right
@@ -71,7 +71,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // Vertical SV (코인 가격 + 코인 가격 변화율)
-    lazy var priceLabelSV: UIStackView = {
+    private lazy var priceLabelSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinPriceLabel, coinPriceChangeLabel])
         sv.axis = .vertical
         sv.distribution = .fill
@@ -81,7 +81,7 @@ final class CoinTableViewCell: UITableViewCell {
     }()
     
     // Horizontal SV (코인 이미지 + Vertical SV + Vertical SV)
-    lazy var cellSV: UIStackView = {
+    private lazy var cellSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinRank, coinImageView, nameLabelSV, priceLabelSV])
         sv.axis = .horizontal
         sv.distribution = .fill
@@ -103,7 +103,7 @@ final class CoinTableViewCell: UITableViewCell {
         // 코인 이름 넣기
         coinNameLabel.text = coin.name
         
-        // 코인 심볼 넣기
+        // 코인 심볼 넣기 (대문자로)
         coinSymbolLabel.text = coin.symbol.uppercased()
         
         // 코인 가격 넣기
@@ -118,7 +118,9 @@ final class CoinTableViewCell: UITableViewCell {
         // 코인 가격 24시간 변화율 넣기
         let priceChangeValue = round(coin.priceChangePercentage24H*100)/100
         coinPriceChangeLabel.text = String(priceChangeValue) + "%"
-        coinPriceChangeLabel.textColor = priceChangeValue >= 0 ? Constant.ColorSetting.positiveColor : Constant.ColorSetting.negativeColor
+        coinPriceChangeLabel.textColor = priceChangeValue >= 0
+                                       ? Constant.ColorSetting.positiveColor
+                                       : Constant.ColorSetting.negativeColor
     }
     
     // TableViewCell 생성자 셋팅 (1)
@@ -140,7 +142,7 @@ final class CoinTableViewCell: UITableViewCell {
     }
     
     // AutoLayout 설정
-    func setupConstraints() {
+    private func setupConstraints() {
         coinRank.translatesAutoresizingMaskIntoConstraints = false
         coinImageView.translatesAutoresizingMaskIntoConstraints = false
         coinNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -169,7 +171,7 @@ final class CoinTableViewCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20),
+            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
             priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
         ])
         

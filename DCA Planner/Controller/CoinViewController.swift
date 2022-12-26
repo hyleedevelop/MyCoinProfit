@@ -9,43 +9,21 @@ import UIKit
 
 class CoinViewController: UIViewController {
     
-    private var isUSD: Bool = true
-    private var isMarketCap: Bool = true
-    private var isPriceChange: Bool = true
-    
     // SearchBar
-//    lazy var searchController: UISearchController = {
-//        let sc = UISearchController(searchResultsController: nil)
-//        sc.searchResultsUpdater = self
-//        sc.searchBar.delegate = self
-//        sc.obscuresBackgroundDuringPresentation = false
-//        sc.searchBar.sizeToFit()
-//        sc.searchBar.placeholder = "코인 검색"
-//        sc.searchBar.searchBarStyle = .prominent
-//        return sc
-//    }()
-    
-    // 통화 변경 버튼
-    private lazy var currencySwitchButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("달러", for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.4)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        button.tag = 0
-        button.addTarget(self, action: #selector(currencySwitchButtonTapped), for: .touchUpInside)
-        //if #available(iOS 14.0, *) {
-        //    button.menu = UIMenu(title: "통화 선택하기", image: nil, identifier: nil, options: .displayInline, children: [selectUSD, selectKRW, cancelCurrency])
-        //}
-        return button
+    lazy var searchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+        sc.searchResultsUpdater = self
+        sc.searchBar.delegate = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.searchBar.sizeToFit()
+        sc.searchBar.placeholder = "코인 이름 또는 심볼 입력"
+        sc.searchBar.searchBarStyle = .prominent
+        sc.searchBar.searchTextField.keyboardType = .alphabet
+        sc.searchBar.searchTextField.autocapitalizationType = .none
+        sc.searchBar.searchTextField.autocorrectionType = .no
+        sc.searchBar.setValue("취소", forKey: "cancelButtonText")
+        return sc
     }()
-    
-    // 통화 변경 버튼 액션
-    private let selectUSD = UIAction(title: "달러", image: UIImage(systemName: "dollarsign")) { _ in }
-    private let selectKRW = UIAction(title: "원화", image: UIImage(systemName: "wonsign")) { _ in }
-    private let cancelCurrency = UIAction(title: "선택 취소", image: nil, attributes: .destructive) { _ in }
     
     // 시가총액 기준 정렬 버튼
     private lazy var sortMarketCapButton: UIButton = {
@@ -58,6 +36,8 @@ class CoinViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         button.tag = 0
         button.addTarget(self, action: #selector(sortMarketCapButtonTapped), for: .touchUpInside)
+        button.layer.borderColor = UIColor.label.cgColor
+        button.layer.borderWidth = 1.5
         return button
     }()
     
@@ -79,7 +59,6 @@ class CoinViewController: UIViewController {
     private let tableContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
-        //view.backgroundColor = Constant.UISetting.color2
         view.clipsToBounds = false
         view.layer.cornerRadius = 0
         return view
@@ -87,9 +66,16 @@ class CoinViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    // 코인 데이터를 담을 배열
-    var coinArray: [CoinData] = []
+    // 데이터를 담을 그릇
+    var coinArray = [CoinData]()  // 원본 데이터
+    var coinArrayFiltered = [CoinData]()  // SearchBar 검색 결과에 의해 필터링된 데이터
     
+    // 데이터 정렬 기준
+    private var isUSD: Bool = true
+    private var isMarketCap: Bool = true
+    private var isPriceChange: Bool = true
+    
+    // 초기 실행
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,39 +87,20 @@ class CoinViewController: UIViewController {
         setupTableContainerView()
         setupTableView()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        // 서버에서 데이터 가져오는 작업을 모두 마친 후에 reload 하기
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-//    }
-    
-    // 네트워킹을 통해 서버에서 데이터 가져오기
+        
+    // REST API를 이용해 서버에서 데이터 가져오기
     private func setupData() {
         NetworkManager.shared.fetchCoinData { [weak self] result in
             switch result {
             case .success(let coinData):
-                
-                /* 정렬기준 결정 */
-                //let sortedCoinData = coinData.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
-                //let sortedCoinData = coinData.sorted(by: { $0.marketCap > $1.marketCap })
-                //self?.coinArray = sortedCoinData
-                
                 self?.coinArray = coinData
-
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
-                
             case .failure(.networkingError):
                 print("ERROR: networking")
-                
             case .failure(.dataError):
                 print("ERROR: data")
-                
             case .failure(.parseError):
                 print("ERROR: parse")
             }
@@ -158,48 +125,31 @@ class CoinViewController: UIViewController {
         //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(searchButtonTapped))
         //navigationItem.rightBarButtonItem?.tintColor = .orange
         navigationItem.title = Constant.MenuSetting.menuName1
+        navigationItem.searchController = searchController
         
         self.extendedLayoutIncludesOpaqueBars = true
-    }
-
-    @objc private func searchButtonTapped() {
-        let searchVC = SearchViewController()
-        navigationController?.pushViewController(searchVC, animated: true)
-        
-        //self.modalPresentationStyle = .automatic
-        //self.modalTransitionStyle = .coverVertical
-        //self.present(searchVC, animated: true, completion: nil)
-
     }
     
     // 화면 상단의 필터링/정렬 버튼 설정
     private func setupButton() {
-        view.addSubview(currencySwitchButton)
+//        view.addSubview(currencySwitchButton)
         view.addSubview(sortMarketCapButton)
         view.addSubview(sortPriceChangeButton)
         
-        currencySwitchButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            currencySwitchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            currencySwitchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            currencySwitchButton.widthAnchor.constraint(equalToConstant: 42),
-            currencySwitchButton.heightAnchor.constraint(equalToConstant: 25),
-        ])
-        
         sortMarketCapButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            sortMarketCapButton.leadingAnchor.constraint(equalTo: currencySwitchButton.trailingAnchor, constant: 10),
+            sortMarketCapButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             sortMarketCapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             sortMarketCapButton.widthAnchor.constraint(equalToConstant: 83),
-            sortMarketCapButton.heightAnchor.constraint(equalToConstant: 25),
+            sortMarketCapButton.heightAnchor.constraint(equalToConstant: 24),
         ])
         
         sortPriceChangeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sortPriceChangeButton.leadingAnchor.constraint(equalTo: sortMarketCapButton.trailingAnchor, constant: 10),
             sortPriceChangeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 115),
-            sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 25),
+            sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 117),
+            sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 
@@ -223,8 +173,7 @@ class CoinViewController: UIViewController {
         // 대리자 설정
         tableView.dataSource = self
         tableView.delegate = self
-        // Cell 높이 설정
-        tableView.rowHeight = 64
+
         // Cell 등록
         tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "CoinCell")
         // Cell 사이의 구분선 설정
@@ -235,7 +184,6 @@ class CoinViewController: UIViewController {
         tableView.clipsToBounds = true
         tableView.layer.cornerRadius = 10
         tableView.layer.borderWidth = 0
-//        tableView.layer.borderColor = CGColor(red: 182/255, green: 226/255, blue: 161/255, alpha: 1)
 
         // TableView 맨 위의 Cell로 이동하기
         tableView.scrollsToTop = true
@@ -250,32 +198,43 @@ class CoinViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: tableContainerView.bottomAnchor, constant: -0)
         ])
     }
-        
-    @objc private func currencySwitchButtonTapped() {
-        currencySwitchButton.layer.borderColor = UIColor.label.cgColor
-        currencySwitchButton.layer.borderWidth = 1.5
-        
-        sortMarketCapButton.setTitle("시가총액", for: .normal)
-        sortMarketCapButton.layer.borderWidth = 0
-        
-        sortPriceChangeButton.setTitle("24H 가격변동", for: .normal)
-        sortPriceChangeButton.layer.borderWidth = 0
-        
-        isUSD = !isUSD
-        if isUSD {
-            currencySwitchButton.setTitle("달러", for: .normal)
-        } else {
-            currencySwitchButton.setTitle("원화", for: .normal)
+    
+    // SearchBar에서 검색한 단어로 필터링하여 TableView 표출
+    private func filterContentForSearchText(searchText: String) {
+        coinArrayFiltered = coinArray.filter { coin in
+            if isSearchBarEmpty() {
+                return false
+            } else {
+                return coin.symbol.lowercased().contains(searchText.lowercased()) ||
+                       coin.name.lowercased().contains(searchText.lowercased())
+            }
         }
         
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
+    }
+    
+    // SearchBar에 입력된 내용의 존재 여부 확인
+    private func isSearchBarEmpty() -> Bool {
+        // SearchBar에 입력된 내용이 있다면 true를 반환
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    // Filtering 여부 확인
+    private func isFiltering() -> Bool {
+        // SearchController가 활성화 되어있고 SearchBar에 입력된 내용이 있다면 true를 리턴
+        return searchController.isActive && !isSearchBarEmpty()
+    }
+    
+    @objc private func searchButtonTapped() {
+        let searchVC = SearchViewController()
+        navigationController?.pushViewController(searchVC, animated: true)
+        
+        //self.modalPresentationStyle = .automatic
+        //self.modalTransitionStyle = .coverVertical
+        //self.present(searchVC, animated: true, completion: nil)
     }
     
     @objc private func sortMarketCapButtonTapped() {
-        currencySwitchButton.layer.borderWidth = 0
-        
         sortMarketCapButton.layer.borderColor = UIColor.label.cgColor
         sortMarketCapButton.layer.borderWidth = 1.5
         
@@ -283,12 +242,17 @@ class CoinViewController: UIViewController {
         sortPriceChangeButton.layer.borderWidth = 0
         
         isMarketCap = !isMarketCap
-        if isMarketCap {
-            sortMarketCapButton.setTitle("시가총액 ▼", for: .normal)
-            self.coinArray = coinArray.sorted(by: { $0.marketCap > $1.marketCap })
+        let buttonTitle = isMarketCap ? "시가총액 ▼" : "시가총액 ▲"
+        sortMarketCapButton.setTitle(buttonTitle, for: .normal)
+        
+        if isFiltering() {
+            coinArrayFiltered = isMarketCap
+                              ? coinArrayFiltered.sorted(by: { $0.marketCap > $1.marketCap })
+                              : coinArrayFiltered.sorted(by: { $0.marketCap < $1.marketCap })
         } else {
-            sortMarketCapButton.setTitle("시가총액 ▲", for: .normal)
-            self.coinArray = coinArray.sorted(by: { $0.marketCap < $1.marketCap })
+            coinArray = isMarketCap
+                      ? coinArray.sorted(by: { $0.marketCap > $1.marketCap })
+                      : coinArray.sorted(by: { $0.marketCap < $1.marketCap })
         }
         
         DispatchQueue.main.async {
@@ -297,8 +261,6 @@ class CoinViewController: UIViewController {
     }
     
     @objc private func sortPriceChangeButtonTapped() {
-        currencySwitchButton.layer.borderWidth = 0
-        
         sortMarketCapButton.setTitle("시가총액", for: .normal)
         sortMarketCapButton.layer.borderWidth = 0
         
@@ -306,42 +268,55 @@ class CoinViewController: UIViewController {
         sortPriceChangeButton.layer.borderWidth = 1.5
         
         isPriceChange = !isPriceChange
-        if isPriceChange {
-            sortPriceChangeButton.setTitle("24H 가격변동 ▼", for: .normal)
-            self.coinArray = coinArray.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+        let buttonTitle = isPriceChange ? "24H 가격변동 ▼" : "24H 가격변동 ▲"
+        sortPriceChangeButton.setTitle(buttonTitle, for: .normal)
+        
+        if isFiltering() {
+            coinArrayFiltered = isPriceChange
+                              ? coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+                              : coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
         } else {
-            sortPriceChangeButton.setTitle("24H 가격변동 ▲", for: .normal)
-            self.coinArray = coinArray.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
+            coinArray = isPriceChange
+                      ? coinArray.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+                      : coinArray.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
         }
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-
+    
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
+    // TableViewCell 높이 설정
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+    
     // TableViewCell의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() { return coinArrayFiltered.count }
         return coinArray.count
     }
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
-        let coin = coinArray[indexPath.row]
+        
+        let coin: CoinData
+        if isFiltering() {
+            coin = coinArrayFiltered[indexPath.row]
+        } else {
+            coin = coinArray[indexPath.row]
+        }
+        //let coin = coinArray[indexPath.row]
         cell.configure(with: coin, arrayIndex: indexPath.row, currency: isUSD)
         cell.selectionStyle = .none
         return cell
     }
-    
-    // 셀의 높이 자동 설정
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
     
     // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -353,19 +328,24 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: - UISearchBarDelegate
+
+extension CoinViewController: UISearchBarDelegate {
+    
+}
+
 //MARK: - UISearchResultUpdating
 
-//extension CoinViewController: UISearchResultsUpdating {
-//    // 검색 결과를 반영하여 TableView 업데이트
-//    func updateSearchResults(for searchController: UISearchController) {
-//        let searchBar = searchController.searchBar
-//        //let filteredCoinData = coinArray.filter{ }
-//
-//    }
-//}
-
+extension CoinViewController: UISearchResultsUpdating {
+    // 검색 결과를 반영하여 TableView 업데이트
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchText: searchBar.text!)
+    }
+}
 
 //MARK: - TabBar 아이콘을 클릭했을 때 최상단 TableViewCell로 이동 (Custom Delegate Pattern)
+
 extension CoinViewController: TabBarReselectHandling {
     func handleReselect() {
         tableView.setContentOffset(.zero, animated: true)
