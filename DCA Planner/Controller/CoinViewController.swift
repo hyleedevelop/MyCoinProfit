@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CoinViewController: UIViewController {
+final class CoinViewController: UIViewController {
     
     // SearchBar
     lazy var searchController: UISearchController = {
@@ -67,8 +67,8 @@ class CoinViewController: UIViewController {
     private let tableView = UITableView()
     
     // 데이터를 담을 그릇
-    var coinArray = [CoinData]()  // 원본 데이터
-    var coinArrayFiltered = [CoinData]()  // SearchBar 검색 결과에 의해 필터링된 데이터
+    var coinArray = [CurrentPriceData]()  // 원본 데이터
+    var coinArrayFiltered = [CurrentPriceData]()  // SearchBar 검색 결과에 의해 필터링된 데이터
     
     // 데이터 정렬 기준
     private var isUSD: Bool = true
@@ -79,18 +79,17 @@ class CoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        
         setupData()
         setupNavBar()
+        setupView()
         setupButton()
         setupTableContainerView()
         setupTableView()
     }
-        
+    
     // REST API를 이용해 서버에서 데이터 가져오기
     private func setupData() {
-        NetworkManager.shared.fetchCoinData { [weak self] result in
+        NetworkManager.shared.fetchCurrentPrice { [weak self] result in
             switch result {
             case .success(let coinData):
                 self?.coinArray = coinData
@@ -114,7 +113,7 @@ class CoinViewController: UIViewController {
         navigationBarAppearance.shadowColor = .clear
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.tintColor = Constant.ColorSetting.themeColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false
@@ -122,17 +121,21 @@ class CoinViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(searchButtonTapped))
-        //navigationItem.rightBarButtonItem?.tintColor = .orange
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = Constant.ColorSetting.themeColor
         navigationItem.title = Constant.MenuSetting.menuName1
         navigationItem.searchController = searchController
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
     
+    // View 설정
+    private func setupView() {
+        view.backgroundColor = .systemBackground
+    }
+    
     // 화면 상단의 필터링/정렬 버튼 설정
     private func setupButton() {
-//        view.addSubview(currencySwitchButton)
         view.addSubview(sortMarketCapButton)
         view.addSubview(sortPriceChangeButton)
         
@@ -225,13 +228,40 @@ class CoinViewController: UIViewController {
         return searchController.isActive && !isSearchBarEmpty()
     }
     
-    @objc private func searchButtonTapped() {
-        let searchVC = SearchViewController()
-        navigationController?.pushViewController(searchVC, animated: true)
+    // 화면을 터치하면 키보드 편집 끝내기(내리기)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.searchController.searchBar.endEditing(true)
+    }
+    
+    @objc private func helpButtonTapped() {
+        // 도움말 VC 인스턴스 생성
+        let coinHelpModalVC = CoinHelpModalViewController()
+        // 도움말 VC에 Navigation VC 넣기
+        let nav = UINavigationController(rootViewController: coinHelpModalVC)
         
-        //self.modalPresentationStyle = .automatic
-        //self.modalTransitionStyle = .coverVertical
-        //self.present(searchVC, animated: true, completion: nil)
+        // Bottom Sheet 관련 설정
+        nav.modalPresentationStyle = .pageSheet
+        nav.isModalInPresentation = false  // true이면 dismiss 할 수 없음
+        
+        // sheetPresentationController는 iOS 15 이상부터 사용 가능
+        if let sheet = nav.sheetPresentationController {
+            // Bottom Sheet를 확장/축소 했을 때 화면 꼭대기가 걸리는 높이 지정
+            //sheet.largestUndimmedDetentIdentifier = .medium
+            //sheet.detents = [.medium(), .large()]
+            if #available(iOS 16.0, *) {
+                // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
+                // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
+                sheet.detents = [.custom(resolver: { context in
+                    return context.maximumDetentValue * 0.75
+                })]
+            } else {
+                sheet.detents = [.medium()]
+            }
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.preferredCornerRadius = 25
+            sheet.prefersGrabberVisible = true
+        }
+        self.present(nav, animated: true, completion: nil)
     }
     
     @objc private func sortMarketCapButtonTapped() {
@@ -289,7 +319,6 @@ class CoinViewController: UIViewController {
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
-
 extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -306,7 +335,7 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
         
-        let coin: CoinData
+        let coin: CurrentPriceData
         if isFiltering() {
             coin = coinArrayFiltered[indexPath.row]
         } else {
@@ -329,13 +358,11 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 //MARK: - UISearchBarDelegate
-
 extension CoinViewController: UISearchBarDelegate {
     
 }
 
 //MARK: - UISearchResultUpdating
-
 extension CoinViewController: UISearchResultsUpdating {
     // 검색 결과를 반영하여 TableView 업데이트
     func updateSearchResults(for searchController: UISearchController) {
@@ -345,7 +372,6 @@ extension CoinViewController: UISearchResultsUpdating {
 }
 
 //MARK: - TabBar 아이콘을 클릭했을 때 최상단 TableViewCell로 이동 (Custom Delegate Pattern)
-
 extension CoinViewController: TabBarReselectHandling {
     func handleReselect() {
         tableView.setContentOffset(.zero, animated: true)

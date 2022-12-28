@@ -90,8 +90,8 @@ final class CoinTableViewCell: UITableViewCell {
         return sv
     }()
     
-    // VC에서 처리한 값을 텍스트나 이미지 값으로 넣기
-    func configure(with coin: CoinData, arrayIndex index: Int, currency isUSD: Bool) {
+    // VC에서 처리한 결과값을 텍스트나 이미지의 값으로 넣기
+    func configure(with coin: CurrentPriceData, arrayIndex index: Int, currency isUSD: Bool) {
         // 코인 랭크 넣기
         coinRank.text = String(index + 1)
         
@@ -107,13 +107,7 @@ final class CoinTableViewCell: UITableViewCell {
         coinSymbolLabel.text = coin.symbol.uppercased()
         
         // 코인 가격 넣기
-        let priceText: String
-        if isUSD {
-            priceText = coin.currentPrice.toUSD()
-        } else {
-            priceText = (1279.5 * coin.currentPrice).toKRW()
-        }
-        coinPriceLabel.text = priceText
+        coinPriceLabel.text = coin.currentPrice.toUSD()
         
         // 코인 가격 24시간 변화율 넣기
         let priceChangeValue = round(coin.priceChangePercentage24H*100)/100

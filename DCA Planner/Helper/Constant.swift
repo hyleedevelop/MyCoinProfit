@@ -22,7 +22,7 @@ struct Constant {
     
     struct MenuSetting {
         static let menuName1: String = "코인시세"
-        static let menuName2: String = "투자계획"
+        static let menuName2: String = "수익계산"
         static let menuName3: String = "설정"
     }
         

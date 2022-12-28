@@ -38,15 +38,15 @@ class MainTabBarController: UITabBarController {
         
         // 홈 탭
         let vc1 = UINavigationController(rootViewController: CoinViewController())
-        vc1.tabBarItem.selectedImage = UIImage(systemName: "dollarsign.circle.fill")
+        vc1.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
         vc1.tabBarItem.title = Constant.MenuSetting.menuName1
-        vc1.tabBarItem.image = UIImage(systemName: "dollarsign.circle")
+        vc1.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         
         // 투자계획 탭
-        let vc2 = UINavigationController(rootViewController: PlanViewController())
-        vc2.tabBarItem.selectedImage = UIImage(systemName: "plus.circle.fill")
+        let vc2 = UINavigationController(rootViewController: CalcListViewController())
+        vc2.tabBarItem.selectedImage = UIImage(systemName: "dollarsign.circle.fill")
         vc2.tabBarItem.title = Constant.MenuSetting.menuName2
-        vc2.tabBarItem.image = UIImage(systemName: "plus.circle")
+        vc2.tabBarItem.image = UIImage(systemName: "dollarsign.circle")
 
         // 설정 탭
         let vc3 = UINavigationController(rootViewController: SettingViewController())

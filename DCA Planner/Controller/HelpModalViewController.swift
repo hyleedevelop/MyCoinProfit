@@ -7,18 +7,23 @@
 
 import UIKit
 
-final class SearchTableViewCell: UITableViewCell {
+final class HelpModalViewController: UIViewController {
 
     let movieNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "설명1"
+        label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
 
     let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
+        label.text = "설명2"
         label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -27,47 +32,38 @@ final class SearchTableViewCell: UITableViewCell {
         sv.axis = .vertical
         sv.distribution  = .fill
         sv.alignment = .fill
-        sv.spacing = 8
+        sv.spacing = 20
         return sv
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+    // 초기 실행
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .systemBackground
+        
         setupStackView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        setupConstraints()
     }
     
     func setupStackView() {
-        // 뷰컨트롤러의 기본뷰 위에 스택뷰 올리기
-        self.addSubview(stackView)
+        view.addSubview(stackView)
         
-        // 스택뷰 위에 뷰들 올리기
         stackView.addArrangedSubview(movieNameLabel)
         stackView.addArrangedSubview(descriptionLabel)
-    }
-    
-    // 오토레이아웃 정하는 정확한 시점
-    override func updateConstraints() {
-        setupConstraints()
-        super.updateConstraints()
     }
     
     func setupConstraints() {
         movieNameLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             movieNameLabel.heightAnchor.constraint(equalToConstant: 22)
         ])
-        
+
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 5),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5)
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 

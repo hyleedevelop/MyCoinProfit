@@ -1,5 +1,5 @@
 //
-//  CoinData.swift
+//  CurrentPriceData.swift
 //  DCA Planner
 //
 //  Created by Eric on 2022/12/17.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-// MARK: - CoinData
-struct CoinData: Codable {
+struct CurrentPriceData: Codable {
     let id, symbol, name: String
     let image: String
     let currentPrice: Double
