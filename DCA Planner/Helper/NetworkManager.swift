@@ -72,7 +72,7 @@ final class NetworkManager {
     }
     
     //MARK: - 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
-    func fetchPriceHistory(with coinType: String, from firstDate: Int, to lastDate: Int, completion: @escaping (Result<[[Double]], NetworkError>) -> Void) {
+    func fetchPriceHistory(with coinType: String, howManyDays numberOfDays: Int, completion: @escaping (Result<[[Double]], NetworkError>) -> Void) {
         
         /*
          https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
@@ -81,11 +81,9 @@ final class NetworkManager {
         // 1) URL 설정
         //var startDate = String(firstDate)
         //var endDate = String(lastDate)
-        var numberOfDays = String(30)
-        
         let baseURL = "https://api.coingecko.com/api/v3/"
         let categoryURL = "coins/" + coinType + "/market_chart?"
-        let parameterURL = "vs_currency=usd&days=" + numberOfDays + "&interval=daily"
+        let parameterURL = "vs_currency=usd&days=" + String(numberOfDays) + "&interval=daily"
         
         guard let url = URL(string: baseURL + categoryURL + parameterURL) else { return }
                 
@@ -114,7 +112,7 @@ final class NetworkManager {
             do {
                 let historyInfo = try JSONDecoder().decode(PriceHistoryData.self, from: data).prices
                 
-                //print("[DEBUG]: Coins \(currencyInfo)")
+                //print("[DEBUG]: Coins \(historyInfo)")
                 completion(.success(historyInfo))
             } catch {
                 print("[DEBUG] Failed to decode with error: \(error)")

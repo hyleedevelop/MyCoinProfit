@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		072807802957F08000CF65D9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0728077F2957F08000CF65D9 /* Kingfisher */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
+		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
 		0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */; };
 		0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794111E2949E84700A4F632 /* AppDelegate.swift */; };
 		079411212949E84700A4F632 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079411202949E84700A4F632 /* SceneDelegate.swift */; };
@@ -21,8 +22,11 @@
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */; };
-		07941148294A19BC00A4F632 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* PlanView.swift */; };
+		07941148294A19BC00A4F632 /* CalcListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* CalcListView.swift */; };
 		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
+		079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF2295DA7310063625F /* BookmarkViewController.swift */; };
+		079DBFF5295DB3AC0063625F /* CalcTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */; };
+		079DBFF7295DB53A0063625F /* CalcTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcTypeView.swift */; };
 		07BC84E6295946F8003776D7 /* CurrentCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */; };
 		07BC84E829599BED003776D7 /* BackupCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E729599BED003776D7 /* BackupCode.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */; };
@@ -35,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHelpModalViewController.swift; sourceTree = "<group>"; };
 		0794111B2949E84700A4F632 /* DCA Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0794111E2949E84700A4F632 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,8 +54,11 @@
 		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
-		07941147294A19BC00A4F632 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		07941147294A19BC00A4F632 /* CalcListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcListView.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		079DBFF2295DA7310063625F /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcTypeViewController.swift; sourceTree = "<group>"; };
+		079DBFF6295DB53A0063625F /* CalcTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcTypeView.swift; sourceTree = "<group>"; };
 		07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCurrencyData.swift; sourceTree = "<group>"; };
 		07BC84E729599BED003776D7 /* BackupCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCode.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
@@ -77,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				07280782295817CB00CF65D9 /* Double.swift */,
+				0750FD32295D2D85006B90B5 /* Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -123,7 +132,9 @@
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
 				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
 				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
+				079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */,
 				079411382949E9CB00A4F632 /* CalcListViewController.swift */,
+				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
 			);
 			path = Controller;
@@ -133,7 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
-				07941147294A19BC00A4F632 /* PlanView.swift */,
+				079DBFF6295DB53A0063625F /* CalcTypeView.swift */,
+				07941147294A19BC00A4F632 /* CalcListView.swift */,
 				07941149294A19C800A4F632 /* SettingView.swift */,
 			);
 			path = View;
@@ -237,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */,
 				07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07C616F4294AC5B000F057BE /* SearchViewController.swift in Sources */,
@@ -247,14 +260,17 @@
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
 				07BC84E6295946F8003776D7 /* CurrentCurrencyData.swift in Sources */,
+				079DBFF5295DB3AC0063625F /* CalcTypeViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
 				07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */,
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
 				079411212949E84700A4F632 /* SceneDelegate.swift in Sources */,
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
-				07941148294A19BC00A4F632 /* PlanView.swift in Sources */,
+				07941148294A19BC00A4F632 /* CalcListView.swift in Sources */,
+				0750FD33295D2D85006B90B5 /* Date.swift in Sources */,
 				07BC84E829599BED003776D7 /* BackupCode.swift in Sources */,
 				0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */,
+				079DBFF7295DB53A0063625F /* CalcTypeView.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */,
 				0794114A294A19C800A4F632 /* SettingView.swift in Sources */,
 			);

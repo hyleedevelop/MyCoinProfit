@@ -43,6 +43,7 @@ class MainTabBarController: UITabBarController {
         vc1.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         
         // 투자계획 탭
+        //let vc2 = UINavigationController(rootViewController: CalcTypeViewController())
         let vc2 = UINavigationController(rootViewController: CalcListViewController())
         vc2.tabBarItem.selectedImage = UIImage(systemName: "dollarsign.circle.fill")
         vc2.tabBarItem.title = Constant.MenuSetting.menuName2

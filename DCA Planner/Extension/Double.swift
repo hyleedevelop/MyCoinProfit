@@ -38,6 +38,5 @@ extension Double {
     func toKRW() -> String {
         return currencyFormatterKRW.string(for: self) ?? "₩0"
     }
-
     
 }

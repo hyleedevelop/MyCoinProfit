@@ -13,6 +13,7 @@ final class CoinTableViewCell: UITableViewCell {
     // 순번
     private let coinRank: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.textColor = .systemGray2
         label.textAlignment = .center
@@ -23,12 +24,14 @@ final class CoinTableViewCell: UITableViewCell {
     // 코인 이미지
     private let coinImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     // 코인 심볼
     private let coinSymbolLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.numberOfLines = 1
         return label
@@ -37,6 +40,7 @@ final class CoinTableViewCell: UITableViewCell {
     // 코인 이름
     private let coinNameLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = .darkGray
         label.numberOfLines = 1
@@ -46,6 +50,7 @@ final class CoinTableViewCell: UITableViewCell {
     // Vertical SV (코인 이름 + 코인 심볼)
     private lazy var nameLabelSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinSymbolLabel, coinNameLabel])
+        sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.distribution = .fill
         sv.alignment = .fill
@@ -56,6 +61,7 @@ final class CoinTableViewCell: UITableViewCell {
     // 코인 가격
     private let coinPriceLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.numberOfLines = 1
         label.textAlignment = .right
@@ -65,6 +71,7 @@ final class CoinTableViewCell: UITableViewCell {
     // 코인 가격 24시간 변화율
     private let coinPriceChangeLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textAlignment = .right
         return label
@@ -73,6 +80,7 @@ final class CoinTableViewCell: UITableViewCell {
     // Vertical SV (코인 가격 + 코인 가격 변화율)
     private lazy var priceLabelSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinPriceLabel, coinPriceChangeLabel])
+        sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
         sv.distribution = .fill
         sv.alignment = .fill
@@ -83,12 +91,66 @@ final class CoinTableViewCell: UITableViewCell {
     // Horizontal SV (코인 이미지 + Vertical SV + Vertical SV)
     private lazy var cellSV: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinRank, coinImageView, nameLabelSV, priceLabelSV])
+        sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .horizontal
         sv.distribution = .fill
         sv.alignment = .fill
         sv.spacing = 15
         return sv
     }()
+    
+    // TableViewCell 생성자 셋팅 (1)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+ 
+        registerUI()
+        updateConstraints()
+    }
+    
+    // TableViewCell 생성자 셋팅 (2)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 하위 뷰로 등록
+    private func registerUI() {
+        self.addSubview(cellSV)
+    }
+    
+    // AutoLayout 결정하는 시점
+    override func updateConstraints() {
+        setupConstraints()
+        super.updateConstraints()
+    }
+    
+    // AutoLayout 설정
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            coinRank.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
+            coinRank.widthAnchor.constraint(equalToConstant: 25),
+            coinRank.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        
+        NSLayoutConstraint.activate([
+            coinImageView.heightAnchor.constraint(equalToConstant: 40),
+            coinImageView.widthAnchor.constraint(equalToConstant: 40),
+            //coinImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
+            coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        
+        NSLayoutConstraint.activate([
+            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
+            priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
+        ])
+        
+        NSLayoutConstraint.activate([
+            cellSV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
+    }
     
     // VC에서 처리한 결과값을 텍스트나 이미지의 값으로 넣기
     func configure(with coin: CurrentPriceData, arrayIndex index: Int, currency isUSD: Bool) {
@@ -115,63 +177,6 @@ final class CoinTableViewCell: UITableViewCell {
         coinPriceChangeLabel.textColor = priceChangeValue >= 0
                                        ? Constant.ColorSetting.positiveColor
                                        : Constant.ColorSetting.negativeColor
-    }
-    
-    // TableViewCell 생성자 셋팅 (1)
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        self.addSubview(cellSV)
-        updateConstraints()
-    }
-    
-    // TableViewCell 생성자 셋팅 (2)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // AutoLayout 결정하는 시점
-    override func updateConstraints() {
-        setupConstraints()
-        super.updateConstraints()
-    }
-    
-    // AutoLayout 설정
-    private func setupConstraints() {
-        coinRank.translatesAutoresizingMaskIntoConstraints = false
-        coinImageView.translatesAutoresizingMaskIntoConstraints = false
-        coinNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        coinSymbolLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabelSV.translatesAutoresizingMaskIntoConstraints = false
-        coinPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        coinPriceChangeLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabelSV.translatesAutoresizingMaskIntoConstraints = false
-        cellSV.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            coinRank.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            coinRank.widthAnchor.constraint(equalToConstant: 25),
-            coinRank.heightAnchor.constraint(equalToConstant: 40),
-        ])
-        
-        NSLayoutConstraint.activate([
-            coinImageView.heightAnchor.constraint(equalToConstant: 40),
-            coinImageView.widthAnchor.constraint(equalToConstant: 40),
-            //coinImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
-            coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
-            nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
-        ])
-        
-        NSLayoutConstraint.activate([
-            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
-            priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
-        ])
-        
-        NSLayoutConstraint.activate([
-            cellSV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        ])
     }
     
 }
