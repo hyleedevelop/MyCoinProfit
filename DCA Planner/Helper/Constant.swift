@@ -10,6 +10,7 @@ import UIKit
 struct Constant {
     struct ColorSetting {
         static let themeColor: UIColor = UIColor.orange
+        static let lightGray: UIColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
         static let color1: UIColor = UIColor(red: 254/255, green: 190/255, blue: 140/255, alpha: 1)
         static let color2: UIColor = UIColor(red: 182/255, green: 226/255, blue: 161/255, alpha: 1)
         static let positiveColor: UIColor = UIColor(red: 82/255, green: 164/255, blue: 154/255, alpha: 1)

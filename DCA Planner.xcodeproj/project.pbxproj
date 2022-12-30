@@ -25,8 +25,8 @@
 		07941148294A19BC00A4F632 /* CalcListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* CalcListView.swift */; };
 		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
 		079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF2295DA7310063625F /* BookmarkViewController.swift */; };
-		079DBFF5295DB3AC0063625F /* CalcTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */; };
-		079DBFF7295DB53A0063625F /* CalcTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcTypeView.swift */; };
+		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
+		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
 		07BC84E6295946F8003776D7 /* CurrentCurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */; };
 		07BC84E829599BED003776D7 /* BackupCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BC84E729599BED003776D7 /* BackupCode.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */; };
@@ -57,8 +57,8 @@
 		07941147294A19BC00A4F632 /* CalcListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcListView.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		079DBFF2295DA7310063625F /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
-		079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcTypeViewController.swift; sourceTree = "<group>"; };
-		079DBFF6295DB53A0063625F /* CalcTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcTypeView.swift; sourceTree = "<group>"; };
+		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
+		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
 		07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentCurrencyData.swift; sourceTree = "<group>"; };
 		07BC84E729599BED003776D7 /* BackupCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupCode.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
 				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
 				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
-				079DBFF4295DB3AC0063625F /* CalcTypeViewController.swift */,
+				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
 				079411382949E9CB00A4F632 /* CalcListViewController.swift */,
 				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
@@ -144,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
-				079DBFF6295DB53A0063625F /* CalcTypeView.swift */,
+				079DBFF6295DB53A0063625F /* CalcView.swift */,
 				07941147294A19BC00A4F632 /* CalcListView.swift */,
 				07941149294A19C800A4F632 /* SettingView.swift */,
 			);
@@ -260,7 +260,7 @@
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
 				07BC84E6295946F8003776D7 /* CurrentCurrencyData.swift in Sources */,
-				079DBFF5295DB3AC0063625F /* CalcTypeViewController.swift in Sources */,
+				079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
 				07C616EC294AAD4B00F057BE /* CoinTableViewCell.swift in Sources */,
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
@@ -270,7 +270,7 @@
 				0750FD33295D2D85006B90B5 /* Date.swift in Sources */,
 				07BC84E829599BED003776D7 /* BackupCode.swift in Sources */,
 				0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */,
-				079DBFF7295DB53A0063625F /* CalcTypeView.swift in Sources */,
+				079DBFF7295DB53A0063625F /* CalcView.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */,
 				0794114A294A19C800A4F632 /* SettingView.swift in Sources */,
 			);

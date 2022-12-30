@@ -7,16 +7,21 @@
 
 import UIKit
 
-final class CalcTypeViewController: UIViewController {
+final class CalcViewController: UIViewController {
 
-    private let calcTypeView = CalcTypeView()
+    private let calcView = CalcView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavBar()
         setupView()
-        
+        setupPickerView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     // NavigationBar 설정
@@ -34,7 +39,7 @@ final class CalcTypeViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = Constant.ColorSetting.themeColor
         navigationItem.title = Constant.MenuSetting.menuName2
         
@@ -42,12 +47,16 @@ final class CalcTypeViewController: UIViewController {
     }
   
     override func loadView() {
-        view = calcTypeView
+        view = calcView
     }
     
     // View 설정
     private func setupView() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func setupPickerView() {
+        
     }
     
     @objc private func addButtonTapped() {

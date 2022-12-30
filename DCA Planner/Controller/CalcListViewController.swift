@@ -29,6 +29,9 @@ class CalcListViewController: UIViewController {
         //    print(self.priceArray)
         //}
         
+        print(self.dateArray)
+        print(self.priceArray)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,15 +50,20 @@ class CalcListViewController: UIViewController {
         NetworkManager.shared.fetchPriceHistory(with: coinType, howManyDays: numberOfDays) { [weak self] result in
             switch result {
             case .success(let historyData):
-                for i in 0..<historyData.count {
-                    let dateValue = historyData[i][0]
-                    let priceValue = historyData[i][1]
-                    self?.dateArray.append(dateValue)
-                    self?.priceArray.append(priceValue)
+                
+                DispatchQueue(label: "SerialQueue").sync {
+                    for i in 0..<historyData.count {
+                        let dateValue = historyData[i][0]
+                        let priceValue = historyData[i][1]
+                        self?.dateArray.append(dateValue)
+                        self?.priceArray.append(priceValue)
+                    }
+                    
+                    //print((self?.dateArray)!)
+                    //print((self?.priceArray)!)
                 }
                 
-                print((self?.dateArray)!)
-                print((self?.priceArray)!)
+                
                 
                 //let unixToDate = Date(timeIntervalSince1970: 1609459200)
                 //print("the given unix time is \(unixToDate)")
