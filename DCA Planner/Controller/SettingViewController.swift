@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController {
 
     // 레퍼런스 문구
     let referenceLabel: UILabel = {

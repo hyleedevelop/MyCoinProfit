@@ -79,7 +79,7 @@ final class CoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupData()
+        //setupData()
         setupNavBar()
         setupView()
         setupButton()

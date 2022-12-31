@@ -11,11 +11,11 @@ protocol TabBarReselectHandling {
     func handleReselect()
 }
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        //delegate = self
         setupTabBar()
     }
     
@@ -56,6 +56,9 @@ class MainTabBarController: UITabBarController {
         vc3.tabBarItem.image = UIImage(systemName: "gearshape")
         
         viewControllers = [vc1, vc2, vc3]
+        
+        // 앱을 처음 실행했을 때 화면에 보여줄 탭 설정 (Index = 0, 1, 2)
+        self.selectedIndex = 1
     }
 
 }
