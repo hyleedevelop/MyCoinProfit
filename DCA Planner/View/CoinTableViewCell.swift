@@ -175,8 +175,8 @@ final class CoinTableViewCell: UITableViewCell {
         let priceChangeValue = round(coin.priceChangePercentage24H*100)/100
         coinPriceChangeLabel.text = String(priceChangeValue) + "%"
         coinPriceChangeLabel.textColor = priceChangeValue >= 0
-                                       ? Constant.ColorSetting.positiveColor
-                                       : Constant.ColorSetting.negativeColor
+                                       ? Constant.UIColorSetting.positiveColor
+                                       : Constant.UIColorSetting.negativeColor
     }
     
 }

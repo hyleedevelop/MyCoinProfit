@@ -34,20 +34,19 @@ final class MainTabBarController: UITabBarController {
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         }
         
-        tabBar.tintColor = Constant.ColorSetting.themeColor
+        tabBar.tintColor = Constant.UIColorSetting.themeColor
         
-        // 홈 탭
-        let vc1 = UINavigationController(rootViewController: CoinViewController())
+        // 수익계산 탭 (홈)
+        let vc1 = UINavigationController(rootViewController: CalcViewController())
         vc1.tabBarItem.selectedImage = UIImage(systemName: "list.bullet.clipboard.fill")
-        vc1.tabBarItem.title = Constant.MenuSetting.menuName1
+        vc1.tabBarItem.title = Constant.MenuSetting.menuName2
         vc1.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         
-        // 투자계획 탭
-        let vc2 = UINavigationController(rootViewController: CalcViewController())
-        //let vc2 = UINavigationController(rootViewController: CalcListViewController())
-        vc2.tabBarItem.selectedImage = UIImage(systemName: "dollarsign.circle.fill")
-        vc2.tabBarItem.title = Constant.MenuSetting.menuName2
-        vc2.tabBarItem.image = UIImage(systemName: "dollarsign.circle")
+        // 코인시세 탭
+        let vc2 = UINavigationController(rootViewController: CoinViewController())
+        vc2.tabBarItem.selectedImage = UIImage(systemName: "chart.line.uptrend.xyaxis.circle.fill")
+        vc2.tabBarItem.title = Constant.MenuSetting.menuName1
+        vc2.tabBarItem.image = UIImage(systemName: "chart.line.uptrend.xyaxis.circle")
 
         // 설정 탭
         let vc3 = UINavigationController(rootViewController: SettingViewController())
@@ -58,7 +57,7 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [vc1, vc2, vc3]
         
         // 앱을 처음 실행했을 때 화면에 보여줄 탭 설정 (Index = 0, 1, 2)
-        self.selectedIndex = 1
+        self.selectedIndex = 0
     }
 
 }

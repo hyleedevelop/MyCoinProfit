@@ -20,7 +20,7 @@ final class NetworkManager {
     // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
-    //MARK: - 네트워킹 요청을 통해 코인의 현재 가격 데이터 가져오기 (코인시세 탭)
+    //MARK: - Coingecko API에서 네트워킹 요청을 통해 코인의 현재 가격 데이터 가져오기 (코인시세 탭)
     func fetchCurrentPrice(completion: @escaping (Result<[CurrentPriceData], NetworkError>) -> Void) {
         
         /*
@@ -71,7 +71,7 @@ final class NetworkManager {
         task.resume()
     }
     
-    //MARK: - 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
+    //MARK: - Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
     func fetchPriceHistory(with coinType: String, howManyDays numberOfDays: Int, completion: @escaping (Result<[[Double]], NetworkError>) -> Void) {
         
         /*
@@ -125,18 +125,18 @@ final class NetworkManager {
         task.resume()
     }
     
-    //MARK: - 네트워킹 요청을 통해 환율(BTC-KRW) 데이터 가져오기
+    //MARK: - ExchangeRate API에서 환율(USD-KRW) 데이터 가져오기
 //    func fetchCurrentCurrency(completion: @escaping (Result<[String: Rate], NetworkError>) -> Void) {
 //
 //        /*
-//         https://api.coingecko.com/api/v3/exchange_rates
+//         https://v6.exchangerate-api.com/v6/68f93027ced1e80c1f32336a/latest/USD
 //         */
 //
 //        // 1) URL 설정
-//        let baseURL = "https://api.coingecko.com/api/v3/"
-//        let categoryURL = "exchange_rates?"
-//        let parameterURL = ""
-//        guard let url = URL(string: baseURL + categoryURL + parameterURL) else { return }
+//        let baseURL = "https://v6.exchangerate-api.com/v6/"
+//        let APIKeyURL = "68f93027ced1e80c1f32336a/"
+//        let parameterURL = "latest/USD"
+//        guard let url = URL(string: baseURL + APIKeyURL + parameterURL) else { return }
 //
 //        // 2) 네트워킹을 위한 작업 설정
 //        let task = URLSession.shared.dataTask(with: url) { data, response, error in

@@ -22,7 +22,6 @@
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */; };
-		07941148294A19BC00A4F632 /* CalcListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941147294A19BC00A4F632 /* CalcListView.swift */; };
 		0794114A294A19C800A4F632 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingView.swift */; };
 		079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF2295DA7310063625F /* BookmarkViewController.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
@@ -54,7 +53,6 @@
 		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
-		07941147294A19BC00A4F632 /* CalcListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcListView.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		079DBFF2295DA7310063625F /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			children = (
 				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
-				07941147294A19BC00A4F632 /* CalcListView.swift */,
 				07941149294A19C800A4F632 /* SettingView.swift */,
 			);
 			path = View;
@@ -266,7 +263,6 @@
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
 				079411212949E84700A4F632 /* SceneDelegate.swift in Sources */,
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
-				07941148294A19BC00A4F632 /* CalcListView.swift in Sources */,
 				0750FD33295D2D85006B90B5 /* Date.swift in Sources */,
 				07BC84E829599BED003776D7 /* BackupCode.swift in Sources */,
 				0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */,

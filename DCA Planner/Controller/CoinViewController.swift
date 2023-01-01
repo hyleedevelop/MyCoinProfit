@@ -64,6 +64,27 @@ final class CoinViewController: UIViewController {
         return view
     }()
     
+    // 로딩 아이콘
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = Constant.UIColorSetting.themeColor
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.stopAnimating()
+        return activityIndicator
+    }()
+    
+    // 로딩 아이콘
+    private let indicatorContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     private let tableView = UITableView()
     
     // 데이터를 담을 그릇
@@ -79,12 +100,13 @@ final class CoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //setupData()
+        setupData()
         setupNavBar()
         setupView()
         setupButton()
         setupTableContainerView()
         setupTableView()
+        setupActivityIndicator()
     }
     
     // REST API를 이용해 서버에서 데이터 가져오기
@@ -94,7 +116,10 @@ final class CoinViewController: UIViewController {
             case .success(let coinData):
                 self?.coinArray = coinData
                 DispatchQueue.main.async {
+                    //self?.activityIndicator.startAnimating()
+                    //sleep(3)
                     self?.tableView.reloadData()
+                    //self?.activityIndicator.stopAnimating()
                 }
             case .failure(.networkingError):
                 print("ERROR: networking")
@@ -113,7 +138,7 @@ final class CoinViewController: UIViewController {
         navigationBarAppearance.shadowColor = .clear
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = Constant.ColorSetting.themeColor
+        navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false
@@ -122,7 +147,7 @@ final class CoinViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = Constant.ColorSetting.themeColor
+        navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
         navigationItem.title = Constant.MenuSetting.menuName1
         navigationItem.searchController = searchController
         
@@ -202,6 +227,26 @@ final class CoinViewController: UIViewController {
         ])
     }
     
+    // 로딩중임을 나타내는 Indicator 설정
+    private func setupActivityIndicator() {
+        view.addSubview(indicatorContainer)
+        indicatorContainer.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            indicatorContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            indicatorContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            indicatorContainer.widthAnchor.constraint(equalToConstant: 80),
+            indicatorContainer.heightAnchor.constraint(equalToConstant: 80),
+        ])
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: indicatorContainer.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: indicatorContainer.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
+        ])
+    }
+    
     // SearchBar에서 검색한 단어로 필터링하여 TableView 표출
     private func filterContentForSearchText(searchText: String) {
         coinArrayFiltered = coinArray.filter { coin in
@@ -252,7 +297,7 @@ final class CoinViewController: UIViewController {
                 // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
                 // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
                 sheet.detents = [.custom(resolver: { context in
-                    return context.maximumDetentValue * 0.75
+                    return context.maximumDetentValue * 0.4
                 })]
             } else {
                 sheet.detents = [.medium()]
