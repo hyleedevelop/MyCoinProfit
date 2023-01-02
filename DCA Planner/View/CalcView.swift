@@ -22,6 +22,58 @@ final class CalcView: UIView {
         return control
     }()
     
+    //MARK: - 코인 속성 선언
+    
+    private let coinTypeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.text = "매수 코인"
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    lazy var coinTypeTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.borderStyle = .none
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.inputView = coinTypePicker
+        tf.placeholder = "코인 선택"
+        tf.textColor = .label
+        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
+        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        return tf
+    }()
+
+    let coinTypePicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+    
+    private let coinTypeBottomLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .label
+        return view
+    }()
+    
+    private lazy var coinTypeStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeTextField, coinTypeBottomLine])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 8
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        return sv
+    }()
+    
     //MARK: - 매수 시작 날짜 관련 속성 선언
     
     private let startDateLabel: UILabel = {
@@ -202,13 +254,19 @@ final class CalcView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
-        tf.keyboardType = .decimalPad
+        tf.inputView = frequencyPicker
         tf.placeholder = "주기 선택"
         tf.textColor = .label
         tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
         tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
         return tf
+    }()
+    
+    let frequencyPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
     }()
 
     private let frequencyBottomLine: UIView = {
@@ -246,26 +304,26 @@ final class CalcView: UIView {
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.setTitle("계산", for: .normal)
+        button.setTitle("계산 결과", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
     
-    private lazy var calcSaveButton: UIButton = {
+    private lazy var calcResetButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.setTitle("결과 저장", for: .normal)
+        button.setTitle("내용 초기화", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [calcStartButton, calcSaveButton])
+        let sv = UIStackView(arrangedSubviews: [calcStartButton, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 20
         sv.axis = .horizontal
@@ -292,10 +350,18 @@ final class CalcView: UIView {
         let sv = UIStackView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
-        sv.spacing = 30
+        sv.spacing = 35
         sv.alignment = .leading
         sv.distribution = .equalSpacing
         return sv
+    }()
+    
+    // TextField에 실수(숫자+소수점)만 입력할 수 있는 Set
+    private let charSet: CharacterSet = {
+        var cs = CharacterSet.lowercaseLetters
+        cs.insert(charactersIn: "0123456789")
+        cs.insert(charactersIn: ".")
+        return cs.inverted
     }()
     
     // 로딩 아이콘
@@ -362,7 +428,7 @@ final class CalcView: UIView {
     
     // 최종 StackView 초기 설정
     private func setupFinalStackView() {
-        _ = [startDateStackView, endDateStackView, amountStackView,
+        _ = [coinTypeStackView, startDateStackView, endDateStackView, amountStackView,
              frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
         scrollView.addSubview(finalStackView)
@@ -370,68 +436,56 @@ final class CalcView: UIView {
         NSLayoutConstraint.activate([
             finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 30),
             finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -30),
-            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 30),
             finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -30),
             
-            startDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            startDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            endDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            endDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            amountBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            amountBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            frequencyBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            frequencyBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            emptySpace.heightAnchor.constraint(equalToConstant: 10),
+            emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
+        
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60).isActive = true }
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
         
     }
-
+    
     // 분할매수 수익계산에 관련된 StackView만 표출하기
     private func displayFirstFinalStackView() {
-        _ = [startDateStackView, endDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.removeArrangedSubview($0) }
-        _ = [startDateStackView, endDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeStackView, startDateStackView, endDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
-            startDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            startDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            endDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            endDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            amountBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            amountBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            frequencyBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            frequencyBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            emptySpace.heightAnchor.constraint(equalToConstant: 10),
-            
+            emptySpace.heightAnchor.constraint(equalToConstant: 0),
+    
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
+        
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60).isActive = true }
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
+        
+        amountLabel.text = "매 회차 매수 금액(달러)"
+        resetTextField()
     }
     
     // 집중매수 수익계산에 관련된 StackView만 표출하기
     private func displaySecondFinalStackView() {
-        _ = [startDateStackView, endDateStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
-        _ = [amountStackView, frequencyStackView].map { $0.removeFromSuperview() }
+        _ = [frequencyStackView].map { $0.removeFromSuperview() }
         
         NSLayoutConstraint.activate([
-            startDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            startDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            endDateBottomLine.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            endDateBottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth),
-            
-            emptySpace.heightAnchor.constraint(equalToConstant: 10),
+            emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
+        
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60).isActive = true }
+        _ = [coinTypeBottomLine, startDateBottomLine, endDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
+        
+        amountLabel.text = "총 매수 금액(달러)"
+        resetTextField()
+    }
+    
+    private func resetTextField() {
+        amountTextField.text = ""
+        frequencyTextField.text = ""
     }
     
     // 로딩중임을 나타내는 Indicator 설정
@@ -470,6 +524,9 @@ final class CalcView: UIView {
     // 텍스트필드 편집을 시작했을 때
     @objc private func textFieldEditingDidBegin(_ textField: UITextField) {
         switch textField {
+        case coinTypeTextField:
+            coinTypeLabel.textColor = Constant.UIColorSetting.themeColor
+            coinTypeBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
         case startDateTextField:
             startDateLabel.textColor = Constant.UIColorSetting.themeColor
             startDateBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
@@ -490,6 +547,9 @@ final class CalcView: UIView {
     // 텍스트필드 편집을 끝냈을 때
     @objc private func textFieldEditingDidEnd(_ textField: UITextField) {
         switch textField {
+        case coinTypeTextField:
+            coinTypeLabel.textColor = .label
+            coinTypeBottomLine.backgroundColor = .label
         case startDateTextField:
             startDateLabel.textColor = .label
             startDateBottomLine.backgroundColor = .label
@@ -527,10 +587,50 @@ final class CalcView: UIView {
             }
         }
         
-        if button == calcSaveButton {
-            
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+// ViewController에서 Delegate 프로토콜을 채택하는 경우 xxx.delegate = self를 꼭 써줘야 함
+// View에서는 프로토콜 채택만 하면 됨
+
+extension CalcView: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case startDateTextField:
+            return false
+        default:
+            return true
+        }
+    }
+    
+    //
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    // return 버튼을 눌렀을 때 구현할 내용
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == amountTextField {
+            if string.count > 0 {
+                guard string.rangeOfCharacter(from: charSet) == nil else { return false }
+            }
         }
         
+        return true
     }
     
 }

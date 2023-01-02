@@ -9,8 +9,10 @@ import UIKit
 
 final class CalcViewController: UIViewController {
 
-    private let calcView = CalcView()
+    private let calcView = CalcView()  // UIView
+    private let coinListData = PickerData()  // structure
     
+    var coinTypeString: String = ""
     var startDateString: String = ""
     var endDateString: String = ""
     
@@ -19,7 +21,8 @@ final class CalcViewController: UIViewController {
 
         setupNavBar()
         setupView()
-        setupDatePicker()
+        setupTextField()
+        setupPickerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,23 +63,31 @@ final class CalcViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    private func setupDatePicker() {
+    private func setupTextField() {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         let toolBarFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let toolBarDoneButton = UIBarButtonItem(title: "닫기", style: .done, target: nil, action: #selector(doneButtonTapped))
+        let toolBarDoneButton = UIBarButtonItem(title: "닫기", style: .done, target: nil, action: #selector(doneButtonTapped(_:)))
         toolBar.sizeToFit()
         toolBar.setItems([toolBarFlexibleSpace, toolBarDoneButton], animated: true)
         
-        calcView.startDateTextField.inputAccessoryView = toolBar
-        calcView.endDateTextField.inputAccessoryView = toolBar
-        calcView.amountTextField.inputAccessoryView = toolBar
-        calcView.frequencyTextField.inputAccessoryView = toolBar
-        
-        calcView.startDatePicker.addTarget(self, action: #selector(datePickerSelected(_:)), for: .valueChanged)
-        calcView.endDatePicker.addTarget(self, action: #selector(datePickerSelected(_:)), for: .valueChanged)
+        _ = [calcView.coinTypeTextField, calcView.startDateTextField, calcView.endDateTextField, calcView.amountTextField, calcView.frequencyTextField].map { $0.inputAccessoryView = toolBar }
     }
     
-    @objc private func datePickerSelected(_ sender: UIDatePicker) {
+    private func setupPickerView() {
+        // UIPickerView 사용 시 delegate 패턴으로 구현 (UIDatePickerView는 필요없음)
+        _ = [calcView.coinTypePicker, calcView.frequencyPicker].map { $0.delegate = self }
+    
+        calcView.coinTypeTextField.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.startDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.endDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.frequencyTextField.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+    }
+    
+    @objc private func doneButtonTapped(_ textField: UITextField) {
+        self.view.endEditing(true)
+    }
+    
+    @objc private func pickerSelected(_ sender: UIDatePicker) {
         let pickedDate = sender.date
         let pickedDateFormatter1 = DateFormatter()
         pickedDateFormatter1.dateFormat = "yyyy년 MM월 dd일 (E)"
@@ -85,23 +96,24 @@ final class CalcViewController: UIViewController {
         let pickedDateFormatter2 = DateFormatter()
         pickedDateFormatter2.dateFormat = "yyyyMMdd"
         
-        if sender == calcView.startDatePicker {
+        switch sender {
+        case calcView.coinTypePicker:
+            calcView.startDateTextField.textColor = .label
+            calcView.startDateTextField.text = self.coinTypeString
+            //print("coinTypeString: \(coinTypeString)")
+        case calcView.startDatePicker:
             calcView.startDateTextField.textColor = .label
             calcView.startDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
-            self.startDateString = pickedDateFormatter2.string(from: pickedDate)
-            print("startDateString: \(startDateString)")
-        }
-        
-        if sender == calcView.endDatePicker {
+            //self.startDateString = pickedDateFormatter2.string(from: pickedDate)
+            //print("startDateString: \(startDateString)")
+        case calcView.endDatePicker:
             calcView.endDateTextField.textColor = .label
             calcView.endDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
-            self.endDateString = pickedDateFormatter2.string(from: pickedDate)
-            print("endDateString: \(endDateString)")
+            //self.endDateString = pickedDateFormatter2.string(from: pickedDate)
+            //print("endDateString: \(endDateString)")
+        default:
+            print(#function)
         }
-    }
-    
-    @objc private func doneButtonTapped() {
-        self.view.endEditing(true)
     }
     
     @objc private func addButtonTapped() {
@@ -142,12 +154,46 @@ final class CalcViewController: UIViewController {
     
 }
 
-//extension CalcViewController: UIPickerViewDelegate {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//
-//    }
-//}
+//MARK: - UIPickerViewDelegate, UIPickerViewDataSource
+
+extension CalcViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == calcView.coinTypePicker {
+            return coinListData.coinNameArray.count
+        }
+
+        if pickerView == calcView.frequencyPicker {
+            return coinListData.frequencyArray.count
+        }
+
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == calcView.coinTypePicker {
+            calcView.coinTypeTextField.text = coinListData.coinNameArray[row]
+        }
+        
+        if pickerView == calcView.frequencyPicker {
+            calcView.frequencyTextField.text = coinListData.frequencyArray[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == calcView.coinTypePicker {
+            return coinListData.coinNameArray[row]
+        }
+
+        if pickerView == calcView.frequencyPicker {
+            return coinListData.frequencyArray[row]
+        }
+        
+        return nil
+    }
+    
+}

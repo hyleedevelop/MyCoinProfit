@@ -30,7 +30,7 @@ final class NetworkManager {
         // 1) URL 설정
         let baseURL = "https://api.coingecko.com/api/v3/"
         let categoryURL = "coins/markets?"
-        let parameterURL = "vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h"
+        let parameterURL = "vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false&price_change_percentage=24h"
         
         guard let url = URL(string: baseURL + categoryURL + parameterURL) else { return }
                 

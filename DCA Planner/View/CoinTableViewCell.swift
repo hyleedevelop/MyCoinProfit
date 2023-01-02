@@ -127,27 +127,19 @@ final class CoinTableViewCell: UITableViewCell {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             coinRank.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            coinRank.widthAnchor.constraint(equalToConstant: 25),
+            coinRank.widthAnchor.constraint(equalToConstant: 30),
             coinRank.heightAnchor.constraint(equalToConstant: 40),
-        ])
         
-        NSLayoutConstraint.activate([
             coinImageView.heightAnchor.constraint(equalToConstant: 40),
             coinImageView.widthAnchor.constraint(equalToConstant: 40),
             //coinImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
             coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        ])
         
-        NSLayoutConstraint.activate([
             nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
-        ])
         
-        NSLayoutConstraint.activate([
             priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
             priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
-        ])
         
-        NSLayoutConstraint.activate([
             cellSV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
