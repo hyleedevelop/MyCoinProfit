@@ -164,9 +164,8 @@ final class CoinTableViewCell: UITableViewCell {
         coinPriceLabel.text = coin.currentPrice.toUSD()
         
         // 코인 가격 24시간 변화율 넣기
-        let priceChangeValue = round(coin.priceChangePercentage24H*100)/100
-        coinPriceChangeLabel.text = String(priceChangeValue) + "%"
-        coinPriceChangeLabel.textColor = priceChangeValue >= 0
+        coinPriceChangeLabel.text = (coin.priceChangePercentage24H/100.0).toPercentage()
+        coinPriceChangeLabel.textColor = coin.priceChangePercentage24H >= 0
                                        ? Constant.UIColorSetting.positiveColor
                                        : Constant.UIColorSetting.negativeColor
     }

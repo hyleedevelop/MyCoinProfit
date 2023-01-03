@@ -30,8 +30,8 @@ struct Constant {
         static let bottomLineWidth: CGFloat = 1.0
     }
     
-    struct NetworkSetting {
-        
+    struct Number {
+        static let oneDayInSeconds: Double = 86400.0
     }
     
     struct MenuSetting {

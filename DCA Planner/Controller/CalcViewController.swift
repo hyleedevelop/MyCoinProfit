@@ -23,6 +23,7 @@ final class CalcViewController: UIViewController {
         setupView()
         setupTextField()
         setupPickerView()
+        setupButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +84,41 @@ final class CalcViewController: UIViewController {
         calcView.frequencyTextField.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
     }
     
+    private func setupButton() {
+        calcView.calcStartButton.addTarget(self, action: #selector(calcButtonTapped(_:)), for: .touchUpInside)
+        calcView.calcResetButton.addTarget(self, action: #selector(calcButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func presentPopUpMessage(by button: UIButton, title titleString: String, message messageString: String) {
+        if button == calcView.calcStartButton {
+            
+        }
+
+        if button == calcView.calcResetButton {
+            // AlertController 생성
+            let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: "확인", style: .destructive) { action in
+                self.calcView.coinTypeTextField.text = ""
+                self.calcView.startDateTextField.text = ""
+                self.calcView.endDateTextField.text = ""
+                self.calcView.amountTextField.text = ""
+                self.calcView.frequencyTextField.text = ""
+            }
+            
+            // 액션 추가
+            alert.addAction(cancelAction)
+            alert.addAction(okAction)
+            
+            // 팝업메세지 출력
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        // withTimeInterval(초)만큼 팝업메세지 유지 후 사라지도록 설정
+        //Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false,
+        //                     block: { _ in alert.dismiss(animated: true, completion: nil)})
+    }
+    
     @objc private func doneButtonTapped(_ textField: UITextField) {
         self.view.endEditing(true)
     }
@@ -90,7 +126,7 @@ final class CalcViewController: UIViewController {
     @objc private func pickerSelected(_ sender: UIDatePicker) {
         let pickedDate = sender.date
         let pickedDateFormatter1 = DateFormatter()
-        pickedDateFormatter1.dateFormat = "yyyy년 MM월 dd일 (E)"
+        pickedDateFormatter1.dateFormat = "yyyy-MM-dd"
         pickedDateFormatter1.locale = Locale(identifier: "ko_KR")
         
         let pickedDateFormatter2 = DateFormatter()
@@ -113,6 +149,61 @@ final class CalcViewController: UIViewController {
             //print("endDateString: \(endDateString)")
         default:
             print(#function)
+        }
+    }
+    
+    @objc private func calcButtonTapped(_ button: UIButton) {
+        // 계산 버튼을 눌렀을 때
+        if button == calcView.calcStartButton {
+            if calcView.segmentedControl.selectedSegmentIndex == 0 {
+                if calcView.coinTypeTextField.text == "" {
+                    print("coinTypeTextField is empty!")
+                }
+                
+                if calcView.startDateTextField.text == "" {
+                    print("startDateTextField is empty!")
+                }
+                
+                if calcView.amountTextField.text == "" {
+                    print("amountTextField is empty!")
+                }
+            }
+            
+            if calcView.segmentedControl.selectedSegmentIndex == 1 {
+                if calcView.coinTypeTextField.text == "" {
+                    print("coinTypeTextField is empty!")
+                }
+                
+                if calcView.startDateTextField.text == "" {
+                    print("startDateTextField is empty!")
+                }
+                
+                if calcView.endDateTextField.text == "" {
+                    print("endDateTextField is empty!")
+                }
+                
+                if calcView.amountTextField.text == "" {
+                    print("amountTextField is empty!")
+                }
+                
+                if calcView.frequencyTextField.text == "" {
+                    print("frequencyTextField is empty!")
+                }
+                
+                // 매수 종료 날짜와 매수 시작 날짜의 차이(일) 구하기
+                let format = DateFormatter()
+                format.dateFormat = "yyyy-MM-dd"
+                guard let startTime = format.date(from: calcView.startDateTextField.text!) else { return }
+                guard let endTime = format.date(from: calcView.endDateTextField.text!) else { return }
+                let numberOfDaysAgo = endTime.timeIntervalSince(startTime) / Constant.Number.oneDayInSeconds
+                print( Int(numberOfDaysAgo) )
+            }
+            
+        }
+        
+        // 초기화 버튼을 눌렀을 때
+        if button == calcView.calcResetButton {
+            presentPopUpMessage(by: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 초기화 하시겠습니까?")
         }
     }
     
