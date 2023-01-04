@@ -43,9 +43,9 @@ final class NetworkManager {
                 return
             }
             
-            //if let response = response as? HTTPURLResponse {
-            //    print("[DEBUG] Response code \(response.statusCode)")
-            //}
+            if let response = response as? HTTPURLResponse {
+                print("[DEBUG] Response code \(response.statusCode)")
+            }
             
             // 네트워킹은 성공했으나 데이터를 담아오는데 문제가 있다면 에러를 가지고 종료
             guard let data = data else {

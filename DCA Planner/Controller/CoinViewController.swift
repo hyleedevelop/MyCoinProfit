@@ -75,16 +75,10 @@ final class CoinViewController: UIViewController {
         return activityIndicator
     }()
     
-    // 로딩 아이콘
-    private let indicatorContainer: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    // Timer 인스턴스 만들기
+    var apiTimer: Timer?
     
+    // TableView 인스턴스 만들기
     private let tableView = UITableView()
     
     // 데이터를 담을 그릇
@@ -100,26 +94,48 @@ final class CoinViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupData()
+        setupActivityIndicator()
         setupNavBar()
         setupView()
         setupButton()
         setupTableContainerView()
         setupTableView()
-        setupActivityIndicator()
+        
+        //loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 코인시세 탭 화면이 보여질 때마다 새로운 Timer 시작
+        loadData()
+        apiTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateData),
+                                        userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 코인시세 탭 화면에서 벗어나면 생성되어있던 Timer 종료
+        apiTimer?.invalidate()
+    }
+    
+    @objc private func updateData() {
+        loadData()
+        print("[\(Date())] 코인 데이터 업데이트 완료")
+        //apiTimer.invalidate()
     }
     
     // REST API를 이용해 서버에서 데이터 가져오기
-    private func setupData() {
+    private func loadData() {
+        tableView.backgroundColor = .clear
+        activityIndicator.startAnimating()
+        
         NetworkManager.shared.fetchCurrentPrice { [weak self] result in
             switch result {
             case .success(let coinData):
                 self?.coinArray = coinData
                 DispatchQueue.main.async {
-                    //self?.activityIndicator.startAnimating()
-                    //sleep(3)
                     self?.tableView.reloadData()
-                    //self?.activityIndicator.stopAnimating()
+                    self?.activityIndicator.stopAnimating()
                 }
             case .failure(.networkingError):
                 print("ERROR: networking")
@@ -129,6 +145,18 @@ final class CoinViewController: UIViewController {
                 print("ERROR: parse")
             }
         }
+    }
+    
+    // 로딩중임을 나타내는 Indicator 설정
+    private func setupActivityIndicator() {
+        tableView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
+        ])
     }
     
     // NavigationBar 설정
@@ -148,7 +176,7 @@ final class CoinViewController: UIViewController {
         navigationItem.compactAppearance = navigationBarAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
-        navigationItem.title = Constant.MenuSetting.menuName1
+        navigationItem.title = Constant.TitleSetting.menuName1
         navigationItem.searchController = searchController
         
         self.extendedLayoutIncludesOpaqueBars = true
@@ -227,26 +255,6 @@ final class CoinViewController: UIViewController {
         ])
     }
     
-    // 로딩중임을 나타내는 Indicator 설정
-    private func setupActivityIndicator() {
-        view.addSubview(indicatorContainer)
-        indicatorContainer.addSubview(activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            indicatorContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicatorContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            indicatorContainer.widthAnchor.constraint(equalToConstant: 80),
-            indicatorContainer.heightAnchor.constraint(equalToConstant: 80),
-        ])
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: indicatorContainer.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: indicatorContainer.centerYAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
-        ])
-    }
-    
     // SearchBar에서 검색한 단어로 필터링하여 TableView 표출
     private func filterContentForSearchText(searchText: String) {
         coinArrayFiltered = coinArray.filter { coin in
@@ -277,6 +285,8 @@ final class CoinViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.searchController.searchBar.endEditing(true)
     }
+    
+
     
     @objc private func helpButtonTapped() {
         // 도움말 VC 인스턴스 생성

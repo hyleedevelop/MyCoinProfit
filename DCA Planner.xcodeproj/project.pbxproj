@@ -17,7 +17,6 @@
 		079411262949E84700A4F632 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 079411242949E84700A4F632 /* Main.storyboard */; };
 		0794112B2949E84700A4F632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0794112A2949E84700A4F632 /* Assets.xcassets */; };
 		0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0794112C2949E84700A4F632 /* LaunchScreen.storyboard */; };
-		079411392949E9CB00A4F632 /* CalcListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079411382949E9CB00A4F632 /* CalcListViewController.swift */; };
 		0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113A2949E9D600A4F632 /* SettingViewController.swift */; };
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
@@ -35,6 +34,7 @@
 		07CF13C22962B8110099746F /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF13C12962B8110099746F /* PickerData.swift */; };
 		07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */; };
 		07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* PriceHistoryData.swift */; };
+		F066CDAB3E19ABDC8E9700EC /* Pods_DCA_Planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542BAE99B379E37BE69E6C20 /* Pods_DCA_Planner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,6 @@
 		0794112A2949E84700A4F632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0794112D2949E84700A4F632 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0794112F2949E84700A4F632 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		079411382949E9CB00A4F632 /* CalcListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcListViewController.swift; sourceTree = "<group>"; };
 		0794113A2949E9D600A4F632 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -67,6 +66,9 @@
 		07CF13C12962B8110099746F /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
 		07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceData.swift; sourceTree = "<group>"; };
 		07D3A582295C925C0079DB9E /* PriceHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryData.swift; sourceTree = "<group>"; };
+		45EF200006E2DF58D0472EE8 /* Pods-DCA Planner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DCA Planner.release.xcconfig"; path = "Target Support Files/Pods-DCA Planner/Pods-DCA Planner.release.xcconfig"; sourceTree = "<group>"; };
+		542BAE99B379E37BE69E6C20 /* Pods_DCA_Planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DCA_Planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7F9A1790BAFC3F1ABFC58C6 /* Pods-DCA Planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DCA Planner.debug.xcconfig"; path = "Target Support Files/Pods-DCA Planner/Pods-DCA Planner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				072807802957F08000CF65D9 /* Kingfisher in Frameworks */,
+				F066CDAB3E19ABDC8E9700EC /* Pods_DCA_Planner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,8 @@
 			children = (
 				0794111D2949E84700A4F632 /* DCA Planner */,
 				0794111C2949E84700A4F632 /* Products */,
+				EA3AFA3E622A601E42634B19 /* Pods */,
+				8850A8556DDC0043D8A6FA14 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,7 +138,6 @@
 				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
 				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
 				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
-				079411382949E9CB00A4F632 /* CalcListViewController.swift */,
 				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
 			);
@@ -172,6 +176,23 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		8850A8556DDC0043D8A6FA14 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				542BAE99B379E37BE69E6C20 /* Pods_DCA_Planner.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EA3AFA3E622A601E42634B19 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C7F9A1790BAFC3F1ABFC58C6 /* Pods-DCA Planner.debug.xcconfig */,
+				45EF200006E2DF58D0472EE8 /* Pods-DCA Planner.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -179,9 +200,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 079411322949E84700A4F632 /* Build configuration list for PBXNativeTarget "DCA Planner" */;
 			buildPhases = (
+				FB49E85A9F3374FFC624A52C /* [CP] Check Pods Manifest.lock */,
 				079411172949E84700A4F632 /* Sources */,
 				079411182949E84700A4F632 /* Frameworks */,
 				079411192949E84700A4F632 /* Resources */,
+				DD9CDDA1353BAC1814E135B3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -244,6 +267,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DD9CDDA1353BAC1814E135B3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DCA Planner/Pods-DCA Planner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DCA Planner/Pods-DCA Planner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DCA Planner/Pods-DCA Planner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB49E85A9F3374FFC624A52C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DCA Planner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		079411172949E84700A4F632 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -256,7 +321,6 @@
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
 				07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
-				079411392949E9CB00A4F632 /* CalcListViewController.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
@@ -414,6 +478,7 @@
 		};
 		079411332949E84700A4F632 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7F9A1790BAFC3F1ABFC58C6 /* Pods-DCA Planner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -448,6 +513,7 @@
 		};
 		079411342949E84700A4F632 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45EF200006E2DF58D0472EE8 /* Pods-DCA Planner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

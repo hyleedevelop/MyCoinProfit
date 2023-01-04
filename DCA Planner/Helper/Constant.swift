@@ -34,10 +34,12 @@ struct Constant {
         static let oneDayInSeconds: Double = 86400.0
     }
     
-    struct MenuSetting {
+    struct TitleSetting {
         static let menuName1: String = "코인시세"
         static let menuName2: String = "수익계산"
         static let menuName3: String = "설정"
+        static let calcStartButtonName: String = "계산하기"
+        static let calcResetButtonName: String = "모두 지우기"
     }
         
     struct AnimationSetting {

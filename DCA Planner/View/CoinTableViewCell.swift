@@ -112,6 +112,11 @@ final class CoinTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+    }
+    
     // 하위 뷰로 등록
     private func registerUI() {
         self.addSubview(cellSV)

@@ -21,7 +21,7 @@ final class CalcViewController: UIViewController {
 
         setupNavBar()
         setupView()
-        setupTextField()
+        //setupToolBar()
         setupPickerView()
         setupButton()
     }
@@ -50,7 +50,7 @@ final class CalcViewController: UIViewController {
         navigationItem.leftBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
-        navigationItem.title = Constant.MenuSetting.menuName2
+        navigationItem.title = Constant.TitleSetting.menuName2
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
@@ -64,14 +64,14 @@ final class CalcViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    private func setupTextField() {
+    private func setupToolBar() {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
         let toolBarFlexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolBarDoneButton = UIBarButtonItem(title: "닫기", style: .done, target: nil, action: #selector(doneButtonTapped(_:)))
         toolBar.sizeToFit()
         toolBar.setItems([toolBarFlexibleSpace, toolBarDoneButton], animated: true)
         
-        _ = [calcView.coinTypeTextField, calcView.startDateTextField, calcView.endDateTextField, calcView.amountTextField, calcView.frequencyTextField].map { $0.inputAccessoryView = toolBar }
+        _ = [calcView.coinTypeTextField, calcView.buyStartDateTextField, calcView.buyEndDateTextField, calcView.sellDateTextField, calcView.amountTextField, calcView.frequencyTextField].map { $0.inputAccessoryView = toolBar }
     }
     
     private func setupPickerView() {
@@ -79,8 +79,9 @@ final class CalcViewController: UIViewController {
         _ = [calcView.coinTypePicker, calcView.frequencyPicker].map { $0.delegate = self }
     
         calcView.coinTypeTextField.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
-        calcView.startDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
-        calcView.endDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.buyStartDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.buyEndDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
+        calcView.sellDatePicker.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
         calcView.frequencyTextField.addTarget(self, action: #selector(pickerSelected(_:)), for: .valueChanged)
     }
     
@@ -89,28 +90,38 @@ final class CalcViewController: UIViewController {
         calcView.calcResetButton.addTarget(self, action: #selector(calcButtonTapped(_:)), for: .touchUpInside)
     }
     
-    private func presentPopUpMessage(by button: UIButton, title titleString: String, message messageString: String) {
+    private func presentPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?) {
         if button == calcView.calcStartButton {
+            // AlertController, AlertAction 생성
+            let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
             
+            // 특정 TextField의 내용이 제대로 입력되지 않은 경우, 확인 버튼을 누르면 해당 TextField가 활성화되도록 설정
+            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                guard let tf = textField else { return }
+                tf.becomeFirstResponder()
+            }
+            
+            // 액션 추가 및 팝업메세지 출력
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
         }
 
         if button == calcView.calcResetButton {
-            // AlertController 생성
+            // AlertController, AlertAction 생성
             let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-            let okAction = UIAlertAction(title: "확인", style: .destructive) { action in
+            let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
                 self.calcView.coinTypeTextField.text = ""
-                self.calcView.startDateTextField.text = ""
-                self.calcView.endDateTextField.text = ""
+                self.calcView.buyStartDateTextField.text = ""
+                self.calcView.buyEndDateTextField.text = ""
+                self.calcView.sellDateTextField.text = ""
                 self.calcView.amountTextField.text = ""
                 self.calcView.frequencyTextField.text = ""
             }
             
-            // 액션 추가
+            // 액션 추가 및 팝업메세지 출력
             alert.addAction(cancelAction)
             alert.addAction(okAction)
-            
-            // 팝업메세지 출력
             self.present(alert, animated: true, completion: nil)
         }
         
@@ -134,17 +145,22 @@ final class CalcViewController: UIViewController {
         
         switch sender {
         case calcView.coinTypePicker:
-            calcView.startDateTextField.textColor = .label
-            calcView.startDateTextField.text = self.coinTypeString
+            calcView.buyStartDateTextField.textColor = .label
+            calcView.buyStartDateTextField.text = self.coinTypeString
             //print("coinTypeString: \(coinTypeString)")
-        case calcView.startDatePicker:
-            calcView.startDateTextField.textColor = .label
-            calcView.startDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
+        case calcView.buyStartDatePicker:
+            calcView.buyStartDateTextField.textColor = .label
+            calcView.buyStartDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
             //self.startDateString = pickedDateFormatter2.string(from: pickedDate)
             //print("startDateString: \(startDateString)")
-        case calcView.endDatePicker:
-            calcView.endDateTextField.textColor = .label
-            calcView.endDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
+        case calcView.buyEndDatePicker:
+            calcView.buyEndDateTextField.textColor = .label
+            calcView.buyEndDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
+            //self.endDateString = pickedDateFormatter2.string(from: pickedDate)
+            //print("endDateString: \(endDateString)")
+        case calcView.sellDatePicker:
+            calcView.sellDateTextField.textColor = .label
+            calcView.sellDateTextField.text = pickedDateFormatter1.string(from: pickedDate)
             //self.endDateString = pickedDateFormatter2.string(from: pickedDate)
             //print("endDateString: \(endDateString)")
         default:
@@ -153,57 +169,86 @@ final class CalcViewController: UIViewController {
     }
     
     @objc private func calcButtonTapped(_ button: UIButton) {
-        // 계산 버튼을 눌렀을 때
+        // (1) 계산 버튼을 눌렀을 때
         if button == calcView.calcStartButton {
             if calcView.segmentedControl.selectedSegmentIndex == 0 {
                 if calcView.coinTypeTextField.text == "" {
-                    print("coinTypeTextField is empty!")
-                }
-                
-                if calcView.startDateTextField.text == "" {
-                    print("startDateTextField is empty!")
-                }
-                
-                if calcView.amountTextField.text == "" {
-                    print("amountTextField is empty!")
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
+                                        responder: calcView.coinTypeTextField)
+                    return
+                } else if calcView.buyStartDateTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
+                                        responder: calcView.buyStartDateTextField)
+                    return
+                } else if calcView.sellDateTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.sellDateLabel.text!)를 선택하세요",
+                                        responder: calcView.sellDateTextField)
+                    return
+                } else if calcView.amountTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.amountLabel.text!)를 입력하세요",
+                                        responder: calcView.amountTextField)
+                    return
                 }
             }
-            
+                
             if calcView.segmentedControl.selectedSegmentIndex == 1 {
                 if calcView.coinTypeTextField.text == "" {
-                    print("coinTypeTextField is empty!")
-                }
-                
-                if calcView.startDateTextField.text == "" {
-                    print("startDateTextField is empty!")
-                }
-                
-                if calcView.endDateTextField.text == "" {
-                    print("endDateTextField is empty!")
-                }
-                
-                if calcView.amountTextField.text == "" {
-                    print("amountTextField is empty!")
-                }
-                
-                if calcView.frequencyTextField.text == "" {
-                    print("frequencyTextField is empty!")
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
+                                        responder: calcView.coinTypeTextField)
+                    return
+                } else if calcView.buyStartDateTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
+                                        responder: calcView.buyStartDateTextField)
+                    return
+                } else if calcView.buyEndDateTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.buyEndDateLabel.text!)를 선택하세요",
+                                        responder: calcView.buyEndDateTextField)
+                    return
+                } else if calcView.sellDateTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.sellDateLabel.text!)를 선택하세요",
+                                        responder: calcView.sellDateTextField)
+                    return
+                } else if calcView.amountTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.amountLabel.text!)를 입력하세요",
+                                        responder: calcView.amountTextField)
+                    return
+                } else if calcView.frequencyTextField.text == "" {
+                    presentPopUpMessage(with: button, title: "오류",
+                                        message: "\(calcView.frequencyLabel.text!)를 선택하세요",
+                                        responder: calcView.frequencyTextField)
+                    return
                 }
                 
                 // 매수 종료 날짜와 매수 시작 날짜의 차이(일) 구하기
-                let format = DateFormatter()
-                format.dateFormat = "yyyy-MM-dd"
-                guard let startTime = format.date(from: calcView.startDateTextField.text!) else { return }
-                guard let endTime = format.date(from: calcView.endDateTextField.text!) else { return }
-                let numberOfDaysAgo = endTime.timeIntervalSince(startTime) / Constant.Number.oneDayInSeconds
-                print( Int(numberOfDaysAgo) )
+                // -> API 파라미터로
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                guard let startTime = formatter.date(from: calcView.buyStartDateTextField.text!) else { return }
+                guard let endTime = formatter.date(from: calcView.sellDateTextField.text!) else { return }
+                
+                let currentTime = formatter.string(from: Date())
+                print(currentTime)
+                
+                let numberOfDaysFromSellTime = endTime.timeIntervalSince(startTime) / Constant.Number.oneDayInSeconds
+                //let numberOfDaysFromCurrentTime =
+                print( Int(numberOfDaysFromSellTime) )
             }
             
+            calcView.presentLoadingIndicator()
         }
         
-        // 초기화 버튼을 눌렀을 때
+        // (2) 초기화 버튼을 눌렀을 때
         if button == calcView.calcResetButton {
-            presentPopUpMessage(by: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 초기화 하시겠습니까?")
+            presentPopUpMessage(with: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 초기화 하시겠습니까?", responder: nil)
         }
     }
     

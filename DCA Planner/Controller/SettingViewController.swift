@@ -45,7 +45,7 @@ final class SettingViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.backgroundColor = .white
-        navigationItem.title = Constant.MenuSetting.menuName3
+        navigationItem.title = Constant.TitleSetting.menuName3
     }
 
 //    private func setupReferenceLabel() {
