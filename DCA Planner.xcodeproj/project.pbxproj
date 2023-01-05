@@ -135,11 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
-				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
-				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
-				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
-				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
-				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
+				07AF263229670BA700FB5D3F /* Tab1 */,
+				07AF263329670BC500FB5D3F /* Tab2 */,
+				07AF263429670BCA00FB5D3F /* Tab3 */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -147,9 +145,9 @@
 		079411362949E86200A4F632 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
-				079DBFF6295DB53A0063625F /* CalcView.swift */,
-				07941149294A19C800A4F632 /* SettingView.swift */,
+				07AF263529670C1800FB5D3F /* Tab1 */,
+				07AF263629670C1E00FB5D3F /* Tab2 */,
+				07AF263729670C2F00FB5D3F /* Tab3 */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,6 +172,56 @@
 				07C616EF294AB0ED00F057BE /* CoreDataManager.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		07AF263229670BA700FB5D3F /* Tab1 */ = {
+			isa = PBXGroup;
+			children = (
+				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
+				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
+			);
+			path = Tab1;
+			sourceTree = "<group>";
+		};
+		07AF263329670BC500FB5D3F /* Tab2 */ = {
+			isa = PBXGroup;
+			children = (
+				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
+				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
+			);
+			path = Tab2;
+			sourceTree = "<group>";
+		};
+		07AF263429670BCA00FB5D3F /* Tab3 */ = {
+			isa = PBXGroup;
+			children = (
+				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
+			);
+			path = Tab3;
+			sourceTree = "<group>";
+		};
+		07AF263529670C1800FB5D3F /* Tab1 */ = {
+			isa = PBXGroup;
+			children = (
+				079DBFF6295DB53A0063625F /* CalcView.swift */,
+			);
+			path = Tab1;
+			sourceTree = "<group>";
+		};
+		07AF263629670C1E00FB5D3F /* Tab2 */ = {
+			isa = PBXGroup;
+			children = (
+				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
+			);
+			path = Tab2;
+			sourceTree = "<group>";
+		};
+		07AF263729670C2F00FB5D3F /* Tab3 */ = {
+			isa = PBXGroup;
+			children = (
+				07941149294A19C800A4F632 /* SettingView.swift */,
+			);
+			path = Tab3;
 			sourceTree = "<group>";
 		};
 		8850A8556DDC0043D8A6FA14 /* Frameworks */ = {

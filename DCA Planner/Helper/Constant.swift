@@ -28,6 +28,7 @@ struct Constant {
     
     struct SizeSetting {
         static let bottomLineWidth: CGFloat = 1.0
+        static let calcButtonWidthAnchorConstant: CGFloat = -20
     }
     
     struct Number {
@@ -39,7 +40,7 @@ struct Constant {
         static let menuName2: String = "수익계산"
         static let menuName3: String = "설정"
         static let calcStartButtonName: String = "계산하기"
-        static let calcResetButtonName: String = "모두 지우기"
+        static let calcResetButtonName: String = "지우기"
     }
         
     struct AnimationSetting {

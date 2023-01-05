@@ -129,13 +129,15 @@ final class CoinViewController: UIViewController {
         tableView.backgroundColor = .clear
         activityIndicator.startAnimating()
         
+        // 강한 참조가 일어나지 않도록 [weak self]를 사용하여 구현
         NetworkManager.shared.fetchCurrentPrice { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let coinData):
-                self?.coinArray = coinData
+                self.coinArray = coinData
                 DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                    self?.activityIndicator.stopAnimating()
+                    self.tableView.reloadData()
+                    self.activityIndicator.stopAnimating()
                 }
             case .failure(.networkingError):
                 print("ERROR: networking")

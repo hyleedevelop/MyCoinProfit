@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ShimmerSwift
 
 final class CalcView: UIView {
     
@@ -363,7 +364,7 @@ final class CalcView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.themeColor
@@ -371,12 +372,23 @@ final class CalcView: UIView {
         return button
     }()
     
+    let shimmerView: ShimmeringView = {
+        let shimmer = ShimmeringView()
+        shimmer.isShimmering = true
+        shimmer.shimmerSpeed = 150
+        shimmer.shimmerPauseDuration = 5
+        shimmer.shimmerHighlightLength = 0.8
+        shimmer.shimmerAnimationOpacity = 0.7
+        shimmer.shimmerDirection = .left
+        return shimmer
+    }()
+    
     let calcResetButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
         button.setTitleColor(.label, for: .normal)
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
@@ -384,7 +396,7 @@ final class CalcView: UIView {
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [calcStartButton, calcResetButton])
+        let sv = UIStackView(arrangedSubviews: [shimmerView, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 20
         sv.axis = .horizontal
@@ -453,6 +465,7 @@ final class CalcView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        setupShimmerView()
         setupSegmentedControl()
         setupScrollView()
         setupFinalStackView()
@@ -465,6 +478,11 @@ final class CalcView: UIView {
     }
     
     //MARK: - 하위 뷰 등록 및 제약조건 설정
+    
+    private func setupShimmerView() {
+        self.addSubview(shimmerView)
+        shimmerView.contentView = calcStartButton
+    }
     
     private func setupSegmentedControl() {
         self.addSubview(segmentedControl)

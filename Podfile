@@ -7,5 +7,6 @@ target 'DCA Planner' do
 
   # Pods for DCA Planner
   pod 'IQKeyboardManagerSwift', '6.5.10'
+  pod 'ShimmerSwift'
 
 end
