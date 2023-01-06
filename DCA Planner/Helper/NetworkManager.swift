@@ -72,7 +72,7 @@ final class NetworkManager {
     }
     
     //MARK: - Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
-    func fetchPriceHistory(with coinType: String, howManyDays numberOfDays: Int, completion: @escaping (Result<[[Double]], NetworkError>) -> Void) {
+    func fetchPriceHistory(with coinType: String, howManyDays numberOfDays: Int, completion: @escaping (Result<[String: [[Double]]], NetworkError>) -> Void) {
         
         /*
          https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
@@ -110,7 +110,7 @@ final class NetworkManager {
             
             // JSON parsing
             do {
-                let historyInfo = try JSONDecoder().decode(PriceHistoryData.self, from: data).prices
+                let historyInfo = try JSONDecoder().decode([String: [[Double]]].self, from: data)
                 
                 //print("[DEBUG]: Coins \(historyInfo)")
                 completion(.success(historyInfo))
@@ -124,57 +124,5 @@ final class NetworkManager {
         // 3) 네트워킹 작업 시작
         task.resume()
     }
-    
-    //MARK: - ExchangeRate API에서 환율(USD-KRW) 데이터 가져오기
-//    func fetchCurrentCurrency(completion: @escaping (Result<[String: Rate], NetworkError>) -> Void) {
-//
-//        /*
-//         https://v6.exchangerate-api.com/v6/68f93027ced1e80c1f32336a/latest/USD
-//         */
-//
-//        // 1) URL 설정
-//        let baseURL = "https://v6.exchangerate-api.com/v6/"
-//        let APIKeyURL = "68f93027ced1e80c1f32336a/"
-//        let parameterURL = "latest/USD"
-//        guard let url = URL(string: baseURL + APIKeyURL + parameterURL) else { return }
-//
-//        // 2) 네트워킹을 위한 작업 설정
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            // 어떤 에러가 존재한다면 네트워킹 에러를 가지고 종료
-//            if let error = error {
-//                print("[DEBUG] Error \(error.localizedDescription)")
-//                completion(.failure(.networkingError))
-//                return
-//            }
-//
-//            //if let response = response as? HTTPURLResponse {
-//            //    print("[DEBUG] Response code \(response.statusCode)")
-//            //}
-//
-//            // 네트워킹은 성공했으나 데이터를 담아오는데 문제가 있다면 에러를 가지고 종료
-//            guard let data = data else {
-//                completion(.failure(.dataError))
-//                return
-//            }
-//            //let dataAsString = String(data: data, encoding: .utf8)
-//            //print("[DEBUG] Data \(dataAsString ?? "does not exist!")")
-//
-//            // JSON parsing
-//            do {
-//                let currencyInfo = try JSONDecoder().decode(CurrencyData.self, from: data).rates
-//
-//                //print("[DEBUG]: Coins \(currencyInfo)")
-//                completion(.success(currencyInfo))
-//            } catch {
-//                print("[DEBUG] Failed to decode with error: \(error)")
-//                completion(.failure(.parseError))
-//            }
-//
-//        }
-//
-//        // 3) 네트워킹 작업 시작
-//        task.resume()
-//    }
-    
     
 }

@@ -248,7 +248,7 @@ final class CalcViewController: UIViewController {
         
         // (2) 초기화 버튼을 눌렀을 때
         if button == calcView.calcResetButton {
-            presentPopUpMessage(with: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 지우시겠습니까?", responder: nil)
+            presentPopUpMessage(with: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 초기화 하시겠습니까?", responder: nil)
         }
     }
     

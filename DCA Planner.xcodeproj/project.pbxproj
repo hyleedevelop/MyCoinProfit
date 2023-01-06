@@ -10,6 +10,7 @@
 		072807802957F08000CF65D9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0728077F2957F08000CF65D9 /* Kingfisher */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
+		078478802968486800C87C1C /* CalcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784787F2968486800C87C1C /* CalcManager.swift */; };
 		0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */; };
 		0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794111E2949E84700A4F632 /* AppDelegate.swift */; };
 		079411212949E84700A4F632 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079411202949E84700A4F632 /* SceneDelegate.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0784787F2968486800C87C1C /* CalcManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcManager.swift; sourceTree = "<group>"; };
 		0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinHelpModalViewController.swift; sourceTree = "<group>"; };
 		0794111B2949E84700A4F632 /* DCA Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0794111E2949E84700A4F632 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,26 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		0784787D2968481100C87C1C /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				0784787F2968486800C87C1C /* CalcManager.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		0784787E2968481900C87C1C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
+				07D3A582295C925C0079DB9E /* PriceHistoryData.swift */,
+				07CF13C12962B8110099746F /* PickerData.swift */,
+				07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */,
+				07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		079411122949E84700A4F632 = {
 			isa = PBXGroup;
 			children = (
@@ -135,9 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
-				07AF263229670BA700FB5D3F /* Tab1 */,
-				07AF263329670BC500FB5D3F /* Tab2 */,
-				07AF263429670BCA00FB5D3F /* Tab3 */,
+				07AF263229670BA700FB5D3F /* Tab0 */,
+				07AF263329670BC500FB5D3F /* Tab1 */,
+				07AF263429670BCA00FB5D3F /* Tab2 */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -145,9 +167,9 @@
 		079411362949E86200A4F632 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07AF263529670C1800FB5D3F /* Tab1 */,
-				07AF263629670C1E00FB5D3F /* Tab2 */,
-				07AF263729670C2F00FB5D3F /* Tab3 */,
+				07AF263529670C1800FB5D3F /* Tab0 */,
+				07AF263629670C1E00FB5D3F /* Tab1 */,
+				07AF263729670C2F00FB5D3F /* Tab2 */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,11 +177,8 @@
 		079411372949E86500A4F632 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
-				07D3A582295C925C0079DB9E /* PriceHistoryData.swift */,
-				07CF13C12962B8110099746F /* PickerData.swift */,
-				07BC84E5295946F8003776D7 /* CurrentCurrencyData.swift */,
-				07941141294A0F9000A4F632 /* DCA Planner.xcdatamodeld */,
+				0784787E2968481900C87C1C /* Data */,
+				0784787D2968481100C87C1C /* Logic */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,54 +193,54 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		07AF263229670BA700FB5D3F /* Tab1 */ = {
+		07AF263229670BA700FB5D3F /* Tab0 */ = {
 			isa = PBXGroup;
 			children = (
 				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
 				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
+				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
+			);
+			path = Tab0;
+			sourceTree = "<group>";
+		};
+		07AF263329670BC500FB5D3F /* Tab1 */ = {
+			isa = PBXGroup;
+			children = (
+				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
 			);
 			path = Tab1;
 			sourceTree = "<group>";
 		};
-		07AF263329670BC500FB5D3F /* Tab2 */ = {
-			isa = PBXGroup;
-			children = (
-				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
-				079DBFF2295DA7310063625F /* BookmarkViewController.swift */,
-			);
-			path = Tab2;
-			sourceTree = "<group>";
-		};
-		07AF263429670BCA00FB5D3F /* Tab3 */ = {
+		07AF263429670BCA00FB5D3F /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
 			);
-			path = Tab3;
+			path = Tab2;
 			sourceTree = "<group>";
 		};
-		07AF263529670C1800FB5D3F /* Tab1 */ = {
+		07AF263529670C1800FB5D3F /* Tab0 */ = {
 			isa = PBXGroup;
 			children = (
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
 			);
-			path = Tab1;
+			path = Tab0;
 			sourceTree = "<group>";
 		};
-		07AF263629670C1E00FB5D3F /* Tab2 */ = {
+		07AF263629670C1E00FB5D3F /* Tab1 */ = {
 			isa = PBXGroup;
 			children = (
 				07C616EB294AAD4B00F057BE /* CoinTableViewCell.swift */,
 			);
-			path = Tab2;
+			path = Tab1;
 			sourceTree = "<group>";
 		};
-		07AF263729670C2F00FB5D3F /* Tab3 */ = {
+		07AF263729670C2F00FB5D3F /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
 				07941149294A19C800A4F632 /* SettingView.swift */,
 			);
-			path = Tab3;
+			path = Tab2;
 			sourceTree = "<group>";
 		};
 		8850A8556DDC0043D8A6FA14 /* Frameworks */ = {
@@ -364,6 +383,7 @@
 			files = (
 				079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */,
 				07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */,
+				078478802968486800C87C1C /* CalcManager.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07C616F4294AC5B000F057BE /* SearchViewController.swift in Sources */,
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,

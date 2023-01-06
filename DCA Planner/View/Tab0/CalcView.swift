@@ -398,7 +398,7 @@ final class CalcView: UIView {
     private lazy var buttonStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [shimmerView, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 20
+        sv.spacing = 30
         sv.axis = .horizontal
         sv.distribution = .fillEqually
         sv.alignment = .fill
@@ -465,6 +465,7 @@ final class CalcView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+
         setupShimmerView()
         setupSegmentedControl()
         setupScrollView()
@@ -479,11 +480,13 @@ final class CalcView: UIView {
     
     //MARK: - 하위 뷰 등록 및 제약조건 설정
     
+    // 반짝이는 효과를 나타내는 ShimmerView를 calcStartButton에 씌우기
     private func setupShimmerView() {
         self.addSubview(shimmerView)
         shimmerView.contentView = calcStartButton
     }
     
+    // SegmentedControl 설정
     private func setupSegmentedControl() {
         self.addSubview(segmentedControl)
         
@@ -495,6 +498,7 @@ final class CalcView: UIView {
         ])
     }
     
+    // 화면을 위아래로 움직을 수 있는 ScrollView 설정
     private func setupScrollView() {
         self.addSubview(scrollView)
         
@@ -527,6 +531,26 @@ final class CalcView: UIView {
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
     }
     
+    // 로딩중임을 나타내는 Indicator 설정
+    private func setupActivityIndicator() {
+        self.addSubview(indicatorContainer)
+        indicatorContainer.addSubview(activityIndicator)
+        self.bringSubviewToFront(indicatorContainer)
+        
+        NSLayoutConstraint.activate([
+            indicatorContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            indicatorContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            indicatorContainer.widthAnchor.constraint(equalToConstant: 80),
+            indicatorContainer.heightAnchor.constraint(equalToConstant: 80),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: indicatorContainer.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: indicatorContainer.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
+        ])
+    }
+    
+    // 일괄매수 segment를 선택했을 때의 FinalStackView
     private func setupFirstFinalStackView() {
         _ = [buyEndDateStackView, frequencyStackView].map { $0.removeFromSuperview() }
         
@@ -544,6 +568,7 @@ final class CalcView: UIView {
         resetTextField()
     }
     
+    // 분할매수 segment를 선택했을 때의 FinalStackView
     private func setupSecondFianlStackView() {
         _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, sellDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
@@ -565,25 +590,6 @@ final class CalcView: UIView {
     private func resetTextField() {
         amountTextField.text = ""
         frequencyTextField.text = ""
-    }
-    
-    // 로딩중임을 나타내는 Indicator 설정
-    private func setupActivityIndicator() {
-        self.addSubview(indicatorContainer)
-        indicatorContainer.addSubview(activityIndicator)
-        self.bringSubviewToFront(indicatorContainer)
-        
-        NSLayoutConstraint.activate([
-            indicatorContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            indicatorContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            indicatorContainer.widthAnchor.constraint(equalToConstant: 80),
-            indicatorContainer.heightAnchor.constraint(equalToConstant: 80),
-
-            activityIndicator.centerXAnchor.constraint(equalTo: indicatorContainer.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: indicatorContainer.centerYAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
-        ])
     }
     
     // 로딩중임을 나타내는 Indicator 표시
