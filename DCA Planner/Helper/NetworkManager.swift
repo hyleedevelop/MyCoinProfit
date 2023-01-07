@@ -72,7 +72,7 @@ final class NetworkManager {
     }
     
     //MARK: - Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
-    func fetchPriceHistory(with coinType: String, howManyDays numberOfDays: Int, completion: @escaping (Result<[String: [[Double]]], NetworkError>) -> Void) {
+    func fetchPriceHistory(with coinType: String, duration numberOfDays: Int, completion: @escaping (Result<[String: [[Double]]], NetworkError>) -> Void) {
         
         /*
          https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
