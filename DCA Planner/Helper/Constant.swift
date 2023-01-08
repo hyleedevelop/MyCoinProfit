@@ -27,7 +27,8 @@ struct Constant {
     }
     
     struct SizeSetting {
-        static let bottomLineWidth: CGFloat = 1.0
+        static let bottomLineHeightAnchorConstant: CGFloat = 1.0
+        static let bottomLineWidthAnchorConstant: CGFloat = -100
         static let calcButtonWidthAnchorConstant: CGFloat = -20
     }
     

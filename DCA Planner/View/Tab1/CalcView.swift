@@ -68,7 +68,7 @@ final class CalcView: UIView {
     private lazy var coinTypeStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeTextField, coinTypeBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 7
+        sv.spacing = 8
         sv.axis = .vertical
         sv.distribution = .fill
         sv.alignment = .fill
@@ -364,7 +364,7 @@ final class CalcView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.themeColor
@@ -372,7 +372,7 @@ final class CalcView: UIView {
         return button
     }()
     
-    let shimmerButton: ShimmeringView = {
+    let shimmerView: ShimmeringView = {
         let shimmer = ShimmeringView()
         shimmer.isShimmering = true
         shimmer.shimmerSpeed = 150
@@ -388,7 +388,7 @@ final class CalcView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 16
         button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
         button.setTitleColor(.label, for: .normal)
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
@@ -396,7 +396,7 @@ final class CalcView: UIView {
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [shimmerButton, calcResetButton])
+        let sv = UIStackView(arrangedSubviews: [shimmerView, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 30
         sv.axis = .horizontal
@@ -438,7 +438,7 @@ final class CalcView: UIView {
     }()
     
     // 로딩 아이콘
-    let activityIndicator: UIActivityIndicatorView = {
+    private let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.color = Constant.UIColorSetting.themeColor
@@ -448,11 +448,23 @@ final class CalcView: UIView {
         return activityIndicator
     }()
     
+    // 로딩 아이콘
+    private let indicatorContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        view.layer.opacity = 1.0
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     //MARK: - 생성자
     
     // UIView 초기생성자
     override init(frame: CGRect) {
         super.init(frame: frame)
+
 
         setupShimmerView()
         setupSegmentedControl()
@@ -470,21 +482,23 @@ final class CalcView: UIView {
     
     // 반짝이는 효과를 나타내는 ShimmerView를 calcStartButton에 씌우기
     private func setupShimmerView() {
-        self.addSubview(shimmerButton)
-        shimmerButton.contentView = calcStartButton
+        self.addSubview(shimmerView)
+        shimmerView.contentView = calcStartButton
     }
     
+    // SegmentedControl 설정
     private func setupSegmentedControl() {
         self.addSubview(segmentedControl)
         
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 70),
+            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -70),
             segmentedControl.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
     
+    // 화면을 위아래로 움직을 수 있는 ScrollView 설정
     private func setupScrollView() {
         self.addSubview(scrollView)
         
@@ -503,8 +517,8 @@ final class CalcView: UIView {
         scrollView.addSubview(finalStackView)
         
         NSLayoutConstraint.activate([
-            finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 50),
-            finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -50),
+            finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 40),
+            finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -40),
             finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 30),
             finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -30),
             
@@ -513,10 +527,30 @@ final class CalcView: UIView {
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -80).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
     }
     
+    // 로딩중임을 나타내는 Indicator 설정
+    private func setupActivityIndicator() {
+        self.addSubview(indicatorContainer)
+        indicatorContainer.addSubview(activityIndicator)
+        self.bringSubviewToFront(indicatorContainer)
+        
+        NSLayoutConstraint.activate([
+            indicatorContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            indicatorContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            indicatorContainer.widthAnchor.constraint(equalToConstant: 80),
+            indicatorContainer.heightAnchor.constraint(equalToConstant: 80),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: indicatorContainer.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: indicatorContainer.centerYAnchor),
+            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
+            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
+        ])
+    }
+    
+    // 일괄매수 segment를 선택했을 때의 FinalStackView
     private func setupFirstFinalStackView() {
         _ = [buyEndDateStackView, frequencyStackView].map { $0.removeFromSuperview() }
         
@@ -526,14 +560,15 @@ final class CalcView: UIView {
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -80).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
         
         buyStartDateLabel.text = "매수 날짜"
         amountLabel.text = "총 매수 금액(달러)"
         resetTextField()
     }
     
+    // 분할매수 segment를 선택했을 때의 FinalStackView
     private func setupSecondFianlStackView() {
         _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, sellDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
@@ -543,8 +578,8 @@ final class CalcView: UIView {
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -80).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineWidth).isActive = true }
         
         buyStartDateLabel.text = "매수 시작 날짜"
         amountLabel.text = "매 회차 매수 금액(달러)"
@@ -557,27 +592,17 @@ final class CalcView: UIView {
         frequencyTextField.text = ""
     }
     
-    // 로딩중임을 나타내는 Indicator 설정
-    private func setupActivityIndicator() {
-        self.addSubview(activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            activityIndicator.widthAnchor.constraint(equalToConstant: 50),
-            activityIndicator.heightAnchor.constraint(equalToConstant: 50),
-        ])
-    }
-    
     // 로딩중임을 나타내는 Indicator 표시
     func presentLoadingIndicator() {
         if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
-            //calcStartButton.backgroundColor = Constant.UIColorSetting.themeColor
+            calcStartButton.backgroundColor = Constant.UIColorSetting.themeColor
+            indicatorContainer.backgroundColor = .clear
         }
         else {
             self.activityIndicator.startAnimating()
-            //calcStartButton.backgroundColor = .red
+            calcStartButton.backgroundColor = .red
+            indicatorContainer.backgroundColor = .clear
         }
     }
     

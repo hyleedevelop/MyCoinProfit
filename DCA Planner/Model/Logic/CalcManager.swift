@@ -46,13 +46,13 @@ final class CalcManager {
         var dateInterval: Double = 0.0
         // startTime부터 endTime까지의 시간 간격을 86400(초)로 나누어 일 단위로 변환
         dateInterval = endTime!.timeIntervalSince(startTime!) / Constant.Number.oneDayInSeconds
-        dateInterval += 1
+        //dateInterval += 1
         return Int(dateInterval)
     }
     
     // ROI(Rate On Investment: 투자이익률), Balance(평가금), Profit(수익금) 계산
     // 계산 후 달러나 퍼센트 형식의 문자열로 변환 후 반환
-    func calculateROI(segment segmentIndex: Int, with historyDict: [String: [[Double]]],
+    func calculateROI(segment segmentIndex: Int, with historyDict: [String: [[Double?]]],
                       amount amountInvested: Double, start buyStartDate: String, end sellDate: String,
                       completion: @escaping ((Double, Double, Double, Double)) -> Void) {
         
@@ -62,9 +62,9 @@ final class CalcManager {
         // API에서 받아온 배열을 새로운 형태의 배열에 넣는 과정
         // 받아온 배열의 구조상 가장 마지막 인덱스의 값의 날짜가 직전 날짜와 중복되므로 for문 반복횟수 -1
         for i in 0..<historyDict["prices"]!.count-1 {
-            let historyDate = convertUnixTimestampToDate(from: historyDict["prices"]![i][0])
+            let historyDate = convertUnixTimestampToDate(from: historyDict["prices"]![i][0] ?? 0.0)
             historyTimeArray.append(historyDate)
-            historyPriceArray.append(historyDict["prices"]![i][1])
+            historyPriceArray.append(historyDict["prices"]![i][1] ?? 0.0)
         }
         
         guard let buyTimeIndex = historyTimeArray.firstIndex(of: buyStartDate) else { return }

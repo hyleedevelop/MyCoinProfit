@@ -9,12 +9,12 @@ import Foundation
 
 //MARK: - PriceHistoryData
 struct PriceHistoryData: Codable {
-    let prices, marketCaps, totalVolumes: [[Double?]]
+    let prices: [[Double]]
     //let marketCaps, totalVolumes: [[Double]]
 
     enum CodingKeys: String, CodingKey {
         case prices
-        case marketCaps = "market_caps"
-        case totalVolumes = "total_volumes"
+        //case marketCaps = "market_caps"
+        //case totalVolumes = "total_volumes"
     }
 }
