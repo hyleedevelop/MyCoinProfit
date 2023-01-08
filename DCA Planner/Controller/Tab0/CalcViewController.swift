@@ -88,8 +88,8 @@ final class CalcViewController: UIViewController {
     }
     
     private func setupButton() {
-        calcView.calcStartButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        calcView.calcResetButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
+        calcView.calcResetButton.addTarget(self, action: #selector(calcResetButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func presentPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?) {
@@ -137,21 +137,26 @@ final class CalcViewController: UIViewController {
         var messageString: String = ""
         
         if segmentIndex == 0 {
-            let downcastResult = result as! (Double, Double, Double, Double)
-            messageString = "원금: \(downcastResult.0.toUSD())" + "\n" +
-                            "수익률: \(downcastResult.1.toPercentage())" + "\n" +
-                            "수익금: \(downcastResult.2.toUSD())" + "\n" +
-                            "투자 후 자산: \(downcastResult.3.toUSD())"
+            let downcastingResult = result as! (Double, Double, Double, Double)
+            messageString = "원금: \(downcastingResult.0.toUSD())" + "\n" +
+                            "수익률: \(downcastingResult.1.toPercentage())" + "\n" +
+                            "수익금: \(downcastingResult.2.toUSD())" + "\n" +
+                            "잔고: \(downcastingResult.3.toUSD())"
         }
         
         if segmentIndex == 1 {
-            let downcastResult = result as! (String, String, String, Int, Int, Int)
-            messageString = "매수시작 날짜: \(downcastResult.0)" + "\n" +
-                            "매수종료 날짜: \(downcastResult.1)" + "\n" +
-                            "매도날짜: \(downcastResult.2)" + "\n" +
-                            "매수시작 ~ 매수종료: \(downcastResult.3)일" + "\n" +
-                            "매수시작 ~ 매도: \(downcastResult.4)일" + "\n" +
-                            "매수시작 ~ 현재: \(downcastResult.5)일"
+//            let downcastResult = result as! (String, String, String, Int, Int, Int)
+//            messageString = "매수시작 날짜: \(downcastResult.0)" + "\n" +
+//                            "매수종료 날짜: \(downcastResult.1)" + "\n" +
+//                            "매도날짜: \(downcastResult.2)" + "\n" +
+//                            "매수시작 ~ 매수종료: \(downcastResult.3)일" + "\n" +
+//                            "매수시작 ~ 매도: \(downcastResult.4)일" + "\n" +
+//                            "매수시작 ~ 현재: \(downcastResult.5)일"
+            let downcastingResult = result as! (Double, Double, Double, Double)
+            messageString = "원금: \(downcastingResult.0.toUSD())" + "\n" +
+                            "수익률: \(downcastingResult.1.toPercentage())" + "\n" +
+                            "수익금: \(downcastingResult.2.toUSD())" + "\n" +
+                            "잔고: \(downcastingResult.3.toUSD())"
         }
         
         let alert = UIAlertController(title: "계산 결과", message: messageString, preferredStyle: .alert)
@@ -201,59 +206,57 @@ final class CalcViewController: UIViewController {
     }
     
     // 버튼을 눌렀을 때
-    @objc private func buttonTapped(_ button: UIButton) {
-        // (1) 계산 버튼을 눌렀을 때
-        if button == calcView.calcStartButton {
+    @objc private func calcStartButtonTapped(_ button: UIButton) {
+        // (a) 일괄매수를 선택한 경우
+        if calcView.segmentedControl.selectedSegmentIndex == 0 {
             
-            // (a) 일괄매수를 선택한 경우
-            if calcView.segmentedControl.selectedSegmentIndex == 0 {
-                
-                // 입력값 검사
-                if calcView.coinTypeTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
-                                        responder: calcView.coinTypeTextField)
-                    return
-                } else if calcView.buyStartDateTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
-                                        responder: calcView.buyStartDateTextField)
-                    return
-                } else if calcView.sellDateTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.sellDateLabel.text!)를 선택하세요",
-                                        responder: calcView.sellDateTextField)
-                    return
-                } else if calcView.amountTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.amountLabel.text!)를 입력하세요",
-                                        responder: calcView.amountTextField)
-                    return
-                }
-                
-                // 계산 작업 시작 -> activityIndicator 표시하기
-                DispatchQueue.main.async {
-                    self.calcView.activityIndicator.startAnimating()
-                }
-                
-                // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
-                let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
-                let buyStartDateString: String = calcView.buyStartDateTextField.text!
-                let sellDateString: String = calcView.sellDateTextField.text!
-                let amountString: String = calcView.amountTextField.text!
-                //let buyToSellLength: Int = CalcManager.shared.calculateNumberOfDaysBetweenBuyAndSell(start: calcView.buyStartDateTextField.text!, end: calcView.sellDateTextField.text!)
-                let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToNow, start: buyStartDateString, end: nil)
-
-                // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
-                NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
-                    guard let self = self else { return }
+            // 입력값 검사
+            if calcView.coinTypeTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
+                                    responder: calcView.coinTypeTextField)
+                return
+            } else if calcView.buyStartDateTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
+                                    responder: calcView.buyStartDateTextField)
+                return
+            } else if calcView.sellDateTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.sellDateLabel.text!)를 선택하세요",
+                                    responder: calcView.sellDateTextField)
+                return
+            } else if calcView.amountTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.amountLabel.text!)를 입력하세요",
+                                    responder: calcView.amountTextField)
+                return
+            }
+            
+            // 계산 작업 시작 -> activityIndicator 표시하기
+            DispatchQueue.main.async {
+                self.calcView.activityIndicator.startAnimating()
+            }
+            
+            // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
+            let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
+            let buyStartDateString: String = calcView.buyStartDateTextField.text!
+            let sellDateString: String = calcView.sellDateTextField.text!
+            let amountString: String = calcView.amountTextField.text!
+            let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
+                type: .buyStartToNow, start: buyStartDateString, end: nil)
+            
+            // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
+            NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let historyInfo):
+                    self.historyDict = historyInfo
                     
-                    switch result {
-                    case .success(let historyInfo):
-                        self.historyDict = historyInfo
-                        //print(self.historyDict)
-
-                        CalcManager.shared.calculateROI(segment: 0, with: self.historyDict, amount: Double(amountString)!, start: buyStartDateString, end: sellDateString) { (amount, roi, profit, balance) in
+                    CalcManager.shared.calculateROIIntensive(with: self.historyDict, amount: Double(amountString)!, buy: buyStartDateString, sell: sellDateString) { (amount, roi, profit, balance, errorCode) in
+                        switch errorCode {
+                        case .noDateError:
+                            print("<일괄매수 수익 계산 결과>")
                             print("원금: \(amount.toUSD())")
                             print("수익률: \(roi.toPercentage())")
                             print("수익금: \(profit.toUSD())")
@@ -264,95 +267,171 @@ final class CalcViewController: UIViewController {
                                 // 계산 작업 종료 -> activityIndicator 숨기기
                                 self.calcView.activityIndicator.stopAnimating()
                                 self.presentResult(segment: 0, with: (amount, roi, profit, balance))
-                                
+                            }
+                        case .buyStartDateError:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "오류", message: "매수 날짜의 코인 데이터가 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        case .buyEndDateError:
+                            fallthrough
+                        case .sellDateError:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터가 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
                             }
                         }
-                    case .failure(.networkingError):
-                        print("ERROR: networking")
-                    case .failure(.dataError):
-                        print("ERROR: data")
-                    case .failure(.parseError):
-                        print("ERROR: parse")
                     }
+                    
+                case .failure(.networkingError):
+                    print("ERROR: networking")
+                    
+                case .failure(.dataError):
+                    print("ERROR: data")
+                    
+                case .failure(.parseError):
+                    print("ERROR: parse")
+                    
                 }
-                
-                calcView.presentLoadingIndicator()
-                
             }
-                
-            // (b) 분할매수를 선택한 경우
-            if calcView.segmentedControl.selectedSegmentIndex == 1 {
-                
-                // 입력값 검사
-                if calcView.coinTypeTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
-                                        responder: calcView.coinTypeTextField)
-                    return
-                } else if calcView.buyStartDateTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
-                                        responder: calcView.buyStartDateTextField)
-                    return
-                } else if calcView.buyEndDateTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.buyEndDateLabel.text!)를 선택하세요",
-                                        responder: calcView.buyEndDateTextField)
-                    return
-                } else if calcView.sellDateTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.sellDateLabel.text!)를 선택하세요",
-                                        responder: calcView.sellDateTextField)
-                    return
-                } else if calcView.amountTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.amountLabel.text!)를 입력하세요",
-                                        responder: calcView.amountTextField)
-                    return
-                } else if calcView.frequencyTextField.text == "" {
-                    presentPopUpMessage(with: button, title: "오류",
-                                        message: "\(calcView.frequencyLabel.text!)를 선택하세요",
-                                        responder: calcView.frequencyTextField)
-                    return
-                }
-                
-                // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
-                let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
-                let buyStartDateString: String = calcView.buyStartDateTextField.text!
-                let buyEndDateString: String = calcView.buyEndDateTextField.text!
-                let sellDateString: String = calcView.sellDateTextField.text!
-                let amountString: String = calcView.amountTextField.text!
-                let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd, start: buyStartDateString, end: buyEndDateString)
-                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: buyStartDateString, end: sellDateString)
-                let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToNow, start: buyStartDateString, end: nil)
-                
-                print(coinTypeString)
-                print(buyStartDateString)
-                print(buyEndDateString)
-                print(sellDateString)
-                print(amountString)
-                print(buyStartTobuyEndLength)
-                print(buyStartToSellLength)
-                print(buyToNowLength)
-                
-                // UI 관련 작업 -> 메인큐로 보내기
-                DispatchQueue.main.async {
-                    self.presentResult(segment: 1, with: (buyStartDateString, buyEndDateString, sellDateString, buyStartTobuyEndLength, buyStartToSellLength, buyToNowLength))
-                }
-                
-                //---------------------------------
-                // fetchPriceHistory 메서드 들어갈 자리
-                //---------------------------------
-                
-                //calcView.presentLoadingIndicator()
-            }
-            
         }
         
-        // (2) 초기화 버튼을 눌렀을 때
-        if button == calcView.calcResetButton {
-            presentPopUpMessage(with: button, title: calcView.calcResetButton.currentTitle!, message: "입력된 내용을 모두 지우시겠습니까?", responder: nil)
+        // (b) 분할매수를 선택한 경우
+        if calcView.segmentedControl.selectedSegmentIndex == 1 {
+            
+            // 입력값 검사
+            if calcView.coinTypeTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.coinTypeLabel.text!)를 선택하세요",
+                                    responder: calcView.coinTypeTextField)
+                return
+            } else if calcView.buyStartDateTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.buyStartDateLabel.text!)를 선택하세요",
+                                    responder: calcView.buyStartDateTextField)
+                return
+            } else if calcView.buyEndDateTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.buyEndDateLabel.text!)를 선택하세요",
+                                    responder: calcView.buyEndDateTextField)
+                return
+            } else if calcView.sellDateTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.sellDateLabel.text!)를 선택하세요",
+                                    responder: calcView.sellDateTextField)
+                return
+            } else if calcView.amountTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.amountLabel.text!)를 입력하세요",
+                                    responder: calcView.amountTextField)
+                return
+            } else if calcView.frequencyTextField.text == "" {
+                presentPopUpMessage(with: button, title: "오류",
+                                    message: "\(calcView.frequencyLabel.text!)를 선택하세요",
+                                    responder: calcView.frequencyTextField)
+                return
+            }
+            
+            // 계산 작업 시작 -> activityIndicator 표시하기
+            DispatchQueue.main.async {
+                self.calcView.activityIndicator.startAnimating()
+            }
+            
+            // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
+            let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
+            let buyStartDateString: String = calcView.buyStartDateTextField.text!
+            let buyEndDateString: String = calcView.buyEndDateTextField.text!
+            let sellDateString: String = calcView.sellDateTextField.text!
+            let amountString: String = calcView.amountTextField.text!
+            let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(
+                type: .buyStartTobuyEnd, start: buyStartDateString, end: buyEndDateString)
+            let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(
+                type: .buyStartToSell, start: buyStartDateString, end: sellDateString)
+            let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
+                type: .buyStartToNow, start: buyStartDateString, end: nil)
+            
+            print(coinTypeString)
+            print(buyStartDateString)
+            print(buyEndDateString)
+            print(sellDateString)
+            print(amountString)
+            print(buyStartTobuyEndLength)
+            print(buyStartToSellLength)
+            print(buyToNowLength)
+            
+            // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
+            NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let historyInfo):
+                    self.historyDict = historyInfo
+                    
+                    CalcManager.shared.calculateROIAveraged(with: self.historyDict, amount: Double(amountString)!, buyStart: buyStartDateString, buyEnd: buyEndDateString, sell: sellDateString) { (amount, roi, profit, balance, errorCode) in
+                        switch errorCode {
+                        case .noDateError:
+                            print("<분할매수 수익 계산 결과>")
+                            print("원금: \(amount.toUSD())")
+                            print("수익률: \(roi.toPercentage())")
+                            print("수익금: \(profit.toUSD())")
+                            print("평가금: \(balance.toUSD())")
+                            
+                            // UI 관련 작업 -> 메인큐로 보내기
+                            DispatchQueue.main.async {
+                                // 계산 작업 종료 -> activityIndicator 숨기기
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.presentResult(segment: self.calcView.segmentedControl.selectedSegmentIndex, with: (amount, roi, profit, balance))
+                            }
+                        case .buyStartDateError:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "오류", message: "매수 시작 날짜의 코인 데이터가 없습니다.\n매수 시작 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        case .buyEndDateError:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "오류", message: "매수 종료 날짜의 코인 데이터가 없습니다.\n매수 종료 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        case .sellDateError:
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터가 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                    
+                case .failure(.networkingError):
+                    print("ERROR: networking")
+                    
+                case .failure(.dataError):
+                    print("ERROR: data")
+                    
+                case .failure(.parseError):
+                    print("ERROR: parse")
+                    
+                }
+            }
         }
+        
+    }
+    
+    @objc private func calcResetButtonTapped(_ button: UIButton) {
+        presentPopUpMessage(with: button, title: calcView.calcResetButton.currentTitle!,
+                            message: "입력된 내용을 모두 지우시겠습니까?", responder: nil)
     }
     
     @objc private func addButtonTapped() {

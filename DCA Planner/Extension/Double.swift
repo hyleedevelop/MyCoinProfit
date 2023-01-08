@@ -79,9 +79,9 @@ extension Double {
     func toUSD() -> String {
         if (10...).contains(self) {
             return formatterOfUSDGreatherThanTen.string(for: self) ?? "$0.0"
-        } else if (1..<10).contains(self) {
+        } else if (1.01..<10).contains(self) {
             return formatterOfUSDFromOneToTen.string(for: self) ?? "$0.000"
-        } else if (0.01..<1).contains(self) {
+        } else if (0.01..<1.01).contains(self) {
             return formatterOfUSDLessThanOne.string(for: self) ?? "$0.00000"
         } else {
             return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$0.0000000"

@@ -83,7 +83,7 @@ final class NetworkManager {
         //var endDate = String(lastDate)
         let baseURL = "https://api.coingecko.com/api/v3/"
         let categoryURL = "coins/" + coinType + "/market_chart?"
-        let parameterURL = "vs_currency=usd&days=" + String(numberOfDays) + "&interval=daily"
+        let parameterURL = "vs_currency=usd&days=" + String(numberOfDays+1) + "&interval=daily"
         
         guard let url = URL(string: baseURL + categoryURL + parameterURL) else { return }
                 

@@ -108,7 +108,7 @@ final class CoinViewController: UIViewController {
         super.viewWillAppear(animated)
         // 코인시세 탭 화면이 보여질 때마다 새로운 Timer 시작
         loadData()
-        apiTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(updateData),
+        apiTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(updateData),
                                         userInfo: nil, repeats: true)
     }
     

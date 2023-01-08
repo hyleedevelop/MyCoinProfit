@@ -27,6 +27,8 @@ struct Constant {
     }
     
     struct SizeSetting {
+        static let labelFontSize: CGFloat = 18
+        static let textfieldFontSize: CGFloat = labelFontSize - 2
         static let bottomLineHeightAnchorConstant: CGFloat = 1.0
         static let bottomLineWidthAnchorConstant: CGFloat = -100
         static let calcButtonWidthAnchorConstant: CGFloat = -20
@@ -44,6 +46,11 @@ struct Constant {
         static let calcResetButtonName: String = "지우기"
     }
         
+    struct ImageSetting {
+        static let checkMarkYes: UIImage = UIImage(systemName: "checkmark.circle.fill")!
+        static let checkMarkNo: UIImage = UIImage(systemName: "xmark.circle.fill")!
+    }
+    
     struct AnimationSetting {
         static let transitionDuration: Double = 0.25
     }
