@@ -27,8 +27,8 @@ struct Constant {
     }
     
     struct SizeSetting {
-        static let labelFontSize: CGFloat = 18
-        static let textfieldFontSize: CGFloat = labelFontSize - 2
+        static let labelFontSize: CGFloat = 20
+        static let textfieldFontSize: CGFloat = labelFontSize - 3
         static let bottomLineHeightAnchorConstant: CGFloat = 1.0
         static let bottomLineWidthAnchorConstant: CGFloat = -100
         static let calcButtonWidthAnchorConstant: CGFloat = -20

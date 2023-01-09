@@ -39,7 +39,7 @@ final class CalcView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -62,12 +62,13 @@ final class CalcView: UIView {
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
         tf.inputView = coinTypePicker
+        tf.clearButtonMode = .whileEditing
         tf.placeholder = "코인 선택"
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
     }()
 
@@ -77,7 +78,7 @@ final class CalcView: UIView {
         return picker
     }()
     
-    private let coinTypeBottomLine: UIView = {
+    let coinTypeBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .label
@@ -110,7 +111,7 @@ final class CalcView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -133,12 +134,13 @@ final class CalcView: UIView {
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
         tf.inputView = buyStartDatePicker
+        tf.clearButtonMode = .whileEditing
         tf.placeholder = "날짜 선택"
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
     }()
     
@@ -156,7 +158,7 @@ final class CalcView: UIView {
         return picker
     }()
     
-    private let buyStartDateBottomLine: UIView = {
+    let buyStartDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .label
@@ -189,7 +191,7 @@ final class CalcView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -212,12 +214,13 @@ final class CalcView: UIView {
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
         tf.inputView = buyEndDatePicker
+        tf.clearButtonMode = .whileEditing
         tf.placeholder = "날짜 선택"
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
     }()
     
@@ -232,7 +235,7 @@ final class CalcView: UIView {
         return picker
     }()
     
-    private let buyEndDateBottomLine: UIView = {
+    let buyEndDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .label
@@ -265,7 +268,7 @@ final class CalcView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -288,12 +291,13 @@ final class CalcView: UIView {
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
         tf.inputView = sellDatePicker
+        tf.clearButtonMode = .whileEditing
         tf.placeholder = "날짜 선택"
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
     }()
     
@@ -304,11 +308,12 @@ final class CalcView: UIView {
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "ko_KR")
-        picker.maximumDate = Date()  // current date
+        // 현재 날짜에서 하루 이전의 날짜
+        picker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         return picker
     }()
     
-    private let sellDateBottomLine: UIView = {
+    let sellDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .label
@@ -317,6 +322,78 @@ final class CalcView: UIView {
     
     private lazy var sellDateStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [sellDateHorizontalStackView, sellDateTextField, sellDateBottomLine])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 8
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    //MARK: - 매수 반복 주기 관련 속성
+    
+    let frequencyLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
+        label.text = "매수 반복 주기"
+        label.textAlignment = .left
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    let frequencyCheckMark: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = Constant.ImageSetting.checkMarkNo
+        imageView.tintColor = .clear
+        return imageView
+    }()
+    
+    private lazy var frequencyHorizontalStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyCheckMark])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 3
+        sv.axis = .horizontal
+        sv.distribution = .equalSpacing
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    lazy var frequencyTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.borderStyle = .none
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.inputView = frequencyPicker
+        tf.clearButtonMode = .whileEditing
+        tf.placeholder = "주기 선택"
+        tf.textColor = .label
+        tf.tintColor = .clear
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        return tf
+    }()
+    
+    let frequencyPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+
+    let frequencyBottomLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .label
+        return view
+    }()
+    
+    private lazy var frequencyStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [frequencyHorizontalStackView, frequencyTextField, frequencyBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -341,7 +418,7 @@ final class CalcView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -364,15 +441,17 @@ final class CalcView: UIView {
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
         tf.keyboardType = .decimalPad
+        tf.clearButtonMode = .whileEditing
         tf.placeholder = "금액 입력"
         tf.textColor = .label
-        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
+        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        //tf.addTarget(self, action: #selector(whileTextFieldEditing), for: .editingChanged)
         return tf
     }()
 
-    private let amountBottomLine: UIView = {
+    let amountBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .label
@@ -381,77 +460,6 @@ final class CalcView: UIView {
     
     private lazy var amountStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [amountHorizontalStackView, amountTextField, amountBottomLine])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 8
-        sv.axis = .vertical
-        sv.distribution = .fill
-        sv.alignment = .fill
-        return sv
-    }()
-     
-    //MARK: - 매수 반복 주기 관련 속성
-    
-    let frequencyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "매수 반복 주기"
-        label.textAlignment = .left
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    let frequencyCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .red
-        return imageView
-    }()
-    
-    private lazy var frequencyHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    lazy var frequencyTextField: UITextField = {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.borderStyle = .none
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.inputView = frequencyPicker
-        tf.placeholder = "주기 선택"
-        tf.textColor = .label
-        tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        tf.addTarget(self, action: #selector(textFieldEditingDidBegin(_:)), for: .editingDidBegin)
-        tf.addTarget(self, action: #selector(textFieldEditingDidEnd(_:)), for: .editingDidEnd)
-        return tf
-    }()
-    
-    let frequencyPicker: UIPickerView = {
-        let picker = UIPickerView()
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-
-    private let frequencyBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
-        return view
-    }()
-    
-    private lazy var frequencyStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [frequencyHorizontalStackView, frequencyTextField, frequencyBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -542,14 +550,6 @@ final class CalcView: UIView {
         return sv
     }()
     
-    // TextField에 실수(숫자+소수점)만 입력할 수 있는 Set
-    private let charSet: CharacterSet = {
-        var cs = CharacterSet.lowercaseLetters
-        cs.insert(charactersIn: "0123456789")
-        cs.insert(charactersIn: ".")
-        return cs.inverted
-    }()
-    
     // 로딩 아이콘
     let activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -618,8 +618,8 @@ final class CalcView: UIView {
         NSLayoutConstraint.activate([
             finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 50),
             finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -50),
-            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -20),
+            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 10),
+            finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
             
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
@@ -648,7 +648,7 @@ final class CalcView: UIView {
     }
     
     private func setupSecondFianlStackView() {
-        _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, sellDateStackView, amountStackView, frequencyStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, sellDateStackView, frequencyStackView, amountStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
@@ -656,8 +656,8 @@ final class CalcView: UIView {
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, amountBottomLine, frequencyBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
+        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = "매수 시작 날짜"
         amountLabel.text = "매 회차 매수 금액(달러)"
@@ -666,8 +666,8 @@ final class CalcView: UIView {
     }
     
     private func resetTextField() {
-        amountTextField.text = ""
         frequencyTextField.text = ""
+        amountTextField.text = ""
     }
     
     // 로딩중임을 나타내는 Indicator 설정
@@ -708,169 +708,19 @@ final class CalcView: UIView {
         }
     }
     
-    // 텍스트필드 편집을 시작했을 때 해당 TextField와 BottomLine을 테마 컬러값으로 설정
-    @objc private func textFieldEditingDidBegin(_ textField: UITextField) {
-        if textField == coinTypeTextField {
-            coinTypeLabel.textColor = Constant.UIColorSetting.themeColor
-            coinTypeTextField.textColor = Constant.UIColorSetting.themeColor
-            coinTypeBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-        
-        if textField == buyStartDateTextField {
-            buyStartDateLabel.textColor = Constant.UIColorSetting.themeColor
-            buyStartDateTextField.textColor = Constant.UIColorSetting.themeColor
-            buyStartDateBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-        
-        if textField == buyEndDateTextField {
-            buyEndDateLabel.textColor = Constant.UIColorSetting.themeColor
-            buyEndDateTextField.textColor = Constant.UIColorSetting.themeColor
-            buyEndDateBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-        
-        if textField == sellDateTextField {
-            sellDateLabel.textColor = Constant.UIColorSetting.themeColor
-            sellDateTextField.textColor = Constant.UIColorSetting.themeColor
-            sellDateBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-        
-        if textField == amountTextField {
-            amountLabel.textColor = Constant.UIColorSetting.themeColor
-            amountTextField.textColor = Constant.UIColorSetting.themeColor
-            amountBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-        
-        if textField == frequencyTextField {
-            frequencyLabel.textColor = Constant.UIColorSetting.themeColor
-            frequencyTextField.textColor = Constant.UIColorSetting.themeColor
-            frequencyBottomLine.backgroundColor = Constant.UIColorSetting.themeColor
-        }
-    }
-    
-    // 텍스트필드 편집을 끝냈을 때 강조되었던 TextField와 BottomLine을 기본 값으로 설정
-    @objc private func textFieldEditingDidEnd(_ textField: UITextField) {
-        if textField == coinTypeTextField {
-            coinTypeTextField.textColor = .label
-            coinTypeLabel.textColor = .label
-            coinTypeBottomLine.backgroundColor = .label
-            
-            if coinTypeTextField.text != "" {
-                coinTypeCheckMark.image = Constant.ImageSetting.checkMarkYes
-                coinTypeCheckMark.tintColor = .systemGreen
-            } else {
-                coinTypeCheckMark.image = Constant.ImageSetting.checkMarkNo
-                coinTypeCheckMark.tintColor = .systemRed
-            }
-        }
-        
-        if textField == buyStartDateTextField {
-            buyStartDateTextField.textColor = .label
-            buyStartDateLabel.textColor = .label
-            buyStartDateBottomLine.backgroundColor = .label
-            
-            if buyStartDateTextField.text != "" {
-                buyStartDateCheckMark.image = Constant.ImageSetting.checkMarkYes
-                buyStartDateCheckMark.tintColor = .systemGreen
-            } else {
-                buyStartDateCheckMark.image = Constant.ImageSetting.checkMarkNo
-                buyStartDateCheckMark.tintColor = .systemRed
-            }
-        }
-        
-        if textField == buyEndDateTextField {
-            buyEndDateTextField.textColor = .label
-            buyEndDateLabel.textColor = .label
-            buyEndDateBottomLine.backgroundColor = .label
-            
-            if buyEndDateTextField.text != "" {
-                buyEndDateCheckMark.image = Constant.ImageSetting.checkMarkYes
-                buyEndDateCheckMark.tintColor = .systemGreen
-            } else {
-                buyEndDateCheckMark.image = Constant.ImageSetting.checkMarkNo
-                buyEndDateCheckMark.tintColor = .systemRed
-            }
-        }
-        
-        if textField == sellDateTextField {
-            sellDateTextField.textColor = .label
-            sellDateLabel.textColor = .label
-            sellDateBottomLine.backgroundColor = .label
-            
-            if sellDateTextField.text != "" {
-                sellDateCheckMark.image = Constant.ImageSetting.checkMarkYes
-                sellDateCheckMark.tintColor = .systemGreen
-            } else {
-                sellDateCheckMark.image = Constant.ImageSetting.checkMarkNo
-                sellDateCheckMark.tintColor = .systemRed
-            }
-        }
-        
-        if textField == amountTextField {
-            amountTextField.textColor = .label
-            amountLabel.textColor = .label
-            amountBottomLine.backgroundColor = .label
-            
-            if amountTextField.text != "" {
-                amountCheckMark.image = Constant.ImageSetting.checkMarkYes
-                amountCheckMark.tintColor = .systemGreen
-            } else {
-                amountCheckMark.image = Constant.ImageSetting.checkMarkNo
-                amountCheckMark.tintColor = .systemRed
-            }
-        }
-        
-        if textField == frequencyTextField {
-            frequencyTextField.textColor = .label
-            frequencyLabel.textColor = .label
-            frequencyBottomLine.backgroundColor = .label
-            
-            if frequencyTextField.text != "" {
-                frequencyCheckMark.image = Constant.ImageSetting.checkMarkYes
-                frequencyCheckMark.tintColor = .systemGreen
-            } else {
-                frequencyCheckMark.image = Constant.ImageSetting.checkMarkNo
-                frequencyCheckMark.tintColor = .systemRed
-            }
-        }
-    }
-    
-}
-
-//MARK: - UITextFieldDelegate
-// ViewController에서 Delegate 프로토콜을 채택하는 경우 xxx.delegate = self를 꼭 써줘야 함
-// View에서는 프로토콜 채택만 하면 됨
-
-extension CalcView: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-    //
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-    // return 버튼을 눌렀을 때 구현할 내용
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == amountTextField {
-            if string.count > 0 {
-                guard string.rangeOfCharacter(from: charSet) == nil else { return false }
-            }
-        }
-        
-        return true
-    }
+//    // 텍스트필드 편집을 시작했을 때 실행할 내용
+//    @objc private func beforeTextFieldEditing(_ textField: UITextField) {
+//
+//    }
+//
+//    // 텍스트필드 편집을 끝냈을 때 실행할 내용
+//    @objc private func afterTextFieldEditing(_ textField: UITextField) {
+//
+//    }
+//
+//    // 텍스트필드 편집 도중 내용이 바뀔 때마다 실행할 내용
+//    @objc private func whileTextFieldEditing() {
+//
+//    }
     
 }

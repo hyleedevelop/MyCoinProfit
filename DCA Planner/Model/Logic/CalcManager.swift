@@ -7,18 +7,23 @@
 
 import Foundation
 
+//                                 <Timeline>
+//     O---------------------O---------------------O---------------------O
+// BuyStart                BuyEnd                 Sell                  Now
+
 // 날짜와 날짜 사이의 간격(일)을 계산하는 3가지 경우
 enum DateIntervalType {
-    case buyStartTobuyEnd
-    case buyStartToSell
-    case buyStartToNow
+    case buyStartTobuyEnd  // 매수 시작 날짜 ~ 매수 종료 날짜 간격
+    case buyStartToSell  // 매수 시작 날짜 ~ 매도 날짜 간격
+    case buyStartToNow  // 매수 시작 날짜 ~ 현재(fetching 하는 시점) 날짜 간격
 }
 
+// 날짜 계산을 할 수 없는 경우에 대한 에러 타입
 enum DateError {
-    case noDateError
-    case buyStartDateError
-    case buyEndDateError
-    case sellDateError
+    case noDateError  // 에러 없음
+    case buyStartDateError  // 매수 시작 날짜로 인한 에러
+    case buyEndDateError  // 매수 종료 날짜로 인한 에러
+    case sellDateError  // 매도 날짜로 인한 에러
 }
 
 final class CalcManager {
@@ -117,17 +122,17 @@ final class CalcManager {
         //print(buyEndDate)
         //print(sellDate)
         
-        // 매수 시작 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기
+        // 매수 시작 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let buyStartTimeIndex = historyTimeArray.firstIndex(of: buyStartDate) else {
             completion((0.0, 0.0, 0.0, 0.0, .buyStartDateError))
             return
         }
-        // 매수 종료 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기
+        // 매수 종료 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let buyEndTimeIndex = historyTimeArray.firstIndex(of: buyEndDate) else {
             completion((0.0, 0.0, 0.0, 0.0, .buyEndDateError))
             return
         }
-        // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기
+        // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let sellTimeIndex = historyTimeArray.firstIndex(of: sellDate) else {
             completion((0.0, 0.0, 0.0, 0.0, .sellDateError))
             return
