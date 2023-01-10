@@ -7,9 +7,10 @@
 
 import Foundation
 
-//                                 <Timeline>
-//     O---------------------O---------------------O---------------------O
-// BuyStart                BuyEnd                 Sell                  Now
+//                                     <Timeline>
+//
+//     O-----------------O-----------------O-----------------O-----------------O
+// 2013-04-28       buyStartDate       buyEndDate         sellDate            Now
 
 // 날짜와 날짜 사이의 간격(일)을 계산하는 3가지 경우
 enum DateIntervalType {
@@ -58,7 +59,7 @@ final class CalcManager {
         
         var dateInterval: Double = 0.0
         // startTime부터 endTime까지의 시간 간격을 86400(초)로 나누어 일 단위로 변환
-        dateInterval = endTime!.timeIntervalSince(startTime!) / Constant.Number.oneDayInSeconds
+        dateInterval = endTime!.timeIntervalSince(startTime!) / Constant.UnitSetting.oneDayInSeconds
         return Int(dateInterval)
     }
     

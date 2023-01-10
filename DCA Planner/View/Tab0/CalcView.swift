@@ -13,10 +13,10 @@ final class CalcView: UIView {
     //MARK: - 스위치 속성
     
     lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["일괄매수","분할매수"])
+        let control = UISegmentedControl(items: ["한번에 매수하기","나눠서 매수하기"])
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0
-        let font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        let font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .medium)
         control.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         control.selectedSegmentTintColor = Constant.UIColorSetting.themeColor
         control.addTarget(self, action: #selector(segmentedValueChanged(_:)), for: .valueChanged)
@@ -28,10 +28,11 @@ final class CalcView: UIView {
     let coinTypeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .black)
-        label.text = "코인 종류"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.coinTypeLabelName
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -63,10 +64,10 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = coinTypePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "코인 선택"
+        tf.placeholder = Constant.TitleSetting.coinTypeTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
         //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
@@ -100,10 +101,11 @@ final class CalcView: UIView {
     let buyStartDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "매수 날짜"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.buyStartDateLabelName1
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -135,12 +137,10 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = buyStartDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "날짜 선택"
+        tf.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -151,10 +151,8 @@ final class CalcView: UIView {
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "ko_KR")
-        // 최소날짜: 2013-04-28 00:00:00
-        picker.minimumDate = Date(timeIntervalSince1970: 1367107200)
-        // 최대날짜: 오늘날짜 - 1일
-        picker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        picker.minimumDate = Constant.DateSetting.buyStartMinimumDate
+        picker.maximumDate = Constant.DateSetting.buyStartMaximumDate
         return picker
     }()
     
@@ -180,10 +178,11 @@ final class CalcView: UIView {
     let buyEndDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "매수 종료 날짜"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.buyEndDateLabelName
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -215,12 +214,10 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = buyEndDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "날짜 선택"
+        tf.placeholder = Constant.TitleSetting.buyEndDateTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -231,7 +228,8 @@ final class CalcView: UIView {
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "ko_KR")
-        picker.maximumDate = Date()  // current date
+        picker.minimumDate = Constant.DateSetting.buyEndMinimumDate
+        picker.maximumDate = Constant.DateSetting.buyEndMaximumDate
         return picker
     }()
     
@@ -257,10 +255,11 @@ final class CalcView: UIView {
     let sellDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "매도 날짜"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.sellDateLabelName
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -292,12 +291,10 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = sellDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "날짜 선택"
+        tf.placeholder = Constant.TitleSetting.sellDateTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -308,8 +305,8 @@ final class CalcView: UIView {
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "ko_KR")
-        // 현재 날짜에서 하루 이전의 날짜
-        picker.maximumDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
+        picker.minimumDate = Constant.DateSetting.sellMinimumDate
+        picker.maximumDate = Constant.DateSetting.sellMaximumDate
         return picker
     }()
     
@@ -335,10 +332,11 @@ final class CalcView: UIView {
     let frequencyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "매수 반복 주기"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.frequencyLabelName
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -370,12 +368,10 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = frequencyPicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "주기 선택"
+        tf.placeholder = Constant.TitleSetting.frequencyTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -407,10 +403,11 @@ final class CalcView: UIView {
     let amountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: .bold)
-        label.text = "총 매수 금액(달러)"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.amountLabelName1
         label.textAlignment = .left
-        label.numberOfLines = 1
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -442,12 +439,9 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.keyboardType = .decimalPad
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = "금액 입력"
+        tf.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder
         tf.textColor = .label
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .regular)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
-        //tf.addTarget(self, action: #selector(whileTextFieldEditing), for: .editingChanged)
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
         return tf
     }()
 
@@ -592,9 +586,9 @@ final class CalcView: UIView {
         
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 30),
+            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 40),
+            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 32),
         ])
     }
     
@@ -611,13 +605,13 @@ final class CalcView: UIView {
     
     // 최종 StackView 초기 설정
     private func setupFinalStackView() {
-        _ = [coinTypeStackView, buyStartDateStackView, sellDateStackView, amountStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeStackView, buyStartDateStackView, amountStackView, sellDateStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
         scrollView.addSubview(finalStackView)
         
         NSLayoutConstraint.activate([
-            finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 50),
-            finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -50),
+            finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 40),
+            finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -40),
             finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 10),
             finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
             
@@ -642,13 +636,13 @@ final class CalcView: UIView {
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
-        buyStartDateLabel.text = "매수 날짜"
-        amountLabel.text = "총 매수 금액(달러)"
+        buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
+        amountLabel.text = Constant.TitleSetting.amountLabelName1
         resetTextField()
     }
     
     private func setupSecondFianlStackView() {
-        _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, sellDateStackView, frequencyStackView, amountStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, frequencyStackView, amountStackView, sellDateStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         
         NSLayoutConstraint.activate([
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
@@ -659,8 +653,8 @@ final class CalcView: UIView {
         _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
-        buyStartDateLabel.text = "매수 시작 날짜"
-        amountLabel.text = "매 회차 매수 금액(달러)"
+        buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
+        amountLabel.text = Constant.TitleSetting.amountLabelName2
         resetTextField()
 
     }
