@@ -75,13 +75,13 @@ extension Double {
         return formatter
     }
     
-    // 가격 숫자의 크기에 따라 소수점 아래 자리수를 다르게 설정
+    // 가격 숫자의 절대값 크기에 따라 소수점 아래 자리수를 다르게 설정
     func toUSD() -> String {
-        if (10...).contains(self) {
+        if (10...).contains(abs(self)) {
             return formatterOfUSDGreatherThanTen.string(for: self) ?? "$0.0"
-        } else if (1.01..<10).contains(self) {
+        } else if (1.01..<10).contains(abs(self)) {
             return formatterOfUSDFromOneToTen.string(for: self) ?? "$0.000"
-        } else if (0.01..<1.01).contains(self) {
+        } else if (0.01..<1.01).contains(abs(self)) {
             return formatterOfUSDLessThanOne.string(for: self) ?? "$0.00000"
         } else {
             return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$0.0000000"

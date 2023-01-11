@@ -29,6 +29,7 @@ struct Constant {
     struct SizeSetting {
         static let labelFontSize: CGFloat = 17
         static let textfieldFontSize: CGFloat = labelFontSize - 2
+        static let calcResultFontSize: CGFloat = 16
         static let labelFontWeight: UIFont.Weight = .semibold
         static let textfieldFontWeight: UIFont.Weight = .regular
         static let bottomLineHeightAnchorConstant: CGFloat = 1.0
@@ -79,6 +80,7 @@ struct Constant {
         
         static let calcStartButtonName: String = "계산하기"
         static let calcResetButtonName: String = "지우기"
+        static let calcSaveButtonName: String = "결과 저장하기"
     }
         
     struct ImageSetting {

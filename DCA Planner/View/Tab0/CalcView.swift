@@ -477,7 +477,6 @@ final class CalcView: UIView {
     let calcStartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemGray5
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)

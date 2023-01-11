@@ -36,6 +36,7 @@
 		07CF13C22962B8110099746F /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF13C12962B8110099746F /* PickerData.swift */; };
 		07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */; };
 		07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* PriceHistoryData.swift */; };
+		07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */; };
 		F066CDAB3E19ABDC8E9700EC /* Pods_DCA_Planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542BAE99B379E37BE69E6C20 /* Pods_DCA_Planner.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		07CF13C12962B8110099746F /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
 		07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceData.swift; sourceTree = "<group>"; };
 		07D3A582295C925C0079DB9E /* PriceHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryData.swift; sourceTree = "<group>"; };
+		07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocol.swift; sourceTree = "<group>"; };
 		45EF200006E2DF58D0472EE8 /* Pods-DCA Planner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DCA Planner.release.xcconfig"; path = "Target Support Files/Pods-DCA Planner/Pods-DCA Planner.release.xcconfig"; sourceTree = "<group>"; };
 		542BAE99B379E37BE69E6C20 /* Pods_DCA_Planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DCA_Planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7F9A1790BAFC3F1ABFC58C6 /* Pods-DCA Planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DCA Planner.debug.xcconfig"; path = "Target Support Files/Pods-DCA Planner/Pods-DCA Planner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				0794113F2949FA8D00A4F632 /* Constant.swift */,
 				07C616ED294AB0E500F057BE /* NetworkManager.swift */,
 				07C616EF294AB0ED00F057BE /* CoreDataManager.swift */,
+				07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
 				07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
+				07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
@@ -566,7 +570,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,7 +605,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

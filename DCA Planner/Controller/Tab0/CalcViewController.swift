@@ -37,7 +37,7 @@ final class CalcViewController: UIViewController {
     }
     
     var inputError: InputError = .noInputError
-    var dataDelegate: SendDataDelegate?
+    var dataDelegate: CalcResultDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,13 +174,14 @@ final class CalcViewController: UIViewController {
     }
     
     private func presentCalcResult(with calcResult: Any) {
+        // calcResult가 Any 타입이므로 다운캐스팅 필요
         let result = calcResult as! (Double, Double, Double, Double)
         
         // 도움말 VC 인스턴스 생성
         let calcResultModalVC = CalcResultModalViewController()
         // 도움말 VC에 Navigation VC 넣기
         let nav = UINavigationController(rootViewController: calcResultModalVC)
-        
+
         // Bottom Sheet 관련 설정
         nav.modalPresentationStyle = .pageSheet
         nav.isModalInPresentation = true  // true이면 dismiss 할 수 없음
@@ -188,13 +189,13 @@ final class CalcViewController: UIViewController {
         // sheetPresentationController는 iOS 15 이상부터 사용 가능
         if let sheet = nav.sheetPresentationController {
             // Bottom Sheet를 확장/축소 했을 때 화면 꼭대기가 걸리는 높이 지정
-            //sheet.largestUndimmedDetentIdentifier = .medium
-            //sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.detents = [.medium(), .large()]
             if #available(iOS 16.0, *) {
                 // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
                 // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
                 sheet.detents = [.custom(resolver: { context in
-                    return context.maximumDetentValue * 0.7
+                    return context.maximumDetentValue * 0.8
                 })]
             } else {
                 sheet.detents = [.medium()]
@@ -203,8 +204,11 @@ final class CalcViewController: UIViewController {
             sheet.preferredCornerRadius = 25
             sheet.prefersGrabberVisible = false
         }
-        dataDelegate?.recieveData(response: "데이터가 전달되었습니다.")
+        
+        // CalcResultModalVC의 대리자가 데이터를 전달받도록 설정
+        calcResultModalVC.receiveData(with: result)
         self.present(nav, animated: true, completion: nil)
+        
     }
     
     // 수익계산 결과를 메세지로 출력
