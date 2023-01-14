@@ -120,6 +120,7 @@ final class CoinTableViewCell: UITableViewCell {
     // 하위 뷰로 등록
     private func registerUI() {
         self.addSubview(cellSV)
+        self.backgroundColor = Constant.UIColorSetting.lightModeBackground
     }
     
     // AutoLayout 결정하는 시점

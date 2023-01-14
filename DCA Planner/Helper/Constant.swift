@@ -9,7 +9,11 @@ import UIKit
 
 struct Constant {
     struct UIColorSetting {
-        static let lightGray: UIColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1)
+        static let lightModeBackground: UIColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        static let darkModeBackground: UIColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        
+        static let lightModeInbox: UIColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        static let darkModeInbox: UIColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         
         static let lightPurple: UIColor = UIColor(red: 208/255, green: 156/255, blue: 250/255, alpha: 1)
         static let deepPurple: UIColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
@@ -23,7 +27,9 @@ struct Constant {
     }
     
     struct CGColorSetting {
+        static let deepPurple: CGColor = CGColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
         
+        static let themeColor: CGColor = deepPurple
     }
     
     struct SizeSetting {
@@ -32,7 +38,7 @@ struct Constant {
         static let calcResultFontSize: CGFloat = 16
         static let labelFontWeight: UIFont.Weight = .semibold
         static let textfieldFontWeight: UIFont.Weight = .regular
-        static let bottomLineHeightAnchorConstant: CGFloat = 1.0
+        static let bottomLineHeightAnchorConstant: CGFloat = 0.8
         static let bottomLineWidthAnchorConstant: CGFloat = -80
         static let calcButtonWidthAnchorConstant: CGFloat = -20
     }
@@ -59,13 +65,13 @@ struct Constant {
     
     struct TitleSetting {
         static let coinTypeLabelName: String = "어떤 코인을 매수할까요?"
-        static let buyStartDateLabelName1: String = "코인을 언제 매수할까요?"
-        static let buyStartDateLabelName2: String = "코인 매수를 언제 시작할까요?"
-        static let buyEndDateLabelName: String = "코인 매수를 언제 종료할까요?"
-        static let sellDateLabelName: String = "코인을 언제 매도할까요?"
-        static let frequencyLabelName: String = "코인을 얼마만에 한번씩 매수할까요?"
-        static let amountLabelName1: String = "코인을 매수하는데 얼마를 사용할까요?"
-        static let amountLabelName2: String = "코인을 한번씩 매수할때마다 얼마를 사용할까요?"
+        static let buyStartDateLabelName1: String = "언제 매수할까요?"
+        static let buyStartDateLabelName2: String = "언제 분할매수를 시작할까요?"
+        static let buyEndDateLabelName: String = "언제 매수를 끝낼까요?"
+        static let sellDateLabelName: String = "언제 매도할까요?"
+        static let frequencyLabelName: String = "얼마나 자주 매수할까요?"
+        static let amountLabelName1: String = "얼마만큼 매수할까요?"
+        static let amountLabelName2: String = "매번 얼마만큼 매수할까요?"
         
         static let coinTypeTextFieldPlaceHolder: String = "코인 종류 선택"
         static let buyStartDateTextFieldPlaceHolder: String = "날짜 선택"
@@ -78,9 +84,9 @@ struct Constant {
         static let menuName2: String = "수익계산"
         static let menuName3: String = "설정"
         
-        static let calcStartButtonName: String = "계산하기"
-        static let calcResetButtonName: String = "지우기"
-        static let calcSaveButtonName: String = "결과 저장하기"
+        static let calcStartButtonName: String = "계산"
+        static let calcResetButtonName: String = "초기화"
+        static let calcSaveButtonName: String = "결과 저장"
     }
         
     struct ImageSetting {

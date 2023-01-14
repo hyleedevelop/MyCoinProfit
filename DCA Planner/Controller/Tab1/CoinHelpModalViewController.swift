@@ -36,7 +36,7 @@ final class CoinHelpModalViewController: UIViewController {
     
     private lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view
@@ -55,6 +55,7 @@ final class CoinHelpModalViewController: UIViewController {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         navigationController?.navigationBar.tintColor = .gray
@@ -70,7 +71,7 @@ final class CoinHelpModalViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
     }
 
     private func setupContainerView() {

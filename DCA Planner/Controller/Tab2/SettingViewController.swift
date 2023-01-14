@@ -22,15 +22,15 @@ final class SettingViewController: UIViewController {
         super.viewDidLoad()
 
         setupNavBar()
+        setupView()
     }
     
     // NavigationBar 설정
     func setupNavBar() {
-        view.backgroundColor = .systemBackground
-        
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
@@ -47,6 +47,11 @@ final class SettingViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.backgroundColor = .white
         navigationItem.title = Constant.TitleSetting.menuName3
+    }
+    
+    // View 설정
+    private func setupView() {
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
     }
 
 //    private func setupReferenceLabel() {

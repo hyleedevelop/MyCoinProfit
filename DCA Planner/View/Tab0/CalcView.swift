@@ -25,33 +25,30 @@ final class CalcView: UIView {
     
     //MARK: - 코인 속성
     
+    var coinTypeContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     let coinTypeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.textColor = .black
         label.text = Constant.TitleSetting.coinTypeLabelName
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    let coinTypeCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var coinTypeHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
     }()
     
     lazy var coinTypeTextField: UITextField = {
@@ -82,12 +79,12 @@ final class CalcView: UIView {
     let coinTypeBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         return view
     }()
     
     private lazy var coinTypeStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [coinTypeHorizontalStackView, coinTypeTextField, coinTypeBottomLine])
+        let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeTextField, coinTypeBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 7
         sv.axis = .vertical
@@ -98,33 +95,30 @@ final class CalcView: UIView {
     
     //MARK: - 매수 시작 날짜 관련 속성
     
+    var buyStartDateContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     let buyStartDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyStartDateLabelName1
+        label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    let buyStartDateCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var buyStartDateHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyStartDateLabel, buyStartDateCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
     }()
     
     lazy var buyStartDateTextField: UITextField = {
@@ -159,12 +153,12 @@ final class CalcView: UIView {
     let buyStartDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         return view
     }()
     
     private lazy var buyStartDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyStartDateHorizontalStackView, buyStartDateTextField, buyStartDateBottomLine])
+        let sv = UIStackView(arrangedSubviews: [buyStartDateLabel, buyStartDateTextField, buyStartDateBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -175,33 +169,30 @@ final class CalcView: UIView {
     
     //MARK: - 매수 종료 날짜 관련 속성
     
+    let buyEndDateContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     let buyEndDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyEndDateLabelName
+        label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    let buyEndDateCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var buyEndDateHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyEndDateLabel, buyEndDateCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
     }()
     
     lazy var buyEndDateTextField: UITextField = {
@@ -236,12 +227,141 @@ final class CalcView: UIView {
     let buyEndDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         return view
     }()
     
     private lazy var buyEndDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyEndDateHorizontalStackView, buyEndDateTextField, buyEndDateBottomLine])
+        let sv = UIStackView(arrangedSubviews: [buyEndDateLabel, buyEndDateTextField, buyEndDateBottomLine])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 8
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    //MARK: - 매수 반복 주기 관련 속성
+    
+    let frequencyContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let frequencyLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.frequencyLabelName
+        label.textColor = .black
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+    
+    lazy var frequencyTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.borderStyle = .none
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.inputView = frequencyPicker
+        tf.clearButtonMode = .whileEditing
+        tf.placeholder = Constant.TitleSetting.frequencyTextFieldPlaceHolder
+        tf.textColor = .label
+        tf.tintColor = .clear
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
+        return tf
+    }()
+    
+    let frequencyPicker: UIPickerView = {
+        let picker = UIPickerView()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
+
+    let frequencyBottomLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        return view
+    }()
+    
+    private lazy var frequencyStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyTextField, frequencyBottomLine])
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.spacing = 8
+        sv.axis = .vertical
+        sv.distribution = .fill
+        sv.alignment = .fill
+        return sv
+    }()
+    
+    //MARK: - 매 회차 매수금액 관련 속성
+    
+    let amountContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let amountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
+        label.text = Constant.TitleSetting.amountLabelName1
+        label.textColor = .black
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
+    }()
+        
+    lazy var amountTextField: UITextField = {
+        let tf = UITextField()
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.borderStyle = .none
+        tf.autocapitalizationType = .none
+        tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.clearsOnBeginEditing = false
+        tf.keyboardType = .decimalPad
+        tf.clearButtonMode = .whileEditing
+        tf.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder
+        tf.textColor = .label
+        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
+        return tf
+    }()
+
+    let amountBottomLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        return view
+    }()
+    
+    private lazy var amountStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [amountLabel, amountTextField, amountBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -252,33 +372,30 @@ final class CalcView: UIView {
     
     //MARK: - 매수 종료 날짜 관련 속성
     
+    let sellDateContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderWidth = 0
+//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+//        view.layer.shadowRadius = 2
+//        view.layer.shadowOpacity = 0.3
+//        view.layer.masksToBounds = false
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     let sellDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.sellDateLabelName
+        label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         return label
-    }()
-    
-    let sellDateCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var sellDateHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [sellDateLabel, sellDateCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
     }()
     
     lazy var sellDateTextField: UITextField = {
@@ -313,147 +430,12 @@ final class CalcView: UIView {
     let sellDateBottomLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         return view
     }()
     
     private lazy var sellDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [sellDateHorizontalStackView, sellDateTextField, sellDateBottomLine])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 8
-        sv.axis = .vertical
-        sv.distribution = .fill
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    //MARK: - 매수 반복 주기 관련 속성
-    
-    let frequencyLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.frequencyLabelName
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    
-    let frequencyCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var frequencyHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    lazy var frequencyTextField: UITextField = {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.borderStyle = .none
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.inputView = frequencyPicker
-        tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.frequencyTextFieldPlaceHolder
-        tf.textColor = .label
-        tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        return tf
-    }()
-    
-    let frequencyPicker: UIPickerView = {
-        let picker = UIPickerView()
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-
-    let frequencyBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
-        return view
-    }()
-    
-    private lazy var frequencyStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [frequencyHorizontalStackView, frequencyTextField, frequencyBottomLine])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 8
-        sv.axis = .vertical
-        sv.distribution = .fill
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    //MARK: - 매 회차 매수금액 관련 속성
-    
-    let amountLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.amountLabelName1
-        label.textAlignment = .left
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        return label
-    }()
-    
-    let amountCheckMark: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = Constant.ImageSetting.checkMarkNo
-        imageView.tintColor = .clear
-        return imageView
-    }()
-    
-    private lazy var amountHorizontalStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [amountLabel, amountCheckMark])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 3
-        sv.axis = .horizontal
-        sv.distribution = .equalSpacing
-        sv.alignment = .fill
-        return sv
-    }()
-    
-    lazy var amountTextField: UITextField = {
-        let tf = UITextField()
-        tf.translatesAutoresizingMaskIntoConstraints = false
-        tf.borderStyle = .none
-        tf.autocapitalizationType = .none
-        tf.autocorrectionType = .no
-        tf.spellCheckingType = .no
-        tf.clearsOnBeginEditing = false
-        tf.keyboardType = .decimalPad
-        tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder
-        tf.textColor = .label
-        tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        return tf
-    }()
-
-    let amountBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
-        return view
-    }()
-    
-    private lazy var amountStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [amountHorizontalStackView, amountTextField, amountBottomLine])
+        let sv = UIStackView(arrangedSubviews: [sellDateLabel, sellDateTextField, sellDateBottomLine])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -477,11 +459,11 @@ final class CalcView: UIView {
     let calcStartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = Constant.UIColorSetting.themeColor
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
+        button.layer.cornerRadius = 10
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -500,19 +482,18 @@ final class CalcView: UIView {
     let calcResetButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemGray5
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
         button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
         button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        button.layer.cornerRadius = 10
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
     
-    private lazy var buttonStackView: UIStackView = {
+    lazy var buttonStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [shimmerButton, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 35
+        sv.spacing = 20
         sv.axis = .horizontal
         sv.distribution = .fillEqually
         sv.alignment = .fill
@@ -525,7 +506,7 @@ final class CalcView: UIView {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         view.showsVerticalScrollIndicator = true
         view.scrollsToTop = true
         return view
@@ -537,9 +518,9 @@ final class CalcView: UIView {
         let sv = UIStackView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
-        sv.spacing = 30
-        sv.alignment = .leading
-        sv.distribution = .equalSpacing
+        sv.spacing = 20
+        sv.alignment = .fill
+        sv.distribution = .fill
         return sv
     }()
     
@@ -563,8 +544,11 @@ final class CalcView: UIView {
         setupShimmerView()
         setupSegmentedControl()
         setupScrollView()
+        setupContainerView()
         setupFinalStackView()
         setupActivityIndicator()
+        
+        
     }
         
     // UIView 필수생성자
@@ -584,9 +568,9 @@ final class CalcView: UIView {
         self.addSubview(segmentedControl)
         
         NSLayoutConstraint.activate([
+            segmentedControl.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            segmentedControl.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, constant: -60),
             segmentedControl.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 40),
-            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -40),
             segmentedControl.heightAnchor.constraint(equalToConstant: 32),
         ])
     }
@@ -595,44 +579,57 @@ final class CalcView: UIView {
         self.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 30),
+            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
             scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
             scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
         ])
     }
     
-    // 최종 StackView 초기 설정
+    // 각 요소의 ContainerView와 StackView 설정
+    private func setupContainerView() {
+        let containerViewArray = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView, frequencyContainerView, amountContainerView, sellDateContainerView]
+        let stackViewArray = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, frequencyStackView, amountStackView, sellDateStackView]
+        
+        for i in 0..<containerViewArray.count {
+            self.addSubview(containerViewArray[i])
+            containerViewArray[i].addSubview(stackViewArray[i])
+            NSLayoutConstraint.activate([
+                stackViewArray[i].leadingAnchor.constraint(equalTo: containerViewArray[i].leadingAnchor, constant: 15),
+                stackViewArray[i].trailingAnchor.constraint(equalTo: containerViewArray[i].trailingAnchor, constant: -15),
+                stackViewArray[i].topAnchor.constraint(equalTo: containerViewArray[i].topAnchor, constant: 15),
+                stackViewArray[i].bottomAnchor.constraint(equalTo: containerViewArray[i].bottomAnchor, constant: -15),
+            ])
+        }
+        
+        _ = containerViewArray.map{ $0.heightAnchor.constraint(equalToConstant: 90).isActive = true }
+    }
+    
+    // FinalStackView 설정
     private func setupFinalStackView() {
-        _ = [coinTypeStackView, buyStartDateStackView, amountStackView, sellDateStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeContainerView, buyStartDateContainerView, amountContainerView, sellDateContainerView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [buyEndDateContainerView, frequencyContainerView].map { $0.removeFromSuperview() }
         
         scrollView.addSubview(finalStackView)
         
         NSLayoutConstraint.activate([
-            finalStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 40),
-            finalStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -40),
-            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 10),
+            finalStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            finalStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
+            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 40),
             finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
             
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 35),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
     }
     
+    // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupFirstFinalStackView() {
-        _ = [buyEndDateStackView, frequencyStackView].map { $0.removeFromSuperview() }
-        
-        NSLayoutConstraint.activate([
-            emptySpace.heightAnchor.constraint(equalToConstant: 0),
-            
-            buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
-        ])
-        
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
+        _ = [buyEndDateContainerView, frequencyContainerView].map { $0.removeFromSuperview() }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
@@ -640,16 +637,9 @@ final class CalcView: UIView {
         resetTextField()
     }
     
+    // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupSecondFianlStackView() {
-        _ = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView, frequencyStackView, amountStackView, sellDateStackView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
-        
-        NSLayoutConstraint.activate([
-            emptySpace.heightAnchor.constraint(equalToConstant: 0),
-            
-            buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
-        ])
-        
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Constant.SizeSetting.bottomLineWidthAnchorConstant).isActive = true }
+        _ = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView, frequencyContainerView, amountContainerView, sellDateContainerView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
@@ -658,9 +648,9 @@ final class CalcView: UIView {
 
     }
     
+    // TextField 입력값 초기화
     private func resetTextField() {
-        frequencyTextField.text = ""
-        amountTextField.text = ""
+        _ = [buyStartDateTextField, buyEndDateTextField, frequencyTextField, amountTextField, sellDateTextField].map{ $0.text = "" }
     }
     
     // 로딩중임을 나타내는 Indicator 설정

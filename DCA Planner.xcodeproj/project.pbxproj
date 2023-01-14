@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070C1CC5296FA6BA008E85D0 /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */; };
 		072807802957F08000CF65D9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0728077F2957F08000CF65D9 /* Kingfisher */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
 		073F546E296D8D4F0099305A /* CalcResultModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultModalViewController.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
 		078478802968486800C87C1C /* CalcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0784787F2968486800C87C1C /* CalcManager.swift */; };
-		0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */; };
 		0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794111E2949E84700A4F632 /* AppDelegate.swift */; };
 		079411212949E84700A4F632 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079411202949E84700A4F632 /* SceneDelegate.swift */; };
 		079411232949E84700A4F632 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079411222949E84700A4F632 /* MainTabBarController.swift */; };
@@ -39,11 +39,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinHelpModalViewController.swift; sourceTree = "<group>"; };
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		073F546D296D8D4F0099305A /* CalcResultModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultModalViewController.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0784787F2968486800C87C1C /* CalcManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcManager.swift; sourceTree = "<group>"; };
-		0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoinHelpModalViewController.swift; path = ../Tab0/CoinHelpModalViewController.swift; sourceTree = "<group>"; };
 		0794111B2949E84700A4F632 /* DCA Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DCA Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0794111E2949E84700A4F632 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		079411202949E84700A4F632 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
-				0790C8D9294CA6DC00805EEE /* CoinHelpModalViewController.swift */,
+				070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */,
 			);
 			path = Tab1;
 			sourceTree = "<group>";
@@ -388,6 +388,7 @@
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
 				07941144294A158C00A4F632 /* DCA Planner.xcdatamodeld in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
+				070C1CC5296FA6BA008E85D0 /* CoinHelpModalViewController.swift in Sources */,
 				07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
@@ -401,7 +402,6 @@
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
 				0750FD33295D2D85006B90B5 /* Date.swift in Sources */,
 				073F546E296D8D4F0099305A /* CalcResultModalViewController.swift in Sources */,
-				0790C8DA294CA6DC00805EEE /* CoinHelpModalViewController.swift in Sources */,
 				079DBFF7295DB53A0063625F /* CalcView.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* CoreDataManager.swift in Sources */,
 				0794114A294A19C800A4F632 /* SettingView.swift in Sources */,
@@ -562,6 +562,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,6 +598,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

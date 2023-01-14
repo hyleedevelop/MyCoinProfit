@@ -58,7 +58,7 @@ final class CoinViewController: UIViewController {
     // TableView를 담고 있는 View
     private let tableContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
         view.clipsToBounds = false
         view.layer.cornerRadius = 0
         return view
@@ -166,6 +166,7 @@ final class CoinViewController: UIViewController {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
+        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
@@ -187,7 +188,7 @@ final class CoinViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
     }
     
     // 화면 상단의 필터링/정렬 버튼 설정
@@ -269,6 +270,7 @@ final class CoinViewController: UIViewController {
             }
         }
         
+        // 변경사항을 반영하기 위해 TableView 갱신
         self.tableView.reloadData()
     }
     
