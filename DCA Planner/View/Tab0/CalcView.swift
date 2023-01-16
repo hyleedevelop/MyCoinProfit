@@ -14,9 +14,15 @@ final class CalcView: UIView {
     
     lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["한번에 매수하기","나눠서 매수하기"])
+        let backgroundImage = UIImage()
+        let deviderImage = UIImage()
+        let font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .medium)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0
-        let font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .medium)
+//        control.setBackgroundImage(backgroundImage, for: .normal, barMetrics: .default)
+//        control.setBackgroundImage(backgroundImage, for: .selected, barMetrics: .default)
+//        control.setBackgroundImage(backgroundImage, for: .highlighted, barMetrics: .default)
+//        control.setDividerImage(deviderImage, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
         control.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
         control.selectedSegmentTintColor = Constant.UIColorSetting.themeColor
         control.addTarget(self, action: #selector(segmentedValueChanged(_:)), for: .valueChanged)
@@ -31,10 +37,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -101,10 +107,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -175,10 +181,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -249,10 +255,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -317,10 +323,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -378,10 +384,10 @@ final class CalcView: UIView {
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.layer.borderColor = Constant.CGColorSetting.themeColor
         view.layer.borderWidth = 0
-//        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-//        view.layer.shadowRadius = 2
-//        view.layer.shadowOpacity = 0.3
-//        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowRadius = 1
+        view.layer.shadowOpacity = 0.1
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = 10
         return view
     }()
@@ -461,7 +467,7 @@ final class CalcView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
         button.layer.cornerRadius = 10
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
@@ -472,7 +478,7 @@ final class CalcView: UIView {
         let shimmer = ShimmeringView()
         shimmer.isShimmering = true
         shimmer.shimmerSpeed = 150
-        shimmer.shimmerPauseDuration = 5
+        shimmer.shimmerPauseDuration = 4
         shimmer.shimmerHighlightLength = 0.8
         shimmer.shimmerAnimationOpacity = 0.7
         shimmer.shimmerDirection = .left
@@ -483,6 +489,7 @@ final class CalcView: UIView {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.lightModeInbox
         button.layer.cornerRadius = 10
@@ -615,7 +622,7 @@ final class CalcView: UIView {
         NSLayoutConstraint.activate([
             finalStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             finalStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -60),
-            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 40),
+            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 30),
             finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
             
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
@@ -680,14 +687,13 @@ final class CalcView: UIView {
     //MARK: - 액션
     
     @objc private func segmentedValueChanged(_ sender: UISegmentedControl) {
-        // 일괄매수를 선택한 경우
-        if sender.selectedSegmentIndex == 0 {
+        switch sender.selectedSegmentIndex {
+        case 0:  // 한번에 매수하기 선택 시
             setupFirstFinalStackView()
-        }
-        
-        // 분할매수를 선택한 경우
-        if sender.selectedSegmentIndex == 1 {
+        case 1:  // 나눠서 매수하기 선택 시
             setupSecondFianlStackView()
+        default:
+            break
         }
     }
     

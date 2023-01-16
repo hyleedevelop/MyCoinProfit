@@ -28,19 +28,30 @@ struct Constant {
     
     struct CGColorSetting {
         static let deepPurple: CGColor = CGColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
+        static let black: CGColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
         
         static let themeColor: CGColor = deepPurple
     }
     
     struct SizeSetting {
         static let labelFontSize: CGFloat = 17
-        static let textfieldFontSize: CGFloat = labelFontSize - 2
-        static let calcResultFontSize: CGFloat = 16
         static let labelFontWeight: UIFont.Weight = .semibold
+        
+        static let textfieldFontSize: CGFloat = labelFontSize - 2
         static let textfieldFontWeight: UIFont.Weight = .regular
+        
+        static let calcResultFontSize: CGFloat = 16
+        
+        static let summaryLabelBigFontSize: CGFloat = 22
+        static let summaryLabelBigFontWeight: UIFont.Weight = .bold
+        
+        static let summaryLabelSmallFontSize: CGFloat = 16
+        static let summaryLabelSmallFontWeight: UIFont.Weight = .regular
+        
         static let bottomLineHeightAnchorConstant: CGFloat = 0.8
         static let bottomLineWidthAnchorConstant: CGFloat = -80
         static let calcButtonWidthAnchorConstant: CGFloat = -20
+        static let graphLineWidthAnchorConstant: CGFloat = 0.5
     }
     
     //                                     <Timeline>
@@ -66,7 +77,7 @@ struct Constant {
     struct TitleSetting {
         static let coinTypeLabelName: String = "어떤 코인을 매수할까요?"
         static let buyStartDateLabelName1: String = "언제 매수할까요?"
-        static let buyStartDateLabelName2: String = "언제 분할매수를 시작할까요?"
+        static let buyStartDateLabelName2: String = "언제 매수를 시작할까요?"
         static let buyEndDateLabelName: String = "언제 매수를 끝낼까요?"
         static let sellDateLabelName: String = "언제 매도할까요?"
         static let frequencyLabelName: String = "얼마나 자주 매수할까요?"
@@ -80,13 +91,14 @@ struct Constant {
         static let frequencyTextFieldPlaceHolder: String = "반복 주기 선택"
         static let amountLabelTextFieldPlaceHolder: String = "달러($) 금액 입력"
         
-        static let menuName1: String = "코인시세"
+        static let menuName1: String = "코인정보"
         static let menuName2: String = "수익계산"
         static let menuName3: String = "설정"
         
-        static let calcStartButtonName: String = "계산"
-        static let calcResetButtonName: String = "초기화"
-        static let calcSaveButtonName: String = "결과 저장"
+        static let calcStartButtonName: String = "계산하기"
+        static let calcResetButtonName: String = "모두 지우기"
+        static let calcSaveButtonName: String = "저장하기"
+        static let calcShareButtonName: String = "공유하기"
     }
         
     struct ImageSetting {

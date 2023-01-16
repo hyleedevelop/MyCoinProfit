@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "닫기"
         
+        //sleep(2)  // 앱의 런칭 시간 조절
+        
         return true
     }
 
