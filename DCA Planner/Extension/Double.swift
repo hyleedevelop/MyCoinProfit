@@ -76,24 +76,44 @@ extension Double {
     }
     
     // 가격 숫자의 절대값 크기에 따라 소수점 아래 자리수를 다르게 설정
+    // 값이 양수인 경우 부호 X, 값이 음수인 경우 부호 O
     func toUSD() -> String {
         if (10...).contains(abs(self)) {
-            return formatterOfUSDGreatherThanTen.string(for: self) ?? "$0.0"
+            return formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--"
         } else if (1.01..<10).contains(abs(self)) {
-            return formatterOfUSDFromOneToTen.string(for: self) ?? "$0.000"
+            return formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----"
         } else if (0.01..<1.01).contains(abs(self)) {
-            return formatterOfUSDLessThanOne.string(for: self) ?? "$0.00000"
+            return formatterOfUSDLessThanOne.string(for: self) ?? "$-.------"
         } else {
-            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$0.0000000"
+            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------"
+        }
+    }
+    
+    // 가격 숫자의 절대값 크기에 따라 소수점 아래 자리수를 다르게 설정
+    // 값이 양수인 경우 부호 O, 값이 음수인 경우 부호 O
+    func toUSDPlusSigned() -> String {
+        if (10...).contains(abs(self)) {
+            return self > 0 ? "+\(formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--")"
+                            : "\(formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--")"
+        } else if (1.01..<10).contains(abs(self)) {
+            return self > 0 ? "+\(formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----")"
+                            : "\(formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----")"
+        } else if (0.01..<1.01).contains(abs(self)) {
+            return self > 0 ? "+\(formatterOfUSDLessThanOne.string(for: self) ?? "$-.------")"
+                            : "\(formatterOfUSDLessThanOne.string(for: self) ?? "$-.------")"
+        } else {
+            return self > 0 ? "+\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------")"
+                            : "\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------")"
         }
     }
     
     func toKRW() -> String {
-        return currencyFormatterKRW.string(for: self) ?? "₩0"
+        return currencyFormatterKRW.string(for: self) ?? "₩-"
     }
     
     func toPercentage() -> String {
-        return formatterOfPercentage.string(for: self) ?? "0.00%"
+        return self > 0 ? "+\(formatterOfPercentage.string(for: self) ?? "-.--%")"
+                        : "\(formatterOfPercentage.string(for: self) ?? "-.--%")"
     }
     
 }

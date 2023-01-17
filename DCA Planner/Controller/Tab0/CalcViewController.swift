@@ -466,8 +466,9 @@ final class CalcViewController: UIViewController {
                                     self.presentCalcResult(with: (amount, roi, profit, balance, coinTypeString, buyStartDateString, sellDateString))
                                 }
                             case .buyStartDateError:
+                                // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 날짜의 코인 데이터를 서버에서 가져올 수 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "오류", message: "매수 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
                                     let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
@@ -476,8 +477,9 @@ final class CalcViewController: UIViewController {
                             case .buyEndDateError:
                                 fallthrough
                             case .sellDateError:
+                                // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터를 서버에서 가져올 수 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
                                     let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
@@ -561,7 +563,7 @@ final class CalcViewController: UIViewController {
             if calcView.frequencyTextField.text == "" {
                 inputError = .frequencyInputError
                 showPopUpMessage(with: button, title: "에러",
-                                    message: "매수 주기를 선택하세요",
+                                    message: "매수 반복 주기를 선택하세요",
                                     responder: calcView.frequencyTextField, error: .frequencyInputError)
                 return
             }
@@ -654,24 +656,27 @@ final class CalcViewController: UIViewController {
                                     self.presentCalcResult(with: (amount, roi, profit, balance, coinTypeString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString))
                                 }
                             case .buyStartDateError:
+                                // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 시작 날짜의 코인 데이터가 없습니다.\n매수 시작 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "오류", message: "매수 시작 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
                                     let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
                                 }
                             case .buyEndDateError:
+                                // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 종료 날짜의 코인 데이터가 없습니다.\n매수 종료 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "오류", message: "매수 종료 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 종료 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
                                     let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
                                 }
                             case .sellDateError:
+                                // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터가 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
                                     let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
@@ -730,7 +735,7 @@ final class CalcViewController: UIViewController {
                     return context.maximumDetentValue * 0.7
                 })]
             } else {
-                sheet.detents = [.medium()]
+                sheet.detents = [.large()]
             }
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
             sheet.preferredCornerRadius = 25

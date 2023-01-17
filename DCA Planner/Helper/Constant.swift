@@ -48,6 +48,12 @@ struct Constant {
         static let summaryLabelSmallFontSize: CGFloat = 16
         static let summaryLabelSmallFontWeight: UIFont.Weight = .regular
         
+        static let graphLabelBigFontSize: CGFloat = 16
+        static let graphLabelBigFontWeight: UIFont.Weight = .bold
+        
+        static let graphLabelSmallFontSize: CGFloat = graphLabelBigFontSize - 2
+        static let graphLabelSmallFontWeight: UIFont.Weight = .regular
+        
         static let bottomLineHeightAnchorConstant: CGFloat = 0.8
         static let bottomLineWidthAnchorConstant: CGFloat = -80
         static let calcButtonWidthAnchorConstant: CGFloat = -20

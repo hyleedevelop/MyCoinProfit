@@ -68,8 +68,8 @@ final class CalcResultView: UIView {
     let leftBarValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        label.text = "$10,000"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.text = ""
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 1
@@ -90,8 +90,8 @@ final class CalcResultView: UIView {
     let rightBarValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        label.text = "$54,376"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.text = ""
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 1
@@ -102,7 +102,8 @@ final class CalcResultView: UIView {
     let centerArrow: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.image = UIImage(named: "UpCurvedArrow.png")
+        //iv.image = UIImage(named: "UpCurvedArrow.png")
+        iv.image = UIImage(systemName: "arrow.right")
         iv.tintColor = .black
         iv.sizeToFit()
         return iv
@@ -112,9 +113,9 @@ final class CalcResultView: UIView {
     let centerArrowValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        label.text = "$43,376\n(+543.76%)"
-        label.textColor = Constant.UIColorSetting.positiveColor
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.text = ""
+        label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 2
         return label
@@ -232,20 +233,20 @@ final class CalcResultView: UIView {
         NSLayoutConstraint.activate([
             graphContainerView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: 0),
             graphContainerView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, constant: -90),
-            graphContainerView.topAnchor.constraint(equalTo: summaryLabel[numberOfLabels-1].bottomAnchor, constant: 40),
+            graphContainerView.topAnchor.constraint(equalTo: summaryLabel[numberOfLabels-1].bottomAnchor, constant: 30),
             graphContainerView.heightAnchor.constraint(equalToConstant: 200),
 
-            bottomLine.leadingAnchor.constraint(equalTo: graphContainerView.leadingAnchor, constant: 10),
-            bottomLine.trailingAnchor.constraint(equalTo: graphContainerView.trailingAnchor, constant: -10),
-            bottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.graphLineWidthAnchorConstant + 0.3),
-            bottomLine.bottomAnchor.constraint(equalTo: graphContainerView.bottomAnchor, constant: -40),
+            bottomLine.leadingAnchor.constraint(equalTo: graphContainerView.leadingAnchor, constant: 20),
+            bottomLine.trailingAnchor.constraint(equalTo: graphContainerView.trailingAnchor, constant: -20),
+            bottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.graphLineWidthAnchorConstant + 0.2),
+            bottomLine.bottomAnchor.constraint(equalTo: graphContainerView.bottomAnchor, constant: -30),
             
+            //leftBar.heightAnchor.constraint(equalToConstant: 50),
             leftBar.bottomAnchor.constraint(equalTo: bottomLine.topAnchor),
-            leftBar.heightAnchor.constraint(equalToConstant: 50),
             leftBar.widthAnchor.constraint(equalToConstant: 25),
             leftBar.centerXAnchor.constraint(equalTo: bottomLine.centerXAnchor, constant: -90),
             
-            rightBar.topAnchor.constraint(equalTo: graphContainerView.topAnchor, constant: 25),
+            //rightBar.heightAnchor.constraint(equalToConstant: 225),
             rightBar.bottomAnchor.constraint(equalTo: bottomLine.topAnchor),
             rightBar.widthAnchor.constraint(equalToConstant: 25),
             rightBar.centerXAnchor.constraint(equalTo: bottomLine.centerXAnchor, constant: 90),
@@ -263,12 +264,12 @@ final class CalcResultView: UIView {
             rightTickLabel.topAnchor.constraint(equalTo: bottomLine.bottomAnchor, constant: 5),
             
             centerArrow.centerXAnchor.constraint(equalTo: bottomLine.centerXAnchor),
-            centerArrow.centerYAnchor.constraint(equalTo: rightBar.centerYAnchor, constant: 15),
+            centerArrow.centerYAnchor.constraint(equalTo: graphContainerView.centerYAnchor, constant: 10),
             centerArrow.widthAnchor.constraint(equalToConstant: 40),
-            centerArrow.heightAnchor.constraint(equalToConstant: 40),
+            centerArrow.heightAnchor.constraint(equalToConstant: 20),
             
             centerArrowValueLabel.centerXAnchor.constraint(equalTo: centerArrow.centerXAnchor),
-            centerArrowValueLabel.bottomAnchor.constraint(equalTo: centerArrow.topAnchor, constant: -8),
+            centerArrowValueLabel.bottomAnchor.constraint(equalTo: centerArrow.topAnchor, constant: -2),
             
         ])
     }
@@ -277,12 +278,10 @@ final class CalcResultView: UIView {
         self.addSubview(buttonStackView)
         
         NSLayoutConstraint.activate([
-//            buttonStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 80),
-//            buttonStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -80),
+            buttonStackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             buttonStackView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             buttonStackView.heightAnchor.constraint(equalToConstant: 100),
-            buttonStackView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 2.0/3.0),
-            buttonStackView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
         ])
     }
     

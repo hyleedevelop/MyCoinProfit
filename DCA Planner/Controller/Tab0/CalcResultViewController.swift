@@ -89,15 +89,45 @@ extension CalcResultViewController: CalcResultDelegate {
             guard let data = data as? CalcResultType1 else { return }
             print("계산화면에서 결과화면으로 전달되는 데이터: \(data)")
             
-            let amountTotal = data.0.toUSD()
-            let roi = data.1.toPercentage()
-            let lossOrGain = data.1 >= 0 ? "수익" : "손실"
-            let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor : Constant.UIColorSetting.negativeColor
-            let profit = data.2.toUSD()
-            let balance = data.3.toUSD()
-            let coinType = data.4.localizedCapitalized
-            let buyStartDate = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
-            let sellDate = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
+            let amountTotal: String = data.0.toUSD()
+            
+            let roi: String = data.1.toPercentage()
+            let isROIPositive: Bool = data.1 >= 0 ? true : false
+            let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
+                                                         : Constant.UIColorSetting.negativeColor
+            let emoticon: String = data.1 >= 0 ? "😁" : "😭"
+            
+            let profit: String = data.2.toUSDPlusSigned()
+            let balance: String = data.3.toUSD()
+            let coinType: String = data.4.localizedCapitalized
+            
+            let buyStartDate: String.SubSequence = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
+            let sellDate: String.SubSequence = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
+            
+            // Label 값 설정
+            calcResultView.leftBarValueLabel.text = amountTotal
+            calcResultView.rightBarValueLabel.text = balance
+            calcResultView.centerArrowValueLabel.text = "\(profit)\n\(roi)"
+            
+            // 화살표 위의 숫자 색상 설정
+            let targetText = calcResultView.centerArrowValueLabel.text!
+            let attString = NSMutableAttributedString(string: targetText)
+            attString.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText as NSString).range(of: "\(profit)"))
+            attString.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText as NSString).range(of: "\(roi)"))
+            calcResultView.centerArrowValueLabel.attributedText = attString
+            
+            // 원금과 평가금의 막대 높이 설정
+            if isROIPositive {  // 수익률 > 0
+                let heightRatio: CGFloat = data.0 / data.3
+                //calcResultView.rightBar.heightAnchor.constraint(equalToConstant: 175).isActive = true
+                calcResultView.rightBar.topAnchor.constraint(equalTo: calcResultView.graphContainerView.topAnchor, constant: 25).isActive = true
+                calcResultView.leftBar.heightAnchor.constraint(equalTo: calcResultView.rightBar.heightAnchor, multiplier: heightRatio).isActive = true
+            } else {  // 수익률 < 0
+                let heightRatio: CGFloat = data.3 / data.0
+                //calcResultView.leftBar.heightAnchor.constraint(equalToConstant: 175).isActive = true
+                calcResultView.leftBar.topAnchor.constraint(equalTo: calcResultView.graphContainerView.topAnchor, constant: 25).isActive = true
+                calcResultView.rightBar.heightAnchor.constraint(equalTo: calcResultView.leftBar.heightAnchor, multiplier: heightRatio).isActive = true
+            }
             
             // 결과 요약 문구 1번째 줄 설정
             calcResultView.summaryLabel[0].text = "\(coinType)을"
@@ -121,12 +151,11 @@ extension CalcResultViewController: CalcResultDelegate {
             calcResultView.summaryLabel[2].attributedText = attString2
             
             // 결과 요약 문구 4번째 줄 설정
-            calcResultView.summaryLabel[3].text = "\(roi)의 \(lossOrGain)이 발생합니다."
+            calcResultView.summaryLabel[3].text = "수익률이 \(roi)입니다 \(emoticon)"
             let targetText3 = calcResultView.summaryLabel[3].text!
             let attString3 = NSMutableAttributedString(string: targetText3)
             attString3.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText3 as NSString).range(of: "\(roi)"))
-            attString3.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText3 as NSString).range(of: "\(lossOrGain)"))
-            attString3.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText3 as NSString).range(of: "\(lossOrGain)"))
+            attString3.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText3 as NSString).range(of: "\(roi)"))
             calcResultView.summaryLabel[3].attributedText = attString3
             
             // 결과 요약 문구 5~6번째 줄은 필요 없으므로 상위 뷰에서 제거
@@ -135,26 +164,55 @@ extension CalcResultViewController: CalcResultDelegate {
             
             // 그래프가 들어갈 영역이 마지막 summaryLabel과 떨어져 있는 거리 설정
             calcResultView.graphContainerView.topAnchor.constraint(equalTo: calcResultView.summaryLabel[3].bottomAnchor, constant: 40).isActive = true
-            
-//            calcResultView.leftBar.heightAnchor
         }
     
         if index == 1 {  // 나눠서 매수하기
             guard let data = data as? CalcResultType2 else { return }
             print("계산화면에서 결과화면으로 전달되는 데이터: \(data)")
             
-            let amountTotal = data.0.toUSD()
-            let roi = abs(data.1).toPercentage()
-            let lossOrGain = data.1 >= 0 ? "수익" : "손실"
-            let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor : Constant.UIColorSetting.negativeColor
-            let profit = data.2.toUSD()
-            let balance = data.3.toUSD()
-            let coinType = data.4.localizedCapitalized
-            let buyStartDate = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
-            let buyEndDate = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
-            let sellDate = data.7[...data.7.index(data.7.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
-            let frequency = data.8
-            let amountEach = "\(data.9)달러"
+            let amountTotal: String = data.0.toUSD()
+            
+            let roi: String = data.1.toPercentage()
+            let isROIPositive: Bool = data.1 >= 0 ? true : false
+            let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
+                                                         : Constant.UIColorSetting.negativeColor
+            let emoticon: String = data.1 >= 0 ? "😁" : "😭"
+            
+            let profit: String = data.2.toUSDPlusSigned()
+            let balance: String = data.3.toUSD()
+            let coinType: String = data.4.localizedCapitalized
+            
+            let buyStartDate: String.SubSequence = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
+            let buyEndDate: String.SubSequence = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
+            let sellDate: String.SubSequence = data.7[...data.7.index(data.7.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거
+            
+            let frequency: String = data.8
+            let amountEach: String = "\(data.9)달러"
+            
+            // Label 값 설정
+            calcResultView.leftBarValueLabel.text = amountTotal
+            calcResultView.rightBarValueLabel.text = balance
+            calcResultView.centerArrowValueLabel.text = "\(profit)\n\(roi)"
+            
+            // 화살표 위의 숫자 색상 설정
+            let targetText = calcResultView.centerArrowValueLabel.text!
+            let attString = NSMutableAttributedString(string: targetText)
+            attString.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText as NSString).range(of: "\(profit)"))
+            attString.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText as NSString).range(of: "\(roi)"))
+            calcResultView.centerArrowValueLabel.attributedText = attString
+            
+            // 원금과 평가금의 막대 높이를 수익률이 양수인지 음수인지에 따라 다르게 설정
+            if isROIPositive {  // 수익률 > 0
+                let heightRatio: CGFloat = data.0 / data.3
+                //calcResultView.rightBar.heightAnchor.constraint(equalToConstant: 175).isActive = true
+                calcResultView.rightBar.topAnchor.constraint(equalTo: calcResultView.graphContainerView.topAnchor, constant: 25).isActive = true
+                calcResultView.leftBar.heightAnchor.constraint(equalTo: calcResultView.rightBar.heightAnchor, multiplier: heightRatio).isActive = true
+            } else {  // 수익률 < 0
+                let heightRatio: CGFloat = data.3 / data.0
+                //calcResultView.leftBar.heightAnchor.constraint(equalToConstant: 175).isActive = true
+                calcResultView.leftBar.topAnchor.constraint(equalTo: calcResultView.graphContainerView.topAnchor, constant: 25).isActive = true
+                calcResultView.rightBar.heightAnchor.constraint(equalTo: calcResultView.leftBar.heightAnchor, multiplier: heightRatio).isActive = true
+            }
             
             // 결과 요약 문구 1번째 줄 설정
             calcResultView.summaryLabel[0].text = "\(coinType)을"
@@ -193,12 +251,11 @@ extension CalcResultViewController: CalcResultDelegate {
             calcResultView.summaryLabel[4].attributedText = attString4
             
             // 결과 요약 문구 6번째 줄 설정
-            calcResultView.summaryLabel[5].text = "\(roi)의 \(lossOrGain)이 발생합니다."
+            calcResultView.summaryLabel[5].text = "수익률이 \(roi)입니다 \(emoticon)"
             let targetText5 = calcResultView.summaryLabel[5].text!
             let attString5 = NSMutableAttributedString(string: targetText5)
             attString5.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText5 as NSString).range(of: "\(roi)"))
-            attString5.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText5 as NSString).range(of: "\(lossOrGain)"))
-            attString5.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText5 as NSString).range(of: "\(lossOrGain)"))
+            attString5.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText5 as NSString).range(of: "\(roi)"))
             calcResultView.summaryLabel[5].attributedText = attString5
         }
     }
