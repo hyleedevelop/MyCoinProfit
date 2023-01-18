@@ -1,20 +1,36 @@
 PODS:
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - IQKeyboardManagerSwift (6.5.10)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - ShimmerSwift (2.1.1)
+  - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
+  - Charts
   - IQKeyboardManagerSwift (= 6.5.10)
+  - NVActivityIndicatorView
   - ShimmerSwift
 
 SPEC REPOS:
   trunk:
+    - Charts
     - IQKeyboardManagerSwift
+    - NVActivityIndicatorView
     - ShimmerSwift
+    - SwiftAlgorithms
 
 SPEC CHECKSUMS:
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ShimmerSwift: f7ed2daf9c246de8299dfd9e12c6ab465cba9842
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: a772bfb00275fa2717e0de1660f8042e2ccd0c5d
+PODFILE CHECKSUM: 7600983d8bf4cdebbe66a8b4dc40bfd622032a6b
 
 COCOAPODS: 1.11.3

@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
+${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework
+${BUILT_PRODUCTS_DIR}/ShimmerSwift/ShimmerSwift.framework
+${BUILT_PRODUCTS_DIR}/SwiftAlgorithms/Algorithms.framework

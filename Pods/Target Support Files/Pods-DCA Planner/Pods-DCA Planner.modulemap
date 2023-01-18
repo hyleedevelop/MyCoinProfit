@@ -1,6 +1,0 @@
-framework module Pods_DCA_Planner {
-  umbrella header "Pods-DCA Planner-umbrella.h"
-
-  export *
-  module * { export * }
-}
