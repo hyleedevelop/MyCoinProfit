@@ -139,7 +139,7 @@ final class CalcResultView: UIView {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         //iv.image = UIImage(named: "UpCurvedArrow.png")
-        iv.image = UIImage(systemName: "arrow.right.circle.fill")
+        iv.image = UIImage(systemName: "arrow.forward")
         iv.tintColor = .black
         iv.sizeToFit()
         return iv
@@ -184,20 +184,20 @@ final class CalcResultView: UIView {
     
     //MARK: - 버튼
     
-    lazy var showChartButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = Constant.UIColorSetting.themeColor
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.setTitle(Constant.TitleSetting.showChartButtonName, for: .normal)
-        button.setTitleColor(.systemBackground, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        button.setImage(UIImage(systemName: "chevron.down")?.withTintColor(.systemBackground, renderingMode: .alwaysOriginal), for: .normal)
-        button.semanticContentAttribute = .forceRightToLeft
-        //button.addTarget(self, action: #selector(resultButtonTapped(_:)), for: .touchUpInside)
-        return button
-    }()
+//    lazy var showChartButton: UIButton = {
+//        let button = UIButton(type: .custom)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.backgroundColor = Constant.UIColorSetting.themeColor
+//        button.layer.masksToBounds = true
+//        button.layer.cornerRadius = 10
+//        button.setTitle(Constant.TitleSetting.showChartButtonName, for: .normal)
+//        button.setTitleColor(.systemBackground, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+//        button.setImage(UIImage(systemName: "chevron.down")?.withTintColor(.systemBackground, renderingMode: .alwaysOriginal), for: .normal)
+//        button.semanticContentAttribute = .forceRightToLeft
+//        //button.addTarget(self, action: #selector(resultButtonTapped(_:)), for: .touchUpInside)
+//        return button
+//    }()
     
 //    lazy var resultShareButton: UIButton = {
 //        let button = UIButton(type: .custom)
@@ -231,13 +231,17 @@ final class CalcResultView: UIView {
         setupFrame()
         setupSummaryLabel()
         setupSummaryGraph()
-        setupButton()
+        //setupButton()
         //setupChart()
     }
         
     // UIView 필수생성자
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     //MARK: - 하위 뷰 등록 및 제약조건 설정
@@ -283,7 +287,7 @@ final class CalcResultView: UIView {
         NSLayoutConstraint.activate([
             graphContainerView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor, constant: 0),
             graphContainerView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, constant: -90),
-            graphContainerView.topAnchor.constraint(equalTo: summaryLabel[numberOfLabels-1].bottomAnchor, constant: 30),
+            graphContainerView.topAnchor.constraint(equalTo: summaryLabel[numberOfLabels-1].bottomAnchor, constant: 50),
             graphContainerView.heightAnchor.constraint(equalToConstant: 200),
 
             bottomLine.leadingAnchor.constraint(equalTo: graphContainerView.leadingAnchor, constant: 10),
@@ -315,7 +319,7 @@ final class CalcResultView: UIView {
             
             centerArrow.centerXAnchor.constraint(equalTo: bottomLine.centerXAnchor),
             centerArrow.centerYAnchor.constraint(equalTo: graphContainerView.centerYAnchor, constant: 0),
-            centerArrow.widthAnchor.constraint(equalToConstant: 20),
+            centerArrow.widthAnchor.constraint(equalToConstant: 40),
             centerArrow.heightAnchor.constraint(equalToConstant: 20),
             
             centerArrowValueLabel.centerXAnchor.constraint(equalTo: centerArrow.centerXAnchor),
@@ -323,16 +327,16 @@ final class CalcResultView: UIView {
         ])
     }
     
-    private func setupButton() {
-        self.addSubview(showChartButton)
-
-        NSLayoutConstraint.activate([
-            showChartButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            showChartButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            showChartButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            showChartButton.heightAnchor.constraint(equalToConstant: 40),
-        ])
-    }
+//    private func setupButton() {
+//        self.addSubview(showChartButton)
+//
+//        NSLayoutConstraint.activate([
+//            showChartButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+//            showChartButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+//            showChartButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+//            showChartButton.heightAnchor.constraint(equalToConstant: 40),
+//        ])
+//    }
     
     func setupChart() {
         scrollView.addSubview(balanceChartView)

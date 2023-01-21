@@ -15,8 +15,7 @@ final class CalcResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // CalcViewController로부터 데이터를 전달받
-        calcVC.dataDelegate = self
+        calcVC.calcResultDataDelegate = self
     
         setupNavBar()
         setupView()
@@ -37,7 +36,7 @@ final class CalcResultViewController: UIViewController {
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
         navigationBarAppearance.backgroundColor = .systemBackground
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.systemGray2]
         
         // scrollEdge: 스크롤 하기 전의 NavigationBar
         // standard: 스크롤을 하고 있을 때의 NavigationBar
@@ -52,13 +51,13 @@ final class CalcResultViewController: UIViewController {
 //        _ = [shareButton, saveButton].map{ $0.tintColor = Constant.UIColorSetting.themeColor }
 //        navigationItem.leftBarButtonItems = [shareButton, saveButton]
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        navigationItem.leftBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        navigationItem.leftBarButtonItem?.tintColor = .systemGray2
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
+        navigationItem.rightBarButtonItem?.tintColor = .systemGray2
         
-        //navigationItem.title = "투자결과"
+        navigationItem.title = "계산 결과"
     }
     
     // View 설정
@@ -69,31 +68,64 @@ final class CalcResultViewController: UIViewController {
 
     // 화면 하단의 Button 설정
     private func setupButton() {
-        calcResultView.showChartButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        //calcResultView.showChartButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
     }
     
+    // 스크린샷을 사진 앱에 저장 (1)
+    private func takeScreenshot(of view: UIView) {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.width, height: view.bounds.height), false, 2)
+        
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        // photo library 접근 권한을 허용해줘야 함(Info.plist)
+        UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
+    }
+    
+    // 스크린샷을 사진 앱에 저장 (2)
+    @objc private func imageWasSaved(_ image: UIImage, error: Error?, context: UnsafeMutableRawPointer) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+
+        UIApplication.shared.open(URL(string:"photos-redirect://")!)
+    }
+    
+    // 버튼을 눌렀을 때 실행할 내용
     @objc private func buttonTapped(_ button: UIButton) {
         if button == navigationItem.leftBarButtonItem {
-            print("Share!")
+            // AlertController, AlertAction 생성
+            let alert = UIAlertController(title: "확인", message: "Do you want to save the result as image?", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "아니오", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: "네", style: .default) { _ in
+                self.takeScreenshot(of: self.view)
+            }
+            
+            // 액션 추가 및 팝업메세지 출력
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
         }
         
         if button == navigationItem.rightBarButtonItem {
             self.dismiss(animated: true)
         }
         
-        if button == calcResultView.showChartButton {
-            // 시간 그래프 보기 버튼을 누르면 ModalView의 높이가 늘어나고,
-            // 보기 버튼이 사라지면서 시간 그래프가 ScrollView에 추가되어야 함
-            DispatchQueue.main.async {
-                self.modalPresentationStyle = .fullScreen
-                self.sheetPresentationController?.detents = [.custom(resolver: { context in
-                    return UIScreen.main.bounds.height
-                })]
-                self.calcResultView.setupChart()
-                self.calcResultView.showChartButton.removeFromSuperview()
-                self.calcResultView.layoutIfNeeded()
-            }
-        }
+//        if button == calcResultView.showChartButton {
+//            // 시간 그래프 보기 버튼을 누르면 ModalView의 높이가 늘어나고,
+//            // 보기 버튼이 사라지면서 시간 그래프가 ScrollView에 추가되어야 함
+//            DispatchQueue.main.async {
+//                self.modalPresentationStyle = .fullScreen
+//                self.sheetPresentationController?.detents = [.custom(resolver: { context in
+//                    return UIScreen.main.bounds.height
+//                })]
+//                self.calcResultView.setupChart()
+//                self.calcResultView.showChartButton.removeFromSuperview()
+//                self.calcResultView.layoutIfNeeded()
+//            }
+//        }
     }
     
 }
@@ -102,7 +134,7 @@ final class CalcResultViewController: UIViewController {
 extension CalcResultViewController: CalcResultDelegate {
     
     // 이전 화면에서 데이터를 전달받아 작업할 내용
-    func receiveData(segmentIndex index: Int, with data: Any) {
+    func receiveCalcResultData(segmentIndex index: Int, with data: Any) {
         if index == 0 {  // 한번에 매수하기
             guard let data = data as? CalcResultType1 else { return }
             print("계산화면에서 결과화면으로 전달되는 데이터: \(data)")
@@ -114,11 +146,10 @@ extension CalcResultViewController: CalcResultDelegate {
             let lossOrGain = data.1 >= 0 ? "수익" : "손실"
             let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
                                                          : Constant.UIColorSetting.negativeColor
-            //let emoticon: String = data.1 >= 0 ? "😁" : "😭"
             
             let profit: String = data.2.toUSDPlusSigned()
             let balance: String = data.3.toUSD()
-            let coinType: String = data.4.localizedCapitalized
+            let coinType: String = data.4.uppercased()
             
             let buyStartDate: String.SubSequence = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
             let sellDate: String.SubSequence = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
@@ -149,7 +180,7 @@ extension CalcResultViewController: CalcResultDelegate {
             }
             
             // 결과 요약 문구 1번째 줄 설정
-            calcResultView.summaryLabel[0].text = "\(coinType)을"
+            calcResultView.summaryLabel[0].text = "\(coinType)의 경우"
             let targetText0 = calcResultView.summaryLabel[0].text!
             let attString0 = NSMutableAttributedString(string: targetText0)
             attString0.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText0 as NSString).range(of: "\(coinType)"))
@@ -174,6 +205,7 @@ extension CalcResultViewController: CalcResultDelegate {
             let targetText3 = calcResultView.summaryLabel[3].text!
             let attString3 = NSMutableAttributedString(string: targetText3)
             attString3.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText3 as NSString).range(of: "\(roi)"))
+            attString3.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText3 as NSString).range(of: "\(roi)"))
             attString3.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText3 as NSString).range(of: "\(lossOrGain)"))
             attString3.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText3 as NSString).range(of: "\(lossOrGain)"))
             calcResultView.summaryLabel[3].attributedText = attString3
@@ -197,11 +229,10 @@ extension CalcResultViewController: CalcResultDelegate {
             let lossOrGain = data.1 >= 0 ? "수익" : "손실"
             let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
                                                          : Constant.UIColorSetting.negativeColor
-            //let emoticon: String = data.1 >= 0 ? "😁" : "😭"
             
             let profit: String = data.2.toUSDPlusSigned()
             let balance: String = data.3.toUSD()
-            let coinType: String = data.4.localizedCapitalized
+            let coinType: String = data.4.uppercased()
             
             let buyStartDate: String.SubSequence = data.5[...data.5.index(data.5.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
             let buyEndDate: String.SubSequence = data.6[...data.6.index(data.6.startIndex, offsetBy: 12)]  // 문자열에서 요일 제거한 나머지 부분
@@ -236,7 +267,7 @@ extension CalcResultViewController: CalcResultDelegate {
             }
             
             // 결과 요약 문구 1번째 줄 설정
-            calcResultView.summaryLabel[0].text = "\(coinType)을"
+            calcResultView.summaryLabel[0].text = "\(coinType)의 경우"
             let targetText0 = calcResultView.summaryLabel[0].text!
             let attString0 = NSMutableAttributedString(string: targetText0)
             attString0.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText0 as NSString).range(of: "\(coinType)"))
@@ -276,6 +307,7 @@ extension CalcResultViewController: CalcResultDelegate {
             let targetText5 = calcResultView.summaryLabel[5].text!
             let attString5 = NSMutableAttributedString(string: targetText5)
             attString5.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText5 as NSString).range(of: "\(roi)"))
+            attString5.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText5 as NSString).range(of: "\(roi)"))
             attString5.addAttribute(.font, value: UIFont.systemFont(ofSize: Constant.SizeSetting.summaryLabelBigFontSize, weight: Constant.SizeSetting.summaryLabelBigFontWeight), range: (targetText5 as NSString).range(of: "\(lossOrGain)"))
             attString5.addAttribute(.foregroundColor, value: lossOrGainColor, range: (targetText5 as NSString).range(of: "\(lossOrGain)"))
             calcResultView.summaryLabel[5].attributedText = attString5

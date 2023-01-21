@@ -16,7 +16,7 @@ final class CoinViewController: UIViewController {
         sc.searchBar.delegate = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.sizeToFit()
-        sc.searchBar.placeholder = "코인 이름 또는 심볼 입력"
+        sc.searchBar.placeholder = "Enter coin name or symbol"
         sc.searchBar.searchBarStyle = .prominent
         sc.searchBar.searchTextField.keyboardType = .alphabet
         sc.searchBar.searchTextField.autocapitalizationType = .none
@@ -28,7 +28,7 @@ final class CoinViewController: UIViewController {
     // 시가총액 기준 정렬 버튼
     private lazy var sortMarketCapButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("시가총액 ▼", for: .normal)
+        button.setTitle("Market Cap ▼", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.4)
         button.clipsToBounds = true
@@ -44,7 +44,7 @@ final class CoinViewController: UIViewController {
     // 가격 24시간 변화율 기준 정렬 버튼
     private lazy var sortPriceChangeButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("24H 가격변동", for: .normal)
+        button.setTitle("24H Price Change", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.4)
         button.clipsToBounds = true
@@ -58,7 +58,7 @@ final class CoinViewController: UIViewController {
     // TableView를 담고 있는 View
     private let tableContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
         view.clipsToBounds = false
         view.layer.cornerRadius = 0
         return view
@@ -74,6 +74,8 @@ final class CoinViewController: UIViewController {
         activityIndicator.stopAnimating()
         return activityIndicator
     }()
+    
+    //weak var coinTypeDataDelegate: CoinTypeDelegate?
     
     // Timer 인스턴스 만들기
     var apiTimer: Timer?
@@ -100,21 +102,21 @@ final class CoinViewController: UIViewController {
         setupButton()
         setupTableContainerView()
         setupTableView()
-        
         //loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // 코인시세 탭 화면이 보여질 때마다 새로운 Timer 시작
+        // 코인시세 화면이 보여질 때마다 데이터 갱신
         loadData()
+        // 코인시세 화면이 보여질 때마다 5분마다 데이터를 갱신하는 Timer 시작
         apiTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(updateData),
                                         userInfo: nil, repeats: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // 코인시세 탭 화면에서 벗어나면 생성되어있던 Timer 종료
+        // 코인시세 화면에서 벗어나면 생성되어있던 Timer 종료
         apiTimer?.invalidate()
     }
     
@@ -166,8 +168,9 @@ final class CoinViewController: UIViewController {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
+        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.systemGray2]
+        
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
@@ -178,17 +181,24 @@ final class CoinViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = navigationBarAppearance
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
-        navigationItem.title = Constant.TitleSetting.menuName1
         navigationItem.searchController = searchController
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        navigationItem.rightBarButtonItem?.tintColor = .systemGray2
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        
+        
+        navigationItem.title = "TOP 100 Coins"
+        
+        navigationItem.preferredSearchBarPlacement = .stacked
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
     }
     
     // 화면 상단의 필터링/정렬 버튼 설정
@@ -200,16 +210,16 @@ final class CoinViewController: UIViewController {
         NSLayoutConstraint.activate([
             sortMarketCapButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
             sortMarketCapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortMarketCapButton.widthAnchor.constraint(equalToConstant: 83),
-            sortMarketCapButton.heightAnchor.constraint(equalToConstant: 24),
+            sortMarketCapButton.widthAnchor.constraint(equalToConstant: 120),
+            sortMarketCapButton.heightAnchor.constraint(equalToConstant: 25),
         ])
         
         sortPriceChangeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sortPriceChangeButton.leadingAnchor.constraint(equalTo: sortMarketCapButton.trailingAnchor, constant: 10),
             sortPriceChangeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 117),
-            sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 24),
+            sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 160),
+            sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 25),
         ])
     }
 
@@ -291,7 +301,11 @@ final class CoinViewController: UIViewController {
         self.searchController.searchBar.endEditing(true)
     }
     
-
+    @objc private func buttonTapped(_ button: UIButton) {
+        if button == navigationItem.rightBarButtonItem {
+            self.dismiss(animated: true)
+        }
+    }
     
     @objc private func helpButtonTapped() {
         // 도움말 VC 인스턴스 생성
@@ -328,11 +342,11 @@ final class CoinViewController: UIViewController {
         sortMarketCapButton.layer.borderColor = UIColor.label.cgColor
         sortMarketCapButton.layer.borderWidth = 1.5
         
-        sortPriceChangeButton.setTitle("24H 가격변동", for: .normal)
+        sortPriceChangeButton.setTitle("24H Price Change", for: .normal)
         sortPriceChangeButton.layer.borderWidth = 0
         
         isMarketCap = !isMarketCap
-        let buttonTitle = isMarketCap ? "시가총액 ▼" : "시가총액 ▲"
+        let buttonTitle = isMarketCap ? "Market Cap ▼" : "Market Cap ▲"
         sortMarketCapButton.setTitle(buttonTitle, for: .normal)
         
         if isFiltering() {
@@ -351,14 +365,14 @@ final class CoinViewController: UIViewController {
     }
     
     @objc private func sortPriceChangeButtonTapped() {
-        sortMarketCapButton.setTitle("시가총액", for: .normal)
+        sortMarketCapButton.setTitle("Market Cap", for: .normal)
         sortMarketCapButton.layer.borderWidth = 0
         
         sortPriceChangeButton.layer.borderColor = UIColor.label.cgColor
         sortPriceChangeButton.layer.borderWidth = 1.5
         
         isPriceChange = !isPriceChange
-        let buttonTitle = isPriceChange ? "24H 가격변동 ▼" : "24H 가격변동 ▲"
+        let buttonTitle = isPriceChange ? "24H Price Change ▼" : "24H Price Change ▲"
         sortPriceChangeButton.setTitle(buttonTitle, for: .normal)
         
         if isFiltering() {
@@ -379,6 +393,7 @@ final class CoinViewController: UIViewController {
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
+
 extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -409,20 +424,42 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     
     // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        // 다음화면으로 이동
-//        let detailVC = DetailViewController()
-//        detailVC.movieData = moviesArray[indexPath.row]
-//        //show(detailVC, sender: nil)
-//        navigationController?.pushViewController(detailVC, animated: true)
+        let coinID = isFiltering() ? coinArrayFiltered[indexPath.row].id : coinArray[indexPath.row].id
+        let coinName = isFiltering() ? coinArrayFiltered[indexPath.row].name : coinArray[indexPath.row].name
+        let coinSymbol = isFiltering() ? coinArrayFiltered[indexPath.row].symbol.uppercased() : coinArray[indexPath.row].symbol.uppercased()
+        //let coinMinimumDate = isFiltering() ? coinArrayFiltered[indexPath.row].atlDate : coinArray[indexPath.row].atlDate
+        
+        // AlertController, AlertAction 생성
+        let alert = UIAlertController(title: "Choose", message: "Do you want to choose\n \(coinName)(\(coinSymbol))?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            // calcView.coinTypeTextField.text에 선택한 코인의 이름 넣기
+            //self.coinView.coinTypeTextField.text = coinArray[indexPath.row].name
+            print("\(coinName) / \(coinSymbol)")
+            
+            // Singleton 패턴으로 데이터 전달하기
+            DataPassManager.shared.selectedCoinID = coinID
+            DataPassManager.shared.selectedCoinName = coinName
+            DataPassManager.shared.selectedCoinSymbol = coinSymbol
+            self.dismiss(animated: true)
+            self.dismiss(animated: true)
+        }
+        
+        // 액션 추가 및 팝업메세지 출력
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
 //MARK: - UISearchBarDelegate
+
 extension CoinViewController: UISearchBarDelegate {
     
 }
 
 //MARK: - UISearchResultUpdating
+
 extension CoinViewController: UISearchResultsUpdating {
     // 검색 결과를 반영하여 TableView 업데이트
     func updateSearchResults(for searchController: UISearchController) {
@@ -432,6 +469,7 @@ extension CoinViewController: UISearchResultsUpdating {
 }
 
 //MARK: - TabBar 아이콘을 클릭했을 때 최상단 TableViewCell로 이동 (Custom Delegate Pattern)
+
 extension CoinViewController: TabBarReselectHandling {
     func handleReselect() {
         tableView.setContentOffset(.zero, animated: true)

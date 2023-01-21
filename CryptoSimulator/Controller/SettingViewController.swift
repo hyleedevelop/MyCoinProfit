@@ -34,7 +34,7 @@ final class SettingViewController: UIViewController {
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = .orange
+        navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false

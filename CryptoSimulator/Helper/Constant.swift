@@ -20,10 +20,13 @@ struct Constant {
         
         static let lightGreen: UIColor = UIColor(red: 182/255, green: 226/255, blue: 161/255, alpha: 1)
         
-        static let positiveColor: UIColor = UIColor(red: 82/255, green: 164/255, blue: 154/255, alpha: 1)
-        static let negativeColor: UIColor = UIColor(red: 222/255, green: 94/255, blue: 87/255, alpha: 1)
+        static let positiveColor: UIColor = UIColor(red: 58/255, green: 133/255, blue: 68/255, alpha: 1)
+        static let negativeColor: UIColor = UIColor(red: 216/255, green: 50/255, blue: 50/255, alpha: 1)
         
         static let themeColor: UIColor = deepPurple
+        
+        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1)  // 보라색
+        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1)  // 청녹색
     }
     
     struct CGColorSetting {
@@ -34,6 +37,8 @@ struct Constant {
     }
     
     struct SizeSetting {
+        static let segmentFontSize: CGFloat = 15
+        
         static let labelFontSize: CGFloat = 17
         static let labelFontWeight: UIFont.Weight = .semibold
         
@@ -52,7 +57,7 @@ struct Constant {
         static let graphLabelBigFontWeight: UIFont.Weight = .bold
         
         static let graphLabelSmallFontSize: CGFloat = graphLabelBigFontSize - 2
-        static let graphLabelSmallFontWeight: UIFont.Weight = .regular
+        static let graphLabelSmallFontWeight: UIFont.Weight = .medium
         
         static let bottomLineHeightAnchorConstant: CGFloat = 0.8
         static let bottomLineWidthAnchorConstant: CGFloat = -80
@@ -81,31 +86,34 @@ struct Constant {
     }
     
     struct TitleSetting {
-        static let coinTypeLabelName: String = "어떤 코인을 매수할까요?"
-        static let buyStartDateLabelName1: String = "언제 매수할까요?"
-        static let buyStartDateLabelName2: String = "언제 매수를 시작할까요?"
-        static let buyEndDateLabelName: String = "언제 매수를 끝낼까요?"
-        static let sellDateLabelName: String = "언제 매도할까요?"
-        static let frequencyLabelName: String = "얼마나 자주 매수할까요?"
-        static let amountLabelName1: String = "얼마만큼 매수할까요?"
-        static let amountLabelName2: String = "매번 얼마만큼 매수할까요?"
+        static let segmentItemName1: String = "Lump-Sum Investing"
+        static let segmentItemName2: String = "Dollar-Cost Averaging"
         
-        static let coinTypeTextFieldPlaceHolder: String = "코인 종류 선택"
-        static let buyStartDateTextFieldPlaceHolder: String = "날짜 선택"
-        static let buyEndDateTextFieldPlaceHolder: String = "날짜 선택"
-        static let sellDateTextFieldPlaceHolder: String = "날짜 선택"
-        static let frequencyTextFieldPlaceHolder: String = "반복 주기 선택"
-        static let amountLabelTextFieldPlaceHolder: String = "달러($) 금액 입력"
+        static let coinTypeLabelName: String = "Coin"
+        static let buyStartDateLabelName1: String = "Date of Buy"
+        static let buyStartDateLabelName2: String = "First Date of Buy"
+        static let buyEndDateLabelName: String = "Last Date of Buy"
+        static let sellDateLabelName: String = "Date of Sell"
+        static let frequencyLabelName: String = "Repeat Buy"
+        static let amountLabelName1: String = "Amount"
+        static let amountLabelName2: String = "Amount per Once"
         
-        static let menuName1: String = "코인정보"
-        static let menuName2: String = "수익계산"
-        static let menuName3: String = "설정"
+        static let coinTypeTextFieldPlaceHolder: String = "Choose coin"
+        static let buyStartDateTextFieldPlaceHolder: String = "Choose date"
+        static let buyEndDateTextFieldPlaceHolder: String = "Choose date"
+        static let sellDateTextFieldPlaceHolder: String = "Choose date"
+        static let frequencyTextFieldPlaceHolder: String = "Choose frequency"
+        static let amountLabelTextFieldPlaceHolder: String = "Enter amount($)"
         
-        static let calcStartButtonName: String = "계산하기"
-        static let calcResetButtonName: String = "모두 지우기"
-        static let calcSaveButtonName: String = "저장하기"
-        static let calcShareButtonName: String = "공유하기"
-        static let showChartButtonName: String = "시간 그래프 보기 "
+        static let menuName1: String = "Home"
+        static let menuName2: String = "Home"
+        static let menuName3: String = "Setting"
+        
+        static let calcStartButtonName: String = "Submit"
+        static let calcResetButtonName: String = "Reset"
+        static let calcSaveButtonName: String = "Save"
+        static let calcShareButtonName: String = "Share"
+        static let showChartButtonName: String = "See Timeseries"
     }
         
     struct ImageSetting {

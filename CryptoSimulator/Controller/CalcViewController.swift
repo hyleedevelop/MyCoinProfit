@@ -10,6 +10,7 @@ import UIKit
 final class CalcViewController: UIViewController {
 
     private let calcView = CalcView()  // UIView
+    private let coinVC = CoinViewController()  // UIViewController
     private let coinListData = PickerData()  // structure
     
     var historyDict = [String: [[Double?]]]()  // JSON parsing이 끝난 뒤 히스토리 데이터를 담을 딕셔너리
@@ -45,11 +46,11 @@ final class CalcViewController: UIViewController {
     }
     
     var inputError: InputError = .noInputError
-    var dataDelegate: CalcResultDelegate?
+    weak var calcResultDataDelegate: CalcResultDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavBar()
         setupView()
         //setupToolBar()
@@ -58,15 +59,16 @@ final class CalcViewController: UIViewController {
         setupTextField()
         
         playAnimation()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+        guard let coinName = DataPassManager.shared.selectedCoinName else { return }
+        calcView.coinTypeTextField.text = coinName
     }
-    
+        
     override func loadView() {
         view = calcView
     }
@@ -96,9 +98,12 @@ final class CalcViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
         
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "folder.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
-//        navigationItem.rightBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingButtonTapped))
+//        navigationItem.leftBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(helpButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+                
         navigationItem.title = Constant.TitleSetting.menuName2
         
         self.extendedLayoutIncludesOpaqueBars = true
@@ -136,7 +141,7 @@ final class CalcViewController: UIViewController {
         calcView.sellDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
         
         // Picker가 선택되어 있는 기본값
-        calcView.coinTypePicker.selectRow(0, inComponent: 0, animated: true)
+        //calcView.coinTypePicker.selectRow(0, inComponent: 0, animated: true)
         calcView.frequencyPicker.selectRow(0, inComponent: 0, animated: true)
     }
     
@@ -144,6 +149,9 @@ final class CalcViewController: UIViewController {
     private func setupButton() {
         calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
         calcView.calcResetButton.addTarget(self, action: #selector(calcResetButtonTapped(_:)), for: .touchUpInside)
+        DispatchQueue.main.async {
+            self.calcView.calcStartButton.setButtonGradient(color1: Constant.UIColorSetting.themeGradientColor1, color2: Constant.UIColorSetting.themeGradientColor2)
+        }
     }
     
     private func setupTextField() {
@@ -206,11 +214,11 @@ final class CalcViewController: UIViewController {
         }
     }
     
-    private func presentCalcResult(with calcResult: Any) {
-        // 도움말 VC 인스턴스 생성
-        let calcResultModalVC = CalcResultViewController()
-        // 도움말 VC에 Navigation VC 넣기
-        let nav = UINavigationController(rootViewController: calcResultModalVC)
+    private func presentCalcResult(with calcResult: Any, segmentIndex index: Int) {
+        // 계산결과 VC 인스턴스 생성
+        let calcResultVC = CalcResultViewController()
+        // 계산결과 VC에 Navigation VC 넣기
+        let nav = UINavigationController(rootViewController: calcResultVC)
 
         // Bottom Sheet 관련 설정
         nav.modalPresentationStyle = .pageSheet
@@ -225,8 +233,7 @@ final class CalcViewController: UIViewController {
                 // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
                 // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
                 sheet.detents = [.custom(resolver: { context in
-                    return 560
-//                    return context.maximumDetentValue * 0.7
+                    return (index == 0) ? 430 : 500
                 })]
             } else {
                 sheet.detents = [.large()]
@@ -236,10 +243,14 @@ final class CalcViewController: UIViewController {
             sheet.prefersGrabberVisible = false
         }
         
-        // CalcResultVC의 대리자가 데이터를 전달받도록 설정
-        calcResultModalVC.receiveData(segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
+        // CalcResultVC의 대리자에게 데이터 전달
+        //coinVC.coinTypeDataDelegate = self
+        calcResultVC.receiveCalcResultData(segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
                                       with: calcResult)
+        
+        // 화면 전환
         self.present(nav, animated: true, completion: nil)
+        //navigationController?.pushViewController(calcResultVC, animated: true)
     }
     
     // 수익계산 결과를 메세지로 출력
@@ -268,14 +279,14 @@ final class CalcViewController: UIViewController {
         let selectedDate = sender.date
         
         let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "yyyy년 MM월 dd일 (E)"
-        selectedDateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        selectedDateFormatter.locale = Locale(identifier: "ko_KR")
+        selectedDateFormatter.dateFormat = "dd MMM yyyy (E)"
+        selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
         let convertedDateFormatter = DateFormatter()
         convertedDateFormatter.dateFormat = "yyyy-MM-dd"
-        convertedDateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        convertedDateFormatter.locale = Locale(identifier: "ko_KR")
+        convertedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        convertedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
         if sender == calcView.buyStartDatePicker {
             calcView.buyStartDateTextField.textColor = .label
@@ -299,18 +310,19 @@ final class CalcViewController: UIViewController {
     // type 관련 TextField가 활성화되는 시점에서 TextField와 Picker의 기본값 설정
     @objc private func textFieldAction(_ textField: UITextField) {
         let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "yyyy년 MM월 dd일 (E)"
-        selectedDateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        selectedDateFormatter.locale = Locale(identifier: "ko_KR")
+        selectedDateFormatter.dateFormat = "dd MMM yyyy (E)"
+        selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
         let convertedDateFormatter = DateFormatter()
         convertedDateFormatter.dateFormat = "yyyy-MM-dd"
-        convertedDateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        convertedDateFormatter.locale = Locale(identifier: "ko_KR")
+        convertedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
+        convertedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
         if calcView.coinTypeTextField.isFirstResponder {
             calcView.coinTypeTextField.textColor = .label
-            calcView.coinTypeTextField.text = coinListData.coinNameArray[calcView.coinTypePicker.selectedRow(inComponent: 0)]
+            //#warning("나중에 주석 처리 하기")
+            //calcView.coinTypeTextField.text = coinListData.coinNameArray[calcView.coinTypePicker.selectedRow(inComponent: 0)]
         }
         
         if calcView.buyStartDateTextField.isFirstResponder {
@@ -432,7 +444,10 @@ final class CalcViewController: UIViewController {
                 }
                 
                 // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
-                let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
+                guard let coinID = DataPassManager.shared.selectedCoinID else { return }
+                let coinTypeString: String = coinID.lowercased()
+                guard let coinName = DataPassManager.shared.selectedCoinName else { return }
+                let coinNameString: String = coinName
                 let buyStartDateString: String = calcView.buyStartDateTextField.text!
                 let sellDateString: String = calcView.sellDateTextField.text!
                 let amountString: String = calcView.amountTextField.text!
@@ -440,6 +455,7 @@ final class CalcViewController: UIViewController {
                     type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
                 
                 print(coinTypeString)
+                print(coinNameString)
                 print(buyStartDateString)
                 print(sellDateString)
                 print(amountString)
@@ -467,14 +483,16 @@ final class CalcViewController: UIViewController {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
                                         // HalfModalView로 결과 메세지 보여주기
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinTypeString, buyStartDateString, sellDateString))
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString), segmentIndex: 0)
                                     }
                                 }
                             case .buyStartDateError:
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "오류", message: "선택하신 매수 날짜의 코인 데이터가\n서버에 존재하지 않습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let cancelAction = UIAlertAction(title: "닫기", style: .default) { _ in
+                                        self.calcView.buyStartDateTextField.becomeFirstResponder()
+                                    }
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
@@ -484,8 +502,10 @@ final class CalcViewController: UIViewController {
                             case .sellDateError:
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "오류", message: "선택하신 매도 날짜의 코인 데이터가\n서버에 존재하지 않습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let cancelAction = UIAlertAction(title: "닫기", style: .default) { _ in
+                                        self.calcView.sellDateTextField.becomeFirstResponder()
+                                    }
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
@@ -617,7 +637,10 @@ final class CalcViewController: UIViewController {
                 }
                 
                 // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
-                let coinTypeString: String = calcView.coinTypeTextField.text!.lowercased()
+                guard let coinID = DataPassManager.shared.selectedCoinID else { return }
+                let coinTypeString: String = coinID.lowercased()
+                guard let coinName = DataPassManager.shared.selectedCoinName else { return }
+                let coinNameString: String = coinName
                 let buyStartDateString: String = calcView.buyStartDateTextField.text!
                 let buyEndDateString: String = calcView.buyEndDateTextField.text!
                 let sellDateString: String = calcView.sellDateTextField.text!
@@ -629,6 +652,7 @@ final class CalcViewController: UIViewController {
                 let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
                 
                 print(coinTypeString)
+                print(coinNameString)
                 print(buyStartDateString)
                 print(buyEndDateString)
                 print(sellDateString)
@@ -659,14 +683,16 @@ final class CalcViewController: UIViewController {
                                     // 계산 작업 종료 -> activityIndicator 숨기기
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinTypeString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString))
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinTypeString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString), segmentIndex: 1)
                                     }
                                 }
                             case .buyStartDateError:
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 시작 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "오류", message: "선택하신 매수 시작 날짜의 코인 데이터가\n서버에 존재하지 않습니다.\n매수 시작 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let cancelAction = UIAlertAction(title: "닫기", style: .default) { _ in
+                                        self.calcView.buyStartDateTextField.becomeFirstResponder()
+                                    }
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
@@ -674,8 +700,10 @@ final class CalcViewController: UIViewController {
                             case .buyEndDateError:
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매수 종료 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매수 종료 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "오류", message: "선택하신 매수 종료 날짜의 코인 데이터가\n서버에 존재하지 않습니다.\n매수 종료 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let cancelAction = UIAlertAction(title: "닫기", style: .default) { _ in
+                                        self.calcView.buyEndDateTextField.becomeFirstResponder()
+                                    }
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
@@ -683,8 +711,10 @@ final class CalcViewController: UIViewController {
                             case .sellDateError:
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: "오류", message: "매도 날짜의 코인 데이터를\n서버에서 가져올 수 없습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
+                                    let alert = UIAlertController(title: "오류", message: "선택하신 매도 날짜의 코인 데이터가\n서버에 존재하지 않습니다.\n매도 날짜를 다시 선택하시기 바랍니다.", preferredStyle: .alert)
+                                    let cancelAction = UIAlertAction(title: "닫기", style: .default) { _ in
+                                        self.calcView.sellDateTextField.becomeFirstResponder()
+                                    }
                                     alert.addAction(cancelAction)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
@@ -715,9 +745,9 @@ final class CalcViewController: UIViewController {
                             message: "입력된 내용을 모두 지우시겠습니까?", responder: nil, error: .noInputError)
     }
     
-    @objc private func addButtonTapped() {
-        let bookmarkVC = BookmarkViewController()
-        navigationController?.pushViewController(bookmarkVC, animated: true)
+    @objc private func settingButtonTapped() {
+        let settingVC = SettingViewController()
+        navigationController?.pushViewController(settingVC, animated: true)
     }
     
     @objc private func helpButtonTapped() {
@@ -739,14 +769,14 @@ final class CalcViewController: UIViewController {
                 // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
                 // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
                 sheet.detents = [.custom(resolver: { context in
-                    return context.maximumDetentValue * 0.7
+                    return 300
                 })]
             } else {
                 sheet.detents = [.large()]
             }
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
             sheet.preferredCornerRadius = 25
-            sheet.prefersGrabberVisible = true
+            sheet.prefersGrabberVisible = false
         }
         self.present(nav, animated: true, completion: nil)
     }
@@ -762,10 +792,6 @@ extension CalcViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == calcView.coinTypePicker {
-            return coinListData.coinNameArray.count
-        }
-
         if pickerView == calcView.frequencyPicker {
             return coinListData.frequencyArray.count
         }
@@ -774,20 +800,12 @@ extension CalcViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == calcView.coinTypePicker {
-            calcView.coinTypeTextField.text = coinListData.coinNameArray[row]
-        }
-        
         if pickerView == calcView.frequencyPicker {
             calcView.frequencyTextField.text = coinListData.frequencyArray[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == calcView.coinTypePicker {
-            return coinListData.coinNameArray[row]
-        }
-
         if pickerView == calcView.frequencyPicker {
             return coinListData.frequencyArray[row]
         }
@@ -818,8 +836,33 @@ extension CalcViewController: UITextFieldDelegate {
     // TextField 편집이 시작되었을 때 실행할 내용
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == calcView.coinTypeTextField {
+            
+            //calcView.coinTypeTextField.resignFirstResponder()
             calcView.coinTypeContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
             calcView.coinTypeContainerView.layer.borderWidth = 1.5
+            
+            //let coinVC = CoinViewController()
+            //navigationController?.pushViewController(coinVC, animated: true)
+            
+            // 코인조회 VC 인스턴스 생성
+            let coinVC = CoinViewController()
+            // 계산결과 VC에 Navigation VC 넣기
+            let nav = UINavigationController(rootViewController: coinVC)
+            
+            // Bottom Sheet 관련 설정
+            nav.modalPresentationStyle = .fullScreen
+            nav.isModalInPresentation = true  // true이면 dismiss 할 수 없음
+            
+            // sheetPresentationController는 iOS 15 이상부터 사용 가능
+            if let sheet = nav.sheetPresentationController {
+                sheet.largestUndimmedDetentIdentifier = .large
+                sheet.detents = [.large()]
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                sheet.preferredCornerRadius = 25
+                sheet.prefersGrabberVisible = false
+            }
+            //calcView.coinTypeTextField.endEditing(true)
+            self.present(nav, animated: true, completion: nil)
         }
 
         if textField == calcView.buyStartDateTextField {
@@ -932,3 +975,13 @@ extension CalcViewController: UITextFieldDelegate {
     }
     
 }
+
+//extension CalcViewController: CoinTypeDelegate {
+//    func receiveCoinType(name coinName: String, allTimeLowDate minimumDate: String?) {
+//        calcView.coinTypeTextField.text = coinName
+//        if let minimumDate = minimumDate {
+//            print(minimumDate)
+//        }
+//    }
+//
+//}

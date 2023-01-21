@@ -14,18 +14,18 @@ final class CalcView: UIView {
     //MARK: - 스위치 속성
     
     lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["한번에 매수하기","나눠서 매수하기"])
+        let control = UISegmentedControl(items: [Constant.TitleSetting.segmentItemName1,Constant.TitleSetting.segmentItemName2])
         let backgroundImage = UIImage()
         let deviderImage = UIImage()
-        let font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: .medium)
+        let font = UIFont.systemFont(ofSize: Constant.SizeSetting.segmentFontSize, weight: .regular)
         control.translatesAutoresizingMaskIntoConstraints = false
         control.selectedSegmentIndex = 0
-//        control.setBackgroundImage(backgroundImage, for: .normal, barMetrics: .default)
-//        control.setBackgroundImage(backgroundImage, for: .selected, barMetrics: .default)
-//        control.setBackgroundImage(backgroundImage, for: .highlighted, barMetrics: .default)
+        control.setBackgroundImage(backgroundImage, for: .normal, barMetrics: .default)
+        control.setBackgroundImage(backgroundImage, for: .selected, barMetrics: .default)
+        control.setBackgroundImage(backgroundImage, for: .highlighted, barMetrics: .default)
 //        control.setDividerImage(deviderImage, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
         control.setTitleTextAttributes([NSAttributedString.Key.font: font], for: .normal)
-        control.selectedSegmentTintColor = Constant.UIColorSetting.themeColor
+        //control.selectedSegmentTintColor = Constant.UIColorSetting.themeColor
         control.addTarget(self, action: #selector(segmentedValueChanged(_:)), for: .valueChanged)
         return control
     }()
@@ -66,7 +66,9 @@ final class CalcView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
-        tf.inputView = coinTypePicker
+        //tf.inputView = coinTypePicker
+        tf.inputView = UIView()
+        tf.inputAccessoryView = UIView()
         tf.clearButtonMode = .whileEditing
         tf.placeholder = Constant.TitleSetting.coinTypeTextFieldPlaceHolder
         tf.textColor = .label
@@ -151,7 +153,7 @@ final class CalcView: UIView {
         picker.contentHorizontalAlignment = .center
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
-        picker.locale = Locale(identifier: "ko_KR")
+        picker.locale = Locale(identifier: Locale.current.identifier)
         picker.minimumDate = Constant.DateSetting.buyStartMinimumDate
         picker.maximumDate = Constant.DateSetting.buyStartMaximumDate
         return picker
@@ -225,7 +227,7 @@ final class CalcView: UIView {
         picker.contentHorizontalAlignment = .center
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
-        picker.locale = Locale(identifier: "ko_KR")
+        picker.locale = Locale(identifier: Locale.current.identifier)
         picker.minimumDate = Constant.DateSetting.buyEndMinimumDate
         picker.maximumDate = Constant.DateSetting.buyEndMaximumDate
         return picker
@@ -428,7 +430,7 @@ final class CalcView: UIView {
         picker.contentHorizontalAlignment = .center
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
-        picker.locale = Locale(identifier: "ko_KR")
+        picker.locale = Locale(identifier: Locale.current.identifier)
         picker.minimumDate = Constant.DateSetting.sellMinimumDate
         picker.maximumDate = Constant.DateSetting.sellMaximumDate
         return picker
@@ -471,6 +473,7 @@ final class CalcView: UIView {
         button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
         button.layer.cornerRadius = 10
+        button.clipsToBounds = true
         //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
@@ -499,10 +502,10 @@ final class CalcView: UIView {
     }()
     
     lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [shimmerButton, calcResetButton])
+        let sv = UIStackView(arrangedSubviews: [calcStartButton, calcResetButton])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 20
-        sv.axis = .horizontal
+        sv.axis = .vertical
         sv.distribution = .fillEqually
         sv.alignment = .fill
         return sv
@@ -550,14 +553,12 @@ final class CalcView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupShimmerView()
+        setupButton()
         setupSegmentedControl()
         setupScrollView()
         setupContainerView()
         setupFinalStackView()
         setupActivityIndicator()
-        
-        
     }
         
     // UIView 필수생성자
@@ -568,20 +569,28 @@ final class CalcView: UIView {
     //MARK: - 하위 뷰 등록 및 제약조건 설정
     
     // 반짝이는 효과를 나타내는 ShimmerView를 calcStartButton에 씌우기
-    private func setupShimmerView() {
-        self.addSubview(shimmerButton)
-        shimmerButton.contentView = calcStartButton
+    private func setupButton() {
+//        self.addSubview(shimmerButton)
+//        shimmerButton.contentView = calcStartButton
+//        self.addSubview(calcStartButton)
+        
+//        DispatchQueue.main.async {
+//            self.calcStartButton.setButtonGradient(
+//                color1: Constant.UIColorSetting.themeGradientColor1,
+//                color2: Constant.UIColorSetting.themeGradientColor2)
+//        }
     }
     
     private func setupSegmentedControl() {
         self.addSubview(segmentedControl)
         
         NSLayoutConstraint.activate([
-            segmentedControl.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            segmentedControl.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, constant: -60),
+            segmentedControl.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            segmentedControl.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
             segmentedControl.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 32),
+            segmentedControl.heightAnchor.constraint(equalToConstant: 30),
         ])
+        
     }
     
     private func setupScrollView() {
@@ -630,7 +639,7 @@ final class CalcView: UIView {
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
             buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 35),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 100),
         ])
         
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
@@ -696,20 +705,5 @@ final class CalcView: UIView {
             break
         }
     }
-    
-//    // 텍스트필드 편집을 시작했을 때 실행할 내용
-//    @objc private func beforeTextFieldEditing(_ textField: UITextField) {
-//
-//    }
-//
-//    // 텍스트필드 편집을 끝냈을 때 실행할 내용
-//    @objc private func afterTextFieldEditing(_ textField: UITextField) {
-//
-//    }
-//
-//    // 텍스트필드 편집 도중 내용이 바뀔 때마다 실행할 내용
-//    @objc private func whileTextFieldEditing() {
-//
-//    }
     
 }

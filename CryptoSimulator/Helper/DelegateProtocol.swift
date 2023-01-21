@@ -22,6 +22,6 @@ typealias CalcResultType1 = (Double, Double, Double, Double,
 typealias CalcResultType2 = (Double, Double, Double, Double,
                              String, String, String, String, String, String)
 
-protocol CalcResultDelegate {
-    func receiveData(segmentIndex index: Int, with data: Any)
+protocol CalcResultDelegate: AnyObject {
+    func receiveCalcResultData(segmentIndex index: Int, with data: Any)
 }

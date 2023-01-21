@@ -8,7 +8,6 @@
 import Foundation
 
 struct PickerData {
-    let coinNameArray = ["Bitcoin", "Ethereum", "Dogecoin"]
-    let frequencyArray = ["매일"]
-    //let frequencyArray = ["매일", "매주", "매월"]
+    let frequencyArray = ["Daily"]
+    //let frequencyArray = ["Daily", "Weekly", "Monthly"]
 }
