@@ -161,8 +161,8 @@ final class CalcResultView: UIView {
     private let leftTickLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
-        label.text = "원금"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelBigFontWeight)
+        label.text = "Total Investment\nAmount"
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 1
@@ -173,8 +173,8 @@ final class CalcResultView: UIView {
     private let rightTickLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
-        label.text = "평가금"
+        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelBigFontWeight)
+        label.text = "Total Exit\nAmount"
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 1

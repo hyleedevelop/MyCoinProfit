@@ -36,12 +36,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -108,12 +105,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -182,12 +176,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -256,12 +247,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -324,12 +312,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -385,12 +370,9 @@ final class CalcView: UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        view.layer.borderColor = Constant.CGColorSetting.themeColor
+        view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
-        view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowRadius = 1
-        view.layer.shadowOpacity = 0.1
-        view.layer.masksToBounds = false
+        view.clipsToBounds = true
         view.layer.cornerRadius = 10
         return view
     }()
@@ -474,7 +456,6 @@ final class CalcView: UIView {
         button.backgroundColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -497,7 +478,6 @@ final class CalcView: UIView {
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.lightModeInbox
         button.layer.cornerRadius = 10
-        //button.addTarget(self, action: #selector(onClickButton(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -573,12 +553,6 @@ final class CalcView: UIView {
 //        self.addSubview(shimmerButton)
 //        shimmerButton.contentView = calcStartButton
 //        self.addSubview(calcStartButton)
-        
-//        DispatchQueue.main.async {
-//            self.calcStartButton.setButtonGradient(
-//                color1: Constant.UIColorSetting.themeGradientColor1,
-//                color2: Constant.UIColorSetting.themeGradientColor2)
-//        }
     }
     
     private func setupSegmentedControl() {
@@ -618,9 +592,12 @@ final class CalcView: UIView {
                 stackViewArray[i].topAnchor.constraint(equalTo: containerViewArray[i].topAnchor, constant: 15),
                 stackViewArray[i].bottomAnchor.constraint(equalTo: containerViewArray[i].bottomAnchor, constant: -15),
             ])
+
         }
         
         _ = containerViewArray.map{ $0.heightAnchor.constraint(equalToConstant: 90).isActive = true }
+        
+        
     }
     
     // FinalStackView 설정
@@ -643,6 +620,12 @@ final class CalcView: UIView {
         ])
         
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+        
+        DispatchQueue.main.async {
+            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map{ $0.setViewBorderGradient(
+                color1: Constant.UIColorSetting.themeGradientColor1,
+                color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) }
+        }
     }
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
@@ -653,6 +636,12 @@ final class CalcView: UIView {
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
         amountLabel.text = Constant.TitleSetting.amountLabelName1
         resetTextField()
+        
+        DispatchQueue.main.async {
+            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map{ $0.setViewBorderGradient(
+                color1: Constant.UIColorSetting.themeGradientColor1,
+                color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) }
+        }
     }
     
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
@@ -663,6 +652,12 @@ final class CalcView: UIView {
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
         amountLabel.text = Constant.TitleSetting.amountLabelName2
         resetTextField()
+        
+        DispatchQueue.main.async {
+            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.buyEndDateContainerView, self.frequencyContainerView, self.amountContainerView, self.sellDateContainerView].map{ $0.setViewBorderGradient(
+                color1: Constant.UIColorSetting.themeGradientColor1,
+                color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) }
+        }
 
     }
     
@@ -685,11 +680,9 @@ final class CalcView: UIView {
     func presentLoadingIndicator() {
         if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
-            //calcStartButton.backgroundColor = Constant.UIColorSetting.themeColor
         }
         else {
             self.activityIndicator.startAnimating()
-            //calcStartButton.backgroundColor = .red
         }
     }
     

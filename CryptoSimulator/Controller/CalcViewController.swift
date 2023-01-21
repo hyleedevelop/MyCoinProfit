@@ -53,6 +53,7 @@ final class CalcViewController: UIViewController {
         
         setupNavBar()
         setupView()
+        setupContainerView()
         //setupToolBar()
         setupPickerView()
         setupButton()
@@ -112,6 +113,11 @@ final class CalcViewController: UIViewController {
     // View 설정
     private func setupView() {
         view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+    }
+    
+    // ContainerView 설정
+    private func setupContainerView() {
+
     }
     
     // ToolBar 설정
@@ -204,7 +210,7 @@ final class CalcViewController: UIViewController {
             let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
             let okAction = UIAlertAction(title: "확인", style: .destructive) { _ in
                 // 입력된 내용 모두 지우기
-                _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField, self.calcView.buyEndDateTextField, self.calcView.sellDateTextField, self.calcView.frequencyTextField, self.calcView.amountTextField].map { $0.text = "" }
+                _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField, self.calcView.buyEndDateTextField, self.calcView.sellDateTextField, self.calcView.frequencyTextField, self.calcView.amountTextField].map{ $0.text = "" }
             }
             
             // 액션 추가 및 팝업메세지 출력
@@ -279,7 +285,7 @@ final class CalcViewController: UIViewController {
         let selectedDate = sender.date
         
         let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "dd MMM yyyy (E)"
+        selectedDateFormatter.dateFormat = "MMM dd, yyyy"
         selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
         selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
@@ -310,7 +316,7 @@ final class CalcViewController: UIViewController {
     // type 관련 TextField가 활성화되는 시점에서 TextField와 Picker의 기본값 설정
     @objc private func textFieldAction(_ textField: UITextField) {
         let selectedDateFormatter = DateFormatter()
-        selectedDateFormatter.dateFormat = "dd MMM yyyy (E)"
+        selectedDateFormatter.dateFormat = "MMM dd, yyyy"
         selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
         selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
         
@@ -494,6 +500,9 @@ final class CalcViewController: UIViewController {
                                         self.calcView.buyStartDateTextField.becomeFirstResponder()
                                     }
                                     alert.addAction(cancelAction)
+                                    self.calcView.activityIndicator.setViewBackgroundGradient(
+                                        color1: Constant.UIColorSetting.themeGradientColor1,
+                                        color2: Constant.UIColorSetting.themeGradientColor2)
                                     self.calcView.activityIndicator.stopAnimating()
                                     self.present(alert, animated: true, completion: nil)
                                 }
@@ -838,8 +847,6 @@ extension CalcViewController: UITextFieldDelegate {
         if textField == calcView.coinTypeTextField {
             
             //calcView.coinTypeTextField.resignFirstResponder()
-            calcView.coinTypeContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.coinTypeContainerView.layer.borderWidth = 1.5
             
             //let coinVC = CoinViewController()
             //navigationController?.pushViewController(coinVC, animated: true)
@@ -866,28 +873,23 @@ extension CalcViewController: UITextFieldDelegate {
         }
 
         if textField == calcView.buyStartDateTextField {
-            calcView.buyStartDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.buyStartDateContainerView.layer.borderWidth = 1.5
+
         }
 
         if textField == calcView.buyEndDateTextField {
-            calcView.buyEndDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.buyEndDateContainerView.layer.borderWidth = 1.5
+
         }
 
         if textField == calcView.sellDateTextField {
-            calcView.sellDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.sellDateContainerView.layer.borderWidth = 1.5
+
         }
 
         if textField == calcView.frequencyTextField {
-            calcView.frequencyContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.frequencyContainerView.layer.borderWidth = 1.5
+
         }
 
         if textField == calcView.amountTextField {
-            calcView.amountContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.amountContainerView.layer.borderWidth = 1.5
+
             calcView.amountTextField.text = calcView.amountTextField.text?.replacingOccurrences(of: ",", with: "")
         }
     }
@@ -895,42 +897,30 @@ extension CalcViewController: UITextFieldDelegate {
     // TextField 편집이 종료되었을 때 실행할 내용
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == calcView.coinTypeTextField {
-            calcView.coinTypeTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.coinTypeContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.coinTypeContainerView.layer.borderWidth = 0.0
+            if textField.text != "" { inputError = .coinTypeInputError }
         }
         
         if textField == calcView.buyStartDateTextField {
-            calcView.buyStartDateTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.buyStartDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.buyStartDateContainerView.layer.borderWidth = 0.0
+            if textField.text != "" { inputError = .buyStartDateInputError }
         }
         
         if textField == calcView.buyEndDateTextField {
-            calcView.buyEndDateTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.buyEndDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.buyEndDateContainerView.layer.borderWidth = 0.0
+            if textField.text != "" { inputError = .buyEndDateInputError }
         }
         
         if textField == calcView.sellDateTextField {
-            calcView.sellDateTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.sellDateContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.sellDateContainerView.layer.borderWidth = 0.0
+            if textField.text != "" { inputError = .sellDateInputError }
         }
         
         if textField == calcView.frequencyTextField {
-            calcView.frequencyTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.frequencyContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.frequencyContainerView.layer.borderWidth = 0.0
+            if textField.text != "" { inputError = .frequencyInputError }
         }
         
         if textField == calcView.amountTextField {
+            if textField.text != "" { inputError = .amountInputError }
             inputError = .noInputError
-            calcView.amountTextField.textColor = Constant.UIColorSetting.themeColor
-            calcView.amountContainerView.layer.borderColor = Constant.CGColorSetting.themeColor
-            calcView.amountContainerView.layer.borderWidth = 0.0
             
-            // 텍스트가 비어있지 않고 소수점(.)이 0~1개인 경우 check sign 표시하기
+            // 텍스트가 비어있지 않고 소수점(.)이 0~1개인 경우
             if calcView.amountTextField.text != "" {
                 if 0...1 ~= calcView.amountTextField.text!.filter({ $0 == "." }).count {
 

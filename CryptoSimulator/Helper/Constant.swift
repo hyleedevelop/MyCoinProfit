@@ -47,10 +47,10 @@ struct Constant {
         
         static let calcResultFontSize: CGFloat = 16
         
-        static let summaryLabelBigFontSize: CGFloat = 22
+        static let summaryLabelBigFontSize: CGFloat = 20
         static let summaryLabelBigFontWeight: UIFont.Weight = .bold
         
-        static let summaryLabelSmallFontSize: CGFloat = summaryLabelBigFontSize - 8
+        static let summaryLabelSmallFontSize: CGFloat = summaryLabelBigFontSize - 6
         static let summaryLabelSmallFontWeight: UIFont.Weight = .regular
         
         static let graphLabelBigFontSize: CGFloat = 15

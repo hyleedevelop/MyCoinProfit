@@ -188,7 +188,7 @@ final class CoinViewController: UIViewController {
         //navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
         
         
-        navigationItem.title = "TOP 100 Coins"
+        navigationItem.title = "Choose Your Coin"
         
         navigationItem.preferredSearchBarPlacement = .stacked
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -430,7 +430,7 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
         //let coinMinimumDate = isFiltering() ? coinArrayFiltered[indexPath.row].atlDate : coinArray[indexPath.row].atlDate
         
         // AlertController, AlertAction 생성
-        let alert = UIAlertController(title: "Choose", message: "Do you want to choose\n \(coinName)(\(coinSymbol))?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Confirm", message: "Do you want to choose\n \(coinName)(\(coinSymbol))?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
             // calcView.coinTypeTextField.text에 선택한 코인의 이름 넣기
