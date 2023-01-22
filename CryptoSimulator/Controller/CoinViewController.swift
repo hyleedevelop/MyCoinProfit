@@ -188,7 +188,7 @@ final class CoinViewController: UIViewController {
         //navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
         
         
-        navigationItem.title = "Choose Your Coin"
+        navigationItem.title = "Select Your Coin"
         
         navigationItem.preferredSearchBarPlacement = .stacked
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -245,7 +245,7 @@ final class CoinViewController: UIViewController {
         tableView.delegate = self
 
         // Cell 등록
-        tableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "CoinCell")
+        tableView.register(CoinListCell.self, forCellReuseIdentifier: "CoinCell")
         // Cell 사이의 구분선 설정
         tableView.separatorStyle = .singleLine
         tableView.separatorInset.left = 0
@@ -408,7 +408,7 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinListCell
         
         let coin: CurrentPriceData
         if isFiltering() {

@@ -24,14 +24,13 @@ struct Constant {
         static let negativeColor: UIColor = UIColor(red: 216/255, green: 50/255, blue: 50/255, alpha: 1)
         
         static let themeColor: UIColor = deepPurple
-        
-        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1)  // 보라색
-        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1)  // 청녹색
+        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1.0)  // 보라색
+        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1.0)  // 청녹색
     }
     
     struct CGColorSetting {
-        static let deepPurple: CGColor = CGColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
-        static let black: CGColor = CGColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+        static let deepPurple: CGColor = Constant.UIColorSetting.deepPurple.cgColor
+        static let black: CGColor = UIColor.black.cgColor
         
         static let themeColor: CGColor = deepPurple
     }
@@ -90,20 +89,20 @@ struct Constant {
         static let segmentItemName2: String = "Dollar-Cost Averaging"
         
         static let coinTypeLabelName: String = "Coin"
-        static let buyStartDateLabelName1: String = "Date of Buy"
-        static let buyStartDateLabelName2: String = "First Date of Buy"
-        static let buyEndDateLabelName: String = "Last Date of Buy"
-        static let sellDateLabelName: String = "Date of Sell"
-        static let frequencyLabelName: String = "Repeat Buy"
-        static let amountLabelName1: String = "Amount"
+        static let buyStartDateLabelName1: String = "Purchase Date"
+        static let buyStartDateLabelName2: String = "First Purchase Date"
+        static let buyEndDateLabelName: String = "Last Purchase Date"
+        static let sellDateLabelName: String = "Sell Date"
+        static let frequencyLabelName: String = "Repeat Purchase"
+        static let amountLabelName1: String = "Amount Total"
         static let amountLabelName2: String = "Amount per Once"
         
-        static let coinTypeTextFieldPlaceHolder: String = "Choose coin"
-        static let buyStartDateTextFieldPlaceHolder: String = "Choose date"
-        static let buyEndDateTextFieldPlaceHolder: String = "Choose date"
-        static let sellDateTextFieldPlaceHolder: String = "Choose date"
-        static let frequencyTextFieldPlaceHolder: String = "Choose frequency"
-        static let amountLabelTextFieldPlaceHolder: String = "Enter amount($)"
+        static let coinTypeTextFieldPlaceHolder: String = "Select coin"
+        static let buyStartDateTextFieldPlaceHolder: String = "Select purchase date"
+        static let buyEndDateTextFieldPlaceHolder: String = "Select purchase date"
+        static let sellDateTextFieldPlaceHolder: String = "Select sell date"
+        static let frequencyTextFieldPlaceHolder: String = "Select frequency"
+        static let amountLabelTextFieldPlaceHolder: String = "Enter amount in dollars"
         
         static let menuName1: String = "Home"
         static let menuName2: String = "Home"
@@ -114,6 +113,38 @@ struct Constant {
         static let calcSaveButtonName: String = "Save"
         static let calcShareButtonName: String = "Share"
         static let showChartButtonName: String = "See Timeseries"
+    }
+    
+    struct MessageSetting {
+        static let errorTitle = "Error"
+        static let resetTitle = "Reset"
+        static let closeTitle = "OK"
+        static let cancelTitle = "Cancel"
+        
+        static let buyStartDateNoDataErrorMessage1 = "There is no data for the selected purchase date. Please select another one."
+        static let buyStartDateNoDataErrorMessage2 = "There is no data for the selected first purchase date. Please select another one."
+        static let buyEndDateNoDataErrorMessage = "There is no data for the selected last purchase date. Please select another one."
+        static let sellDateNoDataErrorMessage = "There is no data for the selected sell date. Please select another one."
+        
+        static let coinTypeErrorMessage = "You must select one from the coin list."
+        static let buyStartDateErrorMessage1 = "You must select a purchase date."
+        static let buyStartDateErrorMessage2 = "You must select the first purchase date."
+        static let buyStartDateErrorMessage3 = "The purchase date must be earlier than the sell date."
+        static let buyStartDateErrorMessage4 = "The first purchase date must be earlier than the last purchase date."
+        static let buyStartDateErrorMessage5 = "The first purchase date must be earlier than the sell date."
+        static let buyEndDateErrorMessage1 = "You must select the last purchase date."
+        static let buyEndDateErrorMessage2 = "The last purchase date must be later than the first purchase date."
+        static let buyEndDateErrorMessage3 = "The last purchase date must be earlier than the sell date."
+        static let frequencyErrorMessage = "You must select the repeat purchase frequency."
+        static let amountErrorMessage1 = "You must enter purchase amount in dollars."
+        static let amountErrorMessage2 = "Decimal point is allowed only once."
+        static let amountErrorMessage3 = "You must enter purchase amount per once in dollars."
+        static let sellDateErrorMessage1 = "You must select a sell date."
+        static let sellDateErrorMessage2 = "The sell date must be later than the purchase date."
+        static let sellDateErrorMessage3 = "The sell date must be later than the first purchase date."
+        static let sellDateErrorMessage4 = "The sell date must be later than the last purchase date."
+        
+        static let resetMessage = "Are you sure you want to reset all input?"
     }
         
     struct ImageSetting {

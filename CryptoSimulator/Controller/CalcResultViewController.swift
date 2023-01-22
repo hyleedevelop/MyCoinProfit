@@ -36,7 +36,7 @@ final class CalcResultViewController: UIViewController {
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
         navigationBarAppearance.backgroundColor = .systemBackground
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.systemGray2]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.label]
         
         // scrollEdge: 스크롤 하기 전의 NavigationBar
         // standard: 스크롤을 하고 있을 때의 NavigationBar
@@ -52,10 +52,10 @@ final class CalcResultViewController: UIViewController {
 //        navigationItem.leftBarButtonItems = [shareButton, saveButton]
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        navigationItem.leftBarButtonItem?.tintColor = .systemGray2
+        navigationItem.leftBarButtonItem?.tintColor = .label
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = .systemGray2
+        navigationItem.rightBarButtonItem?.tintColor = .label
         
         navigationItem.title = "Summary"
     }

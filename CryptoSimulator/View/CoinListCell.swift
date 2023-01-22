@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class CoinTableViewCell: UITableViewCell {
+final class CoinListCell: UITableViewCell {
     
     // 순번
     private let coinRank: UILabel = {
@@ -114,7 +114,6 @@ final class CoinTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
     
     // 하위 뷰로 등록

@@ -41,7 +41,7 @@ final class MainTabBarController: UITabBarController {
         // 수익계산 탭 (홈)
         let vc1 = UINavigationController(rootViewController: CalcViewController())
         vc1.tabBarItem.selectedImage = UIImage(systemName: "list.clipboard.fill")
-        vc1.tabBarItem.title = Constant.TitleSetting.menuName2
+        vc1.tabBarItem.title = Constant.TitleSetting.menuName1
         vc1.tabBarItem.image = UIImage(systemName: "list.clipboard")
         
         // 설정 탭

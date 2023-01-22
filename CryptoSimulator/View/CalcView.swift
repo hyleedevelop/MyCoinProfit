@@ -453,7 +453,7 @@ final class CalcView: UIView {
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.setTitleColor(.systemBackground, for: .normal)
-        button.backgroundColor = UIColor(red: 165/255, green: 85/255, blue: 236/255, alpha: 1)
+        button.backgroundColor = Constant.UIColorSetting.lightModeInbox
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         return button
@@ -470,26 +470,26 @@ final class CalcView: UIView {
         return shimmer
     }()
     
-    let calcResetButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = Constant.UIColorSetting.lightModeInbox
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    lazy var buttonStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [calcStartButton, calcResetButton])
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 20
-        sv.axis = .vertical
-        sv.distribution = .fillEqually
-        sv.alignment = .fill
-        return sv
-    }()
+//    let calcResetButton: UIButton = {
+//        let button = UIButton(type: .custom)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.setTitle(Constant.TitleSetting.calcResetButtonName, for: .normal)
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+//        button.setTitleColor(.label, for: .normal)
+//        button.backgroundColor = Constant.UIColorSetting.lightModeInbox
+//        button.layer.cornerRadius = 10
+//        return button
+//    }()
+//
+//    lazy var buttonStackView: UIStackView = {
+//        let sv = UIStackView(arrangedSubviews: [calcStartButton])
+//        sv.translatesAutoresizingMaskIntoConstraints = false
+//        sv.spacing = 20
+//        sv.axis = .vertical
+//        sv.distribution = .fillEqually
+//        sv.alignment = .fill
+//        return sv
+//    }()
     
     //MARK: - 기타 속성
     
@@ -596,13 +596,11 @@ final class CalcView: UIView {
         }
         
         _ = containerViewArray.map{ $0.heightAnchor.constraint(equalToConstant: 90).isActive = true }
-        
-        
     }
     
     // FinalStackView 설정
     private func setupFinalStackView() {
-        _ = [coinTypeContainerView, buyStartDateContainerView, amountContainerView, sellDateContainerView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeContainerView, buyStartDateContainerView, amountContainerView, sellDateContainerView, emptySpace, calcStartButton].map { finalStackView.addArrangedSubview($0) }
         _ = [buyEndDateContainerView, frequencyContainerView].map { $0.removeFromSuperview() }
         
         scrollView.addSubview(finalStackView)
@@ -615,17 +613,11 @@ final class CalcView: UIView {
             
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
-            buttonStackView.widthAnchor.constraint(equalTo: finalStackView.widthAnchor, constant: 0),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 100),
+            calcStartButton.widthAnchor.constraint(equalTo: finalStackView.widthAnchor),
+            calcStartButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
-        
-        DispatchQueue.main.async {
-            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map{ $0.setViewBorderGradient(
-                color1: Constant.UIColorSetting.themeGradientColor1,
-                color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) }
-        }
     }
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
@@ -646,7 +638,7 @@ final class CalcView: UIView {
     
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupSecondFianlStackView() {
-        _ = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView, frequencyContainerView, amountContainerView, sellDateContainerView, emptySpace, buttonStackView].map { finalStackView.addArrangedSubview($0) }
+        _ = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView, frequencyContainerView, amountContainerView, sellDateContainerView, emptySpace, calcStartButton].map { finalStackView.addArrangedSubview($0) }
         _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
