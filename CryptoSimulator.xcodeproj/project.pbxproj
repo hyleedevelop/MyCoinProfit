@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		070C1CC5296FA6BA008E85D0 /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */; };
-		072807802957F08000CF65D9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0728077F2957F08000CF65D9 /* Kingfisher */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
 		073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultViewController.swift */; };
 		074CFCE32974F955008244AF /* CalcResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074CFCE22974F955008244AF /* CalcResultView.swift */; };
@@ -24,7 +23,7 @@
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		07941144294A158C00A4F632 /* CryptoSimulator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */; };
-		0794114A294A19C800A4F632 /* AppSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* AppSettingsCell.swift */; };
+		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF2295DA7310063625F /* BookmarkViewController.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
@@ -37,7 +36,8 @@
 		07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* PriceHistoryData.swift */; };
 		07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */; };
 		07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7F7A8297AC3E8003878C7 /* GradientColor.swift */; };
-		07FCC2F1297D83E200A06EAD /* SettingSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingSectionModel.swift */; };
+		07FCC2F1297D83E200A06EAD /* SettingTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */; };
+		47B4F2FE6B6171115B33B007 /* Pods_CryptoSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1499EEB9F5182508A415814 /* Pods_CryptoSimulator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,7 +59,7 @@
 		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
-		07941149294A19C800A4F632 /* AppSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsCell.swift; sourceTree = "<group>"; };
+		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF2295DA7310063625F /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
@@ -72,8 +72,9 @@
 		07D3A582295C925C0079DB9E /* PriceHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryData.swift; sourceTree = "<group>"; };
 		07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocol.swift; sourceTree = "<group>"; };
 		07E7F7A8297AC3E8003878C7 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
-		07FCC2F0297D83E200A06EAD /* SettingSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSectionModel.swift; sourceTree = "<group>"; };
+		07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewModel.swift; sourceTree = "<group>"; };
 		5F1B553C16FFDD291D5BBC55 /* Pods-CryptoSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSimulator.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.debug.xcconfig"; sourceTree = "<group>"; };
+		A1499EEB9F5182508A415814 /* Pods_CryptoSimulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoSimulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF973345A3C28DD0157F7555 /* Pods-CryptoSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSimulator.release.xcconfig"; path = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				072807802957F08000CF65D9 /* Kingfisher in Frameworks */,
+				47B4F2FE6B6171115B33B007 /* Pods_CryptoSimulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +157,7 @@
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
 				074CFCE22974F955008244AF /* CalcResultView.swift */,
 				07C616EB294AAD4B00F057BE /* CoinListCell.swift */,
-				07941149294A19C800A4F632 /* AppSettingsCell.swift */,
+				07941149294A19C800A4F632 /* SettingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -168,7 +169,7 @@
 				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
 				07D3A582295C925C0079DB9E /* PriceHistoryData.swift */,
 				07CF13C12962B8110099746F /* PickerData.swift */,
-				07FCC2F0297D83E200A06EAD /* SettingSectionModel.swift */,
+				07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */,
 				07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */,
 			);
 			path = Model;
@@ -188,6 +189,7 @@
 		8850A8556DDC0043D8A6FA14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A1499EEB9F5182508A415814 /* Pods_CryptoSimulator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,7 +222,6 @@
 			);
 			name = CryptoSimulator;
 			packageProductDependencies = (
-				0728077F2957F08000CF65D9 /* Kingfisher */,
 			);
 			productName = "DCA Reminder";
 			productReference = 0794111B2949E84700A4F632 /* CryptoSimulator.app */;
@@ -251,7 +252,6 @@
 			);
 			mainGroup = 079411122949E84700A4F632;
 			packageReferences = (
-				0728077E2957F08000CF65D9 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 0794111C2949E84700A4F632 /* Products */;
 			projectDirPath = "";
@@ -336,7 +336,7 @@
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
 				074CFCE32974F955008244AF /* CalcResultView.swift in Sources */,
-				07FCC2F1297D83E200A06EAD /* SettingSectionModel.swift in Sources */,
+				07FCC2F1297D83E200A06EAD /* SettingTableViewModel.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
 				079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
@@ -348,7 +348,7 @@
 				073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */,
 				079DBFF7295DB53A0063625F /* CalcView.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* DataPassManager.swift in Sources */,
-				0794114A294A19C800A4F632 /* AppSettingsCell.swift in Sources */,
+				0794114A294A19C800A4F632 /* SettingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +424,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -478,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -501,13 +501,13 @@
 				INFOPLIST_FILE = CryptoSimulator/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptoSimulator;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "스크린샷을 저장하기 위해 \\n사진앱 접근을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,13 +537,13 @@
 				INFOPLIST_FILE = CryptoSimulator/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptoSimulator;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "스크린샷을 저장하기 위해 \\n사진앱 접근을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -582,25 +582,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0728077E2957F08000CF65D9 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0728077F2957F08000CF65D9 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0728077E2957F08000CF65D9 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */ = {

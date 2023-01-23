@@ -119,7 +119,7 @@ final class CoinListCell: UITableViewCell {
     // 하위 뷰로 등록
     private func registerUI() {
         self.addSubview(cellSV)
-        self.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        self.backgroundColor = UIColor(named: "BGColor")
     }
     
     // AutoLayout 결정하는 시점

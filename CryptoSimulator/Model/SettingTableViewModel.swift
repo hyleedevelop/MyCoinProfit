@@ -7,17 +7,18 @@
 
 import UIKit
 
-enum SettingSection {
+enum SettingTableViewModel {
     case appSettings([AppSettingsModel])
-    case aboutThisApp([AboutThisAppModel])
+    case aboutTheApp([AboutTheAppModel])
 }
 
 struct AppSettingsModel {
+    let icon: UIImage?
     let title: String?
-    let iconImage: UIImage?
 }
 
-struct AboutThisAppModel {
+struct AboutTheAppModel {
+    let icon: UIImage?
     let title: String?
-    let iconImage: UIImage?
+    let value: String?
 }

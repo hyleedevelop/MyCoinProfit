@@ -35,7 +35,7 @@ final class CalcView: UIView {
     var coinTypeContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -47,7 +47,7 @@ final class CalcView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
-        label.textColor = .black
+        label.textColor = .label
         label.text = Constant.TitleSetting.coinTypeLabelName
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -82,15 +82,15 @@ final class CalcView: UIView {
         return picker
     }()
     
-    let coinTypeBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let coinTypeBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var coinTypeStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeTextField, coinTypeBottomLine])
+        let sv = UIStackView(arrangedSubviews: [coinTypeLabel, coinTypeTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 7
         sv.axis = .vertical
@@ -104,7 +104,7 @@ final class CalcView: UIView {
     var buyStartDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -117,7 +117,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyStartDateLabelName1
-        label.textColor = .black
+        label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -153,15 +153,15 @@ final class CalcView: UIView {
         return picker
     }()
     
-    let buyStartDateBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let buyStartDateBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var buyStartDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyStartDateLabel, buyStartDateTextField, buyStartDateBottomLine])
+        let sv = UIStackView(arrangedSubviews: [buyStartDateLabel, buyStartDateTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -175,7 +175,7 @@ final class CalcView: UIView {
     let buyEndDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -188,7 +188,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyEndDateLabelName
-        label.textColor = .black
+        label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -224,15 +224,15 @@ final class CalcView: UIView {
         return picker
     }()
     
-    let buyEndDateBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let buyEndDateBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var buyEndDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [buyEndDateLabel, buyEndDateTextField, buyEndDateBottomLine])
+        let sv = UIStackView(arrangedSubviews: [buyEndDateLabel, buyEndDateTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -246,7 +246,7 @@ final class CalcView: UIView {
     let frequencyContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -259,7 +259,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.frequencyLabelName
-        label.textColor = .black
+        label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -289,15 +289,15 @@ final class CalcView: UIView {
         return picker
     }()
 
-    let frequencyBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let frequencyBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var frequencyStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyTextField, frequencyBottomLine])
+        let sv = UIStackView(arrangedSubviews: [frequencyLabel, frequencyTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -311,7 +311,7 @@ final class CalcView: UIView {
     let amountContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -324,7 +324,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.amountLabelName1
-        label.textColor = .black
+        label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -347,15 +347,15 @@ final class CalcView: UIView {
         return tf
     }()
 
-    let amountBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let amountBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var amountStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [amountLabel, amountTextField, amountBottomLine])
+        let sv = UIStackView(arrangedSubviews: [amountLabel, amountTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -369,7 +369,7 @@ final class CalcView: UIView {
     let sellDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "IBColor")
         view.layer.borderColor = UIColor.clear.cgColor
         view.layer.borderWidth = 0
         view.clipsToBounds = true
@@ -382,7 +382,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.labelFontSize, weight: Constant.SizeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.sellDateLabelName
-        label.textColor = .black
+        label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -418,15 +418,15 @@ final class CalcView: UIView {
         return picker
     }()
     
-    let sellDateBottomLine: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
-        return view
-    }()
+//    let sellDateBottomLine: UIView = {
+//        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+//        return view
+//    }()
     
     private lazy var sellDateStackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [sellDateLabel, sellDateTextField, sellDateBottomLine])
+        let sv = UIStackView(arrangedSubviews: [sellDateLabel, sellDateTextField])
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.spacing = 8
         sv.axis = .vertical
@@ -452,7 +452,7 @@ final class CalcView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        button.setTitleColor(.systemBackground, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.lightModeInbox
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -497,7 +497,7 @@ final class CalcView: UIView {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        view.backgroundColor = UIColor(named: "BGColor")
         view.showsVerticalScrollIndicator = true
         view.scrollsToTop = true
         return view
@@ -617,13 +617,13 @@ final class CalcView: UIView {
             calcStartButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+//        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
     }
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupFirstFinalStackView() {
         _ = [buyEndDateContainerView, frequencyContainerView].map { $0.removeFromSuperview() }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+//        _ = [coinTypeBottomLine, buyStartDateBottomLine, sellDateBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
         amountLabel.text = Constant.TitleSetting.amountLabelName1
@@ -639,7 +639,7 @@ final class CalcView: UIView {
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupSecondFianlStackView() {
         _ = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView, frequencyContainerView, amountContainerView, sellDateContainerView, emptySpace, calcStartButton].map { finalStackView.addArrangedSubview($0) }
-        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
+//        _ = [coinTypeBottomLine, buyStartDateBottomLine, buyEndDateBottomLine, sellDateBottomLine, frequencyBottomLine, amountBottomLine].map { $0.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.bottomLineHeightAnchorConstant).isActive = true }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
         amountLabel.text = Constant.TitleSetting.amountLabelName2

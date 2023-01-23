@@ -42,7 +42,7 @@ struct Constant {
         static let labelFontWeight: UIFont.Weight = .semibold
         
         static let textfieldFontSize: CGFloat = labelFontSize - 2
-        static let textfieldFontWeight: UIFont.Weight = .regular
+        static let textfieldFontWeight: UIFont.Weight = .light
         
         static let calcResultFontSize: CGFloat = 16
         

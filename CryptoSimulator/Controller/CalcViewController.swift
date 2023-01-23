@@ -79,7 +79,7 @@ final class CalcViewController: UIViewController {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         
         // scrollEdge: 스크롤 하기 전의 NavigationBar
@@ -108,7 +108,7 @@ final class CalcViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = Constant.UIColorSetting.lightModeBackground
+        view.backgroundColor = UIColor(named: "BGColor")
     }
     
     // ContainerView 설정

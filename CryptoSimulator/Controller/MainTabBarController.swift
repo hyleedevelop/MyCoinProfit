@@ -24,19 +24,19 @@ final class MainTabBarController: UITabBarController {
         if #available(iOS 15.0, *) {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.configureWithDefaultBackground()
-            tabBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
+            tabBarAppearance.backgroundColor = UIColor(named: "IBColor")
             UITabBar.appearance().standardAppearance = tabBarAppearance
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
 
             let navigationBarAppearance = UINavigationBarAppearance()
             navigationBarAppearance.configureWithDefaultBackground()
-            navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeBackground
+            navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
             UINavigationBar.appearance().standardAppearance = navigationBarAppearance
             UINavigationBar.appearance().compactAppearance = navigationBarAppearance
             UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         }
         
-        tabBar.tintColor = .black
+        tabBar.tintColor = .label
         
         // 수익계산 탭 (홈)
         let vc1 = UINavigationController(rootViewController: CalcViewController())
@@ -53,7 +53,7 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [vc1, vc2]
         
         // 앱을 처음 실행했을 때 화면에 보여줄 탭 설정 (Index = 0, 1)
-        self.selectedIndex = 0
+        self.selectedIndex = 1
     }
 
 }

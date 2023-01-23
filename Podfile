@@ -6,6 +6,7 @@ target 'CryptoSimulator' do
   use_frameworks!
 
   # Pods for CryptoSimulator
+  pod 'Kingfisher', '~> 7.0'
   pod 'IQKeyboardManagerSwift', '6.5.10'
   pod 'ShimmerSwift'
   pod 'NVActivityIndicatorView'

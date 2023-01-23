@@ -30,7 +30,7 @@ final class CoinViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle("Market Cap ▼", for: .normal)
         button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.4)
+        button.backgroundColor = .systemGray2
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -46,7 +46,7 @@ final class CoinViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle("24H Price Change", for: .normal)
         button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 0.4)
+        button.backgroundColor = .systemGray2
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -58,7 +58,7 @@ final class CoinViewController: UIViewController {
     // TableView를 담고 있는 View
     private let tableContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "BGColor")
         view.clipsToBounds = false
         view.layer.cornerRadius = 0
         return view
@@ -122,13 +122,13 @@ final class CoinViewController: UIViewController {
     
     @objc private func updateData() {
         loadData()
-        print("[\(Date())] 코인 데이터 업데이트 완료")
+        //print("[\(Date())] 코인 데이터 업데이트 완료")
         //apiTimer.invalidate()
     }
     
     // REST API를 이용해 서버에서 데이터 가져오기
     private func loadData() {
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = UIColor(named: "BGColor")
         activityIndicator.startAnimating()
         
         // 강한 참조가 일어나지 않도록 [weak self]를 사용하여 구현
@@ -168,12 +168,12 @@ final class CoinViewController: UIViewController {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.systemGray2]
         
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
+        navigationController?.navigationBar.tintColor = .systemGray2
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false
@@ -185,12 +185,10 @@ final class CoinViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .systemGray2
-        //navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        
         
         navigationItem.title = "Select Your Coin"
         
-        navigationItem.preferredSearchBarPlacement = .stacked
+        //navigationItem.preferredSearchBarPlacement = .stacked
         navigationItem.hidesSearchBarWhenScrolling = false
         
         self.extendedLayoutIncludesOpaqueBars = true
@@ -198,7 +196,7 @@ final class CoinViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = Constant.UIColorSetting.lightModeInbox
+        view.backgroundColor = UIColor(named: "BGColor")
     }
     
     // 화면 상단의 필터링/정렬 버튼 설정
@@ -252,7 +250,7 @@ final class CoinViewController: UIViewController {
         
         // Table 테두리 설정
         tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = 10
+        tableView.layer.cornerRadius = 0
         tableView.layer.borderWidth = 0
 
         // TableView 맨 위의 Cell로 이동하기
