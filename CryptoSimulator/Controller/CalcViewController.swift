@@ -55,7 +55,7 @@ final class CalcViewController: UIViewController {
         setupButton()
         setupTextField()
         
-        playAnimation()
+        //playAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {

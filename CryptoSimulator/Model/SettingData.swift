@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum SettingTableViewModel {
+enum SettingData {
     case appSettings([AppSettingsModel])
     case aboutTheApp([AboutTheAppModel])
 }

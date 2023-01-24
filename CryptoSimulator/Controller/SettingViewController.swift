@@ -28,9 +28,9 @@ final class SettingViewController: UIViewController {
     }()
     
     // Switch
-    private let darkModeSwitch = UISwitch(frame: .zero)
+//    private let darkModeSwitch = UISwitch(frame: .zero)
     
-    private var dataSource = [SettingTableViewModel]()
+    private var dataSource = [SettingData]()
     private var appSettingsModel = [AppSettingsModel]()
     private var aboutTheAppModel = [AboutTheAppModel]()
     
@@ -69,10 +69,6 @@ final class SettingViewController: UIViewController {
         
         navigationController?.navigationBar.isTranslucent = false
         navigationItem.title = Constant.TitleSetting.menuName3
-        
-//        let image = UIImage(named: "app_icon_gradient.jpeg")
-//        navigationItem.titleView = UIImageView(image: image)
-        
     }
     
     // View 설정
@@ -99,17 +95,7 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        let aboutTheAppModel = [
-            AboutTheAppModel(icon: UIImage(systemName: "giftcard"), title: "Tips for App Developer", value: nil),
-            AboutTheAppModel(icon: UIImage(systemName: "star"), title: "Rate The App", value: nil),
-            AboutTheAppModel(icon: UIImage(systemName: "envelope"), title: "Contact", value: nil),
-            AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Privacy & Terms", value: nil),
-            AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: "1.0.0")
-        ]
-        
-        let aboutTheAppSection = SettingTableViewModel.aboutTheApp(aboutTheAppModel)
-        
-        self.dataSource = [aboutTheAppSection]
+        self.dataSource = [SettingDataManager.shared.aboutTheAppData()]
         tableView.reloadData()
     }
     

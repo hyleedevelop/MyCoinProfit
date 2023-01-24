@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		070C1CC5296FA6BA008E85D0 /* CoinHelpModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
+		073D261B297F7FB700C46666 /* SettingDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D261A297F7FB700C46666 /* SettingDataManager.swift */; };
 		073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultViewController.swift */; };
 		074CFCE32974F955008244AF /* CalcResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074CFCE22974F955008244AF /* CalcResultView.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
@@ -36,13 +37,14 @@
 		07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* PriceHistoryData.swift */; };
 		07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */; };
 		07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7F7A8297AC3E8003878C7 /* GradientColor.swift */; };
-		07FCC2F1297D83E200A06EAD /* SettingTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */; };
+		07FCC2F1297D83E200A06EAD /* SettingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingData.swift */; };
 		47B4F2FE6B6171115B33B007 /* Pods_CryptoSimulator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1499EEB9F5182508A415814 /* Pods_CryptoSimulator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		070C1CC4296FA6BA008E85D0 /* CoinHelpModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoinHelpModalViewController.swift; sourceTree = "<group>"; };
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		073D261A297F7FB700C46666 /* SettingDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDataManager.swift; sourceTree = "<group>"; };
 		073F546D296D8D4F0099305A /* CalcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultViewController.swift; sourceTree = "<group>"; };
 		074CFCE22974F955008244AF /* CalcResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultView.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -72,7 +74,7 @@
 		07D3A582295C925C0079DB9E /* PriceHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryData.swift; sourceTree = "<group>"; };
 		07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocol.swift; sourceTree = "<group>"; };
 		07E7F7A8297AC3E8003878C7 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
-		07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewModel.swift; sourceTree = "<group>"; };
+		07FCC2F0297D83E200A06EAD /* SettingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingData.swift; sourceTree = "<group>"; };
 		5F1B553C16FFDD291D5BBC55 /* Pods-CryptoSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSimulator.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 		A1499EEB9F5182508A415814 /* Pods_CryptoSimulator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoSimulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF973345A3C28DD0157F7555 /* Pods-CryptoSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSimulator.release.xcconfig"; path = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.release.xcconfig"; sourceTree = "<group>"; };
@@ -169,7 +171,8 @@
 				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
 				07D3A582295C925C0079DB9E /* PriceHistoryData.swift */,
 				07CF13C12962B8110099746F /* PickerData.swift */,
-				07FCC2F0297D83E200A06EAD /* SettingTableViewModel.swift */,
+				07FCC2F0297D83E200A06EAD /* SettingData.swift */,
+				073D261A297F7FB700C46666 /* SettingDataManager.swift */,
 				07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */,
 			);
 			path = Model;
@@ -324,6 +327,7 @@
 			files = (
 				079DBFF3295DA7310063625F /* BookmarkViewController.swift in Sources */,
 				07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */,
+				073D261B297F7FB700C46666 /* SettingDataManager.swift in Sources */,
 				078478802968486800C87C1C /* CalcManager.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
@@ -336,7 +340,7 @@
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
 				074CFCE32974F955008244AF /* CalcResultView.swift in Sources */,
-				07FCC2F1297D83E200A06EAD /* SettingTableViewModel.swift in Sources */,
+				07FCC2F1297D83E200A06EAD /* SettingData.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
 				079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,

@@ -71,8 +71,6 @@ final class CalcView: UIView {
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.SizeSetting.textfieldFontSize, weight: Constant.SizeSetting.textfieldFontWeight)
-        //tf.addTarget(self, action: #selector(beforeTextFieldEditing(_:)), for: .editingDidBegin)
-        //tf.addTarget(self, action: #selector(afterTextFieldEditing(_:)), for: .editingDidEnd)
         return tf
     }()
 

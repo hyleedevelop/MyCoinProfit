@@ -73,6 +73,7 @@ final class SettingCell: UITableViewCell {
         ])
     }
     
+    // Cell 업데이트
     func prepare(icon: UIImage?, title: String?, value: String?) {
         self.menuIcon.image = icon
         self.menuLabel.text = title
