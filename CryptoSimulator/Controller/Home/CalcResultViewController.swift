@@ -143,8 +143,7 @@ extension CalcResultViewController: CalcResultDelegate {
             
             let roi: String = data.1.toPercentage()
             let isROIPositive: Bool = data.1 >= 0 ? true : false
-            let lossOrGain = data.1 >= 0 ? "PROFIT" : "LOSS"
-            let emoticon = data.1 >= 0 ? "😁" : "😭"
+            //let lossOrGain = data.1 >= 0 ? "PROFIT" : "LOSS"
             let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
                                                          : Constant.UIColorSetting.negativeColor
             
@@ -230,7 +229,6 @@ extension CalcResultViewController: CalcResultDelegate {
             let roi: String = data.1.toPercentage()
             let isROIPositive: Bool = data.1 >= 0 ? true : false
             let lossOrGain = data.1 >= 0 ? "PROFIT" : "LOSS"
-            let emoticon = data.1 >= 0 ? "😁" : "😭"
             let lossOrGainColor: UIColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
                                                          : Constant.UIColorSetting.negativeColor
             

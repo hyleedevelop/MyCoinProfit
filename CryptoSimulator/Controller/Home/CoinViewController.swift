@@ -307,9 +307,9 @@ final class CoinViewController: UIViewController {
     
     @objc private func helpButtonTapped() {
         // 도움말 VC 인스턴스 생성
-        let coinHelpModalVC = CoinHelpModalViewController()
+        let helpVC = HelpViewController()
         // 도움말 VC에 Navigation VC 넣기
-        let nav = UINavigationController(rootViewController: coinHelpModalVC)
+        let nav = UINavigationController(rootViewController: helpVC)
         
         // Bottom Sheet 관련 설정
         nav.modalPresentationStyle = .pageSheet

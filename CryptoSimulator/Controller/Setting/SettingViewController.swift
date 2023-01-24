@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AcknowList
 
 final class SettingViewController: UIViewController {
 
@@ -16,11 +17,12 @@ final class SettingViewController: UIViewController {
         tv.backgroundColor = UIColor(named: "BGColor")
         tv.separatorStyle = .singleLine
         tv.separatorInset.left = 50
-        //tv.separatorInset.right = 20
-        tv.allowsSelection = false
-        tv.clipsToBounds = true
-        tv.layer.cornerRadius = 0
-        tv.layer.borderWidth = 0
+//        tv.separatorInset.right = 20
+//        tv.allowsSelection = false
+//        tv.isUserInteractionEnabled = true
+//        tv.clipsToBounds = true
+//        tv.layer.cornerRadius = 0
+//        tv.layer.borderWidth = 0
         tv.scrollsToTop = true
         tv.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         tv.register(SettingCell.self, forCellReuseIdentifier: "SettingCell")
@@ -31,7 +33,7 @@ final class SettingViewController: UIViewController {
 //    private let darkModeSwitch = UISwitch(frame: .zero)
     
     private var dataSource = [SettingData]()
-    private var appSettingsModel = [AppSettingsModel]()
+    private var feedbackModel = [FeedbackModel]()
     private var aboutTheAppModel = [AboutTheAppModel]()
     
     let userDefaults = UserDefaults.standard
@@ -95,7 +97,8 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        self.dataSource = [SettingDataManager.shared.aboutTheAppData()]
+        self.dataSource = [SettingDataManager.shared.feedbackData(),
+                           SettingDataManager.shared.aboutTheAppData()]
         tableView.reloadData()
     }
     
@@ -128,8 +131,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     // Section 내의 Cell 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.dataSource[section] {
-        case let .appSettings(appSettingsModel):
-            return appSettingsModel.count
+        case let .feedback(feedbackModel):
+            return feedbackModel.count
         case let .aboutTheApp(aboutTheAppModel):
             return aboutTheAppModel.count
         }
@@ -137,13 +140,24 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     
     // Section Header의 제목 설정
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "About The App"
+        switch self.dataSource[section] {
+        case .feedback(_):
+            return "Feedback"
+        case .aboutTheApp(_):
+            return "About The App"
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let title = UILabel()
-        title.text = "About The App"
-        title.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        switch self.dataSource[section] {
+        case .feedback(_):
+            title.text = "Feedback"
+        case .aboutTheApp(_):
+            title.text = "About The App"
+        }
+        title.font = UIFont.systemFont(ofSize: 18,
+                                       weight: .bold)
         title.textColor = .label
 
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
@@ -154,23 +168,21 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45
+        return 44
     }
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.dataSource[indexPath.section] {
             
-        // Section - App Settings
-        case let .appSettings(appSettingsModel):
+        // Section - Feedback
+        case let .feedback(feedbackModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
-            _ = appSettingsModel[indexPath.row]
+            let model = feedbackModel[indexPath.row]
 
-            //self.darkModeSwitch.setOn(false, animated: true)
-            //self.darkModeSwitch.tag = indexPath.row
-            //self.darkModeSwitch.addTarget(self, action: #selector(handleAppearanceChange(_:)), for: .valueChanged)
-            //cell.accessoryView = self.darkModeSwitch
-            
+            cell.prepare(icon: model.icon, title: model.title, value: model.value)
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .none
             return cell
                 
         // Section - About The App
@@ -179,22 +191,42 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             let model = aboutTheAppModel[indexPath.row]
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
-            if 0...3 ~= indexPath.row {
+            if 0...1 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
             }
+            cell.selectionStyle = .none
             return cell
-                
+            
         }
+        
     }
     
-    // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
+    // Cell 선택 시 동작 설정
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        switch self.dataSource[indexPath.section] {
+            
+        // Section - Feedback
+        case .feedback(_):
+            print(#function)
+            
+        // Section - About The App
+        case .aboutTheApp(_):
+            if indexPath.row == 0 {
+                let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
+                navigationController?.pushViewController(acknowListVC, animated: true)
+            }
             
         }
         
     }
     
 }
+
+
+
+//self.darkModeSwitch.setOn(false, animated: true)
+//self.darkModeSwitch.tag = indexPath.row
+//self.darkModeSwitch.addTarget(self, action: #selector(handleAppearanceChange(_:)), for: .valueChanged)
+//cell.accessoryView = self.darkModeSwitch

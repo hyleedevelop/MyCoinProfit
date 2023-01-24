@@ -1,4 +1,5 @@
 PODS:
+  - AcknowList (3.0.0)
   - Charts (4.1.0):
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
@@ -12,6 +13,7 @@ PODS:
   - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
+  - AcknowList
   - Charts
   - IQKeyboardManagerSwift (= 6.5.10)
   - Kingfisher (~> 7.0)
@@ -20,6 +22,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AcknowList
     - Charts
     - IQKeyboardManagerSwift
     - Kingfisher
@@ -28,6 +31,7 @@ SPEC REPOS:
     - SwiftAlgorithms
 
 SPEC CHECKSUMS:
+  AcknowList: 931531a3e9d66f202ae8e04819a62c50b818b03e
   Charts: 354f86803d11d9c35de280587fef50d1af063978
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
@@ -35,6 +39,6 @@ SPEC CHECKSUMS:
   ShimmerSwift: f7ed2daf9c246de8299dfd9e12c6ab465cba9842
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: 8d3e7876c798e7480c41c793ca39c3fb75ae5e6d
+PODFILE CHECKSUM: fa2653a8aef796aa647b571d429bb9f8eef13672
 
 COCOAPODS: 1.11.3

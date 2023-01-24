@@ -13,7 +13,7 @@ final class SettingCell: UITableViewCell {
     var menuLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 1
@@ -24,7 +24,7 @@ final class SettingCell: UITableViewCell {
     var valueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .systemGray2
         label.textAlignment = .left
         label.numberOfLines = 1

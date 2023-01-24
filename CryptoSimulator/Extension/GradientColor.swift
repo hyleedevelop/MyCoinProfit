@@ -33,7 +33,7 @@ extension UIView {
         gradient.frame = CGRect(origin: CGPoint.zero, size: self.frame.size)
         
         let shape = CAShapeLayer()
-        shape.lineWidth = 3
+        shape.lineWidth = 2
         shape.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
         shape.strokeColor = UIColor.black.cgColor
         shape.fillColor = UIColor.clear.cgColor

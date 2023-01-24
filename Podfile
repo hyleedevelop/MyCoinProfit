@@ -11,5 +11,6 @@ target 'CryptoSimulator' do
   pod 'ShimmerSwift'
   pod 'NVActivityIndicatorView'
   pod 'Charts'
+  pod 'AcknowList'
 
 end

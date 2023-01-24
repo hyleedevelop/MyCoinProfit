@@ -8,13 +8,14 @@
 import UIKit
 
 enum SettingData {
-    case appSettings([AppSettingsModel])
+    case feedback([FeedbackModel])
     case aboutTheApp([AboutTheAppModel])
 }
 
-struct AppSettingsModel {
+struct FeedbackModel {
     let icon: UIImage?
     let title: String?
+    let value: String?
 }
 
 struct AboutTheAppModel {

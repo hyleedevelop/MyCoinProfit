@@ -53,7 +53,7 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [vc1, vc2]
         
         // 앱을 처음 실행했을 때 화면에 보여줄 탭 설정 (Index = 0, 1)
-        self.selectedIndex = 1
+        self.selectedIndex = 0
     }
 
 }

@@ -36,13 +36,14 @@ struct Constant {
     }
     
     struct SizeSetting {
-        static let segmentFontSize: CGFloat = 15
+        static let segmentFontSize: CGFloat = 20
+        static let segmentFontWeight: UIFont.Weight = .medium
         
         static let labelFontSize: CGFloat = 17
-        static let labelFontWeight: UIFont.Weight = .semibold
+        static let labelFontWeight: UIFont.Weight = .bold
         
         static let textfieldFontSize: CGFloat = labelFontSize - 2
-        static let textfieldFontWeight: UIFont.Weight = .light
+        static let textfieldFontWeight: UIFont.Weight = .regular
         
         static let calcResultFontSize: CGFloat = 16
         
@@ -88,21 +89,23 @@ struct Constant {
         static let segmentItemName1: String = "Lump-Sum Investing"
         static let segmentItemName2: String = "Dollar-Cost Averaging"
         
-        static let coinTypeLabelName: String = "Coin"
-        static let buyStartDateLabelName1: String = "Purchase Date"
-        static let buyStartDateLabelName2: String = "First Purchase Date"
-        static let buyEndDateLabelName: String = "Last Purchase Date"
-        static let sellDateLabelName: String = "Sell Date"
-        static let frequencyLabelName: String = "Repeat Purchase"
-        static let amountLabelName1: String = "Amount Total"
-        static let amountLabelName2: String = "Amount per Once"
+        static let coinTypeLabelName: String = "  Coin"
+        static let buyStartDateLabelName1: String = "  Purchase Date"
+        static let buyStartDateLabelName2: String = "  First Purchase Date"
+        static let buyEndDateLabelName: String = "  Last Purchase Date"
+        static let sellDateLabelName: String = "  Sell Date"
+        static let frequencyLabelName: String = "  Repeat Purchase"
+        static let amountLabelName1: String = "  Amount Total"
+        static let amountLabelName2: String = "  Amount per Once"
         
         static let coinTypeTextFieldPlaceHolder: String = "Select coin"
-        static let buyStartDateTextFieldPlaceHolder: String = "Select purchase date"
-        static let buyEndDateTextFieldPlaceHolder: String = "Select purchase date"
+        static let buyStartDateTextFieldPlaceHolder1: String = "Select purchase date"
+        static let buyStartDateTextFieldPlaceHolder2: String = "Select first purchase date"
+        static let buyEndDateTextFieldPlaceHolder: String = "Select last purchase date"
         static let sellDateTextFieldPlaceHolder: String = "Select sell date"
         static let frequencyTextFieldPlaceHolder: String = "Select frequency"
-        static let amountLabelTextFieldPlaceHolder: String = "Enter amount in dollars"
+        static let amountLabelTextFieldPlaceHolder1: String = "Enter amount in dollars"
+        static let amountLabelTextFieldPlaceHolder2: String = "Enter amount per once in dollars"
         
         static let menuName1: String = "Home"
         static let menuName2: String = "Home"

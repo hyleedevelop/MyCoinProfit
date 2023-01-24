@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-final class CoinHelpModalViewController: UIViewController {
+final class HelpViewController: UIViewController {
 
     private let navBarTitleLabel: UILabel = {
         let label = UILabel()

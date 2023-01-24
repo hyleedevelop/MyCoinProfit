@@ -99,7 +99,7 @@ final class CalcViewController: UIViewController {
 //        navigationItem.leftBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .label
                 
         navigationItem.title = Constant.TitleSetting.menuName2
         
@@ -806,9 +806,9 @@ final class CalcViewController: UIViewController {
     
     @objc private func helpButtonTapped() {
         // 도움말 VC 인스턴스 생성
-        let coinHelpModalVC = CoinHelpModalViewController()
+        let helpVC = HelpViewController()
         // 도움말 VC에 Navigation VC 넣기
-        let nav = UINavigationController(rootViewController: coinHelpModalVC)
+        let nav = UINavigationController(rootViewController: helpVC)
         
         // Bottom Sheet 관련 설정
         nav.modalPresentationStyle = .pageSheet
