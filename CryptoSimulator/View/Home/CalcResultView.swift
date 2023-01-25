@@ -58,7 +58,7 @@ final class CalcResultView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.borderColor = Constant.CGColorSetting.themeColor
-        view.layer.borderWidth = Constant.SizeSetting.graphLineWidthAnchorConstant
+        view.layer.borderWidth = Constant.ShapeSetting.graphLineWidthAnchorConstant
         view.layer.borderWidth = 0
         return view
     }()
@@ -69,7 +69,7 @@ final class CalcResultView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.borderColor = Constant.CGColorSetting.themeColor
-        view.layer.borderWidth = Constant.SizeSetting.graphLineWidthAnchorConstant
+        view.layer.borderWidth = Constant.ShapeSetting.graphLineWidthAnchorConstant
         view.layer.borderWidth = 0
         return view
     }()
@@ -96,7 +96,7 @@ final class CalcResultView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGray4
         view.layer.borderColor = Constant.CGColorSetting.black
-        view.layer.borderWidth = Constant.SizeSetting.graphLineWidthAnchorConstant
+        view.layer.borderWidth = Constant.ShapeSetting.graphLineWidthAnchorConstant
         return view
     }()
     
@@ -104,7 +104,7 @@ final class CalcResultView: UIView {
     let leftBarValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.graphLabelSmallFontSize, weight: Constant.ShapeSetting.graphLabelSmallFontWeight)
         label.text = ""
         label.textColor = .black
         label.textAlignment = .center
@@ -118,7 +118,7 @@ final class CalcResultView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemGray4
         view.layer.borderColor = Constant.CGColorSetting.black
-        view.layer.borderWidth = Constant.SizeSetting.graphLineWidthAnchorConstant
+        view.layer.borderWidth = Constant.ShapeSetting.graphLineWidthAnchorConstant
         return view
     }()
 
@@ -126,7 +126,7 @@ final class CalcResultView: UIView {
     let rightBarValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.graphLabelSmallFontSize, weight: Constant.ShapeSetting.graphLabelSmallFontWeight)
         label.text = ""
         label.textColor = .black
         label.textAlignment = .center
@@ -149,7 +149,7 @@ final class CalcResultView: UIView {
     let centerArrowValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelSmallFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.graphLabelSmallFontSize, weight: Constant.ShapeSetting.graphLabelSmallFontWeight)
         label.text = ""
         label.textColor = .black
         label.textAlignment = .center
@@ -161,7 +161,7 @@ final class CalcResultView: UIView {
     private let leftTickLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelBigFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.graphLabelSmallFontSize, weight: Constant.ShapeSetting.graphLabelBigFontWeight)
         label.text = "Total Investment\nAmount"
         label.textColor = .black
         label.textAlignment = .center
@@ -173,7 +173,7 @@ final class CalcResultView: UIView {
     private let rightTickLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.SizeSetting.graphLabelSmallFontSize, weight: Constant.SizeSetting.graphLabelBigFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.graphLabelSmallFontSize, weight: Constant.ShapeSetting.graphLabelBigFontWeight)
         label.text = "Total Exit\nAmount"
         label.textColor = .black
         label.textAlignment = .center
@@ -261,8 +261,8 @@ final class CalcResultView: UIView {
         for i in 0..<numberOfLabels {
             summaryLabel.append(UILabel())
             summaryLabel[i].translatesAutoresizingMaskIntoConstraints = false
-            summaryLabel[i].font = .systemFont(ofSize: Constant.SizeSetting.summaryLabelSmallFontSize,
-                                               weight: Constant.SizeSetting.summaryLabelSmallFontWeight)
+            summaryLabel[i].font = .systemFont(ofSize: Constant.ShapeSetting.summaryLabelSmallFontSize,
+                                               weight: Constant.ShapeSetting.summaryLabelSmallFontWeight)
             summaryLabel[i].textColor = .label
             summaryLabel[i].numberOfLines = 0
             summaryLabel[i].lineBreakMode = .byWordWrapping
@@ -292,7 +292,7 @@ final class CalcResultView: UIView {
 
             bottomLine.leadingAnchor.constraint(equalTo: graphContainerView.leadingAnchor, constant: 10),
             bottomLine.trailingAnchor.constraint(equalTo: graphContainerView.trailingAnchor, constant: -10),
-            bottomLine.heightAnchor.constraint(equalToConstant: Constant.SizeSetting.graphLineWidthAnchorConstant + 0.2),
+            bottomLine.heightAnchor.constraint(equalToConstant: Constant.ShapeSetting.graphLineWidthAnchorConstant + 0.2),
             bottomLine.bottomAnchor.constraint(equalTo: graphContainerView.bottomAnchor, constant: -30),
             
             //leftBar.heightAnchor.constraint(equalToConstant: 50),

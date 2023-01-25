@@ -86,7 +86,6 @@ final class CalcViewController: UIViewController {
         // standard: 스크롤을 하고 있을 때의 NavigationBar
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false
@@ -95,10 +94,10 @@ final class CalcViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
         
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: self, action: #selector(settingButtonTapped))
-//        navigationItem.leftBarButtonItem?.tintColor = Constant.UIColorSetting.themeColor
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "clock.arrow.circlepath"), style: .plain, target: self, action: #selector(recentInputButtonTapped))
+//        navigationItem.leftBarButtonItem?.tintColor = .label
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "eraser"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .label
                 
         navigationItem.title = Constant.TitleSetting.menuName2
@@ -248,48 +247,9 @@ final class CalcViewController: UIViewController {
                                       with: calcResult)
         
         // 화면 전환
-        self.present(nav, animated: true, completion: nil)
-        //navigationController?.pushViewController(calcResultVC, animated: true)
+        //self.present(nav, animated: true, completion: nil)
+        navigationController?.pushViewController(calcResultVC, animated: true)
     }
-    
-//    // 수익계산 결과를 메세지로 출력
-//    private func presentResult(segment segmentIndex: Int, with result: Any) {
-//        var messageString: String = ""
-//
-//        let downcastingResult = result as! CalcResultType1
-//        messageString = "원금: \(downcastingResult.0.toUSD())" + "\n" +
-//                        "수익률: \(downcastingResult.1.toPercentage())" + "\n" +
-//                        "수익금: \(downcastingResult.2.toUSD())" + "\n" +
-//                        "평가금: \(downcastingResult.3.toUSD())"
-//
-//        let alert = UIAlertController(title: "계산 결과", message: messageString, preferredStyle: .alert)
-//        let cancelAction = UIAlertAction(title: "닫기", style: .default, handler: nil)
-//        alert.addAction(cancelAction)
-//        self.present(alert, animated: true, completion: nil)
-//    }
-    
-//    // Submit Button의 활성화 여부를 결정
-//    @objc private func activateSubmitButton() {
-//        let condition: Bool = (calcView.coinTypeTextField.text != "" &&
-//                               calcView.buyStartDateTextField.text != "" &&
-//                               calcView.amountTextField.text != "" &&
-//                               calcView.sellDateTextField.text != "")
-//        print("\(#function): \(condition)")
-//        if !condition {
-//            calcView.shimmerButton.backgroundColor = Constant.UIColorSetting.lightModeInbox
-//        } else {
-//
-//            calcView.shimmerButton.setViewBackgroundGradient(
-//                color1: Constant.UIColorSetting.themeGradientColor1,
-//                color2: Constant.UIColorSetting.themeGradientColor2)
-//        }
-//        calcView.calcStartButton.isEnabled = condition
-//    }
-    
-    // 키보드 또는 피커뷰 위 Toolbar의 닫기 버튼을 눌렀을 때
-//    @objc private func doneButtonTapped(_ textField: UITextField) {
-//        self.view.endEditing(true)
-//    }
     
     // Date 관련 PickerView에서 선택 값이 변경되었을 때 주어진 날짜 형식의 텍스트값 보이기
     @objc private func datePickerAction(_ sender: UIDatePicker) {
@@ -338,8 +298,6 @@ final class CalcViewController: UIViewController {
         
         if calcView.coinTypeTextField.isFirstResponder {
             calcView.coinTypeTextField.textColor = .label
-            //#warning("나중에 주석 처리 하기")
-            //calcView.coinTypeTextField.text = coinListData.coinNameArray[calcView.coinTypePicker.selectedRow(inComponent: 0)]
         }
         
         if calcView.buyStartDateTextField.isFirstResponder {
@@ -482,6 +440,8 @@ final class CalcViewController: UIViewController {
                 let buyStartDateString: String = calcView.buyStartDateTextField.text!
                 let sellDateString: String = calcView.sellDateTextField.text!
                 let amountString: String = calcView.amountTextField.text!
+                
+                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
                 let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
                     type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
                 
@@ -507,7 +467,7 @@ final class CalcViewController: UIViewController {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
                                         // HalfModalView로 결과 메세지 보여주기
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString), segmentIndex: 0)
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength), segmentIndex: 0)
                                     }
                                 }
                             case .buyStartDateError:
@@ -703,8 +663,8 @@ final class CalcViewController: UIViewController {
                 let frequencyString: String = calcView.frequencyTextField.text!
                 let amountString: String = calcView.amountTextField.text!
                 
-                //let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd, start: self.buyStartDateStringToCalculate, end: self.buyEndDateStringToCalculate)
-                //let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
+                let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd, start: self.buyStartDateStringToCalculate, end: self.buyEndDateStringToCalculate)
+                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
                 let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
                 
                 // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
@@ -728,7 +688,7 @@ final class CalcViewController: UIViewController {
                                     // 계산 작업 종료 -> activityIndicator 숨기기
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString), segmentIndex: 1)
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString, buyStartTobuyEndLength, buyStartToSellLength), segmentIndex: 1)
                                     }
                                 }
                             case .buyStartDateError:
@@ -799,7 +759,7 @@ final class CalcViewController: UIViewController {
                          message: Constant.MessageSetting.resetMessage, responder: nil, error: .noInputError)
     }
     
-    @objc private func settingButtonTapped() {
+    @objc private func recentInputButtonTapped() {
         let settingVC = SettingViewController()
         navigationController?.pushViewController(settingVC, animated: true)
     }

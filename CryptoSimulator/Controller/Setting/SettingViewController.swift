@@ -15,7 +15,7 @@ final class SettingViewController: UIViewController {
         let tv = UITableView(frame: CGRect(), style: .insetGrouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor(named: "BGColor")
-        tv.separatorStyle = .singleLine
+        tv.separatorStyle = .none
         tv.separatorInset.left = 50
 //        tv.separatorInset.right = 20
 //        tv.allowsSelection = false
@@ -23,6 +23,7 @@ final class SettingViewController: UIViewController {
 //        tv.clipsToBounds = true
 //        tv.layer.cornerRadius = 0
 //        tv.layer.borderWidth = 0
+        tv.sectionFooterHeight = 30
         tv.scrollsToTop = true
         tv.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         tv.register(SettingCell.self, forCellReuseIdentifier: "SettingCell")
@@ -32,7 +33,7 @@ final class SettingViewController: UIViewController {
     // Switch
 //    private let darkModeSwitch = UISwitch(frame: .zero)
     
-    private var dataSource = [SettingData]()
+    private var dataSource = [SettingCellData]()
     private var feedbackModel = [FeedbackModel]()
     private var aboutTheAppModel = [AboutTheAppModel]()
     
@@ -59,7 +60,7 @@ final class SettingViewController: UIViewController {
         navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = Constant.UIColorSetting.themeColor
+        navigationController?.navigationBar.tintColor = .label
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         navigationController?.navigationBar.isTranslucent = false
@@ -97,8 +98,8 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        self.dataSource = [SettingDataManager.shared.feedbackData(),
-                           SettingDataManager.shared.aboutTheAppData()]
+        self.dataSource = [SettingCellDataManager.shared.feedbackData(),
+                           SettingCellDataManager.shared.aboutTheAppData()]
         tableView.reloadData()
     }
     
@@ -179,45 +180,36 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         case let .feedback(feedbackModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = feedbackModel[indexPath.row]
-
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
             cell.accessoryType = .disclosureIndicator
-            cell.selectionStyle = .none
             return cell
-                
         // Section - About The App
         case let .aboutTheApp(aboutTheAppModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = aboutTheAppModel[indexPath.row]
-            
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
             if 0...1 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
             }
-            cell.selectionStyle = .none
             return cell
-            
         }
         
     }
     
     // Cell 선택 시 동작 설정
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //tableView.deselectRow(at: indexPath, animated: true)
+        
         switch self.dataSource[indexPath.section] {
-            
-        // Section - Feedback
         case .feedback(_):
             print(#function)
-            
-        // Section - About The App
         case .aboutTheApp(_):
             if indexPath.row == 0 {
                 let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
                 navigationController?.pushViewController(acknowListVC, animated: true)
             }
-            
         }
         
     }

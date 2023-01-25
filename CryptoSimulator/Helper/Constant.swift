@@ -23,7 +23,7 @@ struct Constant {
         static let positiveColor: UIColor = UIColor(red: 58/255, green: 133/255, blue: 68/255, alpha: 1)
         static let negativeColor: UIColor = UIColor(red: 216/255, green: 50/255, blue: 50/255, alpha: 1)
         
-        static let themeColor: UIColor = deepPurple
+        static let themeColor: UIColor = .systemPurple
         static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1.0)  // 보라색
         static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1.0)  // 청녹색
     }
@@ -32,15 +32,20 @@ struct Constant {
         static let deepPurple: CGColor = Constant.UIColorSetting.deepPurple.cgColor
         static let black: CGColor = UIColor.black.cgColor
         
-        static let themeColor: CGColor = deepPurple
+        static let themeColor: CGColor = Constant.UIColorSetting.themeColor.cgColor
     }
     
-    struct SizeSetting {
+    struct ShapeSetting {
         static let segmentFontSize: CGFloat = 20
         static let segmentFontWeight: UIFont.Weight = .medium
         
+        static let containerCornerRadius: CGFloat = 4
+        
+        static let buttonHeight: CGFloat = 50
+        static let buttonCornerRadius: CGFloat = buttonHeight / 2.0
+        
         static let labelFontSize: CGFloat = 17
-        static let labelFontWeight: UIFont.Weight = .bold
+        static let labelFontWeight: UIFont.Weight = .semibold
         
         static let textfieldFontSize: CGFloat = labelFontSize - 2
         static let textfieldFontWeight: UIFont.Weight = .regular
@@ -89,14 +94,14 @@ struct Constant {
         static let segmentItemName1: String = "Lump-Sum Investing"
         static let segmentItemName2: String = "Dollar-Cost Averaging"
         
-        static let coinTypeLabelName: String = "  Coin"
-        static let buyStartDateLabelName1: String = "  Purchase Date"
-        static let buyStartDateLabelName2: String = "  First Purchase Date"
-        static let buyEndDateLabelName: String = "  Last Purchase Date"
-        static let sellDateLabelName: String = "  Sell Date"
-        static let frequencyLabelName: String = "  Repeat Purchase"
-        static let amountLabelName1: String = "  Amount Total"
-        static let amountLabelName2: String = "  Amount per Once"
+        static let coinTypeLabelName: String = "Coin"
+        static let buyStartDateLabelName1: String = "Purchase Date"
+        static let buyStartDateLabelName2: String = "First Purchase Date"
+        static let buyEndDateLabelName: String = "Last Purchase Date"
+        static let sellDateLabelName: String = "Sell Date"
+        static let frequencyLabelName: String = "Repeat Purchase"
+        static let amountLabelName1: String = "Amount Total"
+        static let amountLabelName2: String = "Amount per Once"
         
         static let coinTypeTextFieldPlaceHolder: String = "Select coin"
         static let buyStartDateTextFieldPlaceHolder1: String = "Select purchase date"

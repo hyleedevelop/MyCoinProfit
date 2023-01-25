@@ -30,7 +30,7 @@ final class CoinViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle("Market Cap ▼", for: .normal)
         button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = .systemGray2
+        button.backgroundColor = .systemGray5
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
@@ -46,7 +46,7 @@ final class CoinViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setTitle("24H Price Change", for: .normal)
         button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = .systemGray2
+        button.backgroundColor = .systemGray5
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
