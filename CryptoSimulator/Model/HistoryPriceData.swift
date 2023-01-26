@@ -8,7 +8,7 @@
 import Foundation
 
 //MARK: - PriceHistoryData
-struct PriceHistoryData: Codable {
+struct HistoryPriceData: Codable {
     let prices, marketCaps, totalVolumes: [[Double?]]
     //let marketCaps, totalVolumes: [[Double]]
 

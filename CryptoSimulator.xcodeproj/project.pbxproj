@@ -38,7 +38,7 @@
 		07C616F0294AB0ED00F057BE /* DataPassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EF294AB0ED00F057BE /* DataPassManager.swift */; };
 		07CF13C22962B8110099746F /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF13C12962B8110099746F /* PickerData.swift */; };
 		07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */; };
-		07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* PriceHistoryData.swift */; };
+		07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* HistoryPriceData.swift */; };
 		07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */; };
 		07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7F7A8297AC3E8003878C7 /* GradientColor.swift */; };
 		07FCC2F1297D83E200A06EAD /* SettingCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingCellData.swift */; };
@@ -79,7 +79,7 @@
 		07C616EF294AB0ED00F057BE /* DataPassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPassManager.swift; sourceTree = "<group>"; };
 		07CF13C12962B8110099746F /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
 		07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceData.swift; sourceTree = "<group>"; };
-		07D3A582295C925C0079DB9E /* PriceHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistoryData.swift; sourceTree = "<group>"; };
+		07D3A582295C925C0079DB9E /* HistoryPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPriceData.swift; sourceTree = "<group>"; };
 		07DE65EF296EDD610084B6A2 /* DelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateProtocol.swift; sourceTree = "<group>"; };
 		07E7F7A8297AC3E8003878C7 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		07FCC2F0297D83E200A06EAD /* SettingCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellData.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 			children = (
 				0784787F2968486800C87C1C /* CalcManager.swift */,
 				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
-				07D3A582295C925C0079DB9E /* PriceHistoryData.swift */,
+				07D3A582295C925C0079DB9E /* HistoryPriceData.swift */,
 				07CF13C12962B8110099746F /* PickerData.swift */,
 				07846A23298117F900449A7D /* CalcResultCellData.swift */,
 				07846A25298118A200449A7D /* CalcResultCellDataManager.swift */,
@@ -370,7 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07D3A583295C925C0079DB9E /* PriceHistoryData.swift in Sources */,
+				07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */,
 				073D261B297F7FB700C46666 /* SettingCellDataManager.swift in Sources */,
 				07846A222980FEDE00449A7D /* StatsCell.swift in Sources */,
 				07846A28298127BF00449A7D /* GraphCell.swift in Sources */,

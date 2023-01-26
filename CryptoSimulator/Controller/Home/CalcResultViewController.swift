@@ -31,6 +31,7 @@ final class CalcResultViewController: UIViewController {
 //    var statsDic: [String: Any] = ["amountTotal":"", "amountEach":"",
 //                                   "roi":"", "profit":"", "balance"]
     
+    var segmentIndex: Int = 0
     var statsDataArrayLSI = [String]()
     
     var amountTotal: String = ""
@@ -42,11 +43,15 @@ final class CalcResultViewController: UIViewController {
     var buyStartDate: String = ""
     var buyEndDate: String = ""
     var sellDate: String = ""
-    var buyStartTobuyEndLength: String = ""
-    var buyStartToSellLength: String = ""
+    var buyStartToBuyEndLength: Int = 0
+    var buyStartToSellLength: Int = 0
     var frequency: String = ""
     var isROIPositive: Bool = true
     var lossOrGainColor: UIColor = Constant.UIColorSetting.positiveColor
+    var coinPriceArray = [Double]()
+    var totalInvestedArray = [Double]()
+    var roiArray = [Double]()
+    
     
     private var dataSource = [CalcResultCellData]()
     
@@ -123,8 +128,17 @@ final class CalcResultViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        self.dataSource = [CalcResultCellDataManager.shared.getStatsDataLSI(),
-                           CalcResultCellDataManager.shared.getGraphData()]
+        switch segmentIndex {
+        case 0:
+            self.dataSource = [CalcResultCellDataManager.shared.getStatsDataLSI(),
+                               CalcResultCellDataManager.shared.getGraphData()]
+        case 1:
+            self.dataSource = [CalcResultCellDataManager.shared.getStatsDataDCA(),
+                               CalcResultCellDataManager.shared.getGraphData()]
+        default:
+            fatalError()
+        }
+        
         
         tableView.reloadData()
     }
@@ -180,22 +194,25 @@ extension CalcResultViewController: CalcResultDelegate {
     
     // 이전 화면에서 데이터를 전달받아 작업할 내용
     func receiveCalcResultData(segmentIndex index: Int, with data: Any) {
+        self.segmentIndex = index
+        
         if index == 0 {  // 한번에 매수하기
             guard let data = data as? CalcResultType1 else { return }
-            print("계산화면에서 결과화면으로 전달되는 데이터: \(data)")
 
-            amountTotal = data.0.toUSD()
-            roi = data.1.toPercentage()
-            isROIPositive = data.1 >= 0 ? true : false
-            lossOrGainColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
-                                            : Constant.UIColorSetting.negativeColor
-            profit = data.2.toUSDPlusSigned()
-            balance = data.3.toUSD()
-            coinType = data.4
-            // 날짜 문자열에서 요일 제거한 나머지 부분
-            buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
-            sellDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
-            buyStartToSellLength = String(data.7)
+            self.amountTotal = data.0.toUSD()
+            self.roi = data.1.toPercentage()
+            self.isROIPositive = data.1 >= 0 ? true : false
+            self.lossOrGainColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
+                                                 : Constant.UIColorSetting.negativeColor
+            self.profit = data.2.toUSDPlusSigned()
+            self.balance = data.3.toUSD()
+            self.coinType = data.4
+            self.buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
+            self.sellDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
+            self.buyStartToSellLength = data.7
+            self.coinPriceArray = data.8
+            self.totalInvestedArray = data.9
+            self.roiArray = data.10
             
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
@@ -208,22 +225,37 @@ extension CalcResultViewController: CalcResultDelegate {
 
         if index == 1 {  // 나눠서 매수하기
             guard let data = data as? CalcResultType2 else { return }
-            print("계산화면에서 결과화면으로 전달되는 데이터: \(data)")
 
             self.amountTotal = data.0.toUSD()
             self.roi = data.1.toPercentage()
             self.isROIPositive = data.1 >= 0 ? true : false
             self.lossOrGainColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
-                                                          : Constant.UIColorSetting.negativeColor
+                                                 : Constant.UIColorSetting.negativeColor
             self.profit = data.2.toUSDPlusSigned()
             self.balance = data.3.toUSD()
             self.coinType = data.4
-            // 날짜 문자열에서 요일 제거한 나머지 부분
             self.buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
             self.buyEndDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
             self.sellDate = String(data.7[...data.7.index(data.7.startIndex, offsetBy: 11)]).uppercased()
             self.frequency = data.8
             self.amountEach = "\(data.9)달러"
+            self.buyStartToBuyEndLength = data.10 + 1
+            self.buyStartToSellLength = data.11
+            self.coinPriceArray = data.12
+            self.totalInvestedArray = data.13
+            self.roiArray = data.14
+            //print(data)
+            
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 0, newValue: coinType)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 1, newValue: buyStartDate)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 2, newValue: buyEndDate)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 3, newValue: sellDate)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 4, newValue: frequency)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength) Days")
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength) Days")
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 7, newValue: amountTotal)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 8, newValue: balance)
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 9, newValue: "\(profit)\n(\(roi))")
         }
     }
     
@@ -254,7 +286,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
         case .stats(_):
             return "Stats"
         case .graph(_):
-            return "Time Series"
+            return "Performance Chart"
         }
     }
     
@@ -264,7 +296,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
         case .stats(_):
             title.text = "Stats"
         case .graph(_):
-            title.text = "Time Series"
+            title.text = "Performance Chart"
         }
         title.font = UIFont.systemFont(ofSize: 18,
                                        weight: .bold)
@@ -294,7 +326,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "StatsCell", for: indexPath) as! StatsCell
             let model = statsModel[indexPath.row]
             
-            if indexPath.row == 6 { cell.valueLabel.textColor = lossOrGainColor }
+            //if indexPath.row == 6 { cell.valueLabel.textColor = lossOrGainColor }
             cell.backgroundColor = UIColor(named: "IBColor")
             cell.prepareStats(icon: model.icon, title: model.title, value: model.value)
             
@@ -304,9 +336,14 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "GraphCell", for: indexPath) as! GraphCell
             let model = graphModel[indexPath.row]
             
-            cell.backgroundColor = UIColor(named: "IBColor")
-            cell.prepareGraph(title: model.title)
+            var dataArray = [Double]()
+            if indexPath.row == 0 { dataArray = self.coinPriceArray }
+            if indexPath.row == 1 { dataArray = self.totalInvestedArray }
+            if indexPath.row == 2 { dataArray = self.roiArray }
             
+            cell.backgroundColor = UIColor(named: "IBColor")
+            cell.prepareGraph(title: model.title, data: dataArray,
+                              buyStart: 0, buyEnd: self.buyStartToBuyEndLength, sell: self.buyStartToSellLength)
             return cell
         }
         

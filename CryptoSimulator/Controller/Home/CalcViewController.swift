@@ -452,7 +452,9 @@ final class CalcViewController: UIViewController {
                     case .success(let historyInfo):
                         self.historyDict = historyInfo
                         
-                        CalcManager.shared.calculateROIIntensive(with: self.historyDict, amount: Double(amountString)!, buy: self.buyStartDateStringToCalculate, sell: self.sellDateStringToCalculate) { (amount, roi, profit, balance, errorCode) in
+                        CalcManager.shared.calculateROIIntensive(with: self.historyDict, amount: Double(amountString)!, buy: self.buyStartDateStringToCalculate, sell: self.sellDateStringToCalculate) {
+                            (amount, roi, profit, balance,
+                             historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                             switch errorCode {
                             case .noDateError:
                                 print("<일괄매수 수익 계산 결과>")
@@ -467,7 +469,7 @@ final class CalcViewController: UIViewController {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
                                         // HalfModalView로 결과 메세지 보여주기
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength), segmentIndex: 0)
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 0)
                                     }
                                 }
                             case .buyStartDateError:
@@ -674,7 +676,9 @@ final class CalcViewController: UIViewController {
                     case .success(let historyInfo):
                         self.historyDict = historyInfo
                         
-                        CalcManager.shared.calculateROIAveraged(with: self.historyDict, amount: Double(amountString)!, buyStart: self.buyStartDateStringToCalculate, buyEnd: self.buyEndDateStringToCalculate, sell: self.sellDateStringToCalculate) { (amount, roi, profit, balance, errorCode) in
+                        CalcManager.shared.calculateROIAveraged(with: self.historyDict, amount: Double(amountString)!, buyStart: self.buyStartDateStringToCalculate, buyEnd: self.buyEndDateStringToCalculate, sell: self.sellDateStringToCalculate) {
+                            (amount, roi, profit, balance,
+                             historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                             switch errorCode {
                             case .noDateError:
                                 print("<분할매수 수익 계산 결과>")
@@ -688,7 +692,7 @@ final class CalcViewController: UIViewController {
                                     // 계산 작업 종료 -> activityIndicator 숨기기
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString, buyStartTobuyEndLength, buyStartToSellLength), segmentIndex: 1)
+                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString, buyStartTobuyEndLength, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 1)
                                     }
                                 }
                             case .buyStartDateError:

@@ -23,13 +23,26 @@ final class CalcResultCellDataManager {
         StatsModel(icon: UIImage(systemName: "timer"), title: "Hold Time", value: nil),
         StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Invested", value: nil),
         StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Exit", value: nil),
-        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: "Profit\n(Rate of Interest)", value: nil)
+        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: "Profit\n(ROI)", value: nil),
+    ]
+    
+    private var statsModelDCA = [
+        StatsModel(icon: UIImage(systemName: "bitcoinsign.circle"), title: "Coin", value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: "First Purchase Date", value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: "Last Purchase Date", value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: "Sell Date", value: nil),
+        StatsModel(icon: UIImage(systemName: "arrow.clockwise"), title: "Repeat Purchase", value: nil),
+        StatsModel(icon: UIImage(systemName: "timer"), title: "Purchase Time", value: nil),
+        StatsModel(icon: UIImage(systemName: "timer"), title: "Hold Time", value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Invested", value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Exit", value: nil),
+        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: "Profit\n(ROI)", value: nil),
     ]
     
     private var graphModel = [
-        GraphModel(title: "Coin Price"),
-        GraphModel(title: "ROI"),
-        GraphModel(title: "Total Exit")
+        GraphModel(title: "Coin Price ($)"),
+        GraphModel(title: "Total Invested ($)"),
+        GraphModel(title: "ROI (%)"),
     ]
 
     //MARK: - Stats 관련 메서드
@@ -38,8 +51,16 @@ final class CalcResultCellDataManager {
         return CalcResultCellData.stats(statsModelLSI)
     }
     
+    func getStatsDataDCA() -> CalcResultCellData {
+        return CalcResultCellData.stats(statsModelDCA)
+    }
+    
     func updateStatsDataLSI(index: Int, newValue: String?) {
         statsModelLSI[index].value = newValue
+    }
+    
+    func updateStatsDataDCA(index: Int, newValue: String?) {
+        statsModelDCA[index].value = newValue
     }
     
     //MARK: - Graph 관련 메서드

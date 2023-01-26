@@ -50,9 +50,10 @@ final class GraphCell: UITableViewCell {
         _ = [itemLabel].map{ self.addSubview($0) }
         
         NSLayoutConstraint.activate([
-            itemLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
-            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
+//            itemLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+//            itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            itemLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             itemLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
@@ -63,8 +64,8 @@ final class GraphCell: UITableViewCell {
         NSLayoutConstraint.activate([
             lineChartView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             lineChartView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            lineChartView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 10),
-            lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            lineChartView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 0),
+            lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
         ])
     }
     
@@ -81,14 +82,16 @@ final class GraphCell: UITableViewCell {
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "수익률")
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "chart")
         chartDataSet.mode = .cubicBezier
         chartDataSet.drawCirclesEnabled = false
+        chartDataSet.circleRadius = 1.2
+        chartDataSet.circleHoleRadius = 0.0
         chartDataSet.lineWidth = 2
         chartDataSet.setColor(Constant.UIColorSetting.themeColor)
         chartDataSet.fill = ColorFill(color: Constant.UIColorSetting.themeColor)
         chartDataSet.fillAlpha = 0.8
-        chartDataSet.drawFilledEnabled = true
+        chartDataSet.drawFilledEnabled = false
         
         // 차트 컬러
         chartDataSet.colors = [Constant.UIColorSetting.themeColor]
@@ -99,33 +102,35 @@ final class GraphCell: UITableViewCell {
         lineChartView.data = chartData
         
         // 탭, 드래그, 줌 가능 여부 설정
-        lineChartView.highlightPerTapEnabled = false
-        lineChartView.highlightPerDragEnabled = false
+        lineChartView.highlightPerTapEnabled = true
+        lineChartView.highlightPerDragEnabled = true
         lineChartView.doubleTapToZoomEnabled = false
         
         // X축 레이블 위치 및 포맷 설정
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
         
-        // X축 레이블 갯수 최대로 설정 (이 코드 안쓸 시 Jan Mar May 이런식으로 띄엄띄엄 조금만 나옴)
-        //balanceChartView.xAxis.setLabelCount(dataPoints.count, force: false)
+        // X축 레이블 갯수 설정 (이 코드 안쓸 시 Jan Mar May 이런식으로 띄엄띄엄 조금만 나옴)
+        //lineChartView.xAxis.setLabelCount(dataPoints.count, force: false)
+        lineChartView.xAxis.setLabelCount(5, force: false)
+        lineChartView.leftAxis.setLabelCount(5, force: false)
         
         // 옵션 애니메이션
         //lineChartView.animate(xAxisDuration: 0, yAxisDuration: 1.5, easingOption: .linear)
         
         // 왼쪽 축의 범위 설정
-        lineChartView.leftAxis.axisMaximum = 30
-        lineChartView.leftAxis.axisMinimum = 0
+        //lineChartView.leftAxis.axisMaximum = 30
+        //lineChartView.leftAxis.axisMinimum = 0
         
         let xAxis = lineChartView.xAxis
-        xAxis.drawGridLinesEnabled = false
+        xAxis.drawGridLinesEnabled = true
         xAxis.labelFont = .systemFont(ofSize: 12, weight: .light)
         xAxis.granularity = 1
         xAxis.axisLineColor = .label
         
         let yAxisLeft = lineChartView.leftAxis
         yAxisLeft.enabled = true
-        yAxisLeft.drawGridLinesEnabled = false
+        yAxisLeft.drawGridLinesEnabled = true
         yAxisLeft.labelFont = .systemFont(ofSize: 12, weight: .light)
         yAxisLeft.granularity = 10
         yAxisLeft.axisLineColor = .label
@@ -142,13 +147,18 @@ final class GraphCell: UITableViewCell {
     }
     
     // Cell 업데이트
-    func prepareGraph(title: String?) {
+    func prepareGraph(title: String?, data: [Double], buyStart: Int?, buyEnd: Int?, sell: Int) {
         self.itemLabel.text = title
-        //self.graphImage.image = graph
         
-        let months = ["Buy\n(Start)", "", "Buy\n(End)", "", "", "", "", "Sell"]
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0]
+//        let xticks = ["Buy\n(Start)", "", "Buy\n(End)", "", "", "", "", "Sell"]
+//        let values = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0]
         
-        drawLineChart(dataPoints: months, values: unitsSold)  // CalcResultViewController에서 실행
+        var xticks = [String](repeating: "", count: data.count)
+        xticks[0] = "Buy"
+        //xticks[data.count-1] = "Sell"
+        
+        let values = data
+        
+        drawLineChart(dataPoints: xticks, values: values)
     }
 }
