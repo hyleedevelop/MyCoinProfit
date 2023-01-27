@@ -86,12 +86,8 @@ final class CalcManager {
             historyPriceArray.append(historyDict["prices"]![i][1] ?? 0.0)
         }
         
-        // 매수 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
-        guard let buyTimeIDX = historyTimeArray.firstIndex(of: buyStartDate) else {
-            completion((0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .buyStartDateError))
-            return
-        }
-        let buyTimeIndex = Int(buyTimeIDX.description)!
+        // 매수 시작 날짜에 해당하는 히스토리 데이터 배열의 인덱스
+        let buyTimeIndex = 0
         
         // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else {
@@ -121,25 +117,22 @@ final class CalcManager {
     func calculateROIAveraged(with historyDict: [String: [[Double?]]], amount amountInvestedOneTime: Double, buyStart buyStartDate: String, buyEnd buyEndDate: String, sell sellDate: String, completion: @escaping (DataTupleAveraged) -> Void) {
         var historyTimeArray = [String]()  // "prices" key에서 시간값만 담기 위한 배열
         var historyPriceArray = [Double]()  // "prices" key에서 가격값만 담기 위한 배열
+        var historyCoinAmountArray = [Double]()  // 보유하고 있는 코인 개수를 담기 위한 배열
         var historyROIArray = [Double]()  // ROI 추이를 담기 위한 배열
+        //var historyAmountReturned = [Double]()  // 평가금 추이를 담기 위한 배열
         var historyAmountInvestedArray = [Double]()  // 투자원금 추이를 담기 위한 배열
-        var historyBuyAveragePriceArray = [Double]()  // 매수기간동안 매일의 평균매수가를 담기 위한 배열
+        var historyAverageCost = [Double]()  // 매수기간동안 매일의 평균매수가를 담기 위한 배열
         
         // API에서 받아온 배열을 새로운 형태의 배열에 넣는 과정
         // 받아온 배열의 구조상 가장 마지막 인덱스의 값의 날짜가 직전 날짜와 중복되므로 for문 반복횟수 -1
-        for i in 0..<historyDict["prices"]!.count-1 {
+        for i in 0..<historyDict["prices"]!.count-2 {
             let historyDate = convertUnixTimestampToDate(from: historyDict["prices"]![i][0] ?? 0.0)
-            historyTimeArray.append(historyDate)
-            historyPriceArray.append(historyDict["prices"]![i][1] ?? 0.0)
+            historyTimeArray.append( historyDate )
+            historyPriceArray.append( historyDict["prices"]![i][1] ?? 0.0 )
         }
         
-        // 매수 시작 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
-        guard let buyStartTimeIDX = historyTimeArray.firstIndex(of: buyStartDate) else {
-            completion((0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .buyStartDateError))
-            return
-        }
-        let buyStartTimeIndex = Int(buyStartTimeIDX.description)! - 1
-        #warning("왜 1을 빼줘야하지?")
+        // 매수 시작 날짜에 해당하는 히스토리 데이터 배열의 인덱스
+        let buyStartTimeIndex = 0
         
         // 매수 종료 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let buyEndTimeIDX = historyTimeArray.firstIndex(of: buyEndDate) else {
@@ -156,20 +149,33 @@ final class CalcManager {
         let sellTimeIndex = Int(sellTimeIDX.description)!
         
         // 매수 시작 날짜부터 매수 종료 날짜까지 매일 매수에 사용된 누적 원금과 평균 매수가 구하기
-        for i in 0...buyEndTimeIndex {
-            historyAmountInvestedArray.append(Double(i + 1) * amountInvestedOneTime)
-            historyBuyAveragePriceArray.append(historyPriceArray[buyStartTimeIndex...i].reduce(0,+)/Double(i + 1))
+        for i in buyStartTimeIndex...buyEndTimeIndex {
+            historyAmountInvestedArray.append( Double(i + 1) * amountInvestedOneTime )
+            historyCoinAmountArray.append( amountInvestedOneTime / historyPriceArray[i] )
         }
         
-        // 모든 날짜에 해당하는 히스토리 데이터가 있다면 계산 후 결과 반환
-        //let buyAveragePrice: Double = historyBuyAveragePriceArray.last!  // 분할매수 기간의 평균 매수 가격
-        //let sellTimePrice: Double = historyPriceArray[sellTimeIndex]  // 매도 날짜 당시 가격
-        
-        // 매수 시작 날짜부터 매도 날짜까지 매일 수익률 구하기
-        for i in 0...sellTimeIndex {
-            historyROIArray.append(
-                (historyPriceArray[i] - historyBuyAveragePriceArray.last!) / historyBuyAveragePriceArray.last!)
+        // (1) 매수 시작 날짜부터 매도 날짜까지의 계산
+        for i in buyStartTimeIndex...buyEndTimeIndex {
+            historyAverageCost.append( historyAmountInvestedArray[i]
+                                       / historyCoinAmountArray[0...i].reduce(0,+) )
+            historyROIArray.append( (historyPriceArray[i] - historyAverageCost.last!)
+                                    / historyAverageCost.last! )
         }
+        
+        // (2) 매수 종료 날짜부터 매도 날짜까지의 계산
+        for i in buyEndTimeIndex+1...sellTimeIndex {
+            historyAmountInvestedArray.append( historyAmountInvestedArray.last! )
+            historyCoinAmountArray.append( historyCoinAmountArray.last! )
+            historyAverageCost.append( historyAverageCost.last! )
+            historyROIArray.append( (historyPriceArray[i] - historyAverageCost.last!)
+                                    / historyAverageCost.last! )
+        }
+        
+//        print("historyTimeArray: \(historyTimeArray)")
+//        print("historyPriceArray: \(historyPriceArray)")
+//        print("historyCoinAmountArray: \(historyCoinAmountArray)")
+//        print("historyAmountInvestedArray: \(historyAmountInvestedArray)")
+//        print("historyROIArray: \(historyROIArray)")
         
         let roi: Double = historyROIArray.last!  // 최종 수익률(%)
         let amountInvested: Double = historyAmountInvestedArray.last!  // 최종 원금($)

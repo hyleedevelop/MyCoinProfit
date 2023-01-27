@@ -24,8 +24,33 @@ struct Constant {
         static let negativeColor: UIColor = UIColor(red: 216/255, green: 50/255, blue: 50/255, alpha: 1)
         
         static let themeColor: UIColor = .systemPurple
-        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1.0)  // 보라색
-        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1.0)  // 청녹색
+        // 보라색
+        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1.0)
+        // 청록색
+        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1.0)
+        // 보라색 -> 청록색 3단계
+        static let themeGradientThreeColorSet: [UIColor] = [UIColor(rgb: 0x0DA7CF),
+                                                            UIColor(rgb: 0x5168E7),
+                                                            UIColor(rgb: 0x9429ff)]
+        // 보라색 -> 청록색 7단계
+        static let themeGradientSevenColorSet: [UIColor] = [UIColor(rgb: 0x0DA7CF),
+                                                            UIColor(rgb: 0x2492D7),
+                                                            UIColor(rgb: 0x3A7DDF),
+                                                            UIColor(rgb: 0x5168E7),
+                                                            UIColor(rgb: 0x6753EF),
+                                                            UIColor(rgb: 0x7E3EF7),
+                                                            UIColor(rgb: 0x9429ff)]
+        // 보라색 -> 청록색 10단계  #0DA7CF
+        static let themeGradientTenColorSet: [UIColor] = [UIColor(rgb: 0x0DA7CF),
+                                                          UIColor(rgb: 0x1C99D4),
+                                                          UIColor(rgb: 0x2B8BDA),
+                                                          UIColor(rgb: 0x3A7DDF),
+                                                          UIColor(rgb: 0x496FE4),
+                                                          UIColor(rgb: 0x5861EA),
+                                                          UIColor(rgb: 0x6753EF),
+                                                          UIColor(rgb: 0x7645F4),
+                                                          UIColor(rgb: 0x8537FA),
+                                                          UIColor(rgb: 0x9429ff)]
     }
     
     struct CGColorSetting {
@@ -41,7 +66,7 @@ struct Constant {
         
         static let containerCornerRadius: CGFloat = 4
         
-        static let buttonHeight: CGFloat = 50
+        static let buttonHeight: CGFloat = 60
         static let buttonCornerRadius: CGFloat = buttonHeight / 2.0
         
         static let labelFontSize: CGFloat = 17

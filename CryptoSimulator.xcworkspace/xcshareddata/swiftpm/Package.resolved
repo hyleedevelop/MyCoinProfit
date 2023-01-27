@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "kingfisher",
+      "identity" : "screenshots",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "location" : "https://github.com/dequin-cl/Screenshots.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "3e091ee962391a2ddcae5b18e17bc625f9d88d6e"
+        "revision" : "ac8084c53f693656e778ccbc13e351144fd9a46a",
+        "version" : "1.0.0"
       }
     }
   ],

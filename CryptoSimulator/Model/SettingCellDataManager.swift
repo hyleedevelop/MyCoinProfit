@@ -14,11 +14,18 @@ final class SettingCellDataManager {
     // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
+    func appSettingData() -> SettingCellData {
+        let appSettingsModel = [
+            AppSettingsModel(icon: UIImage(systemName: "paintbrush"), title: "Theme Color", value: nil),
+        ]
+        return SettingCellData.appSettings(appSettingsModel)
+    }
+    
     func feedbackData() -> SettingCellData {
         let feedbackModel = [
             FeedbackModel(icon: UIImage(systemName: "giftcard"), title: "Tips for App Developer", value: nil),
             FeedbackModel(icon: UIImage(systemName: "star"), title: "Rate The App", value: nil),
-            FeedbackModel(icon: UIImage(systemName: "envelope"), title: "Contact", value: nil)
+            FeedbackModel(icon: UIImage(systemName: "envelope"), title: "Contact", value: nil),
         ]
         return SettingCellData.feedback(feedbackModel)
     }
@@ -27,7 +34,7 @@ final class SettingCellDataManager {
         let aboutTheAppModel = [
             AboutTheAppModel(icon: UIImage(systemName: "wand.and.stars.inverse"), title: "Third-Party Libraries", value: nil),
             AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Privacy & Terms", value: nil),
-            AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: "1.0.0")
+            AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: "1.0.0"),
         ]
         return SettingCellData.aboutTheApp(aboutTheAppModel)
     }

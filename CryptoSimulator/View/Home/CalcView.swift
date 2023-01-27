@@ -61,9 +61,9 @@ final class CalcView: UIView {
     lazy var coinTypeContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(coinTypeTextField)
@@ -122,9 +122,9 @@ final class CalcView: UIView {
     lazy var buyStartDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(buyStartDateTextField)
@@ -187,9 +187,9 @@ final class CalcView: UIView {
     lazy var buyEndDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(buyEndDateTextField)
@@ -252,9 +252,9 @@ final class CalcView: UIView {
     lazy var frequencyContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(frequencyTextField)
@@ -311,9 +311,9 @@ final class CalcView: UIView {
     lazy var amountContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(amountTextField)
@@ -363,9 +363,9 @@ final class CalcView: UIView {
     lazy var sellDateContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "IBColor")
-        view.layer.borderColor = UIColor.clear.cgColor
-        view.layer.borderWidth = 0
+        view.backgroundColor = UIColor.systemBackground
+        view.layer.borderColor = UIColor.systemGray2.cgColor
+        view.layer.borderWidth = 1
         view.clipsToBounds = true
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
         view.addSubview(sellDateTextField)
@@ -489,7 +489,7 @@ final class CalcView: UIView {
                                                         color: .white,
                                                         padding: .zero)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.color = .label
+        activityIndicator.color = UIColor.label
         activityIndicator.stopAnimating()
         return activityIndicator
     }()
@@ -626,12 +626,12 @@ final class CalcView: UIView {
         amountLabel.text = Constant.TitleSetting.amountLabelName1
         resetTextField()
         
-        DispatchQueue.main.async {
-            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map {
-                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
-                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
-            }
-        }
+//        DispatchQueue.main.async {
+//            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map {
+//                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
+//                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
+//            }
+//        }
     }
     
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
@@ -648,12 +648,12 @@ final class CalcView: UIView {
         amountLabel.text = Constant.TitleSetting.amountLabelName2
         resetTextField()
         
-        DispatchQueue.main.async {
-            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.buyEndDateContainerView, self.frequencyContainerView, self.amountContainerView, self.sellDateContainerView].map {
-                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
-                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
-            }
-        }
+//        DispatchQueue.main.async {
+//            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.buyEndDateContainerView, self.frequencyContainerView, self.amountContainerView, self.sellDateContainerView].map {
+//                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
+//                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
+//            }
+//        }
     }
     
     // TextField 입력값 초기화

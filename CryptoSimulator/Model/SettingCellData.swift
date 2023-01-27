@@ -8,8 +8,15 @@
 import UIKit
 
 enum SettingCellData {
+    case appSettings([AppSettingsModel])
     case feedback([FeedbackModel])
     case aboutTheApp([AboutTheAppModel])
+}
+
+struct AppSettingsModel {
+    let icon: UIImage?
+    let title: String?
+    let value: String?
 }
 
 struct FeedbackModel {

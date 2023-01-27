@@ -15,7 +15,7 @@ final class SettingViewController: UIViewController {
         let tv = UITableView(frame: CGRect(), style: .insetGrouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor(named: "BGColor")
-        tv.separatorStyle = .none
+        tv.separatorStyle = .singleLine
         tv.separatorInset.left = 50
 //        tv.separatorInset.right = 20
 //        tv.allowsSelection = false
@@ -98,7 +98,8 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        self.dataSource = [SettingCellDataManager.shared.feedbackData(),
+        self.dataSource = [//SettingCellDataManager.shared.appSettingData(),
+                           SettingCellDataManager.shared.feedbackData(),
                            SettingCellDataManager.shared.aboutTheAppData()]
         tableView.reloadData()
     }
@@ -132,6 +133,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     // Section 내의 Cell 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.dataSource[section] {
+        case let .appSettings(appSettingsModel):
+            return appSettingsModel.count
         case let .feedback(feedbackModel):
             return feedbackModel.count
         case let .aboutTheApp(aboutTheAppModel):
@@ -142,6 +145,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     // Section Header의 제목 설정
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch self.dataSource[section] {
+        case .appSettings(_):
+            return "App Settings"
         case .feedback(_):
             return "Feedback"
         case .aboutTheApp(_):
@@ -152,6 +157,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let title = UILabel()
         switch self.dataSource[section] {
+        case .appSettings(_):
+            title.text = "App Settings"
         case .feedback(_):
             title.text = "Feedback"
         case .aboutTheApp(_):
@@ -176,14 +183,24 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch self.dataSource[indexPath.section] {
             
-        // Section - Feedback
+        case let .appSettings(appSettingModel):
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
+            let model = appSettingModel[indexPath.row]
+            cell.prepare(icon: model.icon, title: model.title, value: model.value)
+            cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(named: "IBColor")
+            return cell
+            
         case let .feedback(feedbackModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = feedbackModel[indexPath.row]
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
             cell.accessoryType = .disclosureIndicator
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(named: "IBColor")
             return cell
-        // Section - About The App
+        
         case let .aboutTheApp(aboutTheAppModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = aboutTheAppModel[indexPath.row]
@@ -193,6 +210,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.accessoryType = .none
             }
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor(named: "IBColor")
             return cell
         }
         
@@ -200,9 +219,11 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     
     // Cell 선택 시 동작 설정
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         
         switch self.dataSource[indexPath.section] {
+        case .appSettings(_):
+            print(#function)
         case .feedback(_):
             print(#function)
         case .aboutTheApp(_):

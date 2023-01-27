@@ -62,15 +62,15 @@ final class GraphCell: UITableViewCell {
         self.addSubview(lineChartView)
         
         NSLayoutConstraint.activate([
-            lineChartView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            lineChartView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            lineChartView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            lineChartView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             lineChartView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 0),
-            lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
     
     // Line Chart 그리기
-    func drawLineChart(dataPoints: [String], values: [Double]) {
+    func drawLineChart(segment: Int, mode: Int, dataPoints: [String], values: [Double]) {
         lineChartView.noDataText = "No Data"
         lineChartView.noDataFont = .systemFont(ofSize: 20)
         lineChartView.noDataTextColor = .systemGray2
@@ -83,18 +83,25 @@ final class GraphCell: UITableViewCell {
         }
         
         let chartDataSet = LineChartDataSet(entries: dataEntries, label: "chart")
-        chartDataSet.mode = .cubicBezier
+        chartDataSet.mode = .linear
         chartDataSet.drawCirclesEnabled = false
-        chartDataSet.circleRadius = 1.2
-        chartDataSet.circleHoleRadius = 0.0
-        chartDataSet.lineWidth = 2
-        chartDataSet.setColor(Constant.UIColorSetting.themeColor)
-        chartDataSet.fill = ColorFill(color: Constant.UIColorSetting.themeColor)
-        chartDataSet.fillAlpha = 0.8
-        chartDataSet.drawFilledEnabled = false
-        
-        // 차트 컬러
-        chartDataSet.colors = [Constant.UIColorSetting.themeColor]
+        //chartDataSet.circleRadius = 2.0
+        //chartDataSet.circleHoleRadius = 0.0
+        chartDataSet.lineWidth = 1.5
+        var myColor = UIColor.clear
+        for i in 0..<3 {
+            if mode == i { myColor = Constant.UIColorSetting.themeGradientThreeColorSet[i] }
+        }
+        chartDataSet.colors = [myColor]
+        chartDataSet.fill = ColorFill(color: myColor)
+        chartDataSet.fillAlpha = 0.5
+        chartDataSet.drawFilledEnabled = true
+        chartDataSet.highlightEnabled = true
+        chartDataSet.highlightColor = .systemGray2
+        chartDataSet.highlightLineWidth = 1.0
+        chartDataSet.highlightLineDashLengths = [2, 1]
+//        chartDataSet.isDrawLineWithGradientEnabled = true
+//        chartDataSet.gradientPositions = [0.0, 0.5, 1.0]
         
         // 데이터 삽입
         let chartData = LineChartData(dataSet: chartDataSet)
@@ -104,7 +111,7 @@ final class GraphCell: UITableViewCell {
         // 탭, 드래그, 줌 가능 여부 설정
         lineChartView.highlightPerTapEnabled = true
         lineChartView.highlightPerDragEnabled = true
-        lineChartView.doubleTapToZoomEnabled = false
+        lineChartView.doubleTapToZoomEnabled = true
         
         // X축 레이블 위치 및 포맷 설정
         lineChartView.xAxis.labelPosition = .bottom
@@ -112,28 +119,37 @@ final class GraphCell: UITableViewCell {
         
         // X축 레이블 갯수 설정 (이 코드 안쓸 시 Jan Mar May 이런식으로 띄엄띄엄 조금만 나옴)
         //lineChartView.xAxis.setLabelCount(dataPoints.count, force: false)
-        lineChartView.xAxis.setLabelCount(5, force: false)
-        lineChartView.leftAxis.setLabelCount(5, force: false)
+        //lineChartView.xAxis.setLabelCount(3, force: false)
+        //lineChartView.leftAxis.setLabelCount(5, force: true)
         
         // 옵션 애니메이션
-        //lineChartView.animate(xAxisDuration: 0, yAxisDuration: 1.5, easingOption: .linear)
+        //lineChartView.animate(xAxisDuration: 0, yAxisDuration: 3, easingOption: .easeInOutCirc)
         
         // 왼쪽 축의 범위 설정
-        //lineChartView.leftAxis.axisMaximum = 30
-        //lineChartView.leftAxis.axisMinimum = 0
+        //lineChartView.leftAxis.axisMaximum = values.max()!
+        if mode == 1 { lineChartView.leftAxis.axisMinimum = 0.0 }
         
         let xAxis = lineChartView.xAxis
-        xAxis.drawGridLinesEnabled = true
+        xAxis.drawGridLinesEnabled = false
+        xAxis.drawLabelsEnabled = false
         xAxis.labelFont = .systemFont(ofSize: 12, weight: .light)
-        xAxis.granularity = 1
+        xAxis.granularity = 0
         xAxis.axisLineColor = .label
         
         let yAxisLeft = lineChartView.leftAxis
         yAxisLeft.enabled = true
-        yAxisLeft.drawGridLinesEnabled = true
+        yAxisLeft.drawGridLinesEnabled = false
+        yAxisLeft.drawLabelsEnabled = true
         yAxisLeft.labelFont = .systemFont(ofSize: 12, weight: .light)
-        yAxisLeft.granularity = 10
+        yAxisLeft.granularity = 0
         yAxisLeft.axisLineColor = .label
+        if mode == 2 {
+            yAxisLeft.drawZeroLineEnabled = true
+            yAxisLeft.zeroLineDashLengths = [2, 3]
+            yAxisLeft.zeroLineColor = .label
+        } else {
+            yAxisLeft.drawZeroLineEnabled = false
+        }
         
         let yAxisRight = lineChartView.rightAxis
         yAxisRight.enabled = false
@@ -147,18 +163,19 @@ final class GraphCell: UITableViewCell {
     }
     
     // Cell 업데이트
-    func prepareGraph(title: String?, data: [Double], buyStart: Int?, buyEnd: Int?, sell: Int) {
+    func prepareGraph(segment: Int, mode: Int, title: String?, data: [Double],
+                      buyStartDate: String, buyEndDate: String, sellDate: String, buyDays: Int?) {
         self.itemLabel.text = title
         
-//        let xticks = ["Buy\n(Start)", "", "Buy\n(End)", "", "", "", "", "Sell"]
-//        let values = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0]
-        
         var xticks = [String](repeating: "", count: data.count)
+        
         xticks[0] = "Buy"
-        //xticks[data.count-1] = "Sell"
+        if segment == 1, let buyEndIndex = buyDays {
+            xticks[0] = "Buy\n(Start)"
+            xticks[buyEndIndex-1] = "Buy\n(End)"
+        }
+        xticks[data.count-1] = "Sell"
         
-        let values = data
-        
-        drawLineChart(dataPoints: xticks, values: values)
+        drawLineChart(segment: segment, mode: mode, dataPoints: xticks, values: data)
     }
 }

@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
+		073A32432983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 073A32422983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist */; };
+		073A3246298404EF0097C9DD /* Screenshots in Frameworks */ = {isa = PBXBuildFile; productRef = 073A3245298404EF0097C9DD /* Screenshots */; };
+		073A324829840EF00097C9DD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073A324729840EF00097C9DD /* UIColor.swift */; };
 		073D261B297F7FB700C46666 /* SettingCellDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D261A297F7FB700C46666 /* SettingCellDataManager.swift */; };
-		073D26262980225400C46666 /* Pods-CryptoSimulator-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 073D26252980225400C46666 /* Pods-CryptoSimulator-acknowledgements.plist */; };
 		073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultViewController.swift */; };
 		074CFCE32974F955008244AF /* CalcResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074CFCE22974F955008244AF /* CalcResultView.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
@@ -48,8 +50,9 @@
 /* Begin PBXFileReference section */
 		070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		073A32422983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pods-CryptoSimulator-acknowledgements.plist"; sourceTree = "<group>"; };
+		073A324729840EF00097C9DD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		073D261A297F7FB700C46666 /* SettingCellDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellDataManager.swift; sourceTree = "<group>"; };
-		073D26252980225400C46666 /* Pods-CryptoSimulator-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-CryptoSimulator-acknowledgements.plist"; path = "../../../../.Trash/Pods-CryptoSimulator-acknowledgements.plist"; sourceTree = "<group>"; };
 		073F546D296D8D4F0099305A /* CalcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultViewController.swift; sourceTree = "<group>"; };
 		074CFCE22974F955008244AF /* CalcResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultView.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				073A3246298404EF0097C9DD /* Screenshots in Frameworks */,
 				47B4F2FE6B6171115B33B007 /* Pods_CryptoSimulator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -107,6 +111,7 @@
 				0750FD32295D2D85006B90B5 /* Date.swift */,
 				07BED9692975801B009B7450 /* UILabel.swift */,
 				07E7F7A8297AC3E8003878C7 /* GradientColor.swift */,
+				073A324729840EF00097C9DD /* UIColor.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -176,7 +181,7 @@
 				0794112A2949E84700A4F632 /* Assets.xcassets */,
 				0794112C2949E84700A4F632 /* LaunchScreen.storyboard */,
 				0794112F2949E84700A4F632 /* Info.plist */,
-				073D26252980225400C46666 /* Pods-CryptoSimulator-acknowledgements.plist */,
+				073A32422983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist */,
 				07280781295817BA00CF65D9 /* Extension */,
 				0794113E2949FA8000A4F632 /* Helper */,
 				079411372949E86500A4F632 /* Model */,
@@ -269,6 +274,7 @@
 			);
 			name = CryptoSimulator;
 			packageProductDependencies = (
+				073A3245298404EF0097C9DD /* Screenshots */,
 			);
 			productName = "DCA Reminder";
 			productReference = 0794111B2949E84700A4F632 /* CryptoSimulator.app */;
@@ -299,6 +305,7 @@
 			);
 			mainGroup = 079411122949E84700A4F632;
 			packageReferences = (
+				073A3244298404EF0097C9DD /* XCRemoteSwiftPackageReference "Screenshots" */,
 			);
 			productRefGroup = 0794111C2949E84700A4F632 /* Products */;
 			projectDirPath = "";
@@ -315,7 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */,
-				073D26262980225400C46666 /* Pods-CryptoSimulator-acknowledgements.plist in Resources */,
+				073A32432983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist in Resources */,
 				0794112B2949E84700A4F632 /* Assets.xcassets in Resources */,
 				079411262949E84700A4F632 /* Main.storyboard in Resources */,
 			);
@@ -375,6 +382,7 @@
 				07846A222980FEDE00449A7D /* StatsCell.swift in Sources */,
 				07846A28298127BF00449A7D /* GraphCell.swift in Sources */,
 				078478802968486800C87C1C /* CalcManager.swift in Sources */,
+				073A324829840EF00097C9DD /* UIColor.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
 				07941144294A158C00A4F632 /* CryptoSimulator.xcdatamodeld in Sources */,
@@ -634,6 +642,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		073A3244298404EF0097C9DD /* XCRemoteSwiftPackageReference "Screenshots" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dequin-cl/Screenshots.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		073A3245298404EF0097C9DD /* Screenshots */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 073A3244298404EF0097C9DD /* XCRemoteSwiftPackageReference "Screenshots" */;
+			productName = Screenshots;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */ = {

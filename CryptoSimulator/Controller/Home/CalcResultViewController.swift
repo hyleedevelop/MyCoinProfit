@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Screenshots
 
 final class CalcResultViewController: UIViewController {
     
@@ -16,7 +17,7 @@ final class CalcResultViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = UIColor(named: "IBColor")
+        tv.backgroundColor = UIColor.systemBackground
         tv.separatorStyle = .none
         tv.allowsSelection = false
         //tv.sectionHeaderTopPadding = 0
@@ -150,14 +151,10 @@ final class CalcResultViewController: UIViewController {
     
     // 스크린샷을 사진 앱에 저장 (1)
     private func takeScreenshot(of view: UIView) {
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.width, height: view.bounds.height), false, 2)
-        
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        
-        // photo library 접근 권한을 허용해줘야 함(Info.plist)
-        UIImageWriteToSavedPhotosAlbum(screenshot, self, #selector(imageWasSaved), nil)
+        if let image = tableView.screenshot {
+            // photo library 접근 권한을 허용해줘야 함(Info.plist)
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageWasSaved), nil)
+        }
     }
     
     // 스크린샷을 사진 앱에 저장 (2)
@@ -209,10 +206,11 @@ extension CalcResultViewController: CalcResultDelegate {
             self.coinType = data.4
             self.buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
             self.sellDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
-            self.buyStartToSellLength = data.7
+            self.buyStartToSellLength = data.7 + 1
             self.coinPriceArray = data.8
             self.totalInvestedArray = data.9
             self.roiArray = data.10
+            print(data)
             
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
@@ -240,11 +238,10 @@ extension CalcResultViewController: CalcResultDelegate {
             self.frequency = data.8
             self.amountEach = "\(data.9)달러"
             self.buyStartToBuyEndLength = data.10 + 1
-            self.buyStartToSellLength = data.11
+            self.buyStartToSellLength = data.11 + 1
             self.coinPriceArray = data.12
             self.totalInvestedArray = data.13
             self.roiArray = data.14
-            //print(data)
             
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 0, newValue: coinType)
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 1, newValue: buyStartDate)
@@ -296,7 +293,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
         case .stats(_):
             title.text = "Stats"
         case .graph(_):
-            title.text = "Performance Chart"
+            title.text = "Performance Charts"
         }
         title.font = UIFont.systemFont(ofSize: 18,
                                        weight: .bold)
@@ -313,9 +310,9 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch self.dataSource[indexPath.section] {
         case .stats(_):
-            return 50
+            return 44
         case .graph(_):
-            return 250
+            return 220
         }
     }
     
@@ -327,8 +324,9 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let model = statsModel[indexPath.row]
             
             //if indexPath.row == 6 { cell.valueLabel.textColor = lossOrGainColor }
-            cell.backgroundColor = UIColor(named: "IBColor")
-            cell.prepareStats(icon: model.icon, title: model.title, value: model.value)
+            cell.backgroundColor = UIColor.systemBackground
+            cell.prepareStats(segment: self.segmentIndex, mode: indexPath.row,
+                              icon: model.icon, title: model.title, value: model.value)
             
             return cell
                 
@@ -339,11 +337,16 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             var dataArray = [Double]()
             if indexPath.row == 0 { dataArray = self.coinPriceArray }
             if indexPath.row == 1 { dataArray = self.totalInvestedArray }
-            if indexPath.row == 2 { dataArray = self.roiArray }
+            if indexPath.row == 2 { dataArray = self.roiArray.map{ $0 * 100.0 } }
             
-            cell.backgroundColor = UIColor(named: "IBColor")
-            cell.prepareGraph(title: model.title, data: dataArray,
-                              buyStart: 0, buyEnd: self.buyStartToBuyEndLength, sell: self.buyStartToSellLength)
+            //cell.isUserInteractionEnabled = true
+            cell.backgroundColor = UIColor.systemBackground
+            cell.prepareGraph(segment: self.segmentIndex, mode: indexPath.row,
+                              title: model.title, data: dataArray,
+                              buyStartDate: self.buyStartDate,
+                              buyEndDate: self.buyEndDate,
+                              sellDate: self.sellDate,
+                              buyDays: self.buyStartToBuyEndLength)
             return cell
         }
         
