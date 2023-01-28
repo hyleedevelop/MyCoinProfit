@@ -45,7 +45,7 @@ final class CalcResultCellDataManager {
         GraphModel(title: "ROI (%)"),
     ]
 
-    //MARK: - Stats 관련 메서드
+    //MARK: - 메서드 정의
     
     func getStatsDataLSI() -> CalcResultCellData {
         return CalcResultCellData.stats(statsModelLSI)
@@ -56,14 +56,14 @@ final class CalcResultCellDataManager {
     }
     
     func updateStatsDataLSI(index: Int, newValue: String?) {
+        guard let newValue = newValue else { return }
         statsModelLSI[index].value = newValue
     }
     
     func updateStatsDataDCA(index: Int, newValue: String?) {
+        guard let newValue = newValue else { return }
         statsModelDCA[index].value = newValue
     }
-    
-    //MARK: - Graph 관련 메서드
     
     func getGraphData() -> CalcResultCellData {
         return CalcResultCellData.graph(graphModel)

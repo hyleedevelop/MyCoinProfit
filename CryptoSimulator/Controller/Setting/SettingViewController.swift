@@ -7,6 +7,7 @@
 
 import UIKit
 import AcknowList
+import MessageUI
 
 final class SettingViewController: UIViewController {
 
@@ -44,7 +45,6 @@ final class SettingViewController: UIViewController {
 
 //        self.darkModeSwitch.isOn = userDefaults.bool(forKey: "appearanceSwitchState")
 //        updateInterfaceStyle()
-        
         setupNavBar()
         setupView()
         setupTableView()
@@ -52,7 +52,7 @@ final class SettingViewController: UIViewController {
     }
     
     // NavigationBar 설정
-    func setupNavBar() {
+    private func setupNavBar() {
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
@@ -71,7 +71,7 @@ final class SettingViewController: UIViewController {
         navigationController?.setNeedsStatusBarAppearanceUpdate()
         
         navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = Constant.TitleSetting.menuName3
+        navigationItem.title = Constant.TitleSetting.tabName3
     }
     
     // View 설정
@@ -98,10 +98,38 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
-        self.dataSource = [//SettingCellDataManager.shared.appSettingData(),
+        self.dataSource = [SettingCellDataManager.shared.appSettingData(),
                            SettingCellDataManager.shared.feedbackData(),
                            SettingCellDataManager.shared.aboutTheAppData()]
         tableView.reloadData()
+    }
+    
+    // 이 앱의 버전을 문자열로 가져오기
+    private func currentAppVersion() -> String {
+        if let info: [String: Any] = Bundle.main.infoDictionary,
+           let currentVersion: String = info["CFBundleShortVersionString"] as? String {
+            return currentVersion
+        }
+        return "nil"
+    }
+    
+    // 이 앱의 빌드 넘버를 문자열로 가져오기
+    private func currentBuildNumber() -> String {
+        if let info: [String: Any] = Bundle.main.infoDictionary,
+           let buildNumber: String = info["CFBundleVersion"] as? String {
+            return buildNumber
+        }
+        return "nil"
+    }
+    
+    // 추후 업데이트 예정이라는 Alert Message 출력하기
+    private func showWillBeUpdatedMessage() {
+        let alert = UIAlertController(title: Constant.MessageSetting.sorryTitle,
+                                      message: Constant.MessageSetting.notifyLaterUpdate,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 //    // 스위치 상태 저장하기 위해 UserDefaults에 상태 저장
@@ -146,27 +174,27 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch self.dataSource[section] {
         case .appSettings(_):
-            return "App Settings"
+            return Constant.TitleSetting.settingSectionName1
         case .feedback(_):
-            return "Feedback"
+            return Constant.TitleSetting.settingSectionName2
         case .aboutTheApp(_):
-            return "About The App"
+            return Constant.TitleSetting.settingSectionName3
         }
     }
-    
+
+    // Section Header의 스타일 설정
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let title = UILabel()
+        title.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        title.textColor = .label
         switch self.dataSource[section] {
         case .appSettings(_):
-            title.text = "App Settings"
+            title.text = Constant.TitleSetting.settingSectionName1
         case .feedback(_):
-            title.text = "Feedback"
+            title.text = Constant.TitleSetting.settingSectionName2
         case .aboutTheApp(_):
-            title.text = "About The App"
+            title.text = Constant.TitleSetting.settingSectionName3
         }
-        title.font = UIFont.systemFont(ofSize: 18,
-                                       weight: .bold)
-        title.textColor = .label
 
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel!.font = title.font
@@ -204,8 +232,13 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         case let .aboutTheApp(aboutTheAppModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = aboutTheAppModel[indexPath.row]
+            
+            // 앱 버전과 빌드 넘버를 가져와서 모델에 업데이트 하기
+            //let appVersionString = "\(currentAppVersion()) (\(currentBuildNumber())))"
+            //SettingCellDataManager.shared.updateAboutTheAppData(index: 3, newValue: appVersionString)
+            
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
-            if 0...1 ~= indexPath.row {
+            if 0...0 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -223,9 +256,10 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch self.dataSource[indexPath.section] {
         case .appSettings(_):
-            print(#function)
+            if indexPath.row == 0 { showWillBeUpdatedMessage() }
         case .feedback(_):
-            print(#function)
+            if indexPath.row == 0 { showWillBeUpdatedMessage() }
+            if indexPath.row == 1 { contactMenuTapped() }
         case .aboutTheApp(_):
             if indexPath.row == 0 {
                 let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
@@ -243,3 +277,38 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 //self.darkModeSwitch.tag = indexPath.row
 //self.darkModeSwitch.addTarget(self, action: #selector(handleAppearanceChange(_:)), for: .valueChanged)
 //cell.accessoryView = self.darkModeSwitch
+
+//MARK: - Contact 메뉴를 누르면 개발자 이메일 주솔 메일 보내는 화면 보여주기
+
+extension SettingViewController: MFMailComposeViewControllerDelegate {
+    
+    private func contactMenuTapped() {
+        if MFMailComposeViewController.canSendMail() {
+            let compseVC = MFMailComposeViewController()
+            compseVC.mailComposeDelegate = self
+            
+            compseVC.setToRecipients(["hyleedevelop@gmail.com"])
+            compseVC.setSubject("")
+            compseVC.setMessageBody("", isHTML: false)
+            
+            self.present(compseVC, animated: true, completion: nil)
+        }
+        else {
+            self.showSendMailErrorAlert()
+        }
+    }
+    
+    private func showSendMailErrorAlert() {
+        let sendMailErrorAlert = UIAlertController(title: Constant.MessageSetting.errorTitle,
+                                                   message: Constant.MessageSetting.sendEmailErrorMessage,
+                                                   preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "OK", style: .default)
+        sendMailErrorAlert.addAction(confirmAction)
+        self.present(sendMailErrorAlert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}

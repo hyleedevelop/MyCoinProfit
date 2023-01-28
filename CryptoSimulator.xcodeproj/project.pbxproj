@@ -14,7 +14,6 @@
 		073A324829840EF00097C9DD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073A324729840EF00097C9DD /* UIColor.swift */; };
 		073D261B297F7FB700C46666 /* SettingCellDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D261A297F7FB700C46666 /* SettingCellDataManager.swift */; };
 		073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultViewController.swift */; };
-		074CFCE32974F955008244AF /* CalcResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074CFCE22974F955008244AF /* CalcResultView.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
 		07846A222980FEDE00449A7D /* StatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07846A212980FEDE00449A7D /* StatsCell.swift */; };
 		07846A24298117F900449A7D /* CalcResultCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07846A23298117F900449A7D /* CalcResultCellData.swift */; };
@@ -34,6 +33,8 @@
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
+		07BAB0B6298544F300269EE5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BAB0B5298544F300269EE5 /* Int.swift */; };
+		07BAB0B829857D9700269EE5 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BAB0B729857D9700269EE5 /* LaunchScreenViewController.swift */; };
 		07BED96A2975801B009B7450 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BED9692975801B009B7450 /* UILabel.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinListCell.swift */; };
 		07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616ED294AB0E500F057BE /* NetworkManager.swift */; };
@@ -54,7 +55,6 @@
 		073A324729840EF00097C9DD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		073D261A297F7FB700C46666 /* SettingCellDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellDataManager.swift; sourceTree = "<group>"; };
 		073F546D296D8D4F0099305A /* CalcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultViewController.swift; sourceTree = "<group>"; };
-		074CFCE22974F955008244AF /* CalcResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultView.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		07846A212980FEDE00449A7D /* StatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCell.swift; sourceTree = "<group>"; };
 		07846A23298117F900449A7D /* CalcResultCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultCellData.swift; sourceTree = "<group>"; };
@@ -76,6 +76,8 @@
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
+		07BAB0B5298544F300269EE5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		07BAB0B729857D9700269EE5 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		07BED9692975801B009B7450 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListCell.swift; sourceTree = "<group>"; };
 		07C616ED294AB0E500F057BE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		07280781295817BA00CF65D9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				07BAB0B5298544F300269EE5 /* Int.swift */,
 				07280782295817CB00CF65D9 /* Double.swift */,
 				0750FD32295D2D85006B90B5 /* Date.swift */,
 				07BED9692975801B009B7450 /* UILabel.swift */,
@@ -139,7 +142,6 @@
 			children = (
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
 				07C616EB294AAD4B00F057BE /* CoinListCell.swift */,
-				074CFCE22974F955008244AF /* CalcResultView.swift */,
 				07846A212980FEDE00449A7D /* StatsCell.swift */,
 				07846A27298127BF00449A7D /* GraphCell.swift */,
 			);
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
+				07BAB0B729857D9700269EE5 /* LaunchScreenViewController.swift */,
 				070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */,
 				073D261F2980145700C46666 /* Home */,
 				073D26202980147F00C46666 /* Setting */,
@@ -393,8 +396,8 @@
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
-				074CFCE32974F955008244AF /* CalcResultView.swift in Sources */,
 				07FCC2F1297D83E200A06EAD /* SettingCellData.swift in Sources */,
+				07BAB0B6298544F300269EE5 /* Int.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
 				07846A26298118A200449A7D /* CalcResultCellDataManager.swift in Sources */,
 				079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */,
@@ -408,6 +411,7 @@
 				073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */,
 				079DBFF7295DB53A0063625F /* CalcView.swift in Sources */,
 				07C616F0294AB0ED00F057BE /* DataPassManager.swift in Sources */,
+				07BAB0B829857D9700269EE5 /* LaunchScreenViewController.swift in Sources */,
 				0794114A294A19C800A4F632 /* SettingCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

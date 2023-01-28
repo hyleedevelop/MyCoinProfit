@@ -11,7 +11,6 @@ import Screenshots
 final class CalcResultViewController: UIViewController {
     
     let calcVC = CalcViewController()
-    let calcResultView = CalcResultView()
     
     // TableView
     private lazy var tableView: UITableView = {
@@ -67,16 +66,7 @@ final class CalcResultViewController: UIViewController {
         setupView()
         setupTableView()
         setupTableViewDataSource()
-        setupButton()
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//    }
-//
-//    override func loadView() {
-//        view = calcResultView
-//    }
     
     private func setupNavBar() {
         //navigationItem.title = "도움말"
@@ -98,7 +88,7 @@ final class CalcResultViewController: UIViewController {
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
 //        navigationItem.backBarButtonItem?.tintColor = .label
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .label
         
         navigationItem.title = "Result"
@@ -144,11 +134,6 @@ final class CalcResultViewController: UIViewController {
         tableView.reloadData()
     }
     
-    // 화면 하단의 Button 설정
-    private func setupButton() {
-        //calcResultView.showChartButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-    }
-    
     // 스크린샷을 사진 앱에 저장 (1)
     private func takeScreenshot(of view: UIView) {
         if let image = tableView.screenshot {
@@ -171,7 +156,7 @@ final class CalcResultViewController: UIViewController {
     @objc private func buttonTapped(_ button: UIButton) {
         if button == navigationItem.rightBarButtonItem {
             // AlertController, AlertAction 생성
-            let alert = UIAlertController(title: "Confirm", message: "Do you want to save the result\nas image?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Confirm", message: Constant.MessageSetting.exportAsImageMessage, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
             let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
                 self.takeScreenshot(of: self.view)
@@ -210,12 +195,11 @@ extension CalcResultViewController: CalcResultDelegate {
             self.coinPriceArray = data.8
             self.totalInvestedArray = data.9
             self.roiArray = data.10
-            print(data)
             
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 2, newValue: sellDate)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 3, newValue: "\(buyStartToSellLength) Days")
+            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 3, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 4, newValue: amountTotal)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 5, newValue: balance)
             CalcResultCellDataManager.shared.updateStatsDataLSI(index: 6, newValue: "\(profit)\n(\(roi))")
@@ -248,8 +232,8 @@ extension CalcResultViewController: CalcResultDelegate {
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 2, newValue: buyEndDate)
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 3, newValue: sellDate)
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 4, newValue: frequency)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength) Days")
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength) Days")
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength.separatedByComma()) Days")
+            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 7, newValue: amountTotal)
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 8, newValue: balance)
             CalcResultCellDataManager.shared.updateStatsDataDCA(index: 9, newValue: "\(profit)\n(\(roi))")

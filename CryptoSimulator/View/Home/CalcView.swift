@@ -485,7 +485,7 @@ final class CalcView: UIView {
     // 로딩 아이콘
     lazy var activityIndicator: NVActivityIndicatorView = {
         let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50),
-                                                        type: .ballSpinFadeLoader,
+                                                        type: .audioEqualizer,
                                                         color: .white,
                                                         padding: .zero)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -587,7 +587,7 @@ final class CalcView: UIView {
     private func setupFinalStackView() {
         scrollView.addSubview(finalStackView)
         
-        let stackViewArray = [coinTypeStackView, buyStartDateStackView, amountStackView, sellDateStackView,
+        let stackViewArray = [coinTypeStackView, buyStartDateStackView, sellDateStackView, amountStackView,
                               emptySpace, calcStartButton]
         let willHideArray = [buyEndDateStackView, frequencyStackView]
         
@@ -615,7 +615,7 @@ final class CalcView: UIView {
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupFirstFinalStackView() {
-        let stackViewArray = [coinTypeStackView, buyStartDateStackView, amountStackView, sellDateStackView,
+        let stackViewArray = [coinTypeStackView, buyStartDateStackView, sellDateStackView, amountStackView,
                               emptySpace, calcStartButton]
         let willHideArray = [buyEndDateStackView, frequencyStackView]
         
@@ -623,21 +623,16 @@ final class CalcView: UIView {
         _ = willHideArray.map { $0.removeFromSuperview() }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
+        buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
+        amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
         amountLabel.text = Constant.TitleSetting.amountLabelName1
         resetTextField()
-        
-//        DispatchQueue.main.async {
-//            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.amountContainerView, self.sellDateContainerView].map {
-//                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
-//                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
-//            }
-//        }
     }
     
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupSecondFianlStackView() {
         let stackViewArray = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,
-                              frequencyStackView, amountStackView, sellDateStackView,
+                              sellDateStackView, frequencyStackView, amountStackView,
                               emptySpace, calcStartButton]
         
         _ = stackViewArray.map { finalStackView.addArrangedSubview($0) }
@@ -647,13 +642,6 @@ final class CalcView: UIView {
         amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder2
         amountLabel.text = Constant.TitleSetting.amountLabelName2
         resetTextField()
-        
-//        DispatchQueue.main.async {
-//            _ = [self.coinTypeContainerView, self.buyStartDateContainerView, self.buyEndDateContainerView, self.frequencyContainerView, self.amountContainerView, self.sellDateContainerView].map {
-//                $0.setViewBorderGradient(color1: Constant.UIColorSetting.themeGradientColor1,
-//                                         color2: Constant.UIColorSetting.themeGradientColor2, mode: .add)
-//            }
-//        }
     }
     
     // TextField 입력값 초기화

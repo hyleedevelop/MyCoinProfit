@@ -100,7 +100,7 @@ final class CalcViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "eraser"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .label
                 
-        navigationItem.title = Constant.TitleSetting.menuName2
+        navigationItem.title = Constant.TitleSetting.tabName2
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
@@ -363,8 +363,6 @@ final class CalcViewController: UIViewController {
                                  message: Constant.MessageSetting.coinTypeErrorMessage,
                                  responder: calcView.coinTypeTextField, error: .buyEndDateInputError)
                 return
-            } else {
-                inputError = .noInputError
             }
             
             // 매수 시작 날짜 입력값이 없는 경우
@@ -382,27 +380,6 @@ final class CalcViewController: UIViewController {
                                      message: Constant.MessageSetting.buyStartDateErrorMessage3,
                                      responder: calcView.buyStartDateTextField, error: .buyStartSellInputError)
                     return
-                } else {
-                    inputError = .noInputError
-                }
-            }
-            
-            // 매수 금액 입력값이 없는 경우
-            if calcView.amountTextField.text == "" {
-                inputError = .amountInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.amountErrorMessage1,
-                                 responder: calcView.amountTextField, error: .amountInputError)
-                return
-            } else {
-                // 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
-                if inputError == .decimalInputError {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.amountErrorMessage1,
-                                     responder: calcView.amountTextField, error: .decimalInputError)
-                    return
-                } else {
-                    inputError = .noInputError
                 }
             }
             
@@ -421,8 +398,23 @@ final class CalcViewController: UIViewController {
                                      message: Constant.MessageSetting.sellDateErrorMessage2,
                                      responder: calcView.sellDateTextField, error: .buyStartSellInputError)
                     return
-                } else {
-                    inputError = .noInputError
+                }
+            }
+            
+            // 매수 금액 입력값이 없는 경우
+            if calcView.amountTextField.text == "" {
+                inputError = .amountInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.amountErrorMessage1,
+                                 responder: calcView.amountTextField, error: .amountInputError)
+                return
+            } else {
+                // 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
+                if inputError == .decimalInputError {
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.amountErrorMessage2,
+                                     responder: calcView.amountTextField, error: .decimalInputError)
+                    return
                 }
             }
             
@@ -457,11 +449,11 @@ final class CalcViewController: UIViewController {
                              historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                             switch errorCode {
                             case .noDateError:
-                                print("<일괄매수 수익 계산 결과>")
-                                print("원금: \(amount.toUSD())")
-                                print("수익률: \(roi.toPercentage())")
-                                print("수익금: \(profit.toUSD())")
-                                print("평가금: \(balance.toUSD())")
+                                //print("<일괄매수 수익 계산 결과>")
+                                //print("원금: \(amount.toUSD())")
+                                //print("수익률: \(roi.toPercentage())")
+                                //print("수익금: \(profit.toUSD())")
+                                //print("평가금: \(balance.toUSD())")
                                 
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
@@ -530,8 +522,6 @@ final class CalcViewController: UIViewController {
                                     message: Constant.MessageSetting.coinTypeErrorMessage,
                                     responder: calcView.coinTypeTextField, error: .buyEndDateInputError)
                 return
-            } else {
-                inputError = .noInputError
             }
             
             // 매수 시작 날짜 입력값이 없는 경우
@@ -558,8 +548,6 @@ final class CalcViewController: UIViewController {
                                      responder: calcView.buyStartDateTextField, error: .buyStartSellInputError)
                     return
                 }
-                
-                inputError = .noInputError
             }
             
             // 매수 종료 날짜 입력값이 없는 경우
@@ -585,38 +573,6 @@ final class CalcViewController: UIViewController {
                                      message: Constant.MessageSetting.buyEndDateErrorMessage3,
                                      responder: calcView.buyEndDateTextField, error: .buyEndSellInputError)
                     return
-                }
-                
-                inputError = .noInputError
-            }
-            
-            // 매수 반복 주기 입력값이 없는 경우
-            if calcView.frequencyTextField.text == "" {
-                inputError = .frequencyInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.frequencyErrorMessage,
-                                 responder: calcView.frequencyTextField, error: .frequencyInputError)
-                return
-            } else {
-                inputError = .noInputError
-            }
-            
-            // 매번 매수 금액 입력값이 없는 경우
-            if calcView.amountTextField.text == "" {
-                inputError = .amountInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.amountErrorMessage3,
-                                 responder: calcView.amountTextField, error: .amountInputError)
-                return
-            } else {
-                // 매 회 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
-                if inputError == .decimalInputError {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.amountErrorMessage2,
-                                     responder: calcView.amountTextField, error: .decimalInputError)
-                    return
-                } else {
-                    inputError = .noInputError
                 }
             }
             
@@ -644,8 +600,32 @@ final class CalcViewController: UIViewController {
                                      responder: calcView.sellDateTextField, error: .buyEndSellInputError)
                     return
                 }
-                
-                inputError = .noInputError
+            }
+            
+            // 매수 반복 주기 입력값이 없는 경우
+            if calcView.frequencyTextField.text == "" {
+                inputError = .frequencyInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.frequencyErrorMessage,
+                                 responder: calcView.frequencyTextField, error: .frequencyInputError)
+                return
+            }
+            
+            // 매번 매수 금액 입력값이 없는 경우
+            if calcView.amountTextField.text == "" {
+                inputError = .amountInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.amountErrorMessage3,
+                                 responder: calcView.amountTextField, error: .amountInputError)
+                return
+            } else {
+                // 매 회 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
+                if inputError == .decimalInputError {
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.amountErrorMessage2,
+                                     responder: calcView.amountTextField, error: .decimalInputError)
+                    return
+                }
             }
             
             if inputError == .noInputError {
@@ -681,11 +661,11 @@ final class CalcViewController: UIViewController {
                              historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                             switch errorCode {
                             case .noDateError:
-                                print("<분할매수 수익 계산 결과>")
-                                print("원금: \(amount.toUSD())")
-                                print("수익률: \(roi.toPercentage())")
-                                print("수익금: \(profit.toUSD())")
-                                print("평가금: \(balance.toUSD())")
+                                //print("<분할매수 수익 계산 결과>")
+                                //print("원금: \(amount.toUSD())")
+                                //print("수익률: \(roi.toPercentage())")
+                                //print("수익금: \(profit.toUSD())")
+                                //print("평가금: \(balance.toUSD())")
                                 
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
@@ -905,66 +885,65 @@ extension CalcViewController: UITextFieldDelegate {
     
     // TextField 편집이 종료되었을 때 실행할 내용
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == calcView.coinTypeTextField {
-            if textField.text != "" { inputError = .coinTypeInputError }
-        }
-        
-        if textField == calcView.buyStartDateTextField {
-            if textField.text != "" { inputError = .buyStartDateInputError }
-        }
-        
-        if textField == calcView.buyEndDateTextField {
-            if textField.text != "" { inputError = .buyEndDateInputError }
-        }
-        
-        if textField == calcView.sellDateTextField {
-            if textField.text != "" { inputError = .sellDateInputError }
-        }
-        
-        if textField == calcView.frequencyTextField {
-            if textField.text != "" { inputError = .frequencyInputError }
-        }
-        
+        // 유일하게 키보드 입력과 붙여넣기 등의 작업이 허용되는 amountTextField의 경우 철저한 텍스트 검사를 수행
         if textField == calcView.amountTextField {
-            if textField.text != "" { inputError = .amountInputError }
+            guard textField.text != "" else { return }
             inputError = .noInputError
             
-            // 텍스트가 비어있지 않고 소수점(.)이 0~1개인 경우
-            if calcView.amountTextField.text != "" {
-                if 0...1 ~= calcView.amountTextField.text!.filter({ $0 == "." }).count {
-
-                } else {
-                    inputError = .decimalInputError
-                }
-            // 텍스트가 비어있는 경우
-            } else if calcView.amountTextField.text == "" {
-
-            // 그 외의 경우
+            if 0...1 ~= textField.text!.filter({ $0 == "." }).count {
             } else {
-
+                inputError = .decimalInputError
             }
         }
-        
     }
     
     // 한 글자씩 입력이 끝날 때마다 입력된 내용을 허용할지 말지 결정
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .decimal
+//        formatter.maximumFractionDigits = 2
         
-        // 금액을 입력하는 TextField만 숫자와 온점(.) 입력을 허용하고 최대 9자리의 숫자로 제한
+        // amountTextField만 숫자와 온점(.) 입력을 허용하고 최대 9자리의 숫자로 제한
         if textField == calcView.amountTextField {
             if string.count > 0 {
                 // TextField에 실수(숫자+소수점)만 입력할 수 있는 Set 설정
-                var charSet = CharacterSet.lowercaseLetters
+                var charSet = CharacterSet.decimalDigits
                 charSet.insert(charactersIn: "0123456789.")
                 
                 // charSet에 속하지 않는 문자(charSet.inverted)가 없는 경우
                 // 즉, charSet에 속하는 문자인 경우 guard문 통과
                 guard string.rangeOfCharacter(from: charSet.inverted) == nil else { return false }
                 
-                // 최대 글자수 제한을 두고 글자수가 그보다 작은 경우 guard문 통과
-                let maxLength = 9
+                // 최대 글자수 제한을 두고 글자수가 그보다 작은 경우 입력을 허용
+                let maxLength = calcView.segmentedControl.selectedSegmentIndex == 0 ? 12 : 9
                 guard range.location < maxLength else { return false }
             }
+            
+//            if let removeAllSeprator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator,
+//                                                                            with: "") {
+//                var beforeForemattedString = removeAllSeprator + string
+//                if formatter.number(from: string) != nil {
+//                    if let formattedNumber = formatter.number(from: beforeForemattedString),
+//                       let formattedString = formatter.string(from: formattedNumber) {
+//                        textField.text = formattedString
+//                        return false
+//                    }
+//                } else {
+//                    if string == "" {
+//                        let lastIndex = beforeForemattedString.index(beforeForemattedString.endIndex, offsetBy: -1)
+//                        beforeForemattedString = String(beforeForemattedString[..<lastIndex])
+//                        if let formattedNumber = formatter.number(from: beforeForemattedString),
+//                           let formattedString = formatter.string(from: formattedNumber) {
+//                            textField.text = formattedString
+//                            return false
+//                        }
+//                    } else { // 문자일 때
+//                        return false
+//                    }
+//                }
+//            }
+            
             // 위의 조건들을 모두 만족해서 여기까지 왔다면 입력 허용
             return true
         }

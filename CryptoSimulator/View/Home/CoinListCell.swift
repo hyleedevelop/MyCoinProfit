@@ -10,6 +10,8 @@ import Kingfisher
 
 final class CoinListCell: UITableViewCell {
     
+    //MARK: - 속성
+    
     // 순번
     private let coinRank: UILabel = {
         let label = UILabel()
@@ -98,6 +100,8 @@ final class CoinListCell: UITableViewCell {
         sv.spacing = 15
         return sv
     }()
+    
+    //MARK: - 생성자
     
     // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

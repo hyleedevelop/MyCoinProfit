@@ -125,8 +125,8 @@ struct Constant {
         static let buyEndDateLabelName: String = "Last Purchase Date"
         static let sellDateLabelName: String = "Sell Date"
         static let frequencyLabelName: String = "Repeat Purchase"
-        static let amountLabelName1: String = "Amount Total"
-        static let amountLabelName2: String = "Amount per Once"
+        static let amountLabelName1: String = "Purchase Amount Total"
+        static let amountLabelName2: String = "Amount of Each Purchase"
         
         static let coinTypeTextFieldPlaceHolder: String = "Select coin"
         static let buyStartDateTextFieldPlaceHolder1: String = "Select purchase date"
@@ -135,11 +135,15 @@ struct Constant {
         static let sellDateTextFieldPlaceHolder: String = "Select sell date"
         static let frequencyTextFieldPlaceHolder: String = "Select frequency"
         static let amountLabelTextFieldPlaceHolder1: String = "Enter amount in dollars"
-        static let amountLabelTextFieldPlaceHolder2: String = "Enter amount per once in dollars"
+        static let amountLabelTextFieldPlaceHolder2: String = "Enter amount of each purchase in dollars"
         
-        static let menuName1: String = "Home"
-        static let menuName2: String = "Home"
-        static let menuName3: String = "Setting"
+        static let tabName1: String = "Home"
+        static let tabName2: String = "Home"
+        static let tabName3: String = "Setting"
+        
+        static let settingSectionName1: String = "Display"
+        static let settingSectionName2: String = "Feedback"
+        static let settingSectionName3: String = "About The App"
         
         static let calcStartButtonName: String = "Submit"
         static let calcResetButtonName: String = "Reset"
@@ -153,6 +157,7 @@ struct Constant {
         static let resetTitle = "Reset"
         static let closeTitle = "OK"
         static let cancelTitle = "Cancel"
+        static let sorryTitle = "Sorry"
         
         static let buyStartDateNoDataErrorMessage1 = "There is no data for the selected purchase date. Please select another one."
         static let buyStartDateNoDataErrorMessage2 = "There is no data for the selected first purchase date. Please select another one."
@@ -178,6 +183,9 @@ struct Constant {
         static let sellDateErrorMessage4 = "The sell date must be later than the last purchase date."
         
         static let resetMessage = "Are you sure you want to reset all input?"
+        static let exportAsImageMessage = "Do you want to export the result as an image?"
+        static let sendEmailErrorMessage = "Check your e-mail settings."
+        static let notifyLaterUpdate = "This will be updated later."
     }
         
     struct ImageSetting {

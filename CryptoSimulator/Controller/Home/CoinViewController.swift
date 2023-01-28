@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 final class CoinViewController: UIViewController {
     
@@ -65,12 +66,13 @@ final class CoinViewController: UIViewController {
     }()
     
     // 로딩 아이콘
-    private let activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
+    lazy var activityIndicator: NVActivityIndicatorView = {
+        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50),
+                                                        type: .ballRotateChase,
+                                                        color: .white,
+                                                        padding: .zero)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.color = Constant.UIColorSetting.themeColor
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = UIActivityIndicatorView.Style.large
+        activityIndicator.color = UIColor.label
         activityIndicator.stopAnimating()
         return activityIndicator
     }()
@@ -431,10 +433,6 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
         let alert = UIAlertController(title: "Confirm", message: "Do you want to choose\n \(coinName)(\(coinSymbol))?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            // calcView.coinTypeTextField.text에 선택한 코인의 이름 넣기
-            //self.coinView.coinTypeTextField.text = coinArray[indexPath.row].name
-            print("\(coinName) / \(coinSymbol)")
-            
             // Singleton 패턴으로 데이터 전달하기
             DataPassManager.shared.selectedCoinID = coinID
             DataPassManager.shared.selectedCoinName = coinName

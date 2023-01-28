@@ -16,17 +16,17 @@ enum SettingCellData {
 struct AppSettingsModel {
     let icon: UIImage?
     let title: String?
-    let value: String?
+    var value: String?
 }
 
 struct FeedbackModel {
     let icon: UIImage?
     let title: String?
-    let value: String?
+    var value: String?
 }
 
 struct AboutTheAppModel {
     let icon: UIImage?
     let title: String?
-    let value: String?
+    var value: String?
 }

@@ -75,17 +75,24 @@ extension Double {
         return formatter
     }
     
+    // 숫자를 3자리마다 콤마로 나눠서 표시
+    private var formatterOfCommaSeparatedInt: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter
+    }
+    
     // 가격 숫자의 절대값 크기에 따라 소수점 아래 자리수를 다르게 설정
     // 값이 양수인 경우 부호 X, 값이 음수인 경우 부호 O
     func toUSD() -> String {
         if (10...).contains(abs(self)) {
-            return formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--"
+            return formatterOfUSDGreatherThanTen.string(for: self) ?? "N/A"
         } else if (1.01..<10).contains(abs(self)) {
-            return formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----"
+            return formatterOfUSDFromOneToTen.string(for: self) ?? "N/A"
         } else if (0.01..<1.01).contains(abs(self)) {
-            return formatterOfUSDLessThanOne.string(for: self) ?? "$-.------"
+            return formatterOfUSDLessThanOne.string(for: self) ?? "N/A"
         } else {
-            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------"
+            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$N/A"
         }
     }
     
@@ -93,27 +100,27 @@ extension Double {
     // 값이 양수인 경우 부호 O, 값이 음수인 경우 부호 O
     func toUSDPlusSigned() -> String {
         if (10...).contains(abs(self)) {
-            return self > 0 ? "+\(formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--")"
-                            : "\(formatterOfUSDGreatherThanTen.string(for: self) ?? "$-.--")"
+            return self > 0 ? "+\(formatterOfUSDGreatherThanTen.string(for: self) ?? "N/A")"
+                            : "\(formatterOfUSDGreatherThanTen.string(for: self) ?? "N/A")"
         } else if (1.01..<10).contains(abs(self)) {
-            return self > 0 ? "+\(formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----")"
-                            : "\(formatterOfUSDFromOneToTen.string(for: self) ?? "$-.----")"
+            return self > 0 ? "+\(formatterOfUSDFromOneToTen.string(for: self) ?? "N/A")"
+                            : "\(formatterOfUSDFromOneToTen.string(for: self) ?? "N/A")"
         } else if (0.01..<1.01).contains(abs(self)) {
-            return self > 0 ? "+\(formatterOfUSDLessThanOne.string(for: self) ?? "$-.------")"
-                            : "\(formatterOfUSDLessThanOne.string(for: self) ?? "$-.------")"
+            return self > 0 ? "+\(formatterOfUSDLessThanOne.string(for: self) ?? "N/A")"
+                            : "\(formatterOfUSDLessThanOne.string(for: self) ?? "N/A")"
         } else {
-            return self > 0 ? "+\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------")"
-                            : "\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$-.--------")"
+            return self > 0 ? "+\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "N/A")"
+                            : "\(formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "N/A")"
         }
     }
     
-    func toKRW() -> String {
-        return currencyFormatterKRW.string(for: self) ?? "₩-"
+    func toPercentage() -> String {
+        return self > 0 ? "+\(formatterOfPercentage.string(for: self) ?? "N/A")"
+                        : "\(formatterOfPercentage.string(for: self) ?? "N/A")"
     }
     
-    func toPercentage() -> String {
-        return self > 0 ? "+\(formatterOfPercentage.string(for: self) ?? "-.--%")"
-                        : "\(formatterOfPercentage.string(for: self) ?? "-.--%")"
+    func separatedByComma() -> String {
+        return formatterOfCommaSeparatedInt.string(for: self) ?? "N/A"
     }
     
 }
