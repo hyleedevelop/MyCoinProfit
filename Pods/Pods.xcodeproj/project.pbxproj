@@ -65,7 +65,6 @@
 		22BD1346F66BFCB129AAA44EEF322AC9 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6946CB8671AA4A833C94AF8B4CBF7FDE /* Resource.swift */; };
 		243D7CFE1D56ED80ACB2B3E71B4CB603 /* AuthenticationChallengeResponsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E302CE692746D7CEC4BCB3D0AA6DDE91 /* AuthenticationChallengeResponsable.swift */; };
 		24EC44FF102C2635A476CEF7567F89DA /* IQPreviousNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6954D12B29A4A46057B3BABCFFC05049 /* IQPreviousNextView.swift */; };
-		25AB00CD3894808840540B5B56C70307 /* Pods-CryptoSimulator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EF25676828EA5E9FE01E1F8D6FF9F11D /* Pods-CryptoSimulator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25D7B9CB6D83A2899E364531C8B465E0 /* XAxisRendererRadarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D64A95CCF2CCE639FC8CCE4B850CBC /* XAxisRendererRadarChart.swift */; };
 		25FC036BEA33CAB5D80F5A41644535D3 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63674A90F9A158D47CC07E9305F0D2E6 /* Storage.swift */; };
 		26414DCD243931AD2DF5A7FAEFA9A2F1 /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7C2BEA14FBECF4D8CBB70663D50644 /* AxisBase.swift */; };
@@ -108,6 +107,7 @@
 		3DDC9A32FD1C5E38808C9FCBDFA64F89 /* AcknowSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C26430F2833B786AB87ADC6FF61A57 /* AcknowSwiftUI.swift */; };
 		3F01EED6380B596E1D0C1497CBCF9B95 /* IQUITextFieldView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53C2045AF146434C1241A38110C1AF5 /* IQUITextFieldView+Additions.swift */; };
 		3F7DE7DD33C07E28ABBF80B3AFBCDF44 /* HorizontalBarChartRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D8EDAC9B96FC2DF85EC2F3C15C2D99 /* HorizontalBarChartRenderer.swift */; };
+		3FD2A065E7D509106FA82D76BDAF9403 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B153951F73466D549F35F8862C89023 /* Foundation.framework */; };
 		40A2E2DDE76C3AA1AABA924FA9621DB0 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273AA43A2F225FB3F1A488953005B118 /* NVActivityIndicatorAnimationBallScaleRippleMultiple.swift */; };
 		412C220BCDA191D9D01463240FE4D867 /* ShimmeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0261291385A91C9B3252CBF7429010F /* ShimmeringView.swift */; };
 		417FF12A723327B39ADA2049C62A7BFB /* MinMax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348294ADA26FD4259446CB43E1A10B0C /* MinMax.swift */; };
@@ -141,7 +141,6 @@
 		585FD9DA0B21341F777A5B39ED1CA562 /* RadarChartDataEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CD3E9E080D2D223F36074CAE96283E /* RadarChartDataEntry.swift */; };
 		58889ECB9711CC8D285F5689C9DF4584 /* ChartColorTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E1C49BFC2463555936267DD94795D /* ChartColorTemplates.swift */; };
 		59BC9047F4BEBBC06235608D974E230D /* NSTextAttachment+Kingfisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5599EAEBA46A23D3C9B5C3B6AC493BA /* NSTextAttachment+Kingfisher.swift */; };
-		59DDA670491E87A6B5B8B927F6F00EFB /* Pods-CryptoSimulator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCC9602FA482FCAB6E3B96EA4415EE9 /* Pods-CryptoSimulator-dummy.m */; };
 		5ADB30DD9A03859018550A999ACB0652 /* KFImageOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188D333D29E3E4FAD4626642496B8110 /* KFImageOptions.swift */; };
 		5BEAAA1C28686E24835E096C0CC0A6E9 /* Permutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32DC586DECBFAA1AE857AE9A2BA9C95 /* Permutations.swift */; };
 		5D998F2454D188B00E592ECF3DFB6371 /* PieChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7094755ACBB001B281AF7B14ACE7D /* PieChartData.swift */; };
@@ -171,11 +170,11 @@
 		6D878FE6964089A7F47EB406F566ECC0 /* ScatterChartDataSetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F908F186CA0503DAE8646AD7B15FA4 /* ScatterChartDataSetProtocol.swift */; };
 		6F5944A3FFB4759CE155408CEBC689A4 /* NVActivityIndicatorAnimationSemiCircleSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744FB3D147CBD8EF43A204AAE7A6871 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */; };
 		70CACB146AA2603CDD775285FA9A4CE9 /* Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624D34D5B8D666ED9B130B86CB9D9D37 /* Range.swift */; };
-		70F039DB369BE4EE2A5C1CB2AE3D8F70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B153951F73466D549F35F8862C89023 /* Foundation.framework */; };
 		70FEC06F54286257E1BA1ECA0C99198D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46CF441D6428A9143E63F736D42AE98 /* Image.swift */; };
 		719B040F038EF1D9B3BEC3E35FE37018 /* AcknowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B04D56F93B19B9264BEE9BAE63AEA4F /* AcknowViewController.swift */; };
 		731D21FFF35410D5091025C2B7C348C2 /* Reductions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E29B9318EE9B4A8D3241B69CCD9E217 /* Reductions.swift */; };
 		7365D2628CEA042B8FA48DE613149B4A /* zh-Hant.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 33D5CAB2EE90DDAA07712130BA3B7C79 /* zh-Hant.lproj */; };
+		73AE5175BA8F11320939A3FBD5194207 /* Pods-CryptoCalculator-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E8CB1DA48CE5403BD71EC1495BCC4B /* Pods-CryptoCalculator-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		74891FDD01BD8C20C02F436655852341 /* EitherSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3286A327A620F1445303D3D47F995F2E /* EitherSequence.swift */; };
 		75E493B239F29100777CBB38AAAE08D7 /* BarLineScatterCandleBubbleRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86F2B89A9F821CDB1572741DA679C6C /* BarLineScatterCandleBubbleRenderer.swift */; };
 		7899A9D1751880EC7A2649DF35617F67 /* Sequence+KeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1689D3775C3C55C285D6F894CA8330E /* Sequence+KeyPath.swift */; };
@@ -184,6 +183,7 @@
 		7A52005D206FA5BEC462EC1ED5E34423 /* XAxisRendererHorizontalBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A78B5CD9D33B312D14DF72E4C6A5D8C /* XAxisRendererHorizontalBarChart.swift */; };
 		7AC995F567A776FC1A80A9FA0733F3D1 /* IQNSArray+Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D87EE25A4939AD8BA78EC71B9AE559 /* IQNSArray+Sort.swift */; };
 		7B66032AB7F871CE8B72C5587A8698C9 /* Intersperse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E41C995F6EFD0C15FA46EC0A98868 /* Intersperse.swift */; };
+		7B8D228E8879F5B811D954439E99215F /* Pods-CryptoCalculator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA18AF4FDD38959E6561055CA119891 /* Pods-CryptoCalculator-dummy.m */; };
 		7C09D13338B7A0BF4A0EB9763EE60339 /* ChevronUpShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8919A6AAEBFE2FFD55326EEDF2768381 /* ChevronUpShapeRenderer.swift */; };
 		7C7418FF01DD7BB909719682B634A8A5 /* SessionDataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F7C11A17FC0C4AB7B73A5D4F0B11B3 /* SessionDataTask.swift */; };
 		7FFE4021A4F14124342AD41CE1117B3E /* KFAnimatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE991CAF29027C21871D50C959EFD2 /* KFAnimatedImage.swift */; };
@@ -356,26 +356,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		12239FD9DC7DDBABBA7A38B50F5BCDBE /* PBXContainerItemProxy */ = {
+		2153B8623974417EC0E4A52943FB0032 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 51691F4311958691BD98F5F26E2D77D4;
-			remoteInfo = AcknowList;
-		};
-		12254D698EE871F2E0CD02F96650083E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BF03B0B2B8B052092CB5F90CC5FB3757;
-			remoteInfo = Charts;
-		};
-		13C1C36E80BAB61CC48600E02BC41497 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E8022D22FAA6690B5E1C379C1BCE1491;
-			remoteInfo = Kingfisher;
+			remoteGlobalIDString = AF8A82876C43F4DFD625D1823E680EAC;
+			remoteInfo = NVActivityIndicatorView;
 		};
 		331E4DC6D274E77168AF6CDDAFE12D0C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -391,28 +377,42 @@
 			remoteGlobalIDString = 2C511EE63C6E7D5843B971D1E441119E;
 			remoteInfo = SwiftAlgorithms;
 		};
-		715F107E54F3A048FE97456ADC09C121 /* PBXContainerItemProxy */ = {
+		5FA083EAF87443C3047150D78EC8A614 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51691F4311958691BD98F5F26E2D77D4;
+			remoteInfo = AcknowList;
+		};
+		6F56262A4CC0B35FFDCA64032698043D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8022D22FAA6690B5E1C379C1BCE1491;
+			remoteInfo = Kingfisher;
+		};
+		8CEC47BDA244A6F0F67AF5BE820ECC4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B490E7485944099E16C9CBD79119D1D4;
 			remoteInfo = IQKeyboardManagerSwift;
 		};
-		AB65C8ADE97502F5FAA6A33E8B314EB0 /* PBXContainerItemProxy */ = {
+		90B410EF462844A812935010F3EC8DC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF03B0B2B8B052092CB5F90CC5FB3757;
+			remoteInfo = Charts;
+		};
+		9577F5DC5CEDDAEC9A906E98F44E4947 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BF2974CEBD4F57BEFE88471BC9F6361A;
 			remoteInfo = ShimmerSwift;
 		};
-		C74B6AECBD54CDB417938937CFB509C0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AF8A82876C43F4DFD625D1823E680EAC;
-			remoteInfo = NVActivityIndicatorView;
-		};
-		F3BD651DA24524600D3A322103CAA826 /* PBXContainerItemProxy */ = {
+		B7EC23613260BAE94E12EF47418051BD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -430,9 +430,11 @@
 		049E8924E0CF62DF9F09375A854887B7 /* AnimatedZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedZoomViewJob.swift; path = Source/Charts/Jobs/AnimatedZoomViewJob.swift; sourceTree = "<group>"; };
 		05522380EF45C46453A5AEB8356C9098 /* ImageDownloaderDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDownloaderDelegate.swift; path = Sources/Networking/ImageDownloaderDelegate.swift; sourceTree = "<group>"; };
 		05C26430F2833B786AB87ADC6FF61A57 /* AcknowSwiftUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AcknowSwiftUI.swift; path = Sources/AcknowList/AcknowSwiftUI.swift; sourceTree = "<group>"; };
+		05D54CC22F9E9A8F1080C9AFB974E9C5 /* Pods-CryptoCalculator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CryptoCalculator-frameworks.sh"; sourceTree = "<group>"; };
 		061CD14FA70EF7FE32079C4317F95AA8 /* sv.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sv.lproj; path = Sources/AcknowList/Resources/sv.lproj; sourceTree = "<group>"; };
 		0657342347CBF605593DCC64408C2DCE /* Charts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Charts.debug.xcconfig; sourceTree = "<group>"; };
 		066E8CA6C057A38419F67F3982A81468 /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
+		06A52E25D81A464B8928D61BD2CD8641 /* Pods-CryptoCalculator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CryptoCalculator.modulemap"; sourceTree = "<group>"; };
 		06D3E4F7FEEE2D8006BD893253D8A820 /* IQInvocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQInvocation.swift; path = IQKeyboardManagerSwift/IQToolbar/IQInvocation.swift; sourceTree = "<group>"; };
 		0772DB4569777EA0A121E62300674AA2 /* BubbleChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/BubbleChartDataSetProtocol.swift; sourceTree = "<group>"; };
 		085EB92E6704DCF4B6E78A43BDF82314 /* NVActivityIndicatorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorView.swift; path = Sources/Base/NVActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -498,7 +500,6 @@
 		2B153951F73466D549F35F8862C89023 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		2B9BD41C05D37527F00EEA7FAE9A95BD /* NVActivityIndicatorAnimationBallRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallRotate.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationBallRotate.swift; sourceTree = "<group>"; };
 		2CB3A192AEEA8C0961CFCD70E7EB2B79 /* LineRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineRadarChartDataSet.swift; sourceTree = "<group>"; };
-		2CCC9602FA482FCAB6E3B96EA4415EE9 /* Pods-CryptoSimulator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CryptoSimulator-dummy.m"; sourceTree = "<group>"; };
 		2CFCB70ED9C034D980FF91CCC0329238 /* ComponentBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComponentBase.swift; path = Source/Charts/Components/ComponentBase.swift; sourceTree = "<group>"; };
 		2D06804DEC830F7C865B76418CC5D53B /* NVActivityIndicatorAnimationSquareSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationSquareSpin.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationSquareSpin.swift; sourceTree = "<group>"; };
 		2D37B64FA3FCE6CB05C165D65F02D116 /* NVActivityIndicatorAnimationBallClipRotatePulse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotatePulse.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationBallClipRotatePulse.swift; sourceTree = "<group>"; };
@@ -510,14 +511,15 @@
 		30D6B36AF1519A7A3C5E03991FAACFCF /* ScatterChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartView.swift; path = Source/Charts/Charts/ScatterChartView.swift; sourceTree = "<group>"; };
 		312F55F3000A00DB718D85F084171200 /* ImageDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDownloader.swift; path = Sources/Networking/ImageDownloader.swift; sourceTree = "<group>"; };
 		3286A327A620F1445303D3D47F995F2E /* EitherSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EitherSequence.swift; path = Sources/Algorithms/EitherSequence.swift; sourceTree = "<group>"; };
+		32E8CB1DA48CE5403BD71EC1495BCC4B /* Pods-CryptoCalculator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CryptoCalculator-umbrella.h"; sourceTree = "<group>"; };
 		33B5C032C0F8745A89BFB1566E99E63A /* NVActivityIndicatorAnimationCircleStrokeSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationCircleStrokeSpin.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationCircleStrokeSpin.swift; sourceTree = "<group>"; };
 		33D5CAB2EE90DDAA07712130BA3B7C79 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "Sources/AcknowList/Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
 		348294ADA26FD4259446CB43E1A10B0C /* MinMax.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MinMax.swift; path = Sources/Algorithms/MinMax.swift; sourceTree = "<group>"; };
 		34D64A95CCF2CCE639FC8CCE4B850CBC /* XAxisRendererRadarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRendererRadarChart.swift; path = Source/Charts/Renderers/XAxisRendererRadarChart.swift; sourceTree = "<group>"; };
+		35D47FA668843F68B42B6F9B4B3929FD /* Pods-CryptoCalculator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CryptoCalculator-acknowledgements.plist"; sourceTree = "<group>"; };
 		3733933AF3BA38F6E1A278CFECD1CF02 /* IQToolbar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQToolbar.swift; path = IQKeyboardManagerSwift/IQToolbar/IQToolbar.swift; sourceTree = "<group>"; };
 		3744FB3D147CBD8EF43A204AAE7A6871 /* NVActivityIndicatorAnimationSemiCircleSpin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationSemiCircleSpin.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationSemiCircleSpin.swift; sourceTree = "<group>"; };
 		388A9EF0902605D007770F158D4F86F7 /* IQKeyboardManager+Debug.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQKeyboardManager+Debug.swift"; path = "IQKeyboardManagerSwift/IQKeyboardManager+Debug.swift"; sourceTree = "<group>"; };
-		395F054816396121001E255ACD95BF7B /* Pods-CryptoSimulator-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CryptoSimulator-acknowledgements.plist"; sourceTree = "<group>"; };
 		3A201B24520217BD04E22AA52EBB1924 /* NVActivityIndicatorAnimationBlank.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBlank.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationBlank.swift; sourceTree = "<group>"; };
 		3A78B5CD9D33B312D14DF72E4C6A5D8C /* XAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/XAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
 		3B04D56F93B19B9264BEE9BAE63AEA4F /* AcknowViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AcknowViewController.swift; path = Sources/AcknowList/AcknowViewController.swift; sourceTree = "<group>"; };
@@ -528,7 +530,6 @@
 		3E29B9318EE9B4A8D3241B69CCD9E217 /* Reductions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reductions.swift; path = Sources/Algorithms/Reductions.swift; sourceTree = "<group>"; };
 		3F1553D38AA49C6115577BB70C13F765 /* SwiftAlgorithms-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftAlgorithms-umbrella.h"; sourceTree = "<group>"; };
 		3F551429383FCAC7E0EB07933204913B /* LineRadarChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/LineRadarChartDataSetProtocol.swift; sourceTree = "<group>"; };
-		40983EDB2A8C818147B1D09B500C5DAC /* Pods-CryptoSimulator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CryptoSimulator.release.xcconfig"; sourceTree = "<group>"; };
 		43539926F79330C0EE41C47C3E175330 /* CandleChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/CandleChartDataSetProtocol.swift; sourceTree = "<group>"; };
 		435D2365C2C85C7B16D77A390990B914 /* CrossShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CrossShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/CrossShapeRenderer.swift; sourceTree = "<group>"; };
 		43DB0AF311B12BAA98149DA3118E41C2 /* PieChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/PieChartDataSetProtocol.swift; sourceTree = "<group>"; };
@@ -552,6 +553,7 @@
 		4F1713317FD307B93CFC2E13141AB258 /* IQKeyboardReturnKeyHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IQKeyboardReturnKeyHandler.swift; path = IQKeyboardManagerSwift/IQKeyboardReturnKeyHandler.swift; sourceTree = "<group>"; };
 		4F9F4EC9EA713ED1719D99C217CDBF00 /* YAxisRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRenderer.swift; path = Source/Charts/Renderers/YAxisRenderer.swift; sourceTree = "<group>"; };
 		50437446127C7473875C4E6034331D9E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		51E7EB70DCE52D00389A39C973E97D18 /* Pods-CryptoCalculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CryptoCalculator.release.xcconfig"; sourceTree = "<group>"; };
 		52F13BD03DD87A37A9F5CE26E96ED7F1 /* PieChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/PieChartDataSet.swift; sourceTree = "<group>"; };
 		555F126B9B8135B1C5291C97BCF6FC4F /* IQKeyboardManager+Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQKeyboardManager+Internal.swift"; path = "IQKeyboardManagerSwift/IQKeyboardManager+Internal.swift"; sourceTree = "<group>"; };
 		558DD22CCF93A83EF32C27A9ED0D031E /* LineScatterCandleRadarRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineScatterCandleRadarRenderer.swift; path = Source/Charts/Renderers/LineScatterCandleRadarRenderer.swift; sourceTree = "<group>"; };
@@ -562,7 +564,6 @@
 		5C15A295DB1D79B6A097459FCD6DCB8E /* ImageBinder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageBinder.swift; path = Sources/SwiftUI/ImageBinder.swift; sourceTree = "<group>"; };
 		5C6E0052568F707E5B130D55AB939519 /* Product.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Product.swift; path = Sources/Algorithms/Product.swift; sourceTree = "<group>"; };
 		5C81A1868E39D783D76BB72083C3D2C6 /* GIFAnimatedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GIFAnimatedImage.swift; path = Sources/Image/GIFAnimatedImage.swift; sourceTree = "<group>"; };
-		5D459FFADC7E9FD56FE1198DEFA4F1D5 /* Pods-CryptoSimulator-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CryptoSimulator-frameworks.sh"; sourceTree = "<group>"; };
 		5E32EC7E598B6C2F8116EFE10E2B8818 /* Kingfisher-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Kingfisher-dummy.m"; sourceTree = "<group>"; };
 		5E7F79A6A6C4D8ED8C63C38731E4A0AF /* CacheSerializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CacheSerializer.swift; path = Sources/Cache/CacheSerializer.swift; sourceTree = "<group>"; };
 		5F442F852CF8DCED0B4DD76853B97E67 /* KingfisherError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KingfisherError.swift; path = Sources/General/KingfisherError.swift; sourceTree = "<group>"; };
@@ -571,7 +572,6 @@
 		61988FDB98FEBFD82F4C6A347CCDDC3E /* MoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MoveViewJob.swift; path = Source/Charts/Jobs/MoveViewJob.swift; sourceTree = "<group>"; };
 		624D34D5B8D666ED9B130B86CB9D9D37 /* Range.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Range.swift; path = Source/Charts/Highlight/Range.swift; sourceTree = "<group>"; };
 		62CD3E9E080D2D223F36074CAE96283E /* RadarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartDataEntry.swift; sourceTree = "<group>"; };
-		630CC32B8669980C54D1F0C7DE8C6E5F /* Pods-CryptoSimulator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CryptoSimulator.debug.xcconfig"; sourceTree = "<group>"; };
 		63674A90F9A158D47CC07E9305F0D2E6 /* Storage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Storage.swift; path = Sources/Cache/Storage.swift; sourceTree = "<group>"; };
 		63C2E8EEE0D3345D40A2BFF246BD1943 /* FlattenCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FlattenCollection.swift; path = Sources/Algorithms/FlattenCollection.swift; sourceTree = "<group>"; };
 		642A5E358C4ED5087A63CC99461D33CD /* IQKeyboardManagerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = IQKeyboardManagerSwift.modulemap; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 		8FB27C241504CCDBC0830A9101C262F5 /* BarChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartData.swift; path = Source/Charts/Data/Implementations/Standard/BarChartData.swift; sourceTree = "<group>"; };
 		906788A9C48C8EE07F725D36B2D14C0F /* AnimatedMoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedMoveViewJob.swift; path = Source/Charts/Jobs/AnimatedMoveViewJob.swift; sourceTree = "<group>"; };
 		91AD30B5C106D9121B239C5885DA0861 /* BarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartView.swift; path = Source/Charts/Charts/BarChartView.swift; sourceTree = "<group>"; };
-		93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ShimmerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ShimmerSwift; path = ShimmerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		932E9565A9329FFD0CD2EAE6F8366412 /* Indicator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Indicator.swift; path = Sources/Views/Indicator.swift; sourceTree = "<group>"; };
 		951DED78848A383D6F5DD56B8C1E4C39 /* CombinedChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartRenderer.swift; path = Source/Charts/Renderers/CombinedChartRenderer.swift; sourceTree = "<group>"; };
 		953892DBEF59FA10D6A3E9066CEF0A3A /* HorizontalBarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarHighlighter.swift; path = Source/Charts/Highlight/HorizontalBarHighlighter.swift; sourceTree = "<group>"; };
@@ -645,8 +645,10 @@
 		9841D12912CD667DE76111FD966AF601 /* SwiftAlgorithms-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftAlgorithms-Info.plist"; sourceTree = "<group>"; };
 		98D3C2BC8CA840DF7B172B6C663D6002 /* IQKeyboardManagerSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "IQKeyboardManagerSwift-umbrella.h"; sourceTree = "<group>"; };
 		99B44CC90750C504A592512FE1EBCF21 /* DataRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataRenderer.swift; path = Source/Charts/Renderers/DataRenderer.swift; sourceTree = "<group>"; };
+		99BECCDF038E28948E3B8ABFDD206EE4 /* Pods-CryptoCalculator-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CryptoCalculator-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9A10EC6CF96CE3E8370DA9ADA3D440D8 /* Placeholder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Placeholder.swift; path = Sources/Image/Placeholder.swift; sourceTree = "<group>"; };
 		9A7992B04FF217F866C34ED2069B1A12 /* ShimmerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ShimmerSwift-dummy.m"; sourceTree = "<group>"; };
+		9AA18AF4FDD38959E6561055CA119891 /* Pods-CryptoCalculator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CryptoCalculator-dummy.m"; sourceTree = "<group>"; };
 		9B23F26A988F7EA4E8360AF8BF8349FC /* BubbleChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartView.swift; path = Source/Charts/Charts/BubbleChartView.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E655FB3F8D194489E18AA3009C5984B /* MarkerImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerImage.swift; path = Source/Charts/Components/MarkerImage.swift; sourceTree = "<group>"; };
@@ -657,7 +659,7 @@
 		A0261291385A91C9B3252CBF7429010F /* ShimmeringView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShimmeringView.swift; path = Shimmer/ShimmeringView.swift; sourceTree = "<group>"; };
 		A06027F5167BA93ADAD3235370A8C9EC /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = Sources/AcknowList/Resources/nl.lproj; sourceTree = "<group>"; };
 		A0B0340E254730BB5189249D3F7E1C82 /* ImageModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageModifier.swift; path = Sources/Networking/ImageModifier.swift; sourceTree = "<group>"; };
-		A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = NVActivityIndicatorView; path = NVActivityIndicatorView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1C1B977ED8804E8AEEC884E7359EE58 /* Charts */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B16CD033613D85F48AB9629AD1669D /* BubbleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataProvider.swift; path = Source/Charts/Interfaces/BubbleChartDataProvider.swift; sourceTree = "<group>"; };
 		A40373A80DFB83E7185B5D6871D95A16 /* NVActivityIndicatorView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NVActivityIndicatorView.release.xcconfig; sourceTree = "<group>"; };
@@ -674,7 +676,8 @@
 		A72F93B626C4791C87708F86CF0CF26C /* BarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataEntry.swift; sourceTree = "<group>"; };
 		A731D76A011679E6E1956EB389EB008E /* ImageDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageDataProvider.swift; path = Sources/General/ImageSource/ImageDataProvider.swift; sourceTree = "<group>"; };
 		A7F347EFC6E205143476DC7470416B1B /* ShimmerSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ShimmerSwift.release.xcconfig; sourceTree = "<group>"; };
-		A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = IQKeyboardManagerSwift; path = IQKeyboardManagerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9E1981601ADDF2BF7AD3AD9A75D99F1 /* Pods-CryptoCalculator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-CryptoCalculator"; path = Pods_CryptoCalculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA5584812CC5308C03E3506DF3F0CDC0 /* BubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartDataSet.swift; sourceTree = "<group>"; };
 		AA9A397368DB618C6AF5B9C6C43FD3DB /* Platform+Graphics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Platform+Graphics.swift"; path = "Source/Charts/Utils/Platform+Graphics.swift"; sourceTree = "<group>"; };
 		AB26E30D692174B29B90F28D6FC56E44 /* AcknowList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AcknowList.debug.xcconfig; sourceTree = "<group>"; };
@@ -702,8 +705,6 @@
 		B87A47835F787479D08F74CC7DC87CDB /* Legend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Legend.swift; path = Source/Charts/Components/Legend.swift; sourceTree = "<group>"; };
 		B8A8ED150D00B284018C94A5859FF3F6 /* Kingfisher-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Kingfisher-Info.plist"; sourceTree = "<group>"; };
 		BAFE8BA354C4E935996FA0D0B0FA8282 /* LineChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartView.swift; path = Source/Charts/Charts/LineChartView.swift; sourceTree = "<group>"; };
-		BBB120FC6ED7BB71676F101360C7D5E0 /* Pods-CryptoSimulator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CryptoSimulator-Info.plist"; sourceTree = "<group>"; };
-		BC872AC7566A5121C3AA7B83E68D5336 /* Pods-CryptoSimulator.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CryptoSimulator.modulemap"; sourceTree = "<group>"; };
 		BD60D46C44B8A0977B41A71B4537E1E6 /* NVActivityIndicatorView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "NVActivityIndicatorView-Info.plist"; sourceTree = "<group>"; };
 		BF1CDE6A692BC65F61DD84B4F09A91D8 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Source/Charts/Animation/Animator.swift; sourceTree = "<group>"; };
 		BF7C2BEA14FBECF4D8CBB70663D50644 /* AxisBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AxisBase.swift; path = Source/Charts/Components/AxisBase.swift; sourceTree = "<group>"; };
@@ -720,7 +721,6 @@
 		C5E478296D3C7372393002709C5B4D2C /* ScatterChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartDataSet.swift; sourceTree = "<group>"; };
 		C5F67BBD13E30D112BD1511F81A78904 /* MarkerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerView.swift; path = Source/Charts/Components/MarkerView.swift; sourceTree = "<group>"; };
 		C7DA8433AE1FF2627F57CC49458A7B76 /* AcknowPackageDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AcknowPackageDecoder.swift; path = Sources/AcknowList/AcknowPackageDecoder.swift; sourceTree = "<group>"; };
-		C81E8E16BE76F0EF8CDA5155C80CD272 /* Pods-CryptoSimulator-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CryptoSimulator-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C86F2B89A9F821CDB1572741DA679C6C /* BarLineScatterCandleBubbleRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleRenderer.swift; path = Source/Charts/Renderers/BarLineScatterCandleBubbleRenderer.swift; sourceTree = "<group>"; };
 		C88644E96450B647C30522B89A066CFB /* DefaultValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultValueFormatter.swift; path = Source/Charts/Formatters/DefaultValueFormatter.swift; sourceTree = "<group>"; };
 		C8C15B3242756D5279D6CE8959EF6A9A /* ShimmerSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ShimmerSwift.modulemap; sourceTree = "<group>"; };
@@ -753,7 +753,6 @@
 		DAA1C23C8B48B6844FC06B98186AF78D /* Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Transformer.swift; path = Source/Charts/Utils/Transformer.swift; sourceTree = "<group>"; };
 		DB529A2150C2B9818FC3E202B6479D69 /* NVActivityIndicatorAnimationBallPulseRise.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallPulseRise.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationBallPulseRise.swift; sourceTree = "<group>"; };
 		DC7D7348545607E35FAADB6024BEBAC3 /* AcknowListViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AcknowListViewController.swift; path = Sources/AcknowList/AcknowListViewController.swift; sourceTree = "<group>"; };
-		DD1E96D0C783111F14EA10EE5F92D2D9 /* Pods-CryptoSimulator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-CryptoSimulator"; path = Pods_CryptoSimulator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD9E57264BA752BA5E335E0455449C82 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = Sources/AcknowList/Resources/ja.lproj; sourceTree = "<group>"; };
 		DDDE2E7C738A3645BD7DE0ECE8BE761B /* IQUIView+IQKeyboardToolbar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQUIView+IQKeyboardToolbar.swift"; path = "IQKeyboardManagerSwift/IQToolbar/IQUIView+IQKeyboardToolbar.swift"; sourceTree = "<group>"; };
 		DE193AC64DF48F3E7E1BBBB5B03CF2DC /* RedirectHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RedirectHandler.swift; path = Sources/Networking/RedirectHandler.swift; sourceTree = "<group>"; };
@@ -773,12 +772,13 @@
 		EA08C6902AC0B663B0FDE4F67D7B276B /* MemoryStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MemoryStorage.swift; path = Sources/Cache/MemoryStorage.swift; sourceTree = "<group>"; };
 		EA8D10638669CCA5FEFF3C7A52B05213 /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "Sources/AcknowList/Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		EC11A4FCC1B62BADFB9591257D32D538 /* IQKeyboardManagerSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IQKeyboardManagerSwift.release.xcconfig; sourceTree = "<group>"; };
+		EC4685576F7C9B8006269B12F42F2384 /* Pods-CryptoCalculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CryptoCalculator.debug.xcconfig"; sourceTree = "<group>"; };
+		EC743F474000E177705BD8C05FDA2007 /* Pods-CryptoCalculator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CryptoCalculator-Info.plist"; sourceTree = "<group>"; };
 		ED1BE2057EC8B36628B6AE55A9C91F06 /* KingfisherManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KingfisherManager.swift; path = Sources/General/KingfisherManager.swift; sourceTree = "<group>"; };
 		EDB1CD1CBE501ACA6686C82ABC6631D3 /* AnimatedViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedViewPortJob.swift; path = Source/Charts/Jobs/AnimatedViewPortJob.swift; sourceTree = "<group>"; };
 		EEA5CECD85F7D6490EBB72ABE5268922 /* AcknowListSwiftUI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AcknowListSwiftUI.swift; path = Sources/AcknowList/AcknowListSwiftUI.swift; sourceTree = "<group>"; };
 		EF010AF8B1067393E4BFA54AB5C24086 /* IndexAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IndexAxisValueFormatter.swift; path = Source/Charts/Formatters/IndexAxisValueFormatter.swift; sourceTree = "<group>"; };
 		EF025EDE0A1187F421E0DCCC643A3A0B /* ZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomViewJob.swift; path = Source/Charts/Jobs/ZoomViewJob.swift; sourceTree = "<group>"; };
-		EF25676828EA5E9FE01E1F8D6FF9F11D /* Pods-CryptoSimulator-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CryptoSimulator-umbrella.h"; sourceTree = "<group>"; };
 		EFC892ADC8807890A9B148B2B3950C10 /* IQKeyboardManagerSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "IQKeyboardManagerSwift-dummy.m"; sourceTree = "<group>"; };
 		F02D459B0135AD6F3047D0993395FD5D /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = Sources/AcknowList/Resources/de.lproj; sourceTree = "<group>"; };
 		F16BF571672C67CFB227E5CFC05FD34E /* IQKeyboardManager+OrientationNotification.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "IQKeyboardManager+OrientationNotification.swift"; path = "IQKeyboardManagerSwift/IQKeyboardManager+OrientationNotification.swift"; sourceTree = "<group>"; };
@@ -786,7 +786,7 @@
 		F32DC586DECBFAA1AE857AE9A2BA9C95 /* Permutations.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Permutations.swift; path = Sources/Algorithms/Permutations.swift; sourceTree = "<group>"; };
 		F34848DD4D9D8233795AC2EBE4722315 /* Charts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Charts.release.xcconfig; sourceTree = "<group>"; };
 		F38C337D4BABA1FC8F80636E2F403F8E /* LegendRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendRenderer.swift; path = Source/Charts/Renderers/LegendRenderer.swift; sourceTree = "<group>"; };
-		F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Algorithms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftAlgorithms; path = Algorithms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42FAEC0B9EED8DBEF747B8738A2E02F /* DataApproximator+N.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DataApproximator+N.swift"; path = "Source/Charts/Filters/DataApproximator+N.swift"; sourceTree = "<group>"; };
 		F43DBC13D78A913F440F2DDE73ED78CC /* CandleStickChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleStickChartView.swift; path = Source/Charts/Charts/CandleStickChartView.swift; sourceTree = "<group>"; };
 		F4908D32B6A70647632753917F39916E /* NVActivityIndicatorAnimationBallClipRotate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NVActivityIndicatorAnimationBallClipRotate.swift; path = Sources/Base/Animations/NVActivityIndicatorAnimationBallClipRotate.swift; sourceTree = "<group>"; };
@@ -814,14 +814,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0D027F1CAAB26A1F838153F4AA1AD34A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				70F039DB369BE4EE2A5C1CB2AE3D8F70 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		28B40B1AF059DE8B84756184C9355CAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -889,6 +881,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				45056170C4B2397E4C5DC20F398915ED /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E54389EBF2F08F65CB3BE055DA8598EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FD2A065E7D509106FA82D76BDAF9403 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,6 +1034,22 @@
 			path = "../Target Support Files/Kingfisher";
 			sourceTree = "<group>";
 		};
+		365B838CA7CC43010D45068DCD8362ED /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1AB292DEC0B08C071C47375988B3366E /* AcknowList */,
+				75F3BB162DB2498A25F00ACD64A58C69 /* AcknowListBundle.bundle */,
+				A1C1B977ED8804E8AEEC884E7359EE58 /* Charts */,
+				A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift */,
+				C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher */,
+				A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView */,
+				A9E1981601ADDF2BF7AD3AD9A75D99F1 /* Pods-CryptoCalculator */,
+				93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift */,
+				F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		39FFC1DF881200B5B316AFF73686CAA3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1133,6 +1149,14 @@
 			path = "../Target Support Files/AcknowList";
 			sourceTree = "<group>";
 		};
+		7105060E83CC8E64B82DB4EE189D1B66 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A3DD413F5E7576F23D8AC5DBB3816188 /* Pods-CryptoCalculator */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
 		72569318F549981FE3CBFB9D13B80432 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1192,6 +1216,23 @@
 			name = Base;
 			sourceTree = "<group>";
 		};
+		A3DD413F5E7576F23D8AC5DBB3816188 /* Pods-CryptoCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				06A52E25D81A464B8928D61BD2CD8641 /* Pods-CryptoCalculator.modulemap */,
+				99BECCDF038E28948E3B8ABFDD206EE4 /* Pods-CryptoCalculator-acknowledgements.markdown */,
+				35D47FA668843F68B42B6F9B4B3929FD /* Pods-CryptoCalculator-acknowledgements.plist */,
+				9AA18AF4FDD38959E6561055CA119891 /* Pods-CryptoCalculator-dummy.m */,
+				05D54CC22F9E9A8F1080C9AFB974E9C5 /* Pods-CryptoCalculator-frameworks.sh */,
+				EC743F474000E177705BD8C05FDA2007 /* Pods-CryptoCalculator-Info.plist */,
+				32E8CB1DA48CE5403BD71EC1495BCC4B /* Pods-CryptoCalculator-umbrella.h */,
+				EC4685576F7C9B8006269B12F42F2384 /* Pods-CryptoCalculator.debug.xcconfig */,
+				51E7EB70DCE52D00389A39C973E97D18 /* Pods-CryptoCalculator.release.xcconfig */,
+			);
+			name = "Pods-CryptoCalculator";
+			path = "Target Support Files/Pods-CryptoCalculator";
+			sourceTree = "<group>";
+		};
 		A5723DCDC6BA8D6E4F6E7F17967D3FDB /* ShimmerSwift */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,22 +1254,14 @@
 			path = NVActivityIndicatorView;
 			sourceTree = "<group>";
 		};
-		C0CD0E41D5DA93CD1778B8C56FF72DD3 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				FB0BEEF499A450CB1F9B86151FCEBF60 /* Pods-CryptoSimulator */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D68CA58901FBF589D75F5E40F1EAF5BA /* Frameworks */,
 				E513EC9763C991BD43F99D7A7E841C91 /* Pods */,
-				FF58453BDBBAEE8115CC9F839A88A6DF /* Products */,
-				C0CD0E41D5DA93CD1778B8C56FF72DD3 /* Targets Support Files */,
+				365B838CA7CC43010D45068DCD8362ED /* Products */,
+				7105060E83CC8E64B82DB4EE189D1B66 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1449,42 +1482,17 @@
 			path = SwiftAlgorithms;
 			sourceTree = "<group>";
 		};
-		FB0BEEF499A450CB1F9B86151FCEBF60 /* Pods-CryptoSimulator */ = {
-			isa = PBXGroup;
-			children = (
-				BC872AC7566A5121C3AA7B83E68D5336 /* Pods-CryptoSimulator.modulemap */,
-				C81E8E16BE76F0EF8CDA5155C80CD272 /* Pods-CryptoSimulator-acknowledgements.markdown */,
-				395F054816396121001E255ACD95BF7B /* Pods-CryptoSimulator-acknowledgements.plist */,
-				2CCC9602FA482FCAB6E3B96EA4415EE9 /* Pods-CryptoSimulator-dummy.m */,
-				5D459FFADC7E9FD56FE1198DEFA4F1D5 /* Pods-CryptoSimulator-frameworks.sh */,
-				BBB120FC6ED7BB71676F101360C7D5E0 /* Pods-CryptoSimulator-Info.plist */,
-				EF25676828EA5E9FE01E1F8D6FF9F11D /* Pods-CryptoSimulator-umbrella.h */,
-				630CC32B8669980C54D1F0C7DE8C6E5F /* Pods-CryptoSimulator.debug.xcconfig */,
-				40983EDB2A8C818147B1D09B500C5DAC /* Pods-CryptoSimulator.release.xcconfig */,
-			);
-			name = "Pods-CryptoSimulator";
-			path = "Target Support Files/Pods-CryptoSimulator";
-			sourceTree = "<group>";
-		};
-		FF58453BDBBAEE8115CC9F839A88A6DF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1AB292DEC0B08C071C47375988B3366E /* AcknowList */,
-				75F3BB162DB2498A25F00ACD64A58C69 /* AcknowListBundle.bundle */,
-				A1C1B977ED8804E8AEEC884E7359EE58 /* Charts */,
-				A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift.framework */,
-				C3F44C782D64D7EB20B61CE3844EBFAD /* Kingfisher */,
-				A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView.framework */,
-				DD1E96D0C783111F14EA10EE5F92D2D9 /* Pods-CryptoSimulator */,
-				93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift.framework */,
-				F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		5C4F48C514AC53F737B111F35008DA06 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73AE5175BA8F11320939A3FBD5194207 /* Pods-CryptoCalculator-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AE52B176E9872452FD890FC7F460CE1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1525,14 +1533,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C3CD2B3E4D069257A329C71125B877A8 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				25AB00CD3894808840540B5B56C70307 /* Pods-CryptoSimulator-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CCEEFAA8C63580C9CB8978EDA9312BDF /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1567,7 +1567,7 @@
 			);
 			name = SwiftAlgorithms;
 			productName = Algorithms;
-			productReference = F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */;
+			productReference = F3E7458F7D38C89A9DE4BBACD3450C88 /* SwiftAlgorithms */;
 			productType = "com.apple.product-type.framework";
 		};
 		51691F4311958691BD98F5F26E2D77D4 /* AcknowList */ = {
@@ -1589,6 +1589,31 @@
 			productReference = 1AB292DEC0B08C071C47375988B3366E /* AcknowList */;
 			productType = "com.apple.product-type.framework";
 		};
+		54680565F5E7A3F5518C7CE29DDAED48 /* Pods-CryptoCalculator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A24E28E3822CBE34AF45E38CC32ADFCB /* Build configuration list for PBXNativeTarget "Pods-CryptoCalculator" */;
+			buildPhases = (
+				5C4F48C514AC53F737B111F35008DA06 /* Headers */,
+				5F8CDE84B5A21642F61E0407F5A3942B /* Sources */,
+				E54389EBF2F08F65CB3BE055DA8598EE /* Frameworks */,
+				41285F8BB25431EF10E23E3834EDA4E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49F96649020AB69E53CE86146466C9E5 /* PBXTargetDependency */,
+				3F01D016724CA5E10218B1F2B1913049 /* PBXTargetDependency */,
+				596F8B19867C9BB9200C6E8B811CAD46 /* PBXTargetDependency */,
+				A4146A6F0E50F5BFFC8CD7359C69942E /* PBXTargetDependency */,
+				00207E72B71320319C5716FD174B4E5E /* PBXTargetDependency */,
+				3D6A347F201D7AE43C5FCBEF95BDF7A4 /* PBXTargetDependency */,
+				5FD2BE9D4478F27BE0A274C4FF4B29B5 /* PBXTargetDependency */,
+			);
+			name = "Pods-CryptoCalculator";
+			productName = Pods_CryptoCalculator;
+			productReference = A9E1981601ADDF2BF7AD3AD9A75D99F1 /* Pods-CryptoCalculator */;
+			productType = "com.apple.product-type.framework";
+		};
 		6C0E617BBD9377CD4302B4AA63EA4739 /* AcknowList-AcknowListBundle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA977035346A2446F779BD3789206BBD /* Build configuration list for PBXNativeTarget "AcknowList-AcknowListBundle" */;
@@ -1606,31 +1631,6 @@
 			productReference = 75F3BB162DB2498A25F00ACD64A58C69 /* AcknowListBundle.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		8F3F05984AE95CF8030EB2C9D89B0E8A /* Pods-CryptoSimulator */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 84D757A22AE9286405060D6F3A2C684C /* Build configuration list for PBXNativeTarget "Pods-CryptoSimulator" */;
-			buildPhases = (
-				C3CD2B3E4D069257A329C71125B877A8 /* Headers */,
-				53683515BC739D5DD142D8DEDE28EE46 /* Sources */,
-				0D027F1CAAB26A1F838153F4AA1AD34A /* Frameworks */,
-				9B026772323691C386ED4A9534006D0E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FE74126D95EB71291CDF1799AA0334C5 /* PBXTargetDependency */,
-				195020F63BA7C2BF394EC19FF897A78A /* PBXTargetDependency */,
-				1361C5113F7E6FF647AD355EDD487F4D /* PBXTargetDependency */,
-				8A282F54484A7D24E0C01C8E257C4472 /* PBXTargetDependency */,
-				C8C56C807DCD099A36819F4B6D96E4B1 /* PBXTargetDependency */,
-				E3E6A63B245F4157BAA96D4A6B69E9AB /* PBXTargetDependency */,
-				DF1D0CAF96277506910B6E021B52E0A4 /* PBXTargetDependency */,
-			);
-			name = "Pods-CryptoSimulator";
-			productName = Pods_CryptoSimulator;
-			productReference = DD1E96D0C783111F14EA10EE5F92D2D9 /* Pods-CryptoSimulator */;
-			productType = "com.apple.product-type.framework";
-		};
 		AF8A82876C43F4DFD625D1823E680EAC /* NVActivityIndicatorView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F218111D503AE3381DD4D55E705C3915 /* Build configuration list for PBXNativeTarget "NVActivityIndicatorView" */;
@@ -1646,7 +1646,7 @@
 			);
 			name = NVActivityIndicatorView;
 			productName = NVActivityIndicatorView;
-			productReference = A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView.framework */;
+			productReference = A1B9F27862201CD82B398E0B35B14128 /* NVActivityIndicatorView */;
 			productType = "com.apple.product-type.framework";
 		};
 		B490E7485944099E16C9CBD79119D1D4 /* IQKeyboardManagerSwift */ = {
@@ -1664,7 +1664,7 @@
 			);
 			name = IQKeyboardManagerSwift;
 			productName = IQKeyboardManagerSwift;
-			productReference = A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift.framework */;
+			productReference = A8E950A16D00F649C54FFB30F81D7842 /* IQKeyboardManagerSwift */;
 			productType = "com.apple.product-type.framework";
 		};
 		BF03B0B2B8B052092CB5F90CC5FB3757 /* Charts */ = {
@@ -1701,7 +1701,7 @@
 			);
 			name = ShimmerSwift;
 			productName = ShimmerSwift;
-			productReference = 93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift.framework */;
+			productReference = 93027197DCE144EF9A5DDF15E6C717AA /* ShimmerSwift */;
 			productType = "com.apple.product-type.framework";
 		};
 		E8022D22FAA6690B5E1C379C1BCE1491 /* Kingfisher */ = {
@@ -1729,7 +1729,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1300;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -1752,7 +1752,7 @@
 				"zh-Hant",
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = FF58453BDBBAEE8115CC9F839A88A6DF /* Products */;
+			productRefGroup = 365B838CA7CC43010D45068DCD8362ED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1762,7 +1762,7 @@
 				B490E7485944099E16C9CBD79119D1D4 /* IQKeyboardManagerSwift */,
 				E8022D22FAA6690B5E1C379C1BCE1491 /* Kingfisher */,
 				AF8A82876C43F4DFD625D1823E680EAC /* NVActivityIndicatorView */,
-				8F3F05984AE95CF8030EB2C9D89B0E8A /* Pods-CryptoSimulator */,
+				54680565F5E7A3F5518C7CE29DDAED48 /* Pods-CryptoCalculator */,
 				BF2974CEBD4F57BEFE88471BC9F6361A /* ShimmerSwift */,
 				2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */,
 			);
@@ -1791,14 +1791,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7791CCA0F7C6D6D2084D7AD203873189 /* Resources */ = {
+		41285F8BB25431EF10E23E3834EDA4E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9B026772323691C386ED4A9534006D0E /* Resources */ = {
+		7791CCA0F7C6D6D2084D7AD203873189 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2108,14 +2108,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		53683515BC739D5DD142D8DEDE28EE46 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				59DDA670491E87A6B5B8B927F6F00EFB /* Pods-CryptoSimulator-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5AC3E9ABB260062905A58AC93303197D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2158,6 +2150,14 @@
 				308734F92EB54837CD9B8A41D62C26CD /* NVActivityIndicatorShape.swift in Sources */,
 				8AA9ED0518D2840ECA78152726ECF3F0 /* NVActivityIndicatorView.swift in Sources */,
 				93A7B1B80F996A74021BBE4BFFAA40ED /* NVActivityIndicatorView-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5F8CDE84B5A21642F61E0407F5A3942B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B8D228E8879F5B811D954439E99215F /* Pods-CryptoCalculator-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2225,59 +2225,59 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		00207E72B71320319C5716FD174B4E5E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NVActivityIndicatorView;
+			target = AF8A82876C43F4DFD625D1823E680EAC /* NVActivityIndicatorView */;
+			targetProxy = 2153B8623974417EC0E4A52943FB0032 /* PBXContainerItemProxy */;
+		};
 		0955478FC7308EB312C3E66730412DA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "AcknowList-AcknowListBundle";
 			target = 6C0E617BBD9377CD4302B4AA63EA4739 /* AcknowList-AcknowListBundle */;
 			targetProxy = 331E4DC6D274E77168AF6CDDAFE12D0C /* PBXContainerItemProxy */;
 		};
-		1361C5113F7E6FF647AD355EDD487F4D /* PBXTargetDependency */ = {
+		3D6A347F201D7AE43C5FCBEF95BDF7A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = IQKeyboardManagerSwift;
-			target = B490E7485944099E16C9CBD79119D1D4 /* IQKeyboardManagerSwift */;
-			targetProxy = 715F107E54F3A048FE97456ADC09C121 /* PBXContainerItemProxy */;
+			name = ShimmerSwift;
+			target = BF2974CEBD4F57BEFE88471BC9F6361A /* ShimmerSwift */;
+			targetProxy = 9577F5DC5CEDDAEC9A906E98F44E4947 /* PBXContainerItemProxy */;
 		};
-		195020F63BA7C2BF394EC19FF897A78A /* PBXTargetDependency */ = {
+		3F01D016724CA5E10218B1F2B1913049 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Charts;
 			target = BF03B0B2B8B052092CB5F90CC5FB3757 /* Charts */;
-			targetProxy = 12254D698EE871F2E0CD02F96650083E /* PBXContainerItemProxy */;
+			targetProxy = 90B410EF462844A812935010F3EC8DC0 /* PBXContainerItemProxy */;
 		};
-		8A282F54484A7D24E0C01C8E257C4472 /* PBXTargetDependency */ = {
+		49F96649020AB69E53CE86146466C9E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AcknowList;
+			target = 51691F4311958691BD98F5F26E2D77D4 /* AcknowList */;
+			targetProxy = 5FA083EAF87443C3047150D78EC8A614 /* PBXContainerItemProxy */;
+		};
+		596F8B19867C9BB9200C6E8B811CAD46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = IQKeyboardManagerSwift;
+			target = B490E7485944099E16C9CBD79119D1D4 /* IQKeyboardManagerSwift */;
+			targetProxy = 8CEC47BDA244A6F0F67AF5BE820ECC4F /* PBXContainerItemProxy */;
+		};
+		5FD2BE9D4478F27BE0A274C4FF4B29B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftAlgorithms;
+			target = 2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */;
+			targetProxy = B7EC23613260BAE94E12EF47418051BD /* PBXContainerItemProxy */;
+		};
+		A4146A6F0E50F5BFFC8CD7359C69942E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Kingfisher;
 			target = E8022D22FAA6690B5E1C379C1BCE1491 /* Kingfisher */;
-			targetProxy = 13C1C36E80BAB61CC48600E02BC41497 /* PBXContainerItemProxy */;
-		};
-		C8C56C807DCD099A36819F4B6D96E4B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = NVActivityIndicatorView;
-			target = AF8A82876C43F4DFD625D1823E680EAC /* NVActivityIndicatorView */;
-			targetProxy = C74B6AECBD54CDB417938937CFB509C0 /* PBXContainerItemProxy */;
+			targetProxy = 6F56262A4CC0B35FFDCA64032698043D /* PBXContainerItemProxy */;
 		};
 		D0517AE22DFDF1C3069991763130EBAD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftAlgorithms;
 			target = 2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */;
 			targetProxy = 3BC017CFEE93488BE0FBA0E685A0A4D2 /* PBXContainerItemProxy */;
-		};
-		DF1D0CAF96277506910B6E021B52E0A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SwiftAlgorithms;
-			target = 2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */;
-			targetProxy = F3BD651DA24524600D3A322103CAA826 /* PBXContainerItemProxy */;
-		};
-		E3E6A63B245F4157BAA96D4A6B69E9AB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ShimmerSwift;
-			target = BF2974CEBD4F57BEFE88471BC9F6361A /* ShimmerSwift */;
-			targetProxy = AB65C8ADE97502F5FAA6A33E8B314EB0 /* PBXContainerItemProxy */;
-		};
-		FE74126D95EB71291CDF1799AA0334C5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AcknowList;
-			target = 51691F4311958691BD98F5F26E2D77D4 /* AcknowList */;
-			targetProxy = 12239FD9DC7DDBABBA7A38B50F5BCDBE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2333,7 +2333,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NVActivityIndicatorView/NVActivityIndicatorView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NVActivityIndicatorView/NVActivityIndicatorView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2368,7 +2368,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ShimmerSwift/ShimmerSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ShimmerSwift/ShimmerSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2381,6 +2381,81 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		56CD44724880CFFEF7B93568B5F0E46B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51E7EB70DCE52D00389A39C973E97D18 /* Pods-CryptoCalculator.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-CryptoCalculator/Pods-CryptoCalculator-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CryptoCalculator/Pods-CryptoCalculator.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		595328C8577CCA3038C2E60762968419 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC4685576F7C9B8006269B12F42F2384 /* Pods-CryptoCalculator.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-CryptoCalculator/Pods-CryptoCalculator-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CryptoCalculator/Pods-CryptoCalculator.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2403,7 +2478,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2438,7 +2513,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/ShimmerSwift/ShimmerSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/ShimmerSwift/ShimmerSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2473,7 +2548,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/NVActivityIndicatorView/NVActivityIndicatorView-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/NVActivityIndicatorView/NVActivityIndicatorView-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2528,7 +2603,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2576,7 +2650,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftAlgorithms/SwiftAlgorithms-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2631,7 +2705,6 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2709,7 +2782,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2728,43 +2801,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		9F14B6B654DD585546324F4B9CDC312B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 630CC32B8669980C54D1F0C7DE8C6E5F /* Pods-CryptoSimulator.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		BFD9E4B58F44191AF73A3434AAF6831F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2818,44 +2854,6 @@
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
-		};
-		C6A1DB2CFB804B60550FF3598459DACB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 40983EDB2A8C818147B1D09B500C5DAC /* Pods-CryptoSimulator.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-CryptoSimulator/Pods-CryptoSimulator.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		E06F8FA0F4D85544D6C2044D15E26DF0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2924,7 +2922,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/IQKeyboardManagerSwift/IQKeyboardManagerSwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3062,20 +3060,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D757A22AE9286405060D6F3A2C684C /* Build configuration list for PBXNativeTarget "Pods-CryptoSimulator" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9F14B6B654DD585546324F4B9CDC312B /* Debug */,
-				C6A1DB2CFB804B60550FF3598459DACB /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8E981C12596B0FFF165724886137FF8C /* Build configuration list for PBXNativeTarget "AcknowList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F6015849B327C15445DEB01BEA35C988 /* Debug */,
 				061A9BA494A232A38BA4E9AFC759DF4A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A24E28E3822CBE34AF45E38CC32ADFCB /* Build configuration list for PBXNativeTarget "Pods-CryptoCalculator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				595328C8577CCA3038C2E60762968419 /* Debug */,
+				56CD44724880CFFEF7B93568B5F0E46B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
