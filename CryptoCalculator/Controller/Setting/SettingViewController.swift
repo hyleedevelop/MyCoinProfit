@@ -6,11 +6,19 @@
 //
 
 import UIKit
+import SafariServices
 import AcknowList
 import MessageUI
+import GoogleMobileAds
 
 final class SettingViewController: UIViewController {
 
+    // 구글 애드몹
+    lazy var bannerView: GADBannerView = {
+        let banner = GADBannerView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        return banner
+    }()
+    
     // TableView
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: CGRect(), style: .insetGrouped)
@@ -49,6 +57,8 @@ final class SettingViewController: UIViewController {
         setupView()
         setupTableView()
         setupTableViewDataSource()
+        
+        setupBannerViewToBottom()
     }
     
     // NavigationBar 설정
@@ -238,7 +248,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             //SettingCellDataManager.shared.updateAboutTheAppData(index: 3, newValue: appVersionString)
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
-            if 0...0 ~= indexPath.row {
+            if 0...1 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -265,13 +275,16 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
                 let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
                 navigationController?.pushViewController(acknowListVC, animated: true)
             }
+            if indexPath.row == 1 {
+                let websiteURL = NSURL(string: Constant.URLSetting.termsAndConditionsURL)
+                let webView = SFSafariViewController(url: websiteURL! as URL)
+                self.present(webView, animated: true, completion: nil)
+            }
         }
         
     }
     
 }
-
-
 
 //self.darkModeSwitch.setOn(false, animated: true)
 //self.darkModeSwitch.tag = indexPath.row
@@ -311,4 +324,66 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
                                didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
+}
+
+//MARK: - 구글 애드몹 관련 메서드
+
+extension SettingViewController: GADBannerViewDelegate {
+    
+    func setupBannerViewToBottom(height: CGFloat = 50) {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: view.frame.width, height: height))
+        bannerView = GADBannerView(adSize: adSize)
+
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        NSLayoutConstraint.activate([
+            bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bannerView.heightAnchor.constraint(equalToConstant: height)
+        ])
+
+        //bannerView.adUnitID = "ca-app-pub-5804054899003424/3613736945"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"  // 테스트 용
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+    }
+    
+    // Tells the delegate an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+        UIView.animate(withDuration: 1) {
+            bannerView.alpha = 1
+        }
+    }
+    
+    // Tells the delegate an ad request failed.
+    private func adView(_ bannerView: GADBannerView,
+                        didFailToReceiveAdWithError error: Error) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    // Tells the delegate that a full-screen view will be presented in response
+    // to the user clicking on an ad.
+    private func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view will be dismissed.
+    private func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view has been dismissed.
+    private func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that a user click will open another app (such as
+    // the App Store), backgrounding the current app.
+    private func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        
+    }
+    
 }

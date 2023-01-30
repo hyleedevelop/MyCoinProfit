@@ -30,10 +30,11 @@
 		0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113A2949E9D600A4F632 /* SettingViewController.swift */; };
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
-		07941144294A158C00A4F632 /* CryptoSimulator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */; };
+		07941144294A158C00A4F632 /* CryptoCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */; };
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
+		07B17631298754B600660978 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B17630298754B600660978 /* GoogleService-Info.plist */; };
 		07BAB0B6298544F300269EE5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BAB0B5298544F300269EE5 /* Int.swift */; };
 		07BED96A2975801B009B7450 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BED9692975801B009B7450 /* UILabel.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinListCell.swift */; };
@@ -75,6 +76,7 @@
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
+		07B17630298754B600660978 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07BAB0B5298544F300269EE5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		07BED9692975801B009B7450 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListCell.swift; sourceTree = "<group>"; };
@@ -175,13 +177,14 @@
 		0794111D2949E84700A4F632 /* CryptoCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				07B17630298754B600660978 /* GoogleService-Info.plist */,
+				0794112F2949E84700A4F632 /* Info.plist */,
+				073A32422983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist */,
 				0794111E2949E84700A4F632 /* AppDelegate.swift */,
 				079411202949E84700A4F632 /* SceneDelegate.swift */,
 				079411242949E84700A4F632 /* Main.storyboard */,
-				0794112A2949E84700A4F632 /* Assets.xcassets */,
 				0794112C2949E84700A4F632 /* LaunchScreen.storyboard */,
-				0794112F2949E84700A4F632 /* Info.plist */,
-				073A32422983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist */,
+				0794112A2949E84700A4F632 /* Assets.xcassets */,
 				07280781295817BA00CF65D9 /* Extension */,
 				0794113E2949FA8000A4F632 /* Helper */,
 				079411372949E86500A4F632 /* Model */,
@@ -222,7 +225,7 @@
 				07846A25298118A200449A7D /* CalcResultCellDataManager.swift */,
 				07FCC2F0297D83E200A06EAD /* SettingCellData.swift */,
 				073D261A297F7FB700C46666 /* SettingCellDataManager.swift */,
-				07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */,
+				07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				079411182949E84700A4F632 /* Frameworks */,
 				079411192949E84700A4F632 /* Resources */,
 				DD9CDDA1353BAC1814E135B3 /* [CP] Embed Pods Frameworks */,
+				07B176322987B49F00660978 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -323,6 +327,7 @@
 			files = (
 				0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */,
 				073A32432983D4710097C9DD /* Pods-CryptoSimulator-acknowledgements.plist in Resources */,
+				07B17631298754B600660978 /* GoogleService-Info.plist in Resources */,
 				0794112B2949E84700A4F632 /* Assets.xcassets in Resources */,
 				079411262949E84700A4F632 /* Main.storyboard in Resources */,
 			);
@@ -331,6 +336,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		07B176322987B49F00660978 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\nfi\n";
+		};
 		DD9CDDA1353BAC1814E135B3 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -385,7 +407,7 @@
 				073A324829840EF00097C9DD /* UIColor.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
-				07941144294A158C00A4F632 /* CryptoSimulator.xcdatamodeld in Sources */,
+				07941144294A158C00A4F632 /* CryptoCalculator.xcdatamodeld in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
 				07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */,
 				070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */,
@@ -556,6 +578,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoCalculator/Info.plist;
@@ -663,13 +686,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		07941141294A0F9000A4F632 /* CryptoSimulator.xcdatamodeld */ = {
+		07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */,
 			);
 			currentVersion = 07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */;
-			path = CryptoSimulator.xcdatamodeld;
+			path = CryptoCalculator.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

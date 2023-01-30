@@ -11,6 +11,10 @@ target 'CryptoCalculator' do
   pod 'ShimmerSwift'
   pod 'NVActivityIndicatorView'
   pod 'Charts'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseCrashlytics'
+  pod 'FirebasePerformance'
+  pod 'Google-Mobile-Ads-SDK'
   pod 'AcknowList'
 
 end

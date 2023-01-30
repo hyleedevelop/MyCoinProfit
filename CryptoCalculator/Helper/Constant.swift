@@ -139,7 +139,7 @@ struct Constant {
         
         static let tabName1: String = "Home"
         static let tabName2: String = "Home"
-        static let tabName3: String = "Setting"
+        static let tabName3: String = "Settings"
         
         static let settingSectionName1: String = "Display"
         static let settingSectionName2: String = "Feedback"
@@ -175,9 +175,9 @@ struct Constant {
         static let buyEndDateErrorMessage3 = "The last purchase date must be earlier than the sell date."
         static let frequencyErrorMessage = "You must select the repeat purchase frequency."
         static let amountErrorMessage1 = "You must enter purchase amount in dollars."
-        static let amountErrorMessage2 = "Decimal point is allowed only once."
-        static let amountErrorMessage3 = "You must enter purchase amount per once in dollars."
-        static let sellDateErrorMessage1 = "You must select a sell date."
+        static let amountErrorMessage2 = "Only one decimal point is allowed."
+        static let amountErrorMessage3 = "You must enter amount of each purchase in dollars."
+        static let sellDateErrorMessage1 = "You must select the sell date."
         static let sellDateErrorMessage2 = "The sell date must be later than the purchase date."
         static let sellDateErrorMessage3 = "The sell date must be later than the first purchase date."
         static let sellDateErrorMessage4 = "The sell date must be later than the last purchase date."
@@ -187,7 +187,12 @@ struct Constant {
         static let sendEmailErrorMessage = "Check your e-mail settings."
         static let notifyLaterUpdate = "This will be updated later."
     }
-        
+     
+    struct URLSetting {
+        static let termsAndConditionsURL =
+        "https://hyleenote.notion.site/hyleenote/Crypto-Calculator-5f6ae38726dd400c8b3a91a24da06795"
+    }
+    
     struct ImageSetting {
         static let checkMarkYes: UIImage = UIImage(systemName: "checkmark.circle.fill")!
         static let checkMarkNo: UIImage = UIImage(systemName: "xmark.circle.fill")!

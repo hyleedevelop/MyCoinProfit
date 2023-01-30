@@ -598,7 +598,7 @@ final class CalcView: UIView {
             finalStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             finalStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
             finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
+            finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -60),
             
             emptySpace.heightAnchor.constraint(equalToConstant: 0),
             

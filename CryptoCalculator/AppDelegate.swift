@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import FirebaseCore
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // IQKeyboard의 이전/이후 버튼 조절이 허용된 View
         // (해당 View 내의 TextField끼리는 이전/이후 버튼을 통해 상호 간편이동이 가능해짐)
         IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses = [CalcView.self]
+        
+        // Firebase 초기화
+        FirebaseApp.configure()
+        
+        // Google 모바일 광고 초기화 실행
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         sleep(1)  // 앱의 런칭 시간 조절
         

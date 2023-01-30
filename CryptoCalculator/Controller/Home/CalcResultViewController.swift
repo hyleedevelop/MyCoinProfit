@@ -7,10 +7,17 @@
 
 import UIKit
 import Screenshots
+import GoogleMobileAds
 
 final class CalcResultViewController: UIViewController {
     
     let calcVC = CalcViewController()
+    
+    // 구글 애드몹
+    lazy var bannerView: GADBannerView = {
+        let banner = GADBannerView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        return banner
+    }()
     
     // TableView
     private lazy var tableView: UITableView = {
@@ -66,6 +73,8 @@ final class CalcResultViewController: UIViewController {
         setupView()
         setupTableView()
         setupTableViewDataSource()
+        
+        setupBannerViewToBottom()
     }
     
     private func setupNavBar() {
@@ -333,6 +342,68 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
                               buyDays: self.buyStartToBuyEndLength)
             return cell
         }
+        
+    }
+    
+}
+
+//MARK: - 구글 애드몹 관련 메서드
+
+extension CalcResultViewController: GADBannerViewDelegate {
+    
+    func setupBannerViewToBottom(height: CGFloat = 50) {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: view.frame.width, height: height))
+        bannerView = GADBannerView(adSize: adSize)
+
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        NSLayoutConstraint.activate([
+            bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bannerView.heightAnchor.constraint(equalToConstant: height)
+        ])
+
+        //bannerView.adUnitID = "ca-app-pub-5804054899003424/3613736945"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+    }
+    
+    // Tells the delegate an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+        UIView.animate(withDuration: 1) {
+            bannerView.alpha = 1
+        }
+    }
+    
+    // Tells the delegate an ad request failed.
+    private func adView(_ bannerView: GADBannerView,
+                        didFailToReceiveAdWithError error: Error) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    // Tells the delegate that a full-screen view will be presented in response
+    // to the user clicking on an ad.
+    private func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view will be dismissed.
+    private func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view has been dismissed.
+    private func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that a user click will open another app (such as
+    // the App Store), backgrounding the current app.
+    private func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
         
     }
     

@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 final class CalcViewController: UIViewController {
 
     private let calcView = CalcView()  // UIView
     private let coinVC = CoinViewController()  // UIViewController
     private let coinListData = PickerData()  // structure
+    
+    // 구글 애드몹
+    lazy var bannerView: GADBannerView = {
+        let banner = GADBannerView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        return banner
+    }()
     
     var historyDict = [String: [[Double?]]]()  // JSON parsing이 끝난 뒤 히스토리 데이터를 담을 딕셔너리
     
@@ -54,6 +61,8 @@ final class CalcViewController: UIViewController {
         setupPickerView()
         setupButton()
         setupTextField()
+        
+        setupBannerViewToBottom()
         
         //playAnimation()
     }
@@ -355,10 +364,6 @@ final class CalcViewController: UIViewController {
     @objc private func calcStartButtonTapped(_ button: UIButton) {
         inputError = .noInputError
         
-        if calcView.amountTextField.text!.filter({ $0 == "." }).count > 1 {
-            inputError = .decimalInputError
-        }
-        
         // (a) 일괄매수를 선택한 경우
         if calcView.segmentedControl.selectedSegmentIndex == 0 {
             
@@ -415,6 +420,10 @@ final class CalcViewController: UIViewController {
                                  responder: calcView.amountTextField, error: .amountInputError)
                 return
             } else {
+                if calcView.amountTextField.text!.filter({ $0 == "." }).count > 1 {
+                    inputError = .decimalInputError
+                }
+                
                 // 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
                 if inputError == .decimalInputError {
                     showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
@@ -534,7 +543,7 @@ final class CalcViewController: UIViewController {
             if calcView.buyStartDateTextField.text == "" {
                 inputError = .buyStartDateInputError
                 showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.buyStartDateErrorMessage1,
+                                 message: Constant.MessageSetting.buyStartDateErrorMessage2,
                                  responder: calcView.buyStartDateTextField, error: .buyStartDateInputError)
                 return
             } else {
@@ -625,6 +634,10 @@ final class CalcViewController: UIViewController {
                                  responder: calcView.amountTextField, error: .amountInputError)
                 return
             } else {
+                if calcView.amountTextField.text!.filter({ $0 == "." }).count > 1 {
+                    inputError = .decimalInputError
+                }
+                
                 // 매 회 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
                 if inputError == .decimalInputError {
                     showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
@@ -926,36 +939,74 @@ extension CalcViewController: UITextFieldDelegate {
                 guard range.location < maxLength else { return false }
             }
             
-//            if let removeAllSeprator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator,
-//                                                                            with: "") {
-//                var beforeForemattedString = removeAllSeprator + string
-//                if formatter.number(from: string) != nil {
-//                    if let formattedNumber = formatter.number(from: beforeForemattedString),
-//                       let formattedString = formatter.string(from: formattedNumber) {
-//                        textField.text = formattedString
-//                        return false
-//                    }
-//                } else {
-//                    if string == "" {
-//                        let lastIndex = beforeForemattedString.index(beforeForemattedString.endIndex, offsetBy: -1)
-//                        beforeForemattedString = String(beforeForemattedString[..<lastIndex])
-//                        if let formattedNumber = formatter.number(from: beforeForemattedString),
-//                           let formattedString = formatter.string(from: formattedNumber) {
-//                            textField.text = formattedString
-//                            return false
-//                        }
-//                    } else { // 문자일 때
-//                        return false
-//                    }
-//                }
-//            }
-            
             // 위의 조건들을 모두 만족해서 여기까지 왔다면 입력 허용
             return true
         }
         
         // 나머지 TextField는 모두 글자 입력을 허용하지 않음
         return false
+    }
+    
+}
+
+//MARK: - 구글 애드몹 관련 메서드
+
+extension CalcViewController: GADBannerViewDelegate {
+    
+    func setupBannerViewToBottom(height: CGFloat = 50) {
+        let adSize = GADAdSizeFromCGSize(CGSize(width: view.frame.width, height: height))
+        bannerView = GADBannerView(adSize: adSize)
+
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        NSLayoutConstraint.activate([
+            bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bannerView.heightAnchor.constraint(equalToConstant: height)
+        ])
+
+        //bannerView.adUnitID = "ca-app-pub-5804054899003424/3613736945"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
+    }
+    
+    // Tells the delegate an ad request loaded an ad.
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+        UIView.animate(withDuration: 1) {
+            bannerView.alpha = 1
+        }
+    }
+    
+    // Tells the delegate an ad request failed.
+    private func adView(_ bannerView: GADBannerView,
+                        didFailToReceiveAdWithError error: Error) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    // Tells the delegate that a full-screen view will be presented in response
+    // to the user clicking on an ad.
+    private func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view will be dismissed.
+    private func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that the full-screen view has been dismissed.
+    private func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        
+    }
+    
+    // Tells the delegate that a user click will open another app (such as
+    // the App Store), backgrounding the current app.
+    private func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        
     }
     
 }
