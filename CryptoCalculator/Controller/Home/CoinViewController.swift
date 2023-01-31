@@ -104,7 +104,6 @@ final class CoinViewController: UIViewController {
         setupButton()
         setupTableContainerView()
         setupTableView()
-        //loadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,8 +123,6 @@ final class CoinViewController: UIViewController {
     
     @objc private func updateData() {
         loadData()
-        //print("[\(Date())] 코인 데이터 업데이트 완료")
-        //apiTimer.invalidate()
     }
     
     // REST API를 이용해 서버에서 데이터 가져오기
@@ -430,10 +427,12 @@ extension CoinViewController: UITableViewDataSource, UITableViewDelegate {
         //let coinMinimumDate = isFiltering() ? coinArrayFiltered[indexPath.row].atlDate : coinArray[indexPath.row].atlDate
         
         // AlertController, AlertAction 생성
-        let alert = UIAlertController(title: "Confirm", message: "Do you want to choose\n \(coinName)(\(coinSymbol))?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Confirm",
+                                      message: Constant.MessageSetting.coinSelectMessage +
+                                      "\n\(coinName)(\(coinSymbol))?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            // Singleton 패턴으로 데이터 전달하기
+            // Singleton 패턴으로 CalcVC의 coinTypeTextField에게 데이터 전달하기
             DataPassManager.shared.selectedCoinID = coinID
             DataPassManager.shared.selectedCoinName = coinName
             DataPassManager.shared.selectedCoinSymbol = coinSymbol

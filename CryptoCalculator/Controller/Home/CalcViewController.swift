@@ -64,7 +64,7 @@ final class CalcViewController: UIViewController {
         
         setupBannerViewToBottom()
         
-        //playAnimation()
+        playAnimation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,9 +103,6 @@ final class CalcViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
         
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "clock.arrow.circlepath"), style: .plain, target: self, action: #selector(recentInputButtonTapped))
-//        navigationItem.leftBarButtonItem?.tintColor = .label
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "eraser"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .label
                 
@@ -122,11 +119,11 @@ final class CalcViewController: UIViewController {
     // ContainerView 설정
     private func setupContainerView() {
         DispatchQueue.main.async {
-            _ = [self.calcView.coinTypeContainerView, self.calcView.buyStartDateContainerView,
-                 self.calcView.amountContainerView, self.calcView.sellDateContainerView].map{
-                $0.setViewBorderGradient(
-                color1: Constant.UIColorSetting.themeGradientColor1,
-                color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) }
+            [self.calcView.coinTypeContainerView, self.calcView.buyStartDateContainerView,
+             self.calcView.amountContainerView, self.calcView.sellDateContainerView]
+                .forEach({ $0.setViewBorderGradient(
+                    color1: Constant.UIColorSetting.themeGradientColor1,
+                    color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) })
         }
     }
     
@@ -160,30 +157,40 @@ final class CalcViewController: UIViewController {
     }
     
     private func setupTextField() {
-        _ = [calcView.coinTypeTextField, calcView.buyStartDateTextField, calcView.buyEndDateTextField,
-             calcView.sellDateTextField, calcView.frequencyTextField, calcView.amountTextField]
-            .map {
-                $0.delegate = self
-//                $0.addTarget(self, action: #selector(activateSubmitButton), for: .allEvents)
-            }
+        [calcView.coinTypeTextField, calcView.buyStartDateTextField, calcView.buyEndDateTextField,
+         calcView.sellDateTextField, calcView.frequencyTextField, calcView.amountTextField]
+            .forEach({ $0.delegate = self })
     }
     
     // 수익계산 화면을 처음 표시할 때 ContainerView를 하나씩 보여주는 애니메이션 효과 적용
     private func playAnimation() {
         DispatchQueue.main.async {
-            self.calcView.segmentedControl.selectedSegmentIndex = 0
-            let targetArray = [self.calcView.coinTypeContainerView,
-                               self.calcView.buyStartDateContainerView,
-                               self.calcView.amountContainerView,
-                               self.calcView.sellDateContainerView,
-                               self.calcView.calcStartButton]
-            _ = targetArray.map{ $0.alpha = 0 }
+            //self.calcView.segmentedControl.setIndex(index: 0)
             
-            for i in 0..<targetArray.count {
-                UIView.animate(withDuration: 1.0, delay: Double(i)*0.4) {
-                    targetArray[i].alpha = 1
+            let targetArray1 = [self.calcView.coinTypeLabel,
+                                self.calcView.buyStartDateLabel,
+                                self.calcView.sellDateLabel,
+                                self.calcView.amountLabel]
+            let targetArray2 = [self.calcView.coinTypeContainerView,
+                                self.calcView.buyStartDateContainerView,
+                                self.calcView.sellDateContainerView,
+                                self.calcView.amountContainerView]
+            
+            targetArray1.forEach({ $0.alpha = 0 })
+            targetArray2.forEach({ $0.alpha = 0 })
+            self.calcView.calcStartButton.alpha = 0
+            
+            for i in 0..<targetArray1.count+1 {
+                UIView.animate(withDuration: 1.0, delay: Double(i)*0.3) {
+                    if i < targetArray1.count {
+                        targetArray1[i].alpha = 1
+                        targetArray2[i].alpha = 1
+                    } else {
+                        self.calcView.calcStartButton.alpha = 1
+                    }
                 }
             }
+            
         }
     }
     
@@ -266,13 +273,13 @@ final class CalcViewController: UIViewController {
         
         let selectedDateFormatter = DateFormatter()
         selectedDateFormatter.dateFormat = "MMM dd, yyyy"
-        selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
-        selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        selectedDateFormatter.timeZone = Constant.DateSetting.standardTimeZone
+        selectedDateFormatter.locale = Constant.DateSetting.standardLocale
         
         let convertedDateFormatter = DateFormatter()
         convertedDateFormatter.dateFormat = "yyyy-MM-dd"
-        convertedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
-        convertedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        convertedDateFormatter.timeZone = Constant.DateSetting.standardTimeZone
+        convertedDateFormatter.locale = Constant.DateSetting.standardLocale
         
         if sender == calcView.buyStartDatePicker {
             calcView.buyStartDateTextField.textColor = .label
@@ -297,13 +304,13 @@ final class CalcViewController: UIViewController {
     @objc private func textFieldAction(_ textField: UITextField) {
         let selectedDateFormatter = DateFormatter()
         selectedDateFormatter.dateFormat = "MMM dd, yyyy"
-        selectedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
-        selectedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
-        
+        selectedDateFormatter.timeZone = Constant.DateSetting.standardTimeZone
+        selectedDateFormatter.locale = Constant.DateSetting.standardLocale
+
         let convertedDateFormatter = DateFormatter()
         convertedDateFormatter.dateFormat = "yyyy-MM-dd"
-        convertedDateFormatter.timeZone = TimeZone(identifier: TimeZone.current.identifier)
-        convertedDateFormatter.locale = Locale(identifier: Locale.current.identifier)
+        convertedDateFormatter.timeZone = Constant.DateSetting.standardTimeZone
+        convertedDateFormatter.locale = Constant.DateSetting.standardLocale
         
         if calcView.coinTypeTextField.isFirstResponder {
             calcView.coinTypeTextField.textColor = .label
@@ -664,9 +671,18 @@ final class CalcViewController: UIViewController {
                 let frequencyString: String = calcView.frequencyTextField.text!
                 let amountString: String = calcView.amountTextField.text!
                 
-                let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd, start: self.buyStartDateStringToCalculate, end: self.buyEndDateStringToCalculate)
-                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
-                let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
+                let buyStartTobuyEndLength: Int =
+                CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd,
+                                                         start: self.buyStartDateStringToCalculate,
+                                                         end: self.buyEndDateStringToCalculate)
+                let buyStartToSellLength: Int =
+                CalcManager.shared.calculateDateInterval(type: .buyStartToSell,
+                                                         start: self.buyStartDateStringToCalculate,
+                                                         end: self.sellDateStringToCalculate)
+                let buyToNowLength: Int =
+                CalcManager.shared.calculateDateInterval(type: .buyStartToNow,
+                                                         start: self.buyStartDateStringToCalculate,
+                                                         end: nil)
                 
                 // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
                 NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
@@ -759,7 +775,8 @@ final class CalcViewController: UIViewController {
     @objc private func calcResetButtonTapped(_ button: UIButton) {
         // Alert 메세지 표시
         showPopUpMessage(with: button, title: Constant.MessageSetting.resetTitle,
-                         message: Constant.MessageSetting.resetMessage, responder: nil, error: .noInputError)
+                         message: Constant.MessageSetting.resetMessage,
+                         responder: nil, error: .noInputError)
     }
     
     @objc private func recentInputButtonTapped() {
@@ -853,18 +870,11 @@ extension CalcViewController: UITextFieldDelegate {
     // TextField 편집이 시작되었을 때 실행할 내용
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == calcView.coinTypeTextField {
-            
-            //calcView.coinTypeTextField.resignFirstResponder()
-            
-            //let coinVC = CoinViewController()
-            //navigationController?.pushViewController(coinVC, animated: true)
-            
-            // 코인조회 VC 인스턴스 생성
+            // 코인 리스트를 보여주는 VC의 인스턴스 생성
             let coinVC = CoinViewController()
-            // 계산결과 VC에 Navigation VC 넣기
             let nav = UINavigationController(rootViewController: coinVC)
             
-            // Bottom Sheet 관련 설정
+            // 화면 스타일 설정
             nav.modalPresentationStyle = .fullScreen
             nav.isModalInPresentation = true  // true이면 dismiss 할 수 없음
             
@@ -880,40 +890,14 @@ extension CalcViewController: UITextFieldDelegate {
             self.present(nav, animated: true, completion: nil)
         }
 
-        if textField == calcView.buyStartDateTextField {
-
-        }
-
-        if textField == calcView.buyEndDateTextField {
-
-        }
-
-        if textField == calcView.sellDateTextField {
-
-        }
-
-        if textField == calcView.frequencyTextField {
-
-        }
-
         if textField == calcView.amountTextField {
-
             calcView.amountTextField.text = calcView.amountTextField.text?.replacingOccurrences(of: ",", with: "")
         }
     }
     
     // TextField 편집이 종료되었을 때 실행할 내용
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        // 유일하게 키보드 입력과 붙여넣기 등의 작업이 허용되는 amountTextField의 경우 철저한 텍스트 검사를 수행
-//        if textField == calcView.amountTextField {
-//            guard textField.text != "" else { return }
-//            inputError = .noInputError
-//
-//            if 0...1 ~= textField.text!.filter({ $0 == "." }).count {
-//            } else {
-//                inputError = .decimalInputError
-//            }
-//        }
+
     }
     
     // 한 글자씩 입력이 끝날 때마다 입력된 내용을 허용할지 말지 결정

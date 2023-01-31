@@ -291,33 +291,71 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 //self.darkModeSwitch.addTarget(self, action: #selector(handleAppearanceChange(_:)), for: .valueChanged)
 //cell.accessoryView = self.darkModeSwitch
 
-//MARK: - Contact 메뉴를 누르면 개발자 이메일 주솔 메일 보내는 화면 보여주기
+//MARK: - Contact 메뉴를 누르면 개발자 이메일 주소로 메일 보내는 화면 보여주기
 
 extension SettingViewController: MFMailComposeViewControllerDelegate {
     
     private func contactMenuTapped() {
         if MFMailComposeViewController.canSendMail() {
+            // 앱 이름 저장
+            var appName: String? {
+                if let bundleDisplayName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
+                    return bundleDisplayName
+                } else if let bundleName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
+                    return bundleName
+                }
+                return nil
+            }
+            
+            // 앱 버전 저장
+            var appVersion: String? {
+                if let bundleVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+                    return bundleVersion
+                } else {
+                    return nil
+                }
+            }
+            
+            // 기기 이름 저장
+            var device: String? {
+                var modelName = ProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] ?? ""
+                let myDevice = UIDevice.current
+                let selName = "_\("deviceInfo")ForKey:"
+                let selector = NSSelectorFromString(selName)
+                
+                if myDevice.responds(to: selector) {
+                    modelName = String(describing: myDevice.perform(selector, with: "marketing-name").takeRetainedValue())
+                    return modelName
+                } else {
+                    return nil
+                }
+            }
+            
+            // 기기 OS 버전 저장
+            let iOSVersion = UIDevice.current.systemVersion
+            
+            let messageBody: String = "* My Info *" + "\n" +
+                                      "App name: \(appName ?? "N/A")" + "\n" +
+                                      "App version: \(appVersion ?? "N/A")" + "\n" +
+                                      "Device name: \(device ?? "N/A")" + "\n" +
+                                      "Device OS version: \(iOSVersion)" + "\n"
+            
             let compseVC = MFMailComposeViewController()
             compseVC.mailComposeDelegate = self
-            
             compseVC.setToRecipients(["hyleedevelop@gmail.com"])
-            compseVC.setSubject("")
-            compseVC.setMessageBody("", isHTML: false)
+            compseVC.setSubject("[App Contact Email] ")
+            compseVC.setMessageBody(messageBody, isHTML: false)
             
             self.present(compseVC, animated: true, completion: nil)
         }
         else {
-            self.showSendMailErrorAlert()
+            let sendMailErrorAlert = UIAlertController(title: Constant.MessageSetting.errorTitle,
+                                                       message: Constant.MessageSetting.sendEmailErrorMessage,
+                                                       preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "OK", style: .default)
+            sendMailErrorAlert.addAction(confirmAction)
+            self.present(sendMailErrorAlert, animated: true, completion: nil)
         }
-    }
-    
-    private func showSendMailErrorAlert() {
-        let sendMailErrorAlert = UIAlertController(title: Constant.MessageSetting.errorTitle,
-                                                   message: Constant.MessageSetting.sendEmailErrorMessage,
-                                                   preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "OK", style: .default)
-        sendMailErrorAlert.addAction(confirmAction)
-        self.present(sendMailErrorAlert, animated: true, completion: nil)
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController,

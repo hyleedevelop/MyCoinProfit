@@ -357,6 +357,7 @@ extension CalcResultViewController: GADBannerViewDelegate {
 
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bannerView)
+        
         NSLayoutConstraint.activate([
             bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),

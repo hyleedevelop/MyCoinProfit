@@ -46,7 +46,7 @@ final class CalcManager {
         
         let nowDate = Date()
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.timeZone = Constant.DateSetting.standardTimeZone
         formatter.dateFormat = "yyyy-MM-dd"
         let nowDateString = formatter.string(from: nowDate)
         
@@ -191,7 +191,7 @@ final class CalcManager {
         // 날짜 형식 지정
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = TimeZone(abbreviation: "KST")
+        formatter.timeZone = Constant.DateSetting.standardTimeZone
         
         // API에서 받아온 Unix Timestamp는 ms 단위를 가지기 떄문에 s 단위로 변환(/1000)
         let date = Date(timeIntervalSince1970: timestamp/1000)

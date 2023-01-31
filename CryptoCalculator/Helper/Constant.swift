@@ -109,6 +109,9 @@ struct Constant {
         static let buyStartMinimumDate: Date = Date(timeIntervalSince1970: 1367107200)  // 2013-04-28 00:00:00
         static let buyEndMinimumDate: Date = Calendar.current.date(byAdding: .day, value: 1, to: buyStartMinimumDate)!
         static let sellMinimumDate: Date = Calendar.current.date(byAdding: .day, value: 1, to: buyEndMinimumDate)!
+        
+        static let standardTimeZone: TimeZone = TimeZone(identifier: TimeZone.current.identifier)!
+        static let standardLocale: Locale = Locale(identifier: "en_US")
     }
     
     struct UnitSetting {
@@ -164,8 +167,8 @@ struct Constant {
         static let buyEndDateNoDataErrorMessage = "There is no data for the selected last purchase date. Please select another one."
         static let sellDateNoDataErrorMessage = "There is no data for the selected sell date. Please select another one."
         
-        static let coinTypeErrorMessage = "You must select one from the coin list."
-        static let buyStartDateErrorMessage1 = "You must select a purchase date."
+        static let coinTypeErrorMessage = "You must select the coin."
+        static let buyStartDateErrorMessage1 = "You must select the purchase date."
         static let buyStartDateErrorMessage2 = "You must select the first purchase date."
         static let buyStartDateErrorMessage3 = "The purchase date must be earlier than the sell date."
         static let buyStartDateErrorMessage4 = "The first purchase date must be earlier than the last purchase date."
@@ -174,14 +177,15 @@ struct Constant {
         static let buyEndDateErrorMessage2 = "The last purchase date must be later than the first purchase date."
         static let buyEndDateErrorMessage3 = "The last purchase date must be earlier than the sell date."
         static let frequencyErrorMessage = "You must select the repeat purchase frequency."
-        static let amountErrorMessage1 = "You must enter purchase amount in dollars."
+        static let amountErrorMessage1 = "You must enter the purchase amount in dollars."
         static let amountErrorMessage2 = "Only one decimal point is allowed."
-        static let amountErrorMessage3 = "You must enter amount of each purchase in dollars."
+        static let amountErrorMessage3 = "You must enter the amount of each purchase in dollars."
         static let sellDateErrorMessage1 = "You must select the sell date."
         static let sellDateErrorMessage2 = "The sell date must be later than the purchase date."
         static let sellDateErrorMessage3 = "The sell date must be later than the first purchase date."
         static let sellDateErrorMessage4 = "The sell date must be later than the last purchase date."
         
+        static let coinSelectMessage = "Do you want to select"
         static let resetMessage = "Are you sure you want to reset all input?"
         static let exportAsImageMessage = "Do you want to export the result as an image?"
         static let sendEmailErrorMessage = "Check your e-mail settings."
