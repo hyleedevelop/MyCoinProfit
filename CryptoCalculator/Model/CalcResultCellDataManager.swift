@@ -40,8 +40,8 @@ final class CalcResultCellDataManager {
     ]
     
     private var graphModel = [
-        GraphModel(title: "Coin Price ($)"),
         GraphModel(title: "Total Invested ($)"),
+        GraphModel(title: "Coin Price ($)"),
         GraphModel(title: "ROI (%)"),
     ]
 

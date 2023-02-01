@@ -40,15 +40,13 @@ final class MainTabBarController: UITabBarController {
         
         // 수익계산 탭 (홈)
         let vc1 = UINavigationController(rootViewController: CalcViewController())
-        vc1.tabBarItem.selectedImage = UIImage(systemName: "list.clipboard.fill")
         vc1.tabBarItem.title = Constant.TitleSetting.tabName1
-        vc1.tabBarItem.image = UIImage(systemName: "list.clipboard")
+        vc1.tabBarItem.image = UIImage(systemName: "square.and.pencil")
         
         // 설정 탭
         let vc2 = UINavigationController(rootViewController: SettingViewController())
-        vc2.tabBarItem.selectedImage = UIImage(systemName: "gearshape.fill")
         vc2.tabBarItem.title = Constant.TitleSetting.tabName3
-        vc2.tabBarItem.image = UIImage(systemName: "gearshape")
+        vc2.tabBarItem.image = UIImage(systemName: "ellipsis")
         
         viewControllers = [vc1, vc2]
         

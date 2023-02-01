@@ -248,7 +248,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             //SettingCellDataManager.shared.updateAboutTheAppData(index: 3, newValue: appVersionString)
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
-            if 0...1 ~= indexPath.row {
+            if 0...3 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -272,10 +272,20 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 1 { contactMenuTapped() }
         case .aboutTheApp(_):
             if indexPath.row == 0 {
+                let websiteURL = NSURL(string: Constant.URLSetting.helpURL)
+                let webView = SFSafariViewController(url: websiteURL! as URL)
+                self.present(webView, animated: true, completion: nil)
+            }
+            if indexPath.row == 1 {
                 let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
                 navigationController?.pushViewController(acknowListVC, animated: true)
             }
-            if indexPath.row == 1 {
+            if indexPath.row == 2 {
+                let websiteURL = NSURL(string: Constant.URLSetting.privacyPolicyURL)
+                let webView = SFSafariViewController(url: websiteURL! as URL)
+                self.present(webView, animated: true, completion: nil)
+            }
+            if indexPath.row == 3 {
                 let websiteURL = NSURL(string: Constant.URLSetting.termsAndConditionsURL)
                 let webView = SFSafariViewController(url: websiteURL! as URL)
                 self.present(webView, animated: true, completion: nil)

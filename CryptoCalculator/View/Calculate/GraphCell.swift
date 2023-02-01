@@ -127,7 +127,7 @@ final class GraphCell: UITableViewCell {
         
         // 왼쪽 축의 범위 설정
         //lineChartView.leftAxis.axisMaximum = values.max()!
-        if mode == 1 { lineChartView.leftAxis.axisMinimum = 0.0 }
+        if mode == 0 { lineChartView.leftAxis.axisMinimum = 0.0 }
         
         let xAxis = lineChartView.xAxis
         xAxis.drawGridLinesEnabled = false

@@ -26,7 +26,9 @@ final class SettingCellDataManager {
     ]
     
     private var aboutTheAppModel = [
+        AboutTheAppModel(icon: UIImage(systemName: "questionmark.circle"), title: "Help", value: nil),
         AboutTheAppModel(icon: UIImage(systemName: "wand.and.stars.inverse"), title: "Third-Party Libraries", value: nil),
+        AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Privacy Policy", value: nil),
         AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Terms & Conditions", value: nil),
         AboutTheAppModel(icon: UIImage(systemName: "c.circle"), title: "Copyright", value: "Hoyeon Lee"),
         AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: "1.0.0 (1)"),

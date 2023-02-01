@@ -140,9 +140,9 @@ struct Constant {
         static let amountLabelTextFieldPlaceHolder1: String = "Enter amount in dollars"
         static let amountLabelTextFieldPlaceHolder2: String = "Enter amount of each purchase in dollars"
         
-        static let tabName1: String = "Home"
+        static let tabName1: String = "Calculate"
         static let tabName2: String = "Home"
-        static let tabName3: String = "Settings"
+        static let tabName3: String = "More"
         
         static let settingSectionName1: String = "Display"
         static let settingSectionName2: String = "Feedback"
@@ -193,8 +193,12 @@ struct Constant {
     }
      
     struct URLSetting {
+        static let helpURL =
+        "https://hyleenote.notion.site/Crypto-Calculator-5f6ae38726dd400c8b3a91a24da06795"
+        static let privacyPolicyURL =
+        "https://hyleenote.notion.site/Privacy-Policy-98bd35e6626c4accbd609616553b071e"
         static let termsAndConditionsURL =
-        "https://hyleenote.notion.site/hyleenote/Crypto-Calculator-5f6ae38726dd400c8b3a91a24da06795"
+        "https://hyleenote.notion.site/Terms-Conditions-037cf1cf478f4925bdc69f5404091242"
     }
     
     struct ImageSetting {

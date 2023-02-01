@@ -82,7 +82,7 @@ extension CustomSegmentedControl {
     private func createButton() {
         buttons = [UIButton]()
         buttons.removeAll()
-        subviews.forEach({$0.removeFromSuperview()})
+        subviews.forEach({ $0.removeFromSuperview() })
         
         for buttonTitle in buttonTitles {
             let button = UIButton(type: .system)

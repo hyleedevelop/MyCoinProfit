@@ -85,6 +85,7 @@ final class StatsCell: UITableViewCell {
                 if mode == i { myColor = Constant.UIColorSetting.themeGradientTenColorSet[i] }
             }
         }
+        
         self.itemIcon.tintColor = myColor
         self.itemIcon.image = icon
         self.itemLabel.text = title ?? "N/A"

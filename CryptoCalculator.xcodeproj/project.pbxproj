@@ -121,25 +121,25 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		073D261F2980145700C46666 /* Home */ = {
+		073D261F2980145700C46666 /* Calculate */ = {
 			isa = PBXGroup;
 			children = (
 				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
 				073F546D296D8D4F0099305A /* CalcResultViewController.swift */,
 				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
 			);
-			path = Home;
+			path = Calculate;
 			sourceTree = "<group>";
 		};
-		073D26202980147F00C46666 /* Setting */ = {
+		073D26202980147F00C46666 /* More */ = {
 			isa = PBXGroup;
 			children = (
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
 			);
-			path = Setting;
+			path = More;
 			sourceTree = "<group>";
 		};
-		073D2621298014D100C46666 /* Home */ = {
+		073D2621298014D100C46666 /* Calculate */ = {
 			isa = PBXGroup;
 			children = (
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
@@ -147,15 +147,15 @@
 				07846A212980FEDE00449A7D /* StatsCell.swift */,
 				07846A27298127BF00449A7D /* GraphCell.swift */,
 			);
-			path = Home;
+			path = Calculate;
 			sourceTree = "<group>";
 		};
-		073D2622298014DB00C46666 /* Setting */ = {
+		073D2622298014DB00C46666 /* More */ = {
 			isa = PBXGroup;
 			children = (
 				07941149294A19C800A4F632 /* SettingCell.swift */,
 			);
-			path = Setting;
+			path = More;
 			sourceTree = "<group>";
 		};
 		079411122949E84700A4F632 = {
@@ -201,8 +201,8 @@
 			children = (
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
 				070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */,
-				073D261F2980145700C46666 /* Home */,
-				073D26202980147F00C46666 /* Setting */,
+				073D261F2980145700C46666 /* Calculate */,
+				073D26202980147F00C46666 /* More */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -210,8 +210,8 @@
 		079411362949E86200A4F632 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				073D2621298014D100C46666 /* Home */,
-				073D2622298014DB00C46666 /* Setting */,
+				073D2621298014D100C46666 /* Calculate */,
+				073D2622298014DB00C46666 /* More */,
 			);
 			path = View;
 			sourceTree = "<group>";

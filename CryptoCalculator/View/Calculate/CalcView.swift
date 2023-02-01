@@ -14,12 +14,18 @@ final class CalcView: UIView {
     //MARK: - 커스텀 메뉴바
     
     // 투자방법 선택
-    lazy var segmentedControl: CustomSegmentedControl = {
-        let window = UIApplication.shared.windows.first
-        let top = window?.safeAreaInsets.top
-        print(top!)
+    let segmentedControl: CustomSegmentedControl = {
+        // status bar의 높이 구하기
+        // (windows was deprecated in iOS 15.0에 대응)
+        var topSafeAreaHeight: CGFloat {
+            let scenes = UIApplication.shared.connectedScenes
+            let windowScene = scenes.first as? UIWindowScene
+            let window = windowScene?.windows.first
+            return window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        }
+        // segmented control의 꼭대기를 status bar의 바닥에서 30만큼 아래에 배치
         let control = CustomSegmentedControl(
-            frame: CGRect(x: 0, y: top! + 30,
+            frame: CGRect(x: 0, y: topSafeAreaHeight + 30,
                           width: UIScreen.main.bounds.width, height: 80))
         control.setButtonTitles(buttonTitles: [Constant.TitleSetting.segmentItemName1,
                                                Constant.TitleSetting.segmentItemName2])
@@ -44,7 +50,8 @@ final class CalcView: UIView {
     let coinTypeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.textColor = .label
         label.text = Constant.TitleSetting.coinTypeLabelName
         label.textAlignment = .left
@@ -61,14 +68,12 @@ final class CalcView: UIView {
         tf.autocorrectionType = .no
         tf.spellCheckingType = .no
         tf.clearsOnBeginEditing = false
-        //tf.inputView = coinTypePicker
-        tf.inputView = UIView()
-        tf.inputAccessoryView = UIView()
         tf.clearButtonMode = .whileEditing
         tf.placeholder = Constant.TitleSetting.coinTypeTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
 
@@ -105,7 +110,8 @@ final class CalcView: UIView {
     let buyStartDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyStartDateLabelName1
         label.textColor = .label
         label.textAlignment = .left
@@ -127,7 +133,8 @@ final class CalcView: UIView {
         tf.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -170,7 +177,8 @@ final class CalcView: UIView {
     let buyEndDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.buyEndDateLabelName
         label.textColor = .label
         label.textAlignment = .left
@@ -192,7 +200,8 @@ final class CalcView: UIView {
         tf.placeholder = Constant.TitleSetting.buyEndDateTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -235,7 +244,8 @@ final class CalcView: UIView {
     let frequencyLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.frequencyLabelName
         label.textColor = .label
         label.textAlignment = .left
@@ -257,7 +267,8 @@ final class CalcView: UIView {
         tf.placeholder = Constant.TitleSetting.frequencyTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -294,7 +305,8 @@ final class CalcView: UIView {
     let amountLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.amountLabelName1
         label.textColor = .label
         label.textAlignment = .left
@@ -315,7 +327,8 @@ final class CalcView: UIView {
         tf.clearButtonMode = .whileEditing
         tf.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
         tf.textColor = .label
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -346,7 +359,8 @@ final class CalcView: UIView {
     let sellDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize, weight: Constant.ShapeSetting.labelFontWeight)
+        label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
+                                       weight: Constant.ShapeSetting.labelFontWeight)
         label.text = Constant.TitleSetting.sellDateLabelName
         label.textColor = .label
         label.textAlignment = .left
@@ -368,7 +382,8 @@ final class CalcView: UIView {
         tf.placeholder = Constant.TitleSetting.sellDateTextFieldPlaceHolder
         tf.textColor = .label
         tf.tintColor = .clear
-        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize, weight: Constant.ShapeSetting.textfieldFontWeight)
+        tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
+                                    weight: Constant.ShapeSetting.textfieldFontWeight)
         return tf
     }()
     
@@ -484,17 +499,22 @@ final class CalcView: UIView {
         self.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
-            scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            scrollView.topAnchor.constraint(
+                equalTo: segmentedControl.bottomAnchor, constant: 0),
+            scrollView.bottomAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            scrollView.leadingAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            scrollView.trailingAnchor.constraint(
+                equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
         ])
     }
     
     // 각 요소별 StackView 설정
     private func setupInputStackView() {
-        let containerViewArray = [coinTypeContainerView, buyStartDateContainerView, buyEndDateContainerView,
-                                  frequencyContainerView, amountContainerView, sellDateContainerView]
+        let containerViewArray = [coinTypeContainerView, buyStartDateContainerView,
+                                  buyEndDateContainerView, frequencyContainerView,
+                                  amountContainerView, sellDateContainerView]
         let textFieldArray = [coinTypeTextField, buyStartDateTextField, buyEndDateTextField,
                               frequencyTextField, amountTextField, sellDateTextField]
         let stackViewArray = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,

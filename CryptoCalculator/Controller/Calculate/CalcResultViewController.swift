@@ -328,8 +328,8 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let model = graphModel[indexPath.row]
             
             var dataArray = [Double]()
-            if indexPath.row == 0 { dataArray = self.coinPriceArray }
-            if indexPath.row == 1 { dataArray = self.totalInvestedArray }
+            if indexPath.row == 0 { dataArray = self.totalInvestedArray }
+            if indexPath.row == 1 { dataArray = self.coinPriceArray }
             if indexPath.row == 2 { dataArray = self.roiArray.map{ $0 * 100.0 } }
             
             //cell.isUserInteractionEnabled = true

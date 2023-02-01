@@ -103,10 +103,10 @@ final class CalcViewController: UIViewController {
         navigationItem.standardAppearance = navigationBarAppearance
         navigationItem.compactAppearance = navigationBarAppearance
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "eraser"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
         navigationItem.rightBarButtonItem?.tintColor = .label
                 
-        navigationItem.title = Constant.TitleSetting.tabName2
+        navigationItem.title = Constant.TitleSetting.tabName1
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
@@ -259,8 +259,9 @@ final class CalcViewController: UIViewController {
         
         // CalcResultVC의 대리자에게 데이터 전달
         //coinVC.coinTypeDataDelegate = self
-        calcResultVC.receiveCalcResultData(segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
-                                      with: calcResult)
+        calcResultVC.receiveCalcResultData(
+            segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
+            with: calcResult)
         
         // 화면 전환
         //self.present(nav, animated: true, completion: nil)
