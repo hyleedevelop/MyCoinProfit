@@ -328,8 +328,8 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let model = graphModel[indexPath.row]
             
             var dataArray = [Double]()
-            if indexPath.row == 0 { dataArray = self.totalInvestedArray }
-            if indexPath.row == 1 { dataArray = self.coinPriceArray }
+            if indexPath.row == 0 { dataArray = self.coinPriceArray }
+            if indexPath.row == 1 { dataArray = self.totalInvestedArray }
             if indexPath.row == 2 { dataArray = self.roiArray.map{ $0 * 100.0 } }
             
             //cell.isUserInteractionEnabled = true
@@ -365,7 +365,8 @@ extension CalcResultViewController: GADBannerViewDelegate {
             bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobMyID
+        //bannerView.adUnitID = "ca-app-pub-5804054899003424/3613736945"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

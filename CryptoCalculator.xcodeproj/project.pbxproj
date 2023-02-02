@@ -29,7 +29,6 @@
 		0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113A2949E9D600A4F632 /* SettingViewController.swift */; };
 		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
-		07941144294A158C00A4F632 /* CryptoCalculator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */; };
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
@@ -72,7 +71,6 @@
 		0794113A2949E9D600A4F632 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DCA Planner.xcdatamodel"; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 				07846A25298118A200449A7D /* CalcResultCellDataManager.swift */,
 				07FCC2F0297D83E200A06EAD /* SettingCellData.swift */,
 				073D261A297F7FB700C46666 /* SettingCellDataManager.swift */,
-				07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -410,7 +407,6 @@
 				073A324829840EF00097C9DD /* UIColor.swift in Sources */,
 				07280783295817CB00CF65D9 /* Double.swift in Sources */,
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
-				07941144294A158C00A4F632 /* CryptoCalculator.xcdatamodeld in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
 				07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */,
 				070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */,
@@ -581,7 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -589,6 +585,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Crypto Calculator";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow Photos app access to save screenshots.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -618,13 +615,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoCalculator/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Crypto Calculator";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow Photos app access to save screenshots.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -688,19 +686,6 @@
 			productName = Screenshots;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		07941141294A0F9000A4F632 /* CryptoCalculator.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */,
-			);
-			currentVersion = 07941142294A0F9000A4F632 /* DCA Planner.xcdatamodel */;
-			path = CryptoCalculator.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 079411132949E84700A4F632 /* Project object */;
 }

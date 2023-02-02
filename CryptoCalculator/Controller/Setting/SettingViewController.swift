@@ -102,7 +102,7 @@ final class SettingViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
         ])
     }
     
@@ -248,7 +248,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             //SettingCellDataManager.shared.updateAboutTheAppData(index: 3, newValue: appVersionString)
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
-            if 0...3 ~= indexPath.row {
+            if 0...1 ~= indexPath.row {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -272,20 +272,10 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 1 { contactMenuTapped() }
         case .aboutTheApp(_):
             if indexPath.row == 0 {
-                let websiteURL = NSURL(string: Constant.URLSetting.helpURL)
-                let webView = SFSafariViewController(url: websiteURL! as URL)
-                self.present(webView, animated: true, completion: nil)
-            }
-            if indexPath.row == 1 {
                 let acknowListVC = AcknowListViewController(fileNamed: "Pods-CryptoSimulator-acknowledgements")
                 navigationController?.pushViewController(acknowListVC, animated: true)
             }
-            if indexPath.row == 2 {
-                let websiteURL = NSURL(string: Constant.URLSetting.privacyPolicyURL)
-                let webView = SFSafariViewController(url: websiteURL! as URL)
-                self.present(webView, animated: true, completion: nil)
-            }
-            if indexPath.row == 3 {
+            if indexPath.row == 1 {
                 let websiteURL = NSURL(string: Constant.URLSetting.termsAndConditionsURL)
                 let webView = SFSafariViewController(url: websiteURL! as URL)
                 self.present(webView, animated: true, completion: nil)
@@ -391,7 +381,8 @@ extension SettingViewController: GADBannerViewDelegate {
             bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobMyID
+        //bannerView.adUnitID = "ca-app-pub-5804054899003424/3613736945"
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"  // 테스트 용
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

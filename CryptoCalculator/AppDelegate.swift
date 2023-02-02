@@ -10,6 +10,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import FirebaseCore
 import GoogleMobileAds
+import AppTrackingTransparency
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // IQKeyboard의 이전/이후 버튼 조절이 허용된 View
         // (해당 View 내의 TextField끼리는 이전/이후 버튼을 통해 상호 간편이동이 가능해짐)
         IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses = [CalcView.self]
+        
+        // 앱 추적 권한 허용 요청
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .authorized:
+                    print("status = authorized")
+                case .denied:
+                    print("status = denied")
+                case .notDetermined:
+                    print("status = notDetermined")
+                case .restricted:
+                    print("status = restricted")
+                @unknown default:
+                    print("status = default")
+                }
+            }
+        }
         
         // Firebase 초기화
         FirebaseApp.configure()

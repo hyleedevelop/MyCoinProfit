@@ -8,6 +8,7 @@
 import UIKit
 
 struct Constant {
+    
     struct UIColorSetting {
         static let lightModeBackground: UIColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         static let darkModeBackground: UIColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
@@ -189,7 +190,7 @@ struct Constant {
         static let resetMessage = "Are you sure you want to reset all input?"
         static let exportAsImageMessage = "Do you want to export the result as an image?"
         static let sendEmailErrorMessage = "Check your e-mail settings."
-        static let notifyLaterUpdate = "This will be updated later."
+        static let notifyLaterUpdate = "This will be updated soon."
     }
      
     struct URLSetting {
@@ -199,14 +200,9 @@ struct Constant {
         "https://hyleenote.notion.site/Privacy-Policy-98bd35e6626c4accbd609616553b071e"
         static let termsAndConditionsURL =
         "https://hyleenote.notion.site/Terms-Conditions-037cf1cf478f4925bdc69f5404091242"
+        
+        static let admobMyID = "ca-app-pub-5804054899003424/3613736945"
+        static let admobTestID = "ca-app-pub-3940256099942544/2934735716"
     }
     
-    struct ImageSetting {
-        static let checkMarkYes: UIImage = UIImage(systemName: "checkmark.circle.fill")!
-        static let checkMarkNo: UIImage = UIImage(systemName: "xmark.circle.fill")!
-    }
-    
-    struct AnimationSetting {
-        static let transitionDuration: Double = 0.25
-    }
 }
