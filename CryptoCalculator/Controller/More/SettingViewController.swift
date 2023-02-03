@@ -108,9 +108,14 @@ final class SettingViewController: UIViewController {
     
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
+        // 앱 버전과 빌드 넘버를 가져와서 모델에 업데이트 하기
+        let appVersionString = "\(currentAppVersion()) (\(currentBuildNumber()))"
+        SettingCellDataManager.shared.updateAboutTheAppData(index: 5, newValue: appVersionString)
+        
         self.dataSource = [SettingCellDataManager.shared.appSettingData(),
                            SettingCellDataManager.shared.feedbackData(),
                            SettingCellDataManager.shared.aboutTheAppData()]
+
         tableView.reloadData()
     }
     
@@ -242,10 +247,6 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         case let .aboutTheApp(aboutTheAppModel):
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingCell
             let model = aboutTheAppModel[indexPath.row]
-            
-            // 앱 버전과 빌드 넘버를 가져와서 모델에 업데이트 하기
-            //let appVersionString = "\(currentAppVersion()) (\(currentBuildNumber())))"
-            //SettingCellDataManager.shared.updateAboutTheAppData(index: 5, newValue: appVersionString)
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
             if 0...3 ~= indexPath.row {

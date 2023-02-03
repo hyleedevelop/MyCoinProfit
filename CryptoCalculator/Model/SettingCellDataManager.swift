@@ -31,7 +31,7 @@ final class SettingCellDataManager {
         AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Privacy Policy", value: nil),
         AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Terms & Conditions", value: nil),
         AboutTheAppModel(icon: UIImage(systemName: "c.circle"), title: "Copyright", value: "HOYEON LEE"),
-        AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: "1.0.0 (1)"),
+        AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: nil),
     ]
     
     //MARK: - 메서드 정의
