@@ -32,7 +32,7 @@
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
-		07B17631298754B600660978 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B17630298754B600660978 /* GoogleService-Info.plist */; };
+		07B07E96298CFEA300E9F852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */; };
 		07BAB0B6298544F300269EE5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BAB0B5298544F300269EE5 /* Int.swift */; };
 		07BED96A2975801B009B7450 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BED9692975801B009B7450 /* UILabel.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinListCell.swift */; };
@@ -74,7 +74,7 @@
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
-		07B17630298754B600660978 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07BAB0B5298544F300269EE5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		07BED9692975801B009B7450 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListCell.swift; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 		0794111D2949E84700A4F632 /* CryptoCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				07B17630298754B600660978 /* GoogleService-Info.plist */,
+				07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */,
 				0794112F2949E84700A4F632 /* Info.plist */,
 				07CBF1B72989397900CABF26 /* Pods-CryptoCalculator-acknowledgements.plist */,
 				0794111E2949E84700A4F632 /* AppDelegate.swift */,
@@ -326,8 +326,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */,
-				07B17631298754B600660978 /* GoogleService-Info.plist in Resources */,
 				0794112B2949E84700A4F632 /* Assets.xcassets in Resources */,
+				07B07E96298CFEA300E9F852 /* GoogleService-Info.plist in Resources */,
 				07CBF1B82989397900CABF26 /* Pods-CryptoCalculator-acknowledgements.plist in Resources */,
 				079411262949E84700A4F632 /* Main.storyboard in Resources */,
 			);

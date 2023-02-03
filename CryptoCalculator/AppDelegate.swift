@@ -11,6 +11,7 @@ import IQKeyboardManagerSwift
 import FirebaseCore
 import GoogleMobileAds
 import AppTrackingTransparency
+import AdSupport
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 switch status {
                 case .authorized:
                     print("status = authorized")
+                    print("IDFA = \(ASIdentifierManager.shared().advertisingIdentifier)")
                 case .denied:
                     print("status = denied")
                 case .notDetermined:

@@ -65,6 +65,8 @@ final class CalcViewController: UIViewController {
         setupBannerViewToBottom()
         
         playAnimation()
+        
+        //print(ASIdentifierManager.shared().advertisingIdentifier.uuidString)
     }
     
     override func viewWillAppear(_ animated: Bool) {
