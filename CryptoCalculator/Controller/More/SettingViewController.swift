@@ -245,7 +245,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             
             // 앱 버전과 빌드 넘버를 가져와서 모델에 업데이트 하기
             //let appVersionString = "\(currentAppVersion()) (\(currentBuildNumber())))"
-            //SettingCellDataManager.shared.updateAboutTheAppData(index: 3, newValue: appVersionString)
+            //SettingCellDataManager.shared.updateAboutTheAppData(index: 5, newValue: appVersionString)
             
             cell.prepare(icon: model.icon, title: model.title, value: model.value)
             if 0...3 ~= indexPath.row {

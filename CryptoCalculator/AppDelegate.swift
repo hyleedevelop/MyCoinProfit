@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses = [CalcView.self]
         
         // 앱 추적 권한 허용 요청
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             ATTrackingManager.requestTrackingAuthorization { status in
                 switch status {
                 case .authorized:
@@ -74,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+
 
 //    // MARK: - Core Data stack
 //
