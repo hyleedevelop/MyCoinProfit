@@ -106,7 +106,6 @@ final class CalcResultViewController: UIViewController {
     // View 설정
     private func setupView() {
         view.backgroundColor = UIColor(named: "BGColor")
-        
     }
 
     // TableView 설정
@@ -330,7 +329,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             var dataArray = [Double]()
             if indexPath.row == 0 { dataArray = self.totalInvestedArray }
             if indexPath.row == 1 { dataArray = self.coinPriceArray }
-            if indexPath.row == 2 { dataArray = self.roiArray.map{ $0 * 100.0 } }
+            if indexPath.row == 2 { dataArray = self.roiArray.map { $0 * 100.0 } }
             
             //cell.isUserInteractionEnabled = true
             cell.backgroundColor = UIColor.systemBackground
@@ -365,7 +364,7 @@ extension CalcResultViewController: GADBannerViewDelegate {
             bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobMyID
+        bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

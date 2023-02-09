@@ -6,9 +6,10 @@ target 'CryptoCalculator' do
   use_frameworks!
 
   # Pods for CryptoCalculator
+  #pod 'RealmSwift', '~>10'
   pod 'Kingfisher', '~> 7.0'
   pod 'IQKeyboardManagerSwift', '6.5.10'
-  pod 'ShimmerSwift'
+  #pod 'ShimmerSwift'
   pod 'NVActivityIndicatorView'
   pod 'Charts'
   pod 'FirebaseAnalytics'

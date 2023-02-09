@@ -11,7 +11,7 @@ import GoogleMobileAds
 final class CalcViewController: UIViewController {
 
     private let calcView = CalcView()  // UIView
-    private let coinVC = CoinViewController()  // UIViewController
+    private let coinVC = CoinListViewController()  // UIViewController
     private let coinListData = PickerData()  // structure
     
     // 구글 애드몹
@@ -57,16 +57,18 @@ final class CalcViewController: UIViewController {
         
         setupNavBar()
         setupView()
-        setupContainerView()
         setupPickerView()
         setupButton()
         setupTextField()
-        
         setupBannerViewToBottom()
         
         playAnimation()
         
-        //print(ASIdentifierManager.shared().advertisingIdentifier.uuidString)
+        addObserver()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +85,7 @@ final class CalcViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        
     }
     
     // NavigationBar 설정
@@ -118,17 +121,6 @@ final class CalcViewController: UIViewController {
         view.backgroundColor = UIColor(named: "BGColor")
     }
     
-    // ContainerView 설정
-    private func setupContainerView() {
-        DispatchQueue.main.async {
-            [self.calcView.coinTypeContainerView, self.calcView.buyStartDateContainerView,
-             self.calcView.amountContainerView, self.calcView.sellDateContainerView]
-                .forEach({ $0.setViewBorderGradient(
-                    color1: Constant.UIColorSetting.themeGradientColor1,
-                    color2: Constant.UIColorSetting.themeGradientColor2, mode: .add) })
-        }
-    }
-    
     // PickerView 설정
     private func setupPickerView() {
         // UIPickerView 사용 시 delegate 패턴으로 구현 (UIDatePickerView는 필요없음)
@@ -152,9 +144,44 @@ final class CalcViewController: UIViewController {
     // Button 설정
     private func setupButton() {
         calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
-        //calcView.calcResetButton.addTarget(self, action: #selector(calcResetButtonTapped(_:)), for: .touchUpInside)
+        
+        // 앱의 테마 컬러 설정 가져오기
+        let defaults = UserDefaults.standard
+        let themeIndex = defaults.integer(forKey: "themeColorNumber")
+        
         DispatchQueue.main.async {
-            self.calcView.calcStartButton.setButtonBackgroundGradient(color1: Constant.UIColorSetting.themeGradientColor1, color2: Constant.UIColorSetting.themeGradientColor2)
+            self.calcView.calcStartButton.setButtonBackgroundGradient(
+                color1: Constant.UIColorSetting.themeGradientStartColors[themeIndex],
+                color2: Constant.UIColorSetting.themeGradientMiddleColors[themeIndex],
+                color3: Constant.UIColorSetting.themeGradientEndColors[themeIndex])
+        }
+    }
+    
+    // NotificationCenter Observer 만들기
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(notificationReceived(_:)),
+            name: Notification.Name("colorChanged"), object: nil)
+    }
+    
+    // 버튼 속성 업데이트
+    @objc private func notificationReceived(_ notification: NSNotification) {
+        // 앱의 테마 컬러 설정 가져오기
+        let defaults = UserDefaults.standard
+        let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        
+        // 버튼에 들어있던 기존의 sublayer를 제거
+        if let firstIndex = calcView.calcStartButton.layer.sublayers?.firstIndex(
+            where: { $0.name == "gradient" }) {
+            calcView.calcStartButton.layer.sublayers?.remove(at: firstIndex)
+        }
+        
+        // 버튼에 새로운 sublayer를 추가
+        DispatchQueue.main.async {
+            self.calcView.calcStartButton.setButtonBackgroundGradient(
+                color1: Constant.UIColorSetting.themeGradientStartColors[themeIndex],
+                color2: Constant.UIColorSetting.themeGradientMiddleColors[themeIndex],
+                color3: Constant.UIColorSetting.themeGradientEndColors[themeIndex])
         }
     }
     
@@ -166,9 +193,8 @@ final class CalcViewController: UIViewController {
     
     // 수익계산 화면을 처음 표시할 때 ContainerView를 하나씩 보여주는 애니메이션 효과 적용
     private func playAnimation() {
+        let durationTime = 1.0
         DispatchQueue.main.async {
-            //self.calcView.segmentedControl.setIndex(index: 0)
-            
             let targetArray1 = [self.calcView.coinTypeLabel,
                                 self.calcView.buyStartDateLabel,
                                 self.calcView.sellDateLabel,
@@ -183,7 +209,7 @@ final class CalcViewController: UIViewController {
             self.calcView.calcStartButton.alpha = 0
             
             for i in 0..<targetArray1.count+1 {
-                UIView.animate(withDuration: 1.0, delay: Double(i)*0.3) {
+                UIView.animate(withDuration: durationTime, delay: Double(i)*0.3) {
                     if i < targetArray1.count {
                         targetArray1[i].alpha = 1
                         targetArray2[i].alpha = 1
@@ -874,7 +900,7 @@ extension CalcViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == calcView.coinTypeTextField {
             // 코인 리스트를 보여주는 VC의 인스턴스 생성
-            let coinVC = CoinViewController()
+            let coinVC = CoinListViewController()
             let nav = UINavigationController(rootViewController: coinVC)
             
             // 화면 스타일 설정
@@ -953,7 +979,7 @@ extension CalcViewController: GADBannerViewDelegate {
             bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobMyID
+        bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

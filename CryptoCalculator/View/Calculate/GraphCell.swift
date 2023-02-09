@@ -50,8 +50,6 @@ final class GraphCell: UITableViewCell {
         _ = [itemLabel].map{ self.addSubview($0) }
         
         NSLayoutConstraint.activate([
-//            itemLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-//            itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
             itemLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
             itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
             itemLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -89,9 +87,13 @@ final class GraphCell: UITableViewCell {
         //chartDataSet.circleHoleRadius = 0.0
         chartDataSet.lineWidth = 1.5
         var myColor = UIColor.clear
-        for i in 0..<3 {
-            if mode == i { myColor = Constant.UIColorSetting.themeGradientThreeColorSet[i] }
-        }
+        
+        // 앱의 테마 컬러 설정 가져오기
+        let defaults = UserDefaults.standard
+        let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        if mode == 0 { myColor = Constant.UIColorSetting.themeGradientStartColors[themeIndex] }
+        if mode == 1 { myColor = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex] }
+        if mode == 2 { myColor = Constant.UIColorSetting.themeGradientEndColors[themeIndex] }
         chartDataSet.colors = [myColor]
         chartDataSet.fill = ColorFill(color: myColor)
         chartDataSet.fillAlpha = 0.5

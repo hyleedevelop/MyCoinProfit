@@ -27,13 +27,15 @@
 		0794112B2949E84700A4F632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0794112A2949E84700A4F632 /* Assets.xcassets */; };
 		0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0794112C2949E84700A4F632 /* LaunchScreen.storyboard */; };
 		0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113A2949E9D600A4F632 /* SettingViewController.swift */; };
-		0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinViewController.swift */; };
+		0794113D2949EC3200A4F632 /* CoinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinListViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
 		07B07E96298CFEA300E9F852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */; };
 		07BAB0B6298544F300269EE5 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BAB0B5298544F300269EE5 /* Int.swift */; };
+		07BE856429924217007C8BAC /* ThemeColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE856329924217007C8BAC /* ThemeColorViewController.swift */; };
+		07BE856629924414007C8BAC /* ThemeColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BE856529924414007C8BAC /* ThemeColorCell.swift */; };
 		07BED96A2975801B009B7450 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BED9692975801B009B7450 /* UILabel.swift */; };
 		07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EB294AAD4B00F057BE /* CoinListCell.swift */; };
 		07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616ED294AB0E500F057BE /* NetworkManager.swift */; };
@@ -69,13 +71,15 @@
 		0794112D2949E84700A4F632 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0794112F2949E84700A4F632 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0794113A2949E9D600A4F632 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		0794113C2949EC3200A4F632 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
+		0794113C2949EC3200A4F632 /* CoinListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
 		07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		07BAB0B5298544F300269EE5 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		07BE856329924217007C8BAC /* ThemeColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColorViewController.swift; sourceTree = "<group>"; };
+		07BE856529924414007C8BAC /* ThemeColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColorCell.swift; sourceTree = "<group>"; };
 		07BED9692975801B009B7450 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		07C616EB294AAD4B00F057BE /* CoinListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListCell.swift; sourceTree = "<group>"; };
 		07C616ED294AB0E500F057BE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -124,7 +128,7 @@
 			children = (
 				079DBFF4295DB3AC0063625F /* CalcViewController.swift */,
 				073F546D296D8D4F0099305A /* CalcResultViewController.swift */,
-				0794113C2949EC3200A4F632 /* CoinViewController.swift */,
+				0794113C2949EC3200A4F632 /* CoinListViewController.swift */,
 			);
 			path = Calculate;
 			sourceTree = "<group>";
@@ -133,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				0794113A2949E9D600A4F632 /* SettingViewController.swift */,
+				07BE856329924217007C8BAC /* ThemeColorViewController.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				07941149294A19C800A4F632 /* SettingCell.swift */,
+				07BE856529924414007C8BAC /* ThemeColorCell.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 				07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */,
 				073D261B297F7FB700C46666 /* SettingCellDataManager.swift in Sources */,
 				07846A222980FEDE00449A7D /* StatsCell.swift in Sources */,
+				07BE856629924414007C8BAC /* ThemeColorCell.swift in Sources */,
 				07846A28298127BF00449A7D /* GraphCell.swift in Sources */,
 				078478802968486800C87C1C /* CalcManager.swift in Sources */,
 				073A324829840EF00097C9DD /* UIColor.swift in Sources */,
@@ -410,10 +417,11 @@
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
 				07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */,
 				070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */,
+				07BE856429924217007C8BAC /* ThemeColorViewController.swift in Sources */,
 				07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
-				0794113D2949EC3200A4F632 /* CoinViewController.swift in Sources */,
+				0794113D2949EC3200A4F632 /* CoinListViewController.swift in Sources */,
 				07FCC2F1297D83E200A06EAD /* SettingCellData.swift in Sources */,
 				07BAB0B6298544F300269EE5 /* Int.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
@@ -577,7 +585,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -596,7 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -615,7 +623,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoCalculator/Info.plist;
@@ -633,7 +641,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

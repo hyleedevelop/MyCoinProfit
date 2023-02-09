@@ -10,6 +10,7 @@ import SafariServices
 import AcknowList
 import MessageUI
 import GoogleMobileAds
+import StoreKit
 
 final class SettingViewController: UIViewController {
 
@@ -26,12 +27,6 @@ final class SettingViewController: UIViewController {
         tv.backgroundColor = UIColor(named: "BGColor")
         tv.separatorStyle = .singleLine
         tv.separatorInset.left = 50
-//        tv.separatorInset.right = 20
-//        tv.allowsSelection = false
-//        tv.isUserInteractionEnabled = true
-//        tv.clipsToBounds = true
-//        tv.layer.cornerRadius = 0
-//        tv.layer.borderWidth = 0
         tv.sectionFooterHeight = 30
         tv.scrollsToTop = true
         tv.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -39,20 +34,13 @@ final class SettingViewController: UIViewController {
         return tv
     }()
     
-    // Switch
-//    private let darkModeSwitch = UISwitch(frame: .zero)
-    
     private var dataSource = [SettingCellData]()
     private var feedbackModel = [FeedbackModel]()
     private var aboutTheAppModel = [AboutTheAppModel]()
     
-    let userDefaults = UserDefaults.standard
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        self.darkModeSwitch.isOn = userDefaults.bool(forKey: "appearanceSwitchState")
-//        updateInterfaceStyle()
         setupNavBar()
         setupView()
         setupTableView()
@@ -146,21 +134,6 @@ final class SettingViewController: UIViewController {
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
-    
-//    // 스위치 상태 저장하기 위해 UserDefaults에 상태 저장
-//    func updateInterfaceStyle() {
-//        if let window = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-//            let windows = window.windows.first
-//            windows?.overrideUserInterfaceStyle = self.darkModeSwitch.isOn == true ? .dark : .light
-//            userDefaults.set(self.darkModeSwitch.isOn, forKey: "appearanceSwitchState")
-//        }
-//    }
-        
-//    @objc func handleAppearanceChange(_ sender: UISwitch) {
-//        UIView.animate(withDuration: 0.4) {
-//            self.updateInterfaceStyle()
-//        }
-//    }
     
 }
 
@@ -267,9 +240,15 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch self.dataSource[indexPath.section] {
         case .appSettings(_):
-            if indexPath.row == 0 { showWillBeUpdatedMessage() }
+            if indexPath.row == 0 {
+                let themeColorVC = ThemeColorViewController()
+                navigationController?.pushViewController(themeColorVC, animated: true)
+            }
         case .feedback(_):
-            if indexPath.row == 0 { showWillBeUpdatedMessage() }
+            if indexPath.row == 0 {
+                guard let writeReviewURL = URL(string: Constant.URLSetting.writeReviewURL) else { return }
+                UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
+            }
             if indexPath.row == 1 { contactMenuTapped() }
         case .aboutTheApp(_):
             if indexPath.row == 0 {
@@ -392,7 +371,7 @@ extension SettingViewController: GADBannerViewDelegate {
             bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobMyID
+        bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

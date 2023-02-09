@@ -116,7 +116,6 @@ PODS:
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
   - PromisesObjC (2.1.1)
-  - ShimmerSwift (2.1.1)
   - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
@@ -129,7 +128,6 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (= 6.5.10)
   - Kingfisher (~> 7.0)
   - NVActivityIndicatorView
-  - ShimmerSwift
 
 SPEC REPOS:
   trunk:
@@ -153,7 +151,6 @@ SPEC REPOS:
     - nanopb
     - NVActivityIndicatorView
     - PromisesObjC
-    - ShimmerSwift
     - SwiftAlgorithms
 
 SPEC CHECKSUMS:
@@ -177,9 +174,8 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  ShimmerSwift: f7ed2daf9c246de8299dfd9e12c6ab465cba9842
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: e9d5d8621f31802cfed99afa5fdefb54d4a030c9
+PODFILE CHECKSUM: ff6e7fb78dae5155b11b9b89b65efc17489da93b
 
 COCOAPODS: 1.11.3

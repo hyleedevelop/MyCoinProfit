@@ -25,10 +25,13 @@ struct Constant {
         static let negativeColor: UIColor = UIColor(red: 216/255, green: 50/255, blue: 50/255, alpha: 1)
         
         static let themeColor: UIColor = .systemPurple
-        // 보라색
-        static let themeGradientColor1: UIColor = UIColor(red: 148/255, green: 41/255, blue: 255/255, alpha: 1.0)
-        // 청록색
-        static let themeGradientColor2: UIColor = UIColor(red: 13/255, green: 167/255, blue: 207/255, alpha: 1.0)
+        
+        static let themeColorNumberKey: String = "themeColorNumber"
+        static let themeColorStateKey: String = "themeColorChanged"
+        static let themeGradientStartColors: [UIColor]  = [#colorLiteral(red: 0, green: 0.7118151784, blue: 0.8480765224, alpha: 1), #colorLiteral(red: 0.860608995, green: 0.5137880445, blue: 0.7060825229, alpha: 1), #colorLiteral(red: 1, green: 0.5827487245, blue: 0.2789381378, alpha: 1), #colorLiteral(red: 1, green: 0.8980392157, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9568627451, green: 0.9490196078, blue: 0.4117647059, alpha: 1), #colorLiteral(red: 0.7921568627, green: 0.9411764706, blue: 0.9725490196, alpha: 1), #colorLiteral(red: 0.8705882353, green: 0.7882352941, blue: 0.9137254902, alpha: 1), #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.831372549, alpha: 1)]
+        static let themeGradientMiddleColors: [UIColor] = [#colorLiteral(red: 0.4268131554, green: 0.5237367749, blue: 0.8903746009, alpha: 1), #colorLiteral(red: 0.593103528, green: 0.7224785686, blue: 0.9253215194, alpha: 1), #colorLiteral(red: 0.8889493298, green: 0.2, blue: 0.7725490196, alpha: 1), #colorLiteral(red: 1, green: 0.7019607843, blue: 0.7764705882, alpha: 1), #colorLiteral(red: 0.6588235294, green: 0.8235294118, blue: 0.4274509804, alpha: 1), #colorLiteral(red: 0, green: 0.7058823529, blue: 0.8470588235, alpha: 1), #colorLiteral(red: 0.6274509804, green: 0.4235294118, blue: 0.8352941176, alpha: 1), #colorLiteral(red: 0.8666666667, green: 0.7215686275, blue: 0.5725490196, alpha: 1)]
+        static let themeGradientEndColors: [UIColor]    = [#colorLiteral(red: 0.6540915966, green: 0.3039287329, blue: 1, alpha: 1), #colorLiteral(red: 0.4219039679, green: 0.9795603156, blue: 0.9568110108, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.6039215686, blue: 0.9490196078, alpha: 1), #colorLiteral(red: 0.9843137255, green: 0.4352941176, blue: 0.5725490196, alpha: 1), #colorLiteral(red: 0.3607843137, green: 0.6980392157, blue: 0.4392156863, alpha: 1), #colorLiteral(red: 0.01176470588, green: 0.01568627451, blue: 0.368627451, alpha: 1), #colorLiteral(red: 0.3843137255, green: 0.2784313725, blue: 0.6666666667, alpha: 1), #colorLiteral(red: 0.4980392157, green: 0.3333333333, blue: 0.2235294118, alpha: 1)]
+        
         // 보라색 -> 청록색 3단계
         static let themeGradientThreeColorSet: [UIColor] = [UIColor(rgb: 0x0DA7CF),
                                                             UIColor(rgb: 0x5168E7),
@@ -41,7 +44,7 @@ struct Constant {
                                                             UIColor(rgb: 0x6753EF),
                                                             UIColor(rgb: 0x7E3EF7),
                                                             UIColor(rgb: 0x9429ff)]
-        // 보라색 -> 청록색 10단계  #0DA7CF
+        // 보라색 -> 청록색 10단계
         static let themeGradientTenColorSet: [UIColor] = [UIColor(rgb: 0x0DA7CF),
                                                           UIColor(rgb: 0x1C99D4),
                                                           UIColor(rgb: 0x2B8BDA),
@@ -65,7 +68,7 @@ struct Constant {
         static let segmentFontSize: CGFloat = 20
         static let segmentFontWeight: UIFont.Weight = .medium
         
-        static let containerCornerRadius: CGFloat = 4
+        static let containerCornerRadius: CGFloat = 8
         
         static let buttonHeight: CGFloat = 60
         static let buttonCornerRadius: CGFloat = buttonHeight / 2.0
@@ -154,9 +157,11 @@ struct Constant {
         static let calcSaveButtonName: String = "Save"
         static let calcShareButtonName: String = "Share"
         static let showChartButtonName: String = "See Timeseries"
+        static let themeColorSettingButtonName: String = "Apply"
     }
     
     struct MessageSetting {
+        static let confirmTitle = "Confirm"
         static let errorTitle = "Error"
         static let resetTitle = "Reset"
         static let closeTitle = "OK"
@@ -191,6 +196,7 @@ struct Constant {
         static let exportAsImageMessage = "Do you want to export the result as an image?"
         static let sendEmailErrorMessage = "Check your e-mail settings."
         static let notifyLaterUpdate = "This will be updated soon."
+        static let themeColorMessage = "The new theme color has been applied."
     }
      
     struct URLSetting {
@@ -200,9 +206,13 @@ struct Constant {
         "https://hyleenote.notion.site/Privacy-Policy-98bd35e6626c4accbd609616553b071e"
         static let termsAndConditionsURL =
         "https://hyleenote.notion.site/Terms-Conditions-037cf1cf478f4925bdc69f5404091242"
+        static let writeReviewURL =
+        "https://apps.apple.com/app/id1668703292?action=write-review"
         
-        static let admobMyID = "ca-app-pub-5804054899003424/3613736945"
-        static let admobTestID = "ca-app-pub-3940256099942544/2934735716"
+        static let admobBottomBannerMyID = "ca-app-pub-5804054899003424/3613736945"
+        static let admobBottomBannerTestID = "ca-app-pub-3940256099942544/2934735716"
+        static let admobAppOpenMyID = "ca-app-pub-5804054899003424/7922125962"
+        static let admobAppOpenTestID = "ca-app-pub-3940256099942544/5662855259"
     }
     
 }

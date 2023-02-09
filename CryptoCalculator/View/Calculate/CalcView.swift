@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ShimmerSwift
 import NVActivityIndicatorView
 
 final class CalcView: UIView {
@@ -41,8 +40,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(coinTypeTextField)
         return view
     }()
@@ -103,8 +106,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(buyStartDateTextField)
         return view
     }()
@@ -170,8 +177,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(buyEndDateTextField)
         return view
     }()
@@ -237,8 +248,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(frequencyTextField)
         return view
     }()
@@ -298,8 +313,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(amountTextField)
         return view
     }()
@@ -352,8 +371,12 @@ final class CalcView: UIView {
         view.backgroundColor = UIColor.systemBackground
         view.layer.borderColor = UIColor.systemGray2.cgColor
         view.layer.borderWidth = 1
-        view.clipsToBounds = true
+        view.layer.masksToBounds = false
         view.layer.cornerRadius = Constant.ShapeSetting.containerCornerRadius
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOffset = CGSize(width: 0, height: 0)
+        view.layer.shadowOpacity = 0.3
         view.addSubview(sellDateTextField)
         return view
     }()
@@ -501,14 +524,10 @@ final class CalcView: UIView {
         self.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(
-                equalTo: segmentedControl.bottomAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(
-                equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
-            scrollView.leadingAnchor.constraint(
-                equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(
-                equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 0),
+            scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
         ])
     }
     
@@ -522,18 +541,24 @@ final class CalcView: UIView {
         let stackViewArray = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,
                               frequencyStackView, amountStackView, sellDateStackView]
         
-        stackViewArray.forEach({ $0.heightAnchor.constraint(equalToConstant: 80).isActive = true })
-        containerViewArray.forEach({ $0.heightAnchor.constraint(equalToConstant: 45).isActive = true })
+        stackViewArray.forEach { $0.heightAnchor.constraint(equalToConstant: 80).isActive = true }
+        containerViewArray.forEach { $0.heightAnchor.constraint(equalToConstant: 45).isActive = true }
 
         for i in 0..<containerViewArray.count {
             NSLayoutConstraint.activate([
-                containerViewArray[i].leadingAnchor.constraint(equalTo: stackViewArray[i].leadingAnchor),
-                containerViewArray[i].trailingAnchor.constraint(equalTo: stackViewArray[i].trailingAnchor),
+                containerViewArray[i].leadingAnchor.constraint(
+                    equalTo: stackViewArray[i].leadingAnchor),
+                containerViewArray[i].trailingAnchor.constraint(
+                    equalTo: stackViewArray[i].trailingAnchor),
                 
-                textFieldArray[i].leadingAnchor.constraint(equalTo: containerViewArray[i].leadingAnchor, constant: 10),
-                textFieldArray[i].trailingAnchor.constraint(equalTo: containerViewArray[i].trailingAnchor, constant: -10),
-                textFieldArray[i].topAnchor.constraint(equalTo: containerViewArray[i].topAnchor),
-                textFieldArray[i].bottomAnchor.constraint(equalTo: containerViewArray[i].bottomAnchor),
+                textFieldArray[i].leadingAnchor.constraint(
+                    equalTo: containerViewArray[i].leadingAnchor, constant: 10),
+                textFieldArray[i].trailingAnchor.constraint(
+                    equalTo: containerViewArray[i].trailingAnchor, constant: -10),
+                textFieldArray[i].topAnchor.constraint(
+                    equalTo: containerViewArray[i].topAnchor),
+                textFieldArray[i].bottomAnchor.constraint(
+                    equalTo: containerViewArray[i].bottomAnchor),
             ])
         }
     }
@@ -546,8 +571,8 @@ final class CalcView: UIView {
                               emptySpace, calcStartButton]
         let willHideArray = [buyEndDateStackView, frequencyStackView]
         
-        stackViewArray.forEach({ finalStackView.addArrangedSubview($0) })
-        willHideArray.forEach({ $0.removeFromSuperview() })
+        stackViewArray.forEach { finalStackView.addArrangedSubview($0) }
+        willHideArray.forEach { $0.removeFromSuperview() }
         
         NSLayoutConstraint.activate([
             finalStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
@@ -561,19 +586,20 @@ final class CalcView: UIView {
         ])
         
         // 애니메이션을 위해 투명도를 0으로 초기화
-        [coinTypeLabel, buyStartDateLabel, sellDateLabel, amountLabel]
-            .forEach({ $0.alpha = 0 })
-        [coinTypeContainerView, buyStartDateContainerView, sellDateContainerView, amountContainerView]
-            .forEach({ $0.alpha = 0 })
+        [coinTypeLabel, coinTypeContainerView,
+         buyStartDateLabel, buyStartDateContainerView,
+         sellDateLabel, sellDateContainerView,
+         amountLabel, amountContainerView,
+         calcStartButton].forEach { $0.alpha = 0 }
     }
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupFirstFinalStackView() {
         [coinTypeStackView, buyStartDateStackView, sellDateStackView,
          amountStackView, emptySpace, calcStartButton]
-            .forEach({ finalStackView.addArrangedSubview($0) })
+            .forEach { finalStackView.addArrangedSubview($0) }
         [buyEndDateStackView, frequencyStackView]
-            .forEach({ $0.removeFromSuperview() })
+            .forEach { $0.removeFromSuperview() }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
         buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
@@ -586,7 +612,7 @@ final class CalcView: UIView {
     private func setupSecondFianlStackView() {
         [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,
          sellDateStackView, frequencyStackView, amountStackView, emptySpace, calcStartButton]
-            .forEach({ finalStackView.addArrangedSubview($0) })
+            .forEach { finalStackView.addArrangedSubview($0) }
         
         buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
         buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder2
@@ -598,7 +624,7 @@ final class CalcView: UIView {
     // TextField 입력값 초기화
     private func resetTextField() {
         [buyStartDateTextField, buyEndDateTextField, frequencyTextField, amountTextField, sellDateTextField]
-            .forEach({ $0.text = "" })
+            .forEach { $0.text = "" }
     }
     
     // 로딩중임을 나타내는 Indicator 설정
@@ -618,6 +644,16 @@ final class CalcView: UIView {
         } else {
             self.activityIndicator.startAnimating()
         }
+    }
+    
+    func updateButtonColor(index: Int) {
+        DispatchQueue.main.async {
+            self.calcStartButton.setButtonBackgroundGradient(
+                color1: Constant.UIColorSetting.themeGradientStartColors[index],
+                color2: Constant.UIColorSetting.themeGradientMiddleColors[index],
+                color3: Constant.UIColorSetting.themeGradientEndColors[index])
+        }
+        layoutIfNeeded()
     }
 
 }

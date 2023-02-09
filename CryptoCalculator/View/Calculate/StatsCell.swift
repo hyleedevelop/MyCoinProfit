@@ -35,7 +35,7 @@ final class StatsCell: UITableViewCell {
     var itemIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = Constant.UIColorSetting.themeColor
+        imageView.tintColor = UIColor.label
         return imageView
     }()
     
@@ -77,16 +77,16 @@ final class StatsCell: UITableViewCell {
     func prepareStats(segment: Int, mode: Int, icon: UIImage?, title: String?, value: String?) {
         var myColor = UIColor.clear
         if segment == 0 {
-            for i in 0..<7 {
-                if mode == i { myColor = Constant.UIColorSetting.themeGradientSevenColorSet[i] }
+            for i in 0..<7 where mode == i {
+                myColor = Constant.UIColorSetting.themeGradientSevenColorSet[i]
             }
         } else {
-            for i in 0..<10 {
-                if mode == i { myColor = Constant.UIColorSetting.themeGradientTenColorSet[i] }
+            for i in 0..<10 where mode == i {
+                myColor = Constant.UIColorSetting.themeGradientTenColorSet[i]
             }
         }
         
-        self.itemIcon.tintColor = myColor
+        //self.itemIcon.tintColor = myColor
         self.itemIcon.image = icon
         self.itemLabel.text = title ?? "N/A"
         self.valueLabel.text = value  ?? "N/A"
