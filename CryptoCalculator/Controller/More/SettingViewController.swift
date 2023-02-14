@@ -98,11 +98,11 @@ final class SettingViewController: UIViewController {
     private func setupTableViewDataSource() {
         // 앱 버전과 빌드 넘버를 가져와서 모델에 업데이트 하기
         let appVersionString = "\(currentAppVersion()) (\(currentBuildNumber()))"
-        SettingCellDataManager.shared.updateAboutTheAppData(index: 5, newValue: appVersionString)
+        SettingCellManager.shared.updateAboutTheAppData(index: 5, newValue: appVersionString)
         
-        self.dataSource = [SettingCellDataManager.shared.appSettingData(),
-                           SettingCellDataManager.shared.feedbackData(),
-                           SettingCellDataManager.shared.aboutTheAppData()]
+        self.dataSource = [SettingCellManager.shared.appSettingData(),
+                           SettingCellManager.shared.feedbackData(),
+                           SettingCellManager.shared.aboutTheAppData()]
 
         tableView.reloadData()
     }

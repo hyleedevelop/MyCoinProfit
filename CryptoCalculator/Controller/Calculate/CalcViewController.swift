@@ -35,8 +35,8 @@ final class CalcViewController: UIViewController {
     var sellDateDefaultSetting: Bool = true
     
     // 날짜 TextField 입력값 관련 에러 (에러메세지를 출력하는 함수의 파라미터로 전달, 계산 실행여부 결정)
-    enum InputError: Int {
-        case noInputError = 0  // 에러 없음
+    enum InputError {
+        case noInputError  // 에러 없음
         case coinTypeInputError  // 코인 타입 입력값 에러
         case buyStartDateInputError  // 매수 시작 날짜 입력값 에러
         case buyEndDateInputError  // 매수 종료 날짜 입력값 에러
@@ -48,8 +48,8 @@ final class CalcViewController: UIViewController {
         case buyStartSellInputError  // 매수시작날짜 >= 매도날짜 에러
         case buyEndSellInputError  // 매수종료날짜 >= 매도날짜 에러
     }
+    var inputError: InputError?
     
-    var inputError: InputError = .noInputError
     weak var calcResultDataDelegate: CalcResultDelegate?
     
     override func viewDidLoad() {
@@ -222,7 +222,7 @@ final class CalcViewController: UIViewController {
         }
     }
     
-    private func showPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?, error errorType: InputError) {
+    private func showPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?) {
         if button == calcView.calcStartButton {
             // AlertController, AlertAction 생성
             let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
@@ -341,13 +341,8 @@ final class CalcViewController: UIViewController {
         convertedDateFormatter.timeZone = Constant.DateSetting.standardTimeZone
         convertedDateFormatter.locale = Constant.DateSetting.standardLocale
         
-        if calcView.coinTypeTextField.isFirstResponder {
-            calcView.coinTypeTextField.textColor = .label
-        }
-        
         if calcView.buyStartDateTextField.isFirstResponder {
             let maximumDate = Constant.DateSetting.buyStartMaximumDate
-            calcView.buyStartDateTextField.textColor = .label
             
             if calcView.buyStartDateTextField.text == "" && buyStartDateDefaultSetting {
                 calcView.buyStartDateTextField.text = selectedDateFormatter.string(from: maximumDate)
@@ -362,7 +357,6 @@ final class CalcViewController: UIViewController {
         
         if calcView.buyEndDateTextField.isFirstResponder {
             let maximumDate = Constant.DateSetting.buyEndMaximumDate
-            calcView.buyEndDateTextField.textColor = .label
             
             if calcView.buyEndDateTextField.text == "" && buyEndDateDefaultSetting {
                 calcView.buyEndDateTextField.text = selectedDateFormatter.string(from: maximumDate)
@@ -377,7 +371,6 @@ final class CalcViewController: UIViewController {
         
         if calcView.sellDateTextField.isFirstResponder {
             let maximumDate = Constant.DateSetting.sellMaximumDate
-            calcView.sellDateTextField.textColor = .label
             
             if calcView.sellDateTextField.text == "" && sellDateDefaultSetting {
                 calcView.sellDateTextField.text = selectedDateFormatter.string(from: maximumDate)
@@ -391,297 +384,342 @@ final class CalcViewController: UIViewController {
         }
         
         if calcView.frequencyTextField.isFirstResponder {
-            calcView.frequencyTextField.textColor = .label
-            calcView.frequencyTextField.text = coinListData.frequencyArray[calcView.frequencyPicker.selectedRow(inComponent: 0)]
+            calcView.frequencyTextField.text = coinListData.frequencyArray[
+                calcView.frequencyPicker.selectedRow(inComponent: 0)]
         }
     }
     
-    // 버튼을 눌렀을 때
-    @objc private func calcStartButtonTapped(_ button: UIButton) {
-        inputError = .noInputError
+    //MARK: - 입력값 유효성 검사
+    
+    private func checkInputIsValid(segmentIndex: Int, button: UIButton) {
+        let coinType = calcView.coinTypeTextField.text
+        let buyStartDate = calcView.buyStartDateTextField.text
+        let buyEndDate = calcView.buyEndDateTextField.text
+        let sellDate = calcView.sellDateTextField.text
+        let frequency = calcView.frequencyTextField.text
+        let amount = calcView.amountTextField.text
         
-        // (a) 일괄매수를 선택한 경우
-        if calcView.segmentedControl.selectedSegmentIndex == 0 {
+        // 일괄매수를 선택한 경우
+        if segmentIndex == 0 {
             
-            // 코인 종류 입력값이 없는 경우
-            if calcView.coinTypeTextField.text == "" {
+            // 코인 종류 선택값이 없는 경우
+            if coinType == "" {
                 inputError = .coinTypeInputError
                 showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                  message: Constant.MessageSetting.coinTypeErrorMessage,
-                                 responder: calcView.coinTypeTextField, error: .buyEndDateInputError)
+                                 responder: calcView.coinTypeTextField)
                 return
             }
             
-            // 매수 시작 날짜 입력값이 없는 경우
-            if calcView.buyStartDateTextField.text == "" {
+            // 매수 날짜 입력값이 없는 경우
+            if buyStartDate == "" {
                 inputError = .buyStartDateInputError
                 showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                  message: Constant.MessageSetting.buyStartDateErrorMessage1,
-                                 responder: calcView.buyStartDateTextField, error: .buyStartDateInputError)
+                                 responder: calcView.buyStartDateTextField)
                 return
-            } else {
-                let isValidDate: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
+            } else if sellDate != "" {
                 // 매수 날짜 입력값이 존재하지만, 매도 날짜보다 이후 시점인 경우
-                if calcView.sellDateTextField.text != "" && !isValidDate {
+                let isValidDate = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if !isValidDate {
+                    inputError = .buyStartSellInputError
                     showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                      message: Constant.MessageSetting.buyStartDateErrorMessage3,
-                                     responder: calcView.buyStartDateTextField, error: .buyStartSellInputError)
+                                     responder: calcView.buyStartDateTextField)
                     return
                 }
             }
             
             // 매도 날짜 입력값이 없는 경우
-            if calcView.sellDateTextField.text == "" {
+            if sellDate == "" {
                 inputError = .sellDateInputError
                 showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                  message: Constant.MessageSetting.sellDateErrorMessage1,
-                                 responder: calcView.sellDateTextField, error: .sellDateInputError)
+                                 responder: calcView.sellDateTextField)
                 return
-            } else {
-                let isValidDate: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
+            } else if buyStartDate != "" {
                 // 매도 날짜 입력값이 존재하지만, 매수 날짜보다 이전 시점인 경우
-                if calcView.buyStartDateTextField.text != "" && !isValidDate {
+                let isValidDate = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if !isValidDate {
+                    inputError = .buyStartSellInputError
                     showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                      message: Constant.MessageSetting.sellDateErrorMessage2,
-                                     responder: calcView.sellDateTextField, error: .buyStartSellInputError)
+                                     responder: calcView.sellDateTextField)
                     return
                 }
             }
             
             // 매수 금액 입력값이 없는 경우
-            if calcView.amountTextField.text == "" {
+            if amount == "" {
                 inputError = .amountInputError
                 showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
                                  message: Constant.MessageSetting.amountErrorMessage1,
-                                 responder: calcView.amountTextField, error: .amountInputError)
+                                 responder: calcView.amountTextField)
+                return
+            } else if amount!.filter({ $0 == "." }).count > 1 {
+                // 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
+                inputError = .decimalInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.amountErrorMessage2,
+                                 responder: calcView.amountTextField)
+                return
+            }
+            
+        }
+        
+        // -------------------------------------------------------------------------
+        
+        // 분할매수를 선택한 경우
+        if segmentIndex == 1 {
+            
+            // 코인 종류 선택값이 없는 경우
+            if coinType == "" {
+                inputError = .coinTypeInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.coinTypeErrorMessage,
+                                 responder: calcView.coinTypeTextField)
+                return
+            }
+            
+            // 매수 시작 날짜 입력값이 없는 경우
+            if buyStartDate == "" {
+                inputError = .buyStartDateInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.buyStartDateErrorMessage2,
+                                 responder: calcView.buyStartDateTextField)
                 return
             } else {
-                if calcView.amountTextField.text!.filter({ $0 == "." }).count > 1 {
-                    inputError = .decimalInputError
+                // 매수 시작 날짜 입력값이 존재하지만, 매수 종료 날짜보다 이후 시점인 경우
+                let isValidDate1 = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.buyEndDatePicker.date)
+                if buyStartDate != "" && !isValidDate1 {
+                    inputError = .buyStartbuyEndInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.buyStartDateErrorMessage4,
+                                     responder: calcView.buyStartDateTextField)
+                    return
                 }
                 
-                // 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
-                if inputError == .decimalInputError {
+                // 매수 시작 날짜 입력값이 존재하지만, 매도 날짜보다 이후 시점인 경우
+                let isValidDate2 = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if buyStartDate != "" && !isValidDate2 {
+                    inputError = .buyStartSellInputError
                     showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.amountErrorMessage2,
-                                     responder: calcView.amountTextField, error: .decimalInputError)
+                                     message: Constant.MessageSetting.buyStartDateErrorMessage5,
+                                     responder: calcView.buyStartDateTextField)
                     return
                 }
             }
             
-            if inputError == .noInputError {
-                // 계산 작업 시작 -> activityIndicator 표시하기
-                DispatchQueue.main.async {
-                    self.calcView.activityIndicator.startAnimating()
+            // 매수 종료 날짜 입력값이 없는 경우
+            if buyEndDate == "" {
+                inputError = .buyEndDateInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.buyEndDateErrorMessage1,
+                                 responder: calcView.buyEndDateTextField)
+                return
+            } else {
+                // 매수 종료 날짜 입력값이 존재하지만, 매수 시작 날짜보다 이전 시점인 경우
+                let isValidDate1 = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.buyEndDatePicker.date)
+                if buyStartDate != "" && !isValidDate1 {
+                    inputError = .buyStartbuyEndInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.buyEndDateErrorMessage2,
+                                     responder: calcView.buyEndDateTextField)
+                    return
                 }
                 
-                // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
-                guard let coinID = DataPassManager.shared.selectedCoinID else { return }
-                let coinTypeString: String = coinID.lowercased()
-                guard let coinName = DataPassManager.shared.selectedCoinName else { return }
-                let coinNameString: String = coinName
-                let buyStartDateString: String = calcView.buyStartDateTextField.text!
-                let sellDateString: String = calcView.sellDateTextField.text!
-                let amountString: String = calcView.amountTextField.text!
+                // 매수 종료 날짜 입력값이 존재하지만, 매도 날짜보다 이후 시점인 경우
+                let isValidDate2 = calcView.buyEndDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if buyEndDate != "" && !isValidDate2 {
+                    inputError = .buyEndSellInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.buyEndDateErrorMessage3,
+                                     responder: calcView.buyEndDateTextField)
+                    return
+                }
+            }
+            
+            // 매도 날짜 입력값이 없는 경우
+            if sellDate == "" {
+                inputError = .sellDateInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.sellDateErrorMessage1,
+                                 responder: calcView.sellDateTextField)
+                return
+            } else {
+                // 매도 날짜 입력값이 존재하지만, 매수 시작 날짜보다 이전 시점인 경우
+                let isValidDate1 = calcView.buyStartDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if buyStartDate != "" && !isValidDate1 {
+                    inputError = .buyStartSellInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.sellDateErrorMessage3,
+                                     responder: calcView.sellDateTextField)
+                    return
+                }
                 
-                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
-                let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
-                    type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
+                // 매도 날짜 입력값이 존재하지만, 매수 종료 날짜보다 이전 시점인 경우
+                let isValidDate2 = calcView.buyEndDatePicker.date.isValidDateOrder(
+                    with: calcView.sellDatePicker.date)
+                if buyEndDate != "" && !isValidDate2 {
+                    inputError = .buyEndSellInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.sellDateErrorMessage3,
+                                     responder: calcView.sellDateTextField)
+                    return
+                }
+            }
+            
+            // 매수 반복 주기 입력값이 없는 경우
+            if frequency == "" {
+                inputError = .frequencyInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.frequencyErrorMessage,
+                                 responder: calcView.frequencyTextField)
+                return
+            }
+            
+            // 매번 매수 금액 입력값이 없는 경우
+            if amount == "" {
+                inputError = .amountInputError
+                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                 message: Constant.MessageSetting.amountErrorMessage3,
+                                 responder: calcView.amountTextField)
+                return
+            } else {
+                // 매 회 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
+                if amount!.filter({ $0 == "." }).count > 1 {
+                    inputError = .decimalInputError
+                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
+                                     message: Constant.MessageSetting.amountErrorMessage2,
+                                     responder: calcView.amountTextField)
+                    return
+                }
+            }
+            
+        }
+    }
+    
+    //MARK: - 계산 수행
+    
+    // 버튼을 눌렀을 때
+    @objc private func calcStartButtonTapped(_ button: UIButton) {
+        let segmentIndex = calcView.segmentedControl.selectedSegmentIndex
+        inputError = .noInputError
+        
+        // (a) 일괄매수를 선택한 경우
+        if segmentIndex == 0 {
+            checkInputIsValid(segmentIndex: segmentIndex, button: button)
+            
+            // noInputError인 경우 다음 줄로 넘어가서 실행, 그렇지 않은 경우 return으로 함수 종료
+            guard inputError == .noInputError else { return }
+            
+            // 계산 작업 시작 -> activityIndicator 표시하기
+            DispatchQueue.main.async {
+                self.calcView.activityIndicator.startAnimating()
+            }
+            
+            // API로 데이터 가져오기 및 수익계산에 필요한 저장속성
+            guard let coinID = DataPassManager.shared.selectedCoinID else { return }
+            let coinTypeString: String = coinID.lowercased()
+            guard let coinName = DataPassManager.shared.selectedCoinName else { return }
+            let coinNameString: String = coinName
+            let buyStartDateString: String = calcView.buyStartDateTextField.text!
+            let sellDateString: String = calcView.sellDateTextField.text!
+            let amountString: String = calcView.amountTextField.text!
+            
+            let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(type: .buyStartToSell, start: self.buyStartDateStringToCalculate, end: self.sellDateStringToCalculate)
+            let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
+                type: .buyStartToNow, start: self.buyStartDateStringToCalculate, end: nil)
+            
+            // 모든 입력 값에 대한 검사 종료 후, API로 가격 히스토리 데이터 가져오기
+            NetworkManager.shared.fetchPriceHistory(with: coinTypeString,
+                                                    duration: buyToNowLength) { [weak self] result in
+                guard let self = self else { return }
                 
-                // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
-                NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let historyInfo):
-                        self.historyDict = historyInfo
-                        
-                        CalcManager.shared.calculateROIIntensive(with: self.historyDict, amount: Double(amountString)!, buy: self.buyStartDateStringToCalculate, sell: self.sellDateStringToCalculate) {
-                            (amount, roi, profit, balance,
-                             historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
-                            switch errorCode {
-                            case .noDateError:
-                                //print("<일괄매수 수익 계산 결과>")
-                                //print("원금: \(amount.toUSD())")
-                                //print("수익률: \(roi.toPercentage())")
-                                //print("수익금: \(profit.toUSD())")
-                                //print("평가금: \(balance.toUSD())")
-                                
-                                // UI 관련 작업 -> 메인큐로 보내기
-                                DispatchQueue.main.async {
-                                    // 계산 작업 종료 -> activityIndicator 숨기기
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                        self.calcView.activityIndicator.stopAnimating()
-                                        // HalfModalView로 결과 메세지 보여주기
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 0)
-                                    }
-                                }
-                            case .buyStartDateError:
-                                // UI 관련 작업 -> 메인큐로 보내기
-                                DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: Constant.MessageSetting.errorTitle,
-                                                                  message: Constant.MessageSetting.buyStartDateNoDataErrorMessage1,
-                                                                  preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: Constant.MessageSetting.closeTitle,
-                                                                     style: .default) { _ in
-                                        self.calcView.buyStartDateTextField.becomeFirstResponder()
-                                    }
-                                    alert.addAction(cancelAction)
+                switch result {
+                case .success(let historyInfo):
+                    self.historyDict = historyInfo
+                    
+                    CalcManager.shared.calculateROIIntensive(with: self.historyDict, amount: Double(amountString)!, buy: self.buyStartDateStringToCalculate, sell: self.sellDateStringToCalculate) {
+                        (amount, roi, profit, balance,
+                         historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
+                        switch errorCode {
+                        case .noDateError:
+                            //print("<일괄매수 수익 계산 결과>")
+                            //print("원금: \(amount.toUSD())")
+                            //print("수익률: \(roi.toPercentage())")
+                            //print("수익금: \(profit.toUSD())")
+                            //print("평가금: \(balance.toUSD())")
+                            
+                            // UI 관련 작업 -> 메인큐로 보내기
+                            DispatchQueue.main.async {
+                                // 계산 작업 종료 -> activityIndicator 숨기기
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                     self.calcView.activityIndicator.stopAnimating()
-                                    self.present(alert, animated: true, completion: nil)
-                                }
-                            case .buyEndDateError:
-                                fallthrough
-                            case .sellDateError:
-                                // UI 관련 작업 -> 메인큐로 보내기
-                                DispatchQueue.main.async {
-                                    let alert = UIAlertController(title: Constant.MessageSetting.errorTitle,
-                                                                  message: Constant.MessageSetting.sellDateNoDataErrorMessage,
-                                                                  preferredStyle: .alert)
-                                    let cancelAction = UIAlertAction(title: Constant.MessageSetting.closeTitle,
-                                                                     style: .default) { _ in
-                                        self.calcView.sellDateTextField.becomeFirstResponder()
-                                    }
-                                    alert.addAction(cancelAction)
-                                    self.calcView.activityIndicator.stopAnimating()
-                                    self.present(alert, animated: true, completion: nil)
+                                    // HalfModalView로 결과 메세지 보여주기
+                                    self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 0)
                                 }
                             }
+                        case .buyStartDateError:
+                            // UI 관련 작업 -> 메인큐로 보내기
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: Constant.MessageSetting.errorTitle,
+                                                              message: Constant.MessageSetting.buyStartDateNoDataErrorMessage1,
+                                                              preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: Constant.MessageSetting.closeTitle,
+                                                                 style: .default) { _ in
+                                    self.calcView.buyStartDateTextField.becomeFirstResponder()
+                                }
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        case .buyEndDateError:
+                            fallthrough
+                        case .sellDateError:
+                            // UI 관련 작업 -> 메인큐로 보내기
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: Constant.MessageSetting.errorTitle,
+                                                              message: Constant.MessageSetting.sellDateNoDataErrorMessage,
+                                                              preferredStyle: .alert)
+                                let cancelAction = UIAlertAction(title: Constant.MessageSetting.closeTitle,
+                                                                 style: .default) { _ in
+                                    self.calcView.sellDateTextField.becomeFirstResponder()
+                                }
+                                alert.addAction(cancelAction)
+                                self.calcView.activityIndicator.stopAnimating()
+                                self.present(alert, animated: true, completion: nil)
+                            }
                         }
-                        
-                    case .failure(.networkingError):
-                        print("ERROR: networking")
-                        
-                    case .failure(.dataError):
-                        print("ERROR: data")
-                        
-                    case .failure(.parseError):
-                        print("ERROR: parse")
-                        
                     }
+                    
+                case .failure(.networkingError):
+                    print("ERROR: networking")
+                    
+                case .failure(.dataError):
+                    print("ERROR: data")
+                    
+                case .failure(.parseError):
+                    print("ERROR: parse")
+                    
                 }
             }
             
         }
         
         // (b) 분할매수를 선택한 경우
-        if calcView.segmentedControl.selectedSegmentIndex == 1 {
+        if segmentIndex == 1 {
+            checkInputIsValid(segmentIndex: segmentIndex, button: button)
             
-            // 코인 종류 선택값이 없는 경우
-            if calcView.coinTypeTextField.text == "" {
-                inputError = .coinTypeInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                    message: Constant.MessageSetting.coinTypeErrorMessage,
-                                    responder: calcView.coinTypeTextField, error: .buyEndDateInputError)
-                return
-            }
-            
-            // 매수 시작 날짜 입력값이 없는 경우
-            if calcView.buyStartDateTextField.text == "" {
-                inputError = .buyStartDateInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.buyStartDateErrorMessage2,
-                                 responder: calcView.buyStartDateTextField, error: .buyStartDateInputError)
-                return
-            } else {
-                let isValidDate1: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.buyEndDatePicker.date)
-                let isValidDate2: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
-                // 매수 시작 날짜 입력값이 존재하지만, 매수 종료 날짜보다 이후 시점인 경우
-                if calcView.buyStartDateTextField.text != "" && !isValidDate1 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.buyStartDateErrorMessage4,
-                                     responder: calcView.buyStartDateTextField, error: .buyStartbuyEndInputError)
-                    return
-                }
-                // 매수 시작 날짜 입력값이 존재하지만, 매도 날짜보다 이후 시점인 경우
-                if calcView.buyStartDateTextField.text != "" && !isValidDate2 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.buyStartDateErrorMessage5,
-                                     responder: calcView.buyStartDateTextField, error: .buyStartSellInputError)
-                    return
-                }
-            }
-            
-            // 매수 종료 날짜 입력값이 없는 경우
-            if calcView.buyEndDateTextField.text == "" {
-                inputError = .buyEndDateInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.buyEndDateErrorMessage1,
-                                 responder: calcView.buyEndDateTextField, error: .buyEndDateInputError)
-                return
-            } else {
-                let isValidDate1: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.buyEndDatePicker.date)
-                let isValidDate2: Bool = calcView.buyEndDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
-                // 매수 종료 날짜 입력값이 존재하지만, 매수 시작 날짜보다 이전 시점인 경우
-                if calcView.buyStartDateTextField.text != "" && !isValidDate1 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.buyEndDateErrorMessage2,
-                                     responder: calcView.buyEndDateTextField, error: .buyStartbuyEndInputError)
-                    return
-                }
-                // 매수 종료 날짜 입력값이 존재하지만, 매도 날짜보다 이후 시점인 경우
-                if calcView.buyEndDateTextField.text != "" && !isValidDate2 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.buyEndDateErrorMessage3,
-                                     responder: calcView.buyEndDateTextField, error: .buyEndSellInputError)
-                    return
-                }
-            }
-            
-            // 매도 날짜 입력값이 없는 경우
-            if calcView.sellDateTextField.text == "" {
-                inputError = .sellDateInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.sellDateErrorMessage1,
-                                 responder: calcView.sellDateTextField, error: .sellDateInputError)
-                return
-            } else {
-                let isValidDate1: Bool = calcView.buyStartDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
-                let isValidDate2: Bool = calcView.buyEndDatePicker.date.isValidDateOrder(with: calcView.sellDatePicker.date)
-                // 매도 날짜 입력값이 존재하지만, 매수 시작 날짜보다 이전 시점인 경우
-                if calcView.buyStartDateTextField.text != "" && !isValidDate1 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.sellDateErrorMessage3,
-                                     responder: calcView.sellDateTextField, error: .buyStartSellInputError)
-                    return
-                }
-                // 매도 날짜 입력값이 존재하지만, 매수 종료 날짜보다 이전 시점인 경우
-                if calcView.buyEndDateTextField.text != "" && !isValidDate2 {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.sellDateErrorMessage3,
-                                     responder: calcView.sellDateTextField, error: .buyEndSellInputError)
-                    return
-                }
-            }
-            
-            // 매수 반복 주기 입력값이 없는 경우
-            if calcView.frequencyTextField.text == "" {
-                inputError = .frequencyInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.frequencyErrorMessage,
-                                 responder: calcView.frequencyTextField, error: .frequencyInputError)
-                return
-            }
-            
-            // 매번 매수 금액 입력값이 없는 경우
-            if calcView.amountTextField.text == "" {
-                inputError = .amountInputError
-                showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                 message: Constant.MessageSetting.amountErrorMessage3,
-                                 responder: calcView.amountTextField, error: .amountInputError)
-                return
-            } else {
-                if calcView.amountTextField.text!.filter({ $0 == "." }).count > 1 {
-                    inputError = .decimalInputError
-                }
-                
-                // 매 회 매수 금액 입력값이 존재하지만, 소수점이 2개 이상 입력된 경우
-                if inputError == .decimalInputError {
-                    showPopUpMessage(with: button, title: Constant.MessageSetting.errorTitle,
-                                     message: Constant.MessageSetting.amountErrorMessage2,
-                                     responder: calcView.amountTextField, error: .decimalInputError)
-                    return
-                }
-            }
+            // noInputError인 경우 다음 줄로 넘어가서 실행, 그렇지 않은 경우 return으로 함수 종료
+            guard inputError == .noInputError else { return }
             
             if inputError == .noInputError {
                 // 계산 작업 시작 -> activityIndicator 표시하기
@@ -700,22 +738,23 @@ final class CalcViewController: UIViewController {
                 let frequencyString: String = calcView.frequencyTextField.text!
                 let amountString: String = calcView.amountTextField.text!
                 
-                let buyStartTobuyEndLength: Int =
-                CalcManager.shared.calculateDateInterval(type: .buyStartTobuyEnd,
-                                                         start: self.buyStartDateStringToCalculate,
-                                                         end: self.buyEndDateStringToCalculate)
-                let buyStartToSellLength: Int =
-                CalcManager.shared.calculateDateInterval(type: .buyStartToSell,
-                                                         start: self.buyStartDateStringToCalculate,
-                                                         end: self.sellDateStringToCalculate)
-                let buyToNowLength: Int =
-                CalcManager.shared.calculateDateInterval(type: .buyStartToNow,
-                                                         start: self.buyStartDateStringToCalculate,
-                                                         end: nil)
+                let buyStartTobuyEndLength: Int = CalcManager.shared.calculateDateInterval(
+                    type: .buyStartTobuyEnd,
+                    start: self.buyStartDateStringToCalculate,
+                    end: self.buyEndDateStringToCalculate)
+                let buyStartToSellLength: Int = CalcManager.shared.calculateDateInterval(
+                    type: .buyStartToSell,
+                    start: self.buyStartDateStringToCalculate,
+                    end: self.sellDateStringToCalculate)
+                let buyToNowLength: Int = CalcManager.shared.calculateDateInterval(
+                    type: .buyStartToNow,
+                    start: self.buyStartDateStringToCalculate,
+                    end: nil)
                 
                 // 위의 if문을 통해 모든 입력 값의 검사를 통과했다면 API로 가격 히스토리 데이터 가져오기
                 NetworkManager.shared.fetchPriceHistory(with: coinTypeString, duration: buyToNowLength) { [weak self] result in
                     guard let self = self else { return }
+                    
                     switch result {
                     case .success(let historyInfo):
                         self.historyDict = historyInfo
@@ -803,9 +842,10 @@ final class CalcViewController: UIViewController {
     
     @objc private func calcResetButtonTapped(_ button: UIButton) {
         // Alert 메세지 표시
-        showPopUpMessage(with: button, title: Constant.MessageSetting.resetTitle,
+        showPopUpMessage(with: button,
+                         title: Constant.MessageSetting.resetTitle,
                          message: Constant.MessageSetting.resetMessage,
-                         responder: nil, error: .noInputError)
+                         responder: nil)
     }
     
     @objc private func recentInputButtonTapped() {

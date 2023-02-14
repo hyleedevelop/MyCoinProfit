@@ -75,16 +75,16 @@ final class StatsCell: UITableViewCell {
 
     // Cell 업데이트
     func prepareStats(segment: Int, mode: Int, icon: UIImage?, title: String?, value: String?) {
-        var myColor = UIColor.clear
-        if segment == 0 {
-            for i in 0..<7 where mode == i {
-                myColor = Constant.UIColorSetting.themeGradientSevenColorSet[i]
-            }
-        } else {
-            for i in 0..<10 where mode == i {
-                myColor = Constant.UIColorSetting.themeGradientTenColorSet[i]
-            }
-        }
+        //var myColor = UIColor.clear
+        //if segment == 0 {
+        //    for i in 0..<7 where mode == i {
+        //        myColor = Constant.UIColorSetting.themeGradientSevenColorSet[i]
+        //    }
+        //} else {
+        //    for i in 0..<10 where mode == i {
+        //        myColor = Constant.UIColorSetting.themeGradientTenColorSet[i]
+        //    }
+        //}
         
         //self.itemIcon.tintColor = myColor
         self.itemIcon.image = icon

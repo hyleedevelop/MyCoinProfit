@@ -129,11 +129,11 @@ final class CalcResultViewController: UIViewController {
     private func setupTableViewDataSource() {
         switch segmentIndex {
         case 0:
-            self.dataSource = [CalcResultCellDataManager.shared.getStatsDataLSI(),
-                               CalcResultCellDataManager.shared.getGraphData()]
+            self.dataSource = [CalcResultCellManager.shared.getStatsDataLSI(),
+                               CalcResultCellManager.shared.getGraphData()]
         case 1:
-            self.dataSource = [CalcResultCellDataManager.shared.getStatsDataDCA(),
-                               CalcResultCellDataManager.shared.getGraphData()]
+            self.dataSource = [CalcResultCellManager.shared.getStatsDataDCA(),
+                               CalcResultCellManager.shared.getGraphData()]
         default:
             fatalError()
         }
@@ -204,13 +204,13 @@ extension CalcResultViewController: CalcResultDelegate {
             self.totalInvestedArray = data.9
             self.roiArray = data.10
             
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 2, newValue: sellDate)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 3, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 4, newValue: amountTotal)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 5, newValue: balance)
-            CalcResultCellDataManager.shared.updateStatsDataLSI(index: 6, newValue: "\(profit)\n(\(roi))")
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 2, newValue: sellDate)
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 3, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 4, newValue: amountTotal)
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 5, newValue: balance)
+            CalcResultCellManager.shared.updateStatsDataLSI(index: 6, newValue: "\(profit)\n(\(roi))")
         }
 
         if index == 1 {  // 나눠서 매수하기
@@ -235,16 +235,16 @@ extension CalcResultViewController: CalcResultDelegate {
             self.totalInvestedArray = data.13
             self.roiArray = data.14
             
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 0, newValue: coinType)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 1, newValue: buyStartDate)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 2, newValue: buyEndDate)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 3, newValue: sellDate)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 4, newValue: frequency)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength.separatedByComma()) Days")
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 7, newValue: amountTotal)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 8, newValue: balance)
-            CalcResultCellDataManager.shared.updateStatsDataDCA(index: 9, newValue: "\(profit)\n(\(roi))")
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 0, newValue: coinType)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 1, newValue: buyStartDate)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 2, newValue: buyEndDate)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 3, newValue: sellDate)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 4, newValue: frequency)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength.separatedByComma()) Days")
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 7, newValue: amountTotal)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 8, newValue: balance)
+            CalcResultCellManager.shared.updateStatsDataDCA(index: 9, newValue: "\(profit)\n(\(roi))")
         }
     }
     

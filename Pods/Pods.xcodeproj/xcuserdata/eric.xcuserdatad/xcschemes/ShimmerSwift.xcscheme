@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "51471EE35F2E9E19E51A74944E5ABB7F"
-               BuildableName = "FirebaseRemoteConfig.framework"
-               BlueprintName = "FirebaseRemoteConfig"
+               BlueprintIdentifier = "BF2974CEBD4F57BEFE88471BC9F6361A"
+               BuildableName = "ShimmerSwift.framework"
+               BlueprintName = "ShimmerSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
