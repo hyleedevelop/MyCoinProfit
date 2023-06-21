@@ -114,13 +114,10 @@ extension Double {
         }
     }
     
+    // 퍼센트 숫자를 나타내는 문자열
     func toPercentage() -> String {
         return self > 0 ? "+\(formatterOfPercentage.string(for: self) ?? "N/A")"
                         : "\(formatterOfPercentage.string(for: self) ?? "N/A")"
-    }
-    
-    func separatedByComma() -> String {
-        return formatterOfCommaSeparatedInt.string(for: self) ?? "N/A"
     }
     
 }

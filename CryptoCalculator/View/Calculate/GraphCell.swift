@@ -83,17 +83,16 @@ final class GraphCell: UITableViewCell {
         let chartDataSet = LineChartDataSet(entries: dataEntries, label: "chart")
         chartDataSet.mode = .linear
         chartDataSet.drawCirclesEnabled = false
-        //chartDataSet.circleRadius = 2.0
-        //chartDataSet.circleHoleRadius = 0.0
         chartDataSet.lineWidth = 1.5
         var myColor = UIColor.clear
         
         // 앱의 테마 컬러 설정 가져오기
-        let defaults = UserDefaults.standard
-        let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
+        
         if mode == 0 { myColor = Constant.UIColorSetting.themeGradientStartColors[themeIndex] }
         if mode == 1 { myColor = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex] }
         if mode == 2 { myColor = Constant.UIColorSetting.themeGradientEndColors[themeIndex] }
+        
         chartDataSet.colors = [myColor]
         chartDataSet.fill = ColorFill(color: myColor)
         chartDataSet.fillAlpha = 0.5
@@ -102,8 +101,6 @@ final class GraphCell: UITableViewCell {
         chartDataSet.highlightColor = .systemGray2
         chartDataSet.highlightLineWidth = 1.0
         chartDataSet.highlightLineDashLengths = [2, 1]
-//        chartDataSet.isDrawLineWithGradientEnabled = true
-//        chartDataSet.gradientPositions = [0.0, 0.5, 1.0]
         
         // 데이터 삽입
         let chartData = LineChartData(dataSet: chartDataSet)
@@ -178,6 +175,6 @@ final class GraphCell: UITableViewCell {
         }
         xticks[data.count-1] = "Sell"
         
-        drawLineChart(segment: segment, mode: mode, dataPoints: xticks, values: data)
+        self.drawLineChart(segment: segment, mode: mode, dataPoints: xticks, values: data)
     }
 }

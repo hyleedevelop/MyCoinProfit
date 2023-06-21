@@ -26,8 +26,6 @@ struct Constant {
         
         static let themeColor: UIColor = .systemPurple
         
-        static let themeColorNumberKey: String = "themeColorNumber"
-        static let themeColorStateKey: String = "themeColorChanged"
         static let themeGradientStartColors: [UIColor]  = [#colorLiteral(red: 0, green: 0.7118151784, blue: 0.8480765224, alpha: 1), #colorLiteral(red: 0.860608995, green: 0.5137880445, blue: 0.7060825229, alpha: 1), #colorLiteral(red: 1, green: 0.5827487245, blue: 0.2789381378, alpha: 1), #colorLiteral(red: 1, green: 0.8980392157, blue: 0.9254901961, alpha: 1), #colorLiteral(red: 0.9568627451, green: 0.9490196078, blue: 0.4117647059, alpha: 1), #colorLiteral(red: 0.7921568627, green: 0.9411764706, blue: 0.9725490196, alpha: 1), #colorLiteral(red: 0.8705882353, green: 0.7882352941, blue: 0.9137254902, alpha: 1), #colorLiteral(red: 0.9294117647, green: 0.8784313725, blue: 0.831372549, alpha: 1)]
         static let themeGradientMiddleColors: [UIColor] = [#colorLiteral(red: 0.4268131554, green: 0.5237367749, blue: 0.8903746009, alpha: 1), #colorLiteral(red: 0.593103528, green: 0.7224785686, blue: 0.9253215194, alpha: 1), #colorLiteral(red: 0.8889493298, green: 0.2, blue: 0.7725490196, alpha: 1), #colorLiteral(red: 1, green: 0.7019607843, blue: 0.7764705882, alpha: 1), #colorLiteral(red: 0.6588235294, green: 0.8235294118, blue: 0.4274509804, alpha: 1), #colorLiteral(red: 0, green: 0.7058823529, blue: 0.8470588235, alpha: 1), #colorLiteral(red: 0.6274509804, green: 0.4235294118, blue: 0.8352941176, alpha: 1), #colorLiteral(red: 0.8666666667, green: 0.7215686275, blue: 0.5725490196, alpha: 1)]
         static let themeGradientEndColors: [UIColor]    = [#colorLiteral(red: 0.6540915966, green: 0.3039287329, blue: 1, alpha: 1), #colorLiteral(red: 0.4219039679, green: 0.9795603156, blue: 0.9568110108, alpha: 1), #colorLiteral(red: 0.5294117647, green: 0.6039215686, blue: 0.9490196078, alpha: 1), #colorLiteral(red: 0.9843137255, green: 0.4352941176, blue: 0.5725490196, alpha: 1), #colorLiteral(red: 0.3607843137, green: 0.6980392157, blue: 0.4392156863, alpha: 1), #colorLiteral(red: 0.01176470588, green: 0.01568627451, blue: 0.368627451, alpha: 1), #colorLiteral(red: 0.3843137255, green: 0.2784313725, blue: 0.6666666667, alpha: 1), #colorLiteral(red: 0.4980392157, green: 0.3333333333, blue: 0.2235294118, alpha: 1)]
@@ -213,6 +211,11 @@ struct Constant {
         static let admobBottomBannerTestID = "ca-app-pub-3940256099942544/2934735716"
         static let admobAppOpenMyID = "ca-app-pub-5804054899003424/7922125962"
         static let admobAppOpenTestID = "ca-app-pub-3940256099942544/5662855259"
+    }
+    
+    struct UserDefaults {
+        static let themeColorNumber: String = "themeColorNumber"
+        static let themeColorState: String = "themeColorChanged"
     }
     
 }

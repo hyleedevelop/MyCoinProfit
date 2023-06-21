@@ -123,7 +123,7 @@ final class CoinListCell: UITableViewCell {
     
     // 하위 뷰로 등록
     private func registerUI() {
-        self.addSubview(cellSV)
+        contentView.addSubview(cellSV)
         self.backgroundColor = UIColor(named: "BGColor")
     }
     
@@ -150,7 +150,7 @@ final class CoinListCell: UITableViewCell {
             priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
             priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
         
-            cellSV.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            cellSV.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
         ])
     }
     

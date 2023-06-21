@@ -55,16 +55,16 @@ final class CalcViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavBar()
-        setupView()
-        setupPickerView()
-        setupButton()
-        setupTextField()
-        setupBannerViewToBottom()
+        self.setupNavBar()
+        self.setupView()
+        self.setupPickerView()
+        self.setupButton()
+        self.setupTextField()
+        self.setupBannerViewToBottom()
         
-        playAnimation()
+        self.playAnimation()
         
-        addObserver()
+        self.addObserver()
     }
     
     deinit {
@@ -76,16 +76,11 @@ final class CalcViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         
         guard let coinName = DataPassManager.shared.selectedCoinName else { return }
-        calcView.coinTypeTextField.text = coinName
+        self.calcView.coinTypeTextField.text = coinName
     }
         
     override func loadView() {
-        view = calcView
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
+        self.view = self.calcView
     }
     
     // NavigationBar 설정
@@ -118,23 +113,24 @@ final class CalcViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = UIColor(named: "BGColor")
+        self.view.backgroundColor = UIColor(named: "BGColor")
     }
     
+#warning("View로 옮기기")
     // PickerView 설정
     private func setupPickerView() {
         // UIPickerView 사용 시 delegate 패턴으로 구현 (UIDatePickerView는 필요없음)
         _ = [calcView.coinTypePicker, calcView.frequencyPicker].map { $0.delegate = self }
     
-        calcView.coinTypeTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
-        calcView.buyStartDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
-        calcView.buyEndDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
-        calcView.sellDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
-        calcView.frequencyTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
+        self.calcView.coinTypeTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
+        self.calcView.buyStartDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
+        self.calcView.buyEndDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
+        self.calcView.sellDateTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
+        self.calcView.frequencyTextField.addTarget(self, action: #selector(textFieldAction(_:)), for: .editingDidBegin)
         
-        calcView.buyStartDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
-        calcView.buyEndDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
-        calcView.sellDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
+        self.calcView.buyStartDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
+        self.calcView.buyEndDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
+        self.calcView.sellDatePicker.addTarget(self, action: #selector(datePickerAction(_:)), for: .valueChanged)
         
         // Picker가 선택되어 있는 기본값
         //calcView.coinTypePicker.selectRow(0, inComponent: 0, animated: true)
@@ -143,11 +139,10 @@ final class CalcViewController: UIViewController {
     
     // Button 설정
     private func setupButton() {
-        calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
+        self.calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
         
         // 앱의 테마 컬러 설정 가져오기
-        let defaults = UserDefaults.standard
-        let themeIndex = defaults.integer(forKey: "themeColorNumber")
+        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
         
         DispatchQueue.main.async {
             self.calcView.calcStartButton.setButtonBackgroundGradient(
@@ -167,8 +162,7 @@ final class CalcViewController: UIViewController {
     // 버튼 속성 업데이트
     @objc private func notificationReceived(_ notification: NSNotification) {
         // 앱의 테마 컬러 설정 가져오기
-        let defaults = UserDefaults.standard
-        let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
         
         // 버튼에 들어있던 기존의 sublayer를 제거
         if let firstIndex = calcView.calcStartButton.layer.sublayers?.firstIndex(
@@ -246,7 +240,9 @@ final class CalcViewController: UIViewController {
             let okAction = UIAlertAction(title: Constant.MessageSetting.resetTitle,
                                          style: .destructive) { _ in
                 // 입력된 내용 모두 지우기
-                _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField, self.calcView.buyEndDateTextField, self.calcView.sellDateTextField, self.calcView.frequencyTextField, self.calcView.amountTextField].map{ $0.text = "" }
+                _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField,
+                     self.calcView.buyEndDateTextField, self.calcView.sellDateTextField,
+                     self.calcView.frequencyTextField, self.calcView.amountTextField].map { $0.text = "" }
             }
             
             // 액션 추가 및 팝업메세지 출력
@@ -955,7 +951,7 @@ extension CalcViewController: UITextFieldDelegate {
                 sheet.preferredCornerRadius = 25
                 sheet.prefersGrabberVisible = false
             }
-            //calcView.coinTypeTextField.endEditing(true)
+            //self.present(nav, animated: true, completion: nil)
             self.present(nav, animated: true, completion: nil)
         }
 
@@ -1008,21 +1004,21 @@ extension CalcViewController: GADBannerViewDelegate {
     
     func setupBannerViewToBottom(height: CGFloat = 50) {
         let adSize = GADAdSizeFromCGSize(CGSize(width: view.frame.width, height: height))
-        bannerView = GADBannerView(adSize: adSize)
+        self.bannerView = GADBannerView(adSize: adSize)
 
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
+        self.bannerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.bannerView)
         NSLayoutConstraint.activate([
-            bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            bannerView.heightAnchor.constraint(equalToConstant: height)
+            self.bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            self.bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            self.bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            self.bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
+        self.bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
+        self.bannerView.rootViewController = self
+        self.bannerView.load(GADRequest())
+        self.bannerView.delegate = self
     }
     
     // Tells the delegate an ad request loaded an ad.
@@ -1037,28 +1033,6 @@ extension CalcViewController: GADBannerViewDelegate {
     private func adView(_ bannerView: GADBannerView,
                         didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    // Tells the delegate that a full-screen view will be presented in response
-    // to the user clicking on an ad.
-    private func adViewWillPresentScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that the full-screen view will be dismissed.
-    private func adViewWillDismissScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that the full-screen view has been dismissed.
-    private func adViewDidDismissScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that a user click will open another app (such as
-    // the App Store), backgrounding the current app.
-    private func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
-        
     }
     
 }

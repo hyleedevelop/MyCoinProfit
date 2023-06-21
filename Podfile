@@ -7,7 +7,7 @@ target 'CryptoCalculator' do
 
   # Pods for CryptoCalculator
   #pod 'RealmSwift', '~>10'
-  pod 'Kingfisher', '~> 7.0'
+  #pod 'Kingfisher', '7.6.1'
   pod 'IQKeyboardManagerSwift', '6.5.10'
   #pod 'ShimmerSwift'
   pod 'NVActivityIndicatorView'
@@ -16,6 +16,6 @@ target 'CryptoCalculator' do
   pod 'FirebaseCrashlytics'
   pod 'FirebasePerformance'
   pod 'Google-Mobile-Ads-SDK'
-  pod 'AcknowList'
+  #pod 'AcknowList'
 
 end

@@ -67,14 +67,14 @@ final class CalcResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calcVC.calcResultDataDelegate = self
+        self.calcVC.calcResultDataDelegate = self
     
-        setupNavBar()
-        setupView()
-        setupTableView()
-        setupTableViewDataSource()
+        self.setupNavBar()
+        self.setupView()
+        self.setupTableView()
+        self.setupTableViewDataSource()
         
-        setupBannerViewToBottom()
+        self.setupBannerViewToBottom()
     }
     
     private func setupNavBar() {
@@ -105,23 +105,23 @@ final class CalcResultViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = UIColor(named: "BGColor")
+        self.view.backgroundColor = UIColor(named: "BGColor")
     }
 
     // TableView 설정
     private func setupTableView() {
-        view.addSubview(tableView)
+        self.view.addSubview(tableView)
         
         // 대리자 설정
-        tableView.dataSource = self
-        tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
         // AutoLayout 설정
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            self.tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            self.tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            self.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
         ])
     }
     
@@ -135,18 +135,17 @@ final class CalcResultViewController: UIViewController {
             self.dataSource = [CalcResultCellManager.shared.getStatsDataDCA(),
                                CalcResultCellManager.shared.getGraphData()]
         default:
-            fatalError()
+            break
         }
         
-        
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     // 스크린샷을 사진 앱에 저장 (1)
     private func takeScreenshot(of view: UIView) {
-        if let image = tableView.screenshot {
+        if let image = self.tableView.screenshot {
             // photo library 접근 권한을 허용해줘야 함(Info.plist)
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageWasSaved), nil)
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.imageWasSaved), nil)
         }
     }
     
@@ -262,35 +261,29 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     // Section 내의 Cell 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch self.dataSource[section] {
-        case let .stats(statsModel):
-            return statsModel.count
-        case let .graph(graphModel):
-            return graphModel.count
+        case let .stats(statsModel): return statsModel.count
+        case let .graph(graphModel): return graphModel.count
         }
     }
     
     // Section Header의 제목 설정
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch self.dataSource[section] {
-        case .stats(_):
-            return "Stats"
-        case .graph(_):
-            return "Performance Chart"
+        case .stats(_): return "Stats"
+        case .graph(_): return "Performance Chart"
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let title = UILabel()
         switch self.dataSource[section] {
-        case .stats(_):
-            title.text = "Stats"
-        case .graph(_):
-            title.text = "Performance Charts"
+        case .stats(_): title.text = "Stats"
+        case .graph(_): title.text = "Performance Charts"
         }
+        
         title.font = UIFont.systemFont(ofSize: 18,
                                        weight: .bold)
         title.textColor = .label
-        //title.backgroundColor = UILabel("")
 
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel!.font = title.font
@@ -301,10 +294,8 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell 높이 설정
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch self.dataSource[indexPath.section] {
-        case .stats(_):
-            return 44
-        case .graph(_):
-            return 220
+        case .stats(_): return 44
+        case .graph(_): return 220
         }
     }
     
@@ -352,22 +343,22 @@ extension CalcResultViewController: GADBannerViewDelegate {
     
     func setupBannerViewToBottom(height: CGFloat = 50) {
         let adSize = GADAdSizeFromCGSize(CGSize(width: view.frame.width, height: height))
-        bannerView = GADBannerView(adSize: adSize)
+        self.bannerView = GADBannerView(adSize: adSize)
 
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
+        self.bannerView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.bannerView)
         
         NSLayoutConstraint.activate([
-            bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            bannerView.heightAnchor.constraint(equalToConstant: height)
+            self.bannerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            self.bannerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            self.bannerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            self.bannerView.heightAnchor.constraint(equalToConstant: height)
         ])
 
-        bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
+        self.bannerView.adUnitID = Constant.URLSetting.admobBottomBannerMyID
+        self.bannerView.rootViewController = self
+        self.bannerView.load(GADRequest())
+        self.bannerView.delegate = self
     }
     
     // Tells the delegate an ad request loaded an ad.
@@ -382,28 +373,6 @@ extension CalcResultViewController: GADBannerViewDelegate {
     private func adView(_ bannerView: GADBannerView,
                         didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    // Tells the delegate that a full-screen view will be presented in response
-    // to the user clicking on an ad.
-    private func adViewWillPresentScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that the full-screen view will be dismissed.
-    private func adViewWillDismissScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that the full-screen view has been dismissed.
-    private func adViewDidDismissScreen(_ bannerView: GADBannerView) {
-        
-    }
-    
-    // Tells the delegate that a user click will open another app (such as
-    // the App Store), backgrounding the current app.
-    private func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
-        
     }
     
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CustomSegmentedControlDelegate: AnyObject {
-    func change(to index:Int)
+    func change(to index: Int)
 }
 
 class CustomSegmentedControl: UIView {
@@ -73,6 +73,7 @@ class CustomSegmentedControl: UIView {
 
 //Configuration View
 extension CustomSegmentedControl {
+    
     private func updateView() {
         createButton()
         configSelectorView()

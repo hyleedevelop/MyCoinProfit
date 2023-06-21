@@ -97,39 +97,42 @@ final class CoinListViewController: UIViewController {
     // 초기 실행
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupActivityIndicator()
-        setupNavBar()
-        setupView()
-        setupButton()
-        setupTableContainerView()
-        setupTableView()
+    
+        self.setupActivityIndicator()
+        self.setupNavBar()
+        self.setupView()
+        self.setupButton()
+        self.setupTableContainerView()
+        self.setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 코인시세 화면이 보여질 때마다 데이터 갱신
-        loadData()
+        self.fetchData()
         // 코인시세 화면이 보여질 때마다 5분마다 데이터를 갱신하는 Timer 시작
-        apiTimer = Timer.scheduledTimer(timeInterval: 300, target: self,
-                                        selector: #selector(updateData),
-                                        userInfo: nil, repeats: true)
+        self.apiTimer = Timer.scheduledTimer(
+            timeInterval: 300, target: self, selector: #selector(updateData),
+            userInfo: nil, repeats: true
+        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // 코인시세 화면에서 벗어나면 생성되어있던 Timer 종료
-        apiTimer?.invalidate()
+        self.apiTimer?.invalidate()
     }
     
     @objc private func updateData() {
-        loadData()
+        self.fetchData()
     }
     
     // REST API를 이용해 서버에서 데이터 가져오기
-    private func loadData() {
-        tableView.backgroundColor = UIColor(named: "BGColor")
-        activityIndicator.startAnimating()
+    private func fetchData() {
+        DispatchQueue.main.async {
+            self.tableView.backgroundColor = UIColor(named: "BGColor")
+            self.activityIndicator.startAnimating()
+        }
         
         // 강한 참조가 일어나지 않도록 [weak self]를 사용하여 구현
         NetworkManager.shared.fetchCurrentPrice { [weak self] result in
@@ -169,7 +172,10 @@ final class CoinListViewController: UIViewController {
         navigationBarAppearance.configureWithOpaqueBackground()
         navigationBarAppearance.shadowColor = .clear
         navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.systemGray2]
+        navigationBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium),
+            NSAttributedString.Key.foregroundColor: UIColor.systemGray2
+        ]
         
         navigationController?.navigationBar.standardAppearance = navigationBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
@@ -183,7 +189,10 @@ final class CoinListViewController: UIViewController {
         navigationItem.compactAppearance = navigationBarAppearance
         navigationItem.searchController = searchController
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark"), style: .plain,
+            target: self, action: #selector(buttonTapped(_:))
+        )
         navigationItem.rightBarButtonItem?.tintColor = .systemGray2
         
         navigationItem.title = "Select Your Coin"
@@ -196,81 +205,81 @@ final class CoinListViewController: UIViewController {
     
     // View 설정
     private func setupView() {
-        view.backgroundColor = UIColor(named: "BGColor")
+        self.view.backgroundColor = UIColor(named: "BGColor")
     }
     
     // 화면 상단의 필터링/정렬 버튼 설정
     private func setupButton() {
-        view.addSubview(sortMarketCapButton)
-        view.addSubview(sortPriceChangeButton)
+        self.view.addSubview(sortMarketCapButton)
+        self.view.addSubview(sortPriceChangeButton)
         
-        sortMarketCapButton.translatesAutoresizingMaskIntoConstraints = false
+        self.sortMarketCapButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            sortMarketCapButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            sortMarketCapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortMarketCapButton.widthAnchor.constraint(equalToConstant: 120),
-            sortMarketCapButton.heightAnchor.constraint(equalToConstant: 25),
+            self.sortMarketCapButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            self.sortMarketCapButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.sortMarketCapButton.widthAnchor.constraint(equalToConstant: 120),
+            self.sortMarketCapButton.heightAnchor.constraint(equalToConstant: 25),
         ])
         
         sortPriceChangeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            sortPriceChangeButton.leadingAnchor.constraint(equalTo: sortMarketCapButton.trailingAnchor, constant: 10),
-            sortPriceChangeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 160),
-            sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 25),
+            self.sortPriceChangeButton.leadingAnchor.constraint(equalTo: self.sortMarketCapButton.trailingAnchor, constant: 10),
+            self.sortPriceChangeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.sortPriceChangeButton.widthAnchor.constraint(equalToConstant: 160),
+            self.sortPriceChangeButton.heightAnchor.constraint(equalToConstant: 25),
         ])
     }
 
     // TableView를 담고있는 ContainerView 설정
     private func setupTableContainerView() {
-        view.addSubview(tableContainerView)
+        self.view.addSubview(self.tableContainerView)
         
-        tableContainerView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tableContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
-            tableContainerView.topAnchor.constraint(equalTo: sortMarketCapButton.bottomAnchor, constant: 10),
-            tableContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0)
+            self.tableContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            self.tableContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            self.tableContainerView.topAnchor.constraint(equalTo: self.sortMarketCapButton.bottomAnchor, constant: 10),
+            self.tableContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0)
         ])
     }
     
     // TableView 설정
     private func setupTableView() {
-        view.addSubview(tableView)
+        self.view.addSubview(self.tableView)
         
         // 대리자 설정
-        tableView.dataSource = self
-        tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
 
         // Cell 등록
-        tableView.register(CoinListCell.self, forCellReuseIdentifier: "CoinCell")
+        self.tableView.register(CoinListCell.self, forCellReuseIdentifier: "CoinCell")
         // Cell 사이의 구분선 설정
-        tableView.separatorStyle = .singleLine
-        tableView.separatorInset.left = 0
+        self.tableView.separatorStyle = .singleLine
+        self.tableView.separatorInset.left = 0
         
         // Table 테두리 설정
-        tableView.clipsToBounds = true
-        tableView.layer.cornerRadius = 0
-        tableView.layer.borderWidth = 0
+        self.tableView.clipsToBounds = true
+        self.tableView.layer.cornerRadius = 0
+        self.tableView.layer.borderWidth = 0
 
         // TableView 맨 위의 Cell로 이동하기
-        tableView.scrollsToTop = true
+        self.tableView.scrollsToTop = true
         self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
 
         // AutoLayout 설정
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: tableContainerView.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: tableContainerView.trailingAnchor, constant: -0),
-            tableView.topAnchor.constraint(equalTo: tableContainerView.topAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: tableContainerView.bottomAnchor, constant: -0)
+            self.tableView.leadingAnchor.constraint(equalTo: self.tableContainerView.leadingAnchor, constant: 0),
+            self.tableView.trailingAnchor.constraint(equalTo: self.tableContainerView.trailingAnchor, constant: -0),
+            self.tableView.topAnchor.constraint(equalTo: self.tableContainerView.topAnchor, constant: 0),
+            self.tableView.bottomAnchor.constraint(equalTo: self.tableContainerView.bottomAnchor, constant: -0)
         ])
     }
     
     // SearchBar에서 검색한 단어로 필터링하여 TableView 표출
     private func filterContentForSearchText(searchText: String) {
-        coinArrayFiltered = coinArray.filter { coin in
-            if isSearchBarEmpty() {
+        self.coinArrayFiltered = self.coinArray.filter { coin in
+            if self.isSearchBarEmpty() {
                 return false
             } else {
                 return coin.symbol.lowercased().contains(searchText.lowercased()) ||
@@ -279,19 +288,21 @@ final class CoinListViewController: UIViewController {
         }
         
         // 변경사항을 반영하기 위해 TableView 갱신
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // SearchBar에 입력된 내용의 존재 여부 확인
     private func isSearchBarEmpty() -> Bool {
         // SearchBar에 입력된 내용이 있다면 true를 반환
-        return searchController.searchBar.text?.isEmpty ?? true
+        return self.searchController.searchBar.text?.isEmpty ?? true
     }
     
     // Filtering 여부 확인
-    private func isFiltering() -> Bool {
+    private var isResultFiltered: Bool {
         // SearchController가 활성화 되어있고 SearchBar에 입력된 내용이 있다면 true를 리턴
-        return searchController.isActive && !isSearchBarEmpty()
+        return self.searchController.isActive && !isSearchBarEmpty()
     }
     
     // 화면을 터치하면 키보드 편집 끝내기(내리기)
@@ -337,24 +348,24 @@ final class CoinListViewController: UIViewController {
     }
     
     @objc private func sortMarketCapButtonTapped() {
-        sortMarketCapButton.layer.borderColor = UIColor.label.cgColor
-        sortMarketCapButton.layer.borderWidth = 1.5
+        self.sortMarketCapButton.layer.borderColor = UIColor.label.cgColor
+        self.sortMarketCapButton.layer.borderWidth = 1.5
         
-        sortPriceChangeButton.setTitle("24H Price Change", for: .normal)
-        sortPriceChangeButton.layer.borderWidth = 0
+        self.sortPriceChangeButton.setTitle("24H Price Change", for: .normal)
+        self.sortPriceChangeButton.layer.borderWidth = 0
         
-        isMarketCap = !isMarketCap
-        let buttonTitle = isMarketCap ? "Market Cap ▼" : "Market Cap ▲"
-        sortMarketCapButton.setTitle(buttonTitle, for: .normal)
+        self.isMarketCap.toggle()
+        let buttonTitle = self.isMarketCap ? "Market Cap ▼" : "Market Cap ▲"
+        self.sortMarketCapButton.setTitle(buttonTitle, for: .normal)
         
-        if isFiltering() {
-            coinArrayFiltered = isMarketCap
-                              ? coinArrayFiltered.sorted(by: { $0.marketCap > $1.marketCap })
-                              : coinArrayFiltered.sorted(by: { $0.marketCap < $1.marketCap })
+        if self.isResultFiltered {
+            self.coinArrayFiltered = self.isMarketCap
+            ? self.coinArrayFiltered.sorted(by: { $0.marketCap > $1.marketCap })
+            : self.coinArrayFiltered.sorted(by: { $0.marketCap < $1.marketCap })
         } else {
-            coinArray = isMarketCap
-                      ? coinArray.sorted(by: { $0.marketCap > $1.marketCap })
-                      : coinArray.sorted(by: { $0.marketCap < $1.marketCap })
+            self.coinArray = self.isMarketCap
+            ? self.coinArray.sorted(by: { $0.marketCap > $1.marketCap })
+            : self.coinArray.sorted(by: { $0.marketCap < $1.marketCap })
         }
         
         DispatchQueue.main.async {
@@ -363,24 +374,24 @@ final class CoinListViewController: UIViewController {
     }
     
     @objc private func sortPriceChangeButtonTapped() {
-        sortMarketCapButton.setTitle("Market Cap", for: .normal)
-        sortMarketCapButton.layer.borderWidth = 0
+        self.sortMarketCapButton.setTitle("Market Cap", for: .normal)
+        self.sortMarketCapButton.layer.borderWidth = 0
         
-        sortPriceChangeButton.layer.borderColor = UIColor.label.cgColor
-        sortPriceChangeButton.layer.borderWidth = 1.5
+        self.sortPriceChangeButton.layer.borderColor = UIColor.label.cgColor
+        self.sortPriceChangeButton.layer.borderWidth = 1.5
         
-        isPriceChange = !isPriceChange
-        let buttonTitle = isPriceChange ? "24H Price Change ▼" : "24H Price Change ▲"
-        sortPriceChangeButton.setTitle(buttonTitle, for: .normal)
+        self.isPriceChange.toggle()
+        let buttonTitle = self.isPriceChange ? "24H Price Change ▼" : "24H Price Change ▲"
+        self.sortPriceChangeButton.setTitle(buttonTitle, for: .normal)
         
-        if isFiltering() {
-            coinArrayFiltered = isPriceChange
-                              ? coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
-                              : coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
+        if self.isResultFiltered {
+            self.coinArrayFiltered = self.isPriceChange
+            ? self.coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+            : self.coinArrayFiltered.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
         } else {
-            coinArray = isPriceChange
-                      ? coinArray.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
-                      : coinArray.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
+            self.coinArray = self.isPriceChange
+            ? self.coinArray.sorted(by: { $0.priceChangePercentage24H > $1.priceChangePercentage24H })
+            : self.coinArray.sorted(by: { $0.priceChangePercentage24H < $1.priceChangePercentage24H })
         }
         
         DispatchQueue.main.async {
@@ -400,8 +411,7 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell의 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() { return coinArrayFiltered.count }
-        return coinArray.count
+        return self.isResultFiltered ? self.coinArrayFiltered.count : self.coinArray.count
     }
     
     // TableViewCell에 표출할 내용
@@ -409,7 +419,7 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinListCell
         
         let coin: CurrentPriceData
-        if isFiltering() {
+        if self.isResultFiltered {
             coin = coinArrayFiltered[indexPath.row]
         } else {
             coin = coinArray[indexPath.row]
@@ -422,22 +432,23 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // 셀이 선택이 되었을때 어떤 동작을 할 것인지 뷰컨트롤러에게 물어봄
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let coinID = isFiltering() ? coinArrayFiltered[indexPath.row].id : coinArray[indexPath.row].id
-        let coinName = isFiltering() ? coinArrayFiltered[indexPath.row].name : coinArray[indexPath.row].name
-        let coinSymbol = isFiltering() ? coinArrayFiltered[indexPath.row].symbol.uppercased() : coinArray[indexPath.row].symbol.uppercased()
-        //let coinMinimumDate = isFiltering() ? coinArrayFiltered[indexPath.row].atlDate : coinArray[indexPath.row].atlDate
+        let coinID = self.isResultFiltered ? self.coinArrayFiltered[indexPath.row].id : self.coinArray[indexPath.row].id
+        let coinName = self.isResultFiltered ? self.coinArrayFiltered[indexPath.row].name : self.coinArray[indexPath.row].name
+        let coinSymbol = self.isResultFiltered ? self.coinArrayFiltered[indexPath.row].symbol.uppercased() : self.coinArray[indexPath.row].symbol.uppercased()
         
         // AlertController, AlertAction 생성
         let alert = UIAlertController(title: Constant.MessageSetting.confirmTitle,
                                       message: Constant.MessageSetting.coinSelectMessage +
                                       "\n\(coinName)(\(coinSymbol))?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
+        let okAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
             // Singleton 패턴으로 CalcVC의 coinTypeTextField에게 데이터 전달하기
             DataPassManager.shared.selectedCoinID = coinID
             DataPassManager.shared.selectedCoinName = coinName
             DataPassManager.shared.selectedCoinSymbol = coinSymbol
-            self.dismiss(animated: true)
+            //self.dismiss(animated: true)
+            guard let self = self else { return }
+            self.searchController.isActive = false
             self.dismiss(animated: true)
         }
         

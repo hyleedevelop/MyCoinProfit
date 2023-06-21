@@ -1,5 +1,4 @@
 PODS:
-  - AcknowList (3.0.0)
   - Charts (4.1.0):
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
@@ -106,7 +105,6 @@ PODS:
   - GoogleUtilities/UserDefaults (7.10.0):
     - GoogleUtilities/Logger
   - IQKeyboardManagerSwift (6.5.10)
-  - Kingfisher (7.5.0)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -119,19 +117,16 @@ PODS:
   - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
-  - AcknowList
   - Charts
   - FirebaseAnalytics
   - FirebaseCrashlytics
   - FirebasePerformance
   - Google-Mobile-Ads-SDK
   - IQKeyboardManagerSwift (= 6.5.10)
-  - Kingfisher (~> 7.0)
   - NVActivityIndicatorView
 
 SPEC REPOS:
   trunk:
-    - AcknowList
     - Charts
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -147,14 +142,12 @@ SPEC REPOS:
     - GoogleUserMessagingPlatform
     - GoogleUtilities
     - IQKeyboardManagerSwift
-    - Kingfisher
     - nanopb
     - NVActivityIndicatorView
     - PromisesObjC
     - SwiftAlgorithms
 
 SPEC CHECKSUMS:
-  AcknowList: 931531a3e9d66f202ae8e04819a62c50b818b03e
   Charts: 354f86803d11d9c35de280587fef50d1af063978
   FirebaseABTesting: ae3b32fe26e761fd54c68e37a632a0097b599c87
   FirebaseAnalytics: 0be84b933ca3222bca03e8cccf020ad9b1c3c6ff
@@ -170,12 +163,11 @@ SPEC CHECKSUMS:
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
-  Kingfisher: b9c2a4a4af2990a768445c277359b27bde287d71
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: ff6e7fb78dae5155b11b9b89b65efc17489da93b
+PODFILE CHECKSUM: daf2e7e372625b4b6d51efec3dca31c1d2880a1d
 
 COCOAPODS: 1.11.3

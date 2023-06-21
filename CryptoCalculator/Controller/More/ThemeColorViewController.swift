@@ -28,8 +28,6 @@ final class ThemeColorViewController: UIViewController {
         return tv
     }()
     
-    let userDefaults = UserDefaults.standard
-    
     var selectedRows = [IndexPath]()
     var selectedRowNumber: Int = 0
     
@@ -66,35 +64,32 @@ final class ThemeColorViewController: UIViewController {
 
     // View 설정
     private func setupView() {
-        view.backgroundColor = UIColor(named: "BGColor")   
+        self.view.backgroundColor = UIColor(named: "BGColor")
     }
     
     // TableView 설정
     private func setupTableView() {
-        view.addSubview(tableView)
+        self.view.addSubview(tableView)
         
         // 대리자 설정
-        tableView.dataSource = self
-        tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
         
         // AutoLayout 설정
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            self.tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            self.tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            self.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
         ])
         
-        let defaults = UserDefaults.standard
-        let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
         
-        
-        
-        if let cell = tableView.cellForRow(at: IndexPath(row: themeIndex, section: 0)) {
+        if let cell = self.tableView.cellForRow(at: IndexPath(row: themeIndex, section: 0)) {
             print("test")
             cell.accessoryType = .checkmark
             cell.isSelected = true
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
@@ -171,10 +166,9 @@ extension ThemeColorViewController: UITableViewDataSource, UITableViewDelegate {
 //        }
         
         // NotificationCenter를 이용해서 사용자가 선택한 indexPath.row 값을 UserDefaults에 저장
-        let defaults = UserDefaults.standard
         //let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
-        defaults.set(indexPath.row, forKey: Constant.UIColorSetting.themeColorNumberKey)
-        defaults.synchronize()
+        UserDefaults.standard.set(indexPath.row, forKey: Constant.UserDefaults.themeColorNumber)
+        UserDefaults.standard.synchronize()
         
         // 테마 컬러 정보가 바뀌었음을 NotificationCenter를 통해 알리기
         NotificationCenter.default.post(name: Notification.Name("colorChanged"), object: nil)
