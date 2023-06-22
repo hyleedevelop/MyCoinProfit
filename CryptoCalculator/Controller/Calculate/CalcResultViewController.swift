@@ -11,7 +11,11 @@ import GoogleMobileAds
 
 final class CalcResultViewController: UIViewController {
     
+    //MARK: - 뷰컨트롤러 인스턴스
+    
     let calcVC = CalcViewController()
+    
+    //MARK: - UI
     
     // 구글 애드몹
     lazy var bannerView: GADBannerView = {
@@ -26,7 +30,6 @@ final class CalcResultViewController: UIViewController {
         tv.backgroundColor = UIColor.systemBackground
         tv.separatorStyle = .none
         tv.allowsSelection = false
-        //tv.sectionHeaderTopPadding = 0
         tv.sectionFooterHeight = 30
         tv.scrollsToTop = true
         tv.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -35,34 +38,16 @@ final class CalcResultViewController: UIViewController {
         return tv
     }()
 
-//    var statsDic: [String: Any] = ["amountTotal":"", "amountEach":"",
-//                                   "roi":"", "profit":"", "balance"]
+    //MARK: - 데이터
     
     var segmentIndex: Int = 0
+    var intensiveInvestment: IntensiveInvestment!
+    var averagedInvestment: AveragedInvestment!
     var statsDataArrayLSI = [String]()
-    
-    var amountTotal: String = ""
-    var amountEach: String = ""
-    var roi: String = ""
-    var profit: String = ""
-    var balance: String = ""
-    var coinType: String = ""
-    var buyStartDate: String = ""
-    var buyEndDate: String = ""
-    var sellDate: String = ""
-    var buyStartToBuyEndLength: Int = 0
-    var buyStartToSellLength: Int = 0
-    var frequency: String = ""
-    var isROIPositive: Bool = true
-    var lossOrGainColor: UIColor = Constant.UIColorSetting.positiveColor
-    var coinPriceArray = [Double]()
-    var totalInvestedArray = [Double]()
-    var roiArray = [Double]()
-    
-    
+
     private var dataSource = [CalcResultCellData]()
     
-    //let defaults = UserDefaults.standard
+    //MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,30 +62,14 @@ final class CalcResultViewController: UIViewController {
         self.setupBannerViewToBottom()
     }
     
+    //MARK: - 네비게이션 바 설정
+    
     private func setupNavBar() {
-        //navigationItem.title = "도움말"
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium), NSAttributedString.Key.foregroundColor: UIColor.label]
+        self.navigationController?.applyDefaultSettings()
         
-        // scrollEdge: 스크롤 하기 전의 NavigationBar
-        // standard: 스크롤을 하고 있을 때의 NavigationBar
-        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = .label
-        
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-//        navigationItem.backBarButtonItem?.tintColor = .label
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = .label
-        
-        navigationItem.title = "Result"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        self.navigationItem.rightBarButtonItem?.tintColor = .label
+        self.navigationItem.title = Constant.TitleSetting.resultVC
     }
     
     // View 설정
@@ -182,68 +151,84 @@ final class CalcResultViewController: UIViewController {
 extension CalcResultViewController: CalcResultDelegate {
     
     // 이전 화면에서 데이터를 전달받아 작업할 내용
-    func receiveCalcResultData(segmentIndex index: Int, with data: Any) {
+    func receiveCalcResultData(segmentIndex index: Int, with data: InvestmentResult) {
         self.segmentIndex = index
         
         if index == 0 {  // 한번에 매수하기
-            guard let data = data as? CalcResultType1 else { return }
-
-            self.amountTotal = data.0.toUSD()
-            self.roi = data.1.toPercentage()
-            self.isROIPositive = data.1 >= 0 ? true : false
-            self.lossOrGainColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
-                                                 : Constant.UIColorSetting.negativeColor
-            self.profit = data.2.toUSDPlusSigned()
-            self.balance = data.3.toUSD()
-            self.coinType = data.4
-            self.buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
-            self.sellDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
-            self.buyStartToSellLength = data.7 + 1
-            self.coinPriceArray = data.8
-            self.totalInvestedArray = data.9
-            self.roiArray = data.10
+            self.intensiveInvestment = data as? IntensiveInvestment
+            guard let data = data as? IntensiveInvestment else { return }
             
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 0, newValue: coinType)
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 1, newValue: buyStartDate)
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 2, newValue: sellDate)
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 3, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 4, newValue: amountTotal)
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 5, newValue: balance)
-            CalcResultCellManager.shared.updateStatsDataLSI(index: 6, newValue: "\(profit)\n(\(roi))")
+            let coinType = data.coinTypeString
+            var buyStartDate: String {
+                let range: PartialRangeThrough = ...data.buyStartDateString.index(
+                    data.buyStartDateString.startIndex, offsetBy: 11
+                )
+                return String(data.buyStartDateString[range]).uppercased()
+            }
+            var sellDate: String {
+                let range: PartialRangeThrough = ...data.sellDateString.index(
+                    data.sellDateString.startIndex, offsetBy: 11
+                )
+                return String(data.sellDateString[range]).uppercased()
+            }
+            let buyStartToSellLength = "\((data.buyStartToSellLength + 1).separatedByComma()) Days"
+            let amountTotal = data.amount.toUSD()
+            let balance = data.balance.toUSD()
+            let profitROI = "\(data.profit.toUSDPlusSigned())\n(\(data.roi.toPercentage()))"
+            
+            // 7개의 데이터: 코인 종류, 매수 날짜, 매도 날짜, 코인 보유 일수, 원금, 평가금, 수익금(수익률)
+            let strings = [
+                coinType, buyStartDate, sellDate, buyStartToSellLength,
+                amountTotal, balance, profitROI
+            ]
+            
+            for (index, string) in strings.enumerated() {
+                print(index, string)
+                CalcResultCellManager.shared.updateStatsDataLSI(index: index, newValue: string)
+            }
         }
 
         if index == 1 {  // 나눠서 매수하기
-            guard let data = data as? CalcResultType2 else { return }
+            self.averagedInvestment = data as? AveragedInvestment
+            guard let data = data as? AveragedInvestment else { return }
 
-            self.amountTotal = data.0.toUSD()
-            self.roi = data.1.toPercentage()
-            self.isROIPositive = data.1 >= 0 ? true : false
-            self.lossOrGainColor = (data.1 >= 0) ? Constant.UIColorSetting.positiveColor
-                                                 : Constant.UIColorSetting.negativeColor
-            self.profit = data.2.toUSDPlusSigned()
-            self.balance = data.3.toUSD()
-            self.coinType = data.4
-            self.buyStartDate = String(data.5[...data.5.index(data.5.startIndex, offsetBy: 11)]).uppercased()
-            self.buyEndDate = String(data.6[...data.6.index(data.6.startIndex, offsetBy: 11)]).uppercased()
-            self.sellDate = String(data.7[...data.7.index(data.7.startIndex, offsetBy: 11)]).uppercased()
-            self.frequency = data.8
-            self.amountEach = "\(data.9)달러"
-            self.buyStartToBuyEndLength = data.10 + 1
-            self.buyStartToSellLength = data.11 + 1
-            self.coinPriceArray = data.12
-            self.totalInvestedArray = data.13
-            self.roiArray = data.14
+            let coinType = data.coinTypeString
+            var buyStartDate: String {
+                let range: PartialRangeThrough = ...data.buyStartDateString.index(
+                    data.buyStartDateString.startIndex, offsetBy: 11
+                )
+                return String(data.buyStartDateString[range]).uppercased()
+            }
+            var buyEndDate: String {
+                let range: PartialRangeThrough = ...data.buyEndDateString.index(
+                    data.buyEndDateString.startIndex, offsetBy: 11
+                )
+                return String(data.buyEndDateString[range]).uppercased()
+            }
+            var sellDate: String {
+                let range: PartialRangeThrough = ...data.sellDateString.index(
+                    data.sellDateString.startIndex, offsetBy: 11
+                )
+                return String(data.sellDateString[range]).uppercased()
+            }
+            let frequency = data.frequencyString
+            let buyStartToBuyEndLength = "\((data.buyStartTobuyEndLength + 1).separatedByComma()) Days"
+            let buyStartToSellLength = "\((data.buyStartToSellLength + 1).separatedByComma()) Days"
+            let amountTotal = data.amount.toUSD()
+            let balance = data.balance.toUSD()
+            let profitROI = "\(data.profit.toUSDPlusSigned())\n(\(data.roi.toPercentage()))"
             
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 0, newValue: coinType)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 1, newValue: buyStartDate)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 2, newValue: buyEndDate)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 3, newValue: sellDate)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 4, newValue: frequency)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 5, newValue: "\(buyStartToBuyEndLength.separatedByComma()) Days")
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 6, newValue: "\(buyStartToSellLength.separatedByComma()) Days")
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 7, newValue: amountTotal)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 8, newValue: balance)
-            CalcResultCellManager.shared.updateStatsDataDCA(index: 9, newValue: "\(profit)\n(\(roi))")
+            // 10개의 데이터: 코인 종류, 매수 시작 날짜, 매수 종료 날짜, 매도 날짜, 매수 주기,
+            //             코인 매수 일수, 코인 보유 일수, 원금, 평가금, 수익금(수익률)
+            let strings = [
+                coinType, buyStartDate, buyEndDate, sellDate, frequency,
+                buyStartToBuyEndLength, buyStartToSellLength, amountTotal, balance, profitROI
+            ]
+            
+            for (index, string) in strings.enumerated() {
+                print(index, string)
+                CalcResultCellManager.shared.updateStatsDataDCA(index: index, newValue: string)
+            }
         }
     }
     
@@ -317,19 +302,30 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = tableView.dequeueReusableCell(withIdentifier: "GraphCell", for: indexPath) as! GraphCell
             let model = graphModel[indexPath.row]
             
-            var dataArray = [Double]()
-            if indexPath.row == 0 { dataArray = self.totalInvestedArray }
-            if indexPath.row == 1 { dataArray = self.coinPriceArray }
-            if indexPath.row == 2 { dataArray = self.roiArray.map { $0 * 100.0 } }
-            
-            //cell.isUserInteractionEnabled = true
+            var dataArray = [[Double]]()
+            if self.segmentIndex == 0 {
+                dataArray = [
+                    self.intensiveInvestment.historyAmountInvestedArray,
+                    self.intensiveInvestment.historyPriceArray,
+                    self.intensiveInvestment.historyROIArray.map { $0 * 100.0 }
+                ]
+            } else {
+                dataArray = [
+                    self.averagedInvestment.historyAmountInvestedArray,
+                    self.averagedInvestment.historyPriceArray,
+                    self.averagedInvestment.historyROIArray.map { $0 * 100.0 }
+                ]
+            }
+                        
             cell.backgroundColor = UIColor.systemBackground
-            cell.prepareGraph(segment: self.segmentIndex, mode: indexPath.row,
-                              title: model.title, data: dataArray,
-                              buyStartDate: self.buyStartDate,
-                              buyEndDate: self.buyEndDate,
-                              sellDate: self.sellDate,
-                              buyDays: self.buyStartToBuyEndLength)
+            
+            cell.prepareGraph(
+                segment: self.segmentIndex,
+                mode: indexPath.row,
+                title: model.title,
+                data: dataArray[indexPath.row]
+            )
+            
             return cell
         }
         

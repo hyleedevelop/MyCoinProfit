@@ -142,9 +142,14 @@ struct Constant {
         static let amountLabelTextFieldPlaceHolder1: String = "Enter amount in dollars"
         static let amountLabelTextFieldPlaceHolder2: String = "Enter amount of each purchase in dollars"
         
-        static let tabName1: String = "Calculate"
-        static let tabName2: String = "Home"
-        static let tabName3: String = "More"
+        static let tabName1 = "Calculate"
+        static let tabName2 = "Home"
+        static let tabName3 = "More"
+        
+        static let calcVC = "Calculate"
+        static let coinListVC = "Select Your Coin"
+        static let resultVC = "Result"
+        static let moreVC = "More"
         
         static let settingSectionName1: String = "Display"
         static let settingSectionName2: String = "Feedback"
@@ -211,6 +216,11 @@ struct Constant {
         static let admobBottomBannerTestID = "ca-app-pub-3940256099942544/2934735716"
         static let admobAppOpenMyID = "ca-app-pub-5804054899003424/7922125962"
         static let admobAppOpenTestID = "ca-app-pub-3940256099942544/5662855259"
+    }
+    
+    struct Identifier {
+        static let statsCell = "statsCell"
+        static let graphCell = "graphCell"
     }
     
     struct UserDefaults {

@@ -22,10 +22,6 @@ final class CalcViewController: UIViewController {
     
     var historyDict = [String: [[Double?]]]()  // JSON parsing이 끝난 뒤 히스토리 데이터를 담을 딕셔너리
     
-    var coinTypeString: String = ""
-    var startDateString: String = ""
-    var endDateString: String = ""
-    
     var buyStartDateStringToCalculate: String = ""
     var buyEndDateStringToCalculate: String = ""
     var sellDateStringToCalculate: String = ""
@@ -34,20 +30,6 @@ final class CalcViewController: UIViewController {
     var buyEndDateDefaultSetting: Bool = true
     var sellDateDefaultSetting: Bool = true
     
-    // 날짜 TextField 입력값 관련 에러 (에러메세지를 출력하는 함수의 파라미터로 전달, 계산 실행여부 결정)
-    enum InputError {
-        case noInputError  // 에러 없음
-        case coinTypeInputError  // 코인 타입 입력값 에러
-        case buyStartDateInputError  // 매수 시작 날짜 입력값 에러
-        case buyEndDateInputError  // 매수 종료 날짜 입력값 에러
-        case sellDateInputError  // 매도 날짜 입력값 에러
-        case frequencyInputError  // 매수 반복 주기 입력값 에러
-        case amountInputError  // 매수 금액 입력값 에러
-        case decimalInputError  // 소수점(.) 입력값 에러
-        case buyStartbuyEndInputError  // 매수시작날짜 >= 매수종료날짜 에러
-        case buyStartSellInputError  // 매수시작날짜 >= 매도날짜 에러
-        case buyEndSellInputError  // 매수종료날짜 >= 매도날짜 에러
-    }
     var inputError: InputError?
     
     weak var calcResultDataDelegate: CalcResultDelegate?
@@ -85,28 +67,14 @@ final class CalcViewController: UIViewController {
     
     // NavigationBar 설정
     private func setupNavBar() {
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
+        self.navigationController?.applyDefaultSettings()
         
-        // scrollEdge: 스크롤 하기 전의 NavigationBar
-        // standard: 스크롤을 하고 있을 때의 NavigationBar
-        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
-        navigationController?.navigationBar.isTranslucent = false
-
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-        navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.compactAppearance = navigationBarAppearance
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.counterclockwise"), style: .plain, target: self, action: #selector(calcResetButtonTapped(_:)))
-        navigationItem.rightBarButtonItem?.tintColor = .label
-                
-        navigationItem.title = Constant.TitleSetting.tabName1
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.counterclockwise"), style: .plain,
+            target: self, action: #selector(calcResetButtonTapped(_:))
+        )
+        self.navigationItem.rightBarButtonItem?.tintColor = .label
+        self.navigationItem.title = Constant.TitleSetting.calcVC
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
@@ -285,7 +253,7 @@ final class CalcViewController: UIViewController {
         //coinVC.coinTypeDataDelegate = self
         calcResultVC.receiveCalcResultData(
             segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
-            with: calcResult)
+            with: calcResult as! InvestmentResult)
         
         // 화면 전환
         //self.present(nav, animated: true, completion: nil)
@@ -611,7 +579,7 @@ final class CalcViewController: UIViewController {
         
         // (a) 일괄매수를 선택한 경우
         if segmentIndex == 0 {
-            checkInputIsValid(segmentIndex: segmentIndex, button: button)
+            self.checkInputIsValid(segmentIndex: segmentIndex, button: button)
             
             // noInputError인 경우 다음 줄로 넘어가서 실행, 그렇지 않은 경우 return으로 함수 종료
             guard inputError == .noInputError else { return }
@@ -648,19 +616,20 @@ final class CalcViewController: UIViewController {
                          historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                         switch errorCode {
                         case .noDateError:
-                            //print("<일괄매수 수익 계산 결과>")
-                            //print("원금: \(amount.toUSD())")
-                            //print("수익률: \(roi.toPercentage())")
-                            //print("수익금: \(profit.toUSD())")
-                            //print("평가금: \(balance.toUSD())")
-                            
                             // UI 관련 작업 -> 메인큐로 보내기
                             DispatchQueue.main.async {
                                 // 계산 작업 종료 -> activityIndicator 숨기기
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                     self.calcView.activityIndicator.stopAnimating()
                                     // HalfModalView로 결과 메세지 보여주기
-                                    self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, sellDateString, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 0)
+                                    
+                                    let data = IntensiveInvestment(
+                                        amount: amount, roi: roi, profit: profit, balance: balance,
+                                        coinTypeString: coinTypeString, buyStartDateString: buyStartDateString, sellDateString: sellDateString, buyStartToSellLength: buyStartToSellLength,
+                                        historyPriceArray: historyPriceArray, historyAmountInvestedArray: historyAmountInvestedArray, historyROIArray: historyROIArray
+                                    )
+                                    
+                                    self.presentCalcResult(with: data, segmentIndex: 0)
                                 }
                             }
                         case .buyStartDateError:
@@ -712,7 +681,7 @@ final class CalcViewController: UIViewController {
         
         // (b) 분할매수를 선택한 경우
         if segmentIndex == 1 {
-            checkInputIsValid(segmentIndex: segmentIndex, button: button)
+            self.checkInputIsValid(segmentIndex: segmentIndex, button: button)
             
             // noInputError인 경우 다음 줄로 넘어가서 실행, 그렇지 않은 경우 return으로 함수 종료
             guard inputError == .noInputError else { return }
@@ -760,18 +729,21 @@ final class CalcViewController: UIViewController {
                              historyPriceArray, historyAmountInvestedArray, historyROIArray, errorCode) in
                             switch errorCode {
                             case .noDateError:
-                                //print("<분할매수 수익 계산 결과>")
-                                //print("원금: \(amount.toUSD())")
-                                //print("수익률: \(roi.toPercentage())")
-                                //print("수익금: \(profit.toUSD())")
-                                //print("평가금: \(balance.toUSD())")
                                 
                                 // UI 관련 작업 -> 메인큐로 보내기
                                 DispatchQueue.main.async {
                                     // 계산 작업 종료 -> activityIndicator 숨기기
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.calcView.activityIndicator.stopAnimating()
-                                        self.presentCalcResult(with: (amount, roi, profit, balance, coinNameString, buyStartDateString, buyEndDateString, sellDateString, frequencyString, amountString, buyStartTobuyEndLength, buyStartToSellLength, historyPriceArray, historyAmountInvestedArray, historyROIArray), segmentIndex: 1)
+                                        
+                                        let data = AveragedInvestment(
+                                            amount: amount, roi: roi, profit: profit, balance: balance,
+                                            coinTypeString: coinTypeString, buyStartDateString: buyStartDateString, buyEndDateString: buyEndDateString, sellDateString: sellDateString, frequencyString: frequencyString, amountString: amountString,
+                                            buyStartTobuyEndLength: buyStartTobuyEndLength, buyStartToSellLength: buyStartToSellLength,
+                                            historyPriceArray: historyPriceArray, historyAmountInvestedArray: historyAmountInvestedArray, historyROIArray: historyROIArray
+                                        )
+                                        
+                                        self.presentCalcResult(with: data, segmentIndex: 1)
                                     }
                                 }
                             case .buyStartDateError:
@@ -847,37 +819,6 @@ final class CalcViewController: UIViewController {
     @objc private func recentInputButtonTapped() {
         let settingVC = SettingViewController()
         navigationController?.pushViewController(settingVC, animated: true)
-    }
-    
-    @objc private func helpButtonTapped() {
-        // 도움말 VC 인스턴스 생성
-        let helpVC = HelpViewController()
-        // 도움말 VC에 Navigation VC 넣기
-        let nav = UINavigationController(rootViewController: helpVC)
-        
-        // Bottom Sheet 관련 설정
-        nav.modalPresentationStyle = .pageSheet
-        nav.isModalInPresentation = false  // true이면 dismiss 할 수 없음
-        
-        // sheetPresentationController는 iOS 15 이상부터 사용 가능
-        if let sheet = nav.sheetPresentationController {
-            // Bottom Sheet를 확장/축소 했을 때 화면 꼭대기가 걸리는 높이 지정
-            //sheet.largestUndimmedDetentIdentifier = .medium
-            //sheet.detents = [.medium(), .large()]
-            if #available(iOS 16.0, *) {
-                // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
-                // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
-                sheet.detents = [.custom(resolver: { context in
-                    return 300
-                })]
-            } else {
-                sheet.detents = [.large()]
-            }
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.preferredCornerRadius = 25
-            sheet.prefersGrabberVisible = false
-        }
-        self.present(nav, animated: true, completion: nil)
     }
     
 }

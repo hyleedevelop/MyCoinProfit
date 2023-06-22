@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0020FD51A36FDA824D9277E4 /* Pods_CryptoCalculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C5E5D73C8DA7B2F71B37031 /* Pods_CryptoCalculator.framework */; };
-		070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */; };
 		07280783295817CB00CF65D9 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07280782295817CB00CF65D9 /* Double.swift */; };
 		073A3246298404EF0097C9DD /* Screenshots in Frameworks */ = {isa = PBXBuildFile; productRef = 073A3245298404EF0097C9DD /* Screenshots */; };
 		073A324829840EF00097C9DD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073A324729840EF00097C9DD /* UIColor.swift */; };
 		073D261B297F7FB700C46666 /* SettingCellManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D261A297F7FB700C46666 /* SettingCellManager.swift */; };
 		073F546E296D8D4F0099305A /* CalcResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073F546D296D8D4F0099305A /* CalcResultViewController.swift */; };
+		0750C1792A43D7D40075327D /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C1782A43D7D40075327D /* Enum.swift */; };
+		0750C17B2A4404350075327D /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750C17A2A4404350075327D /* NavigationBar.swift */; };
 		0750FD33295D2D85006B90B5 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0750FD32295D2D85006B90B5 /* Date.swift */; };
 		0782894E2A4317AE003E1282 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0782894D2A4317AE003E1282 /* Kingfisher */; };
 		078289502A43446E003E1282 /* new_icon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0782894F2A43446E003E1282 /* new_icon_image.png */; };
@@ -43,6 +44,7 @@
 		07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616ED294AB0E500F057BE /* NetworkManager.swift */; };
 		07C616F0294AB0ED00F057BE /* DataPassManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C616EF294AB0ED00F057BE /* DataPassManager.swift */; };
 		07CBF1B62988D99000CABF26 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CBF1B52988D99000CABF26 /* CustomSegmentedControl.swift */; };
+		07CD55262A44266E006F79A7 /* InvestmentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CD55252A44266E006F79A7 /* InvestmentResult.swift */; };
 		07CF13C22962B8110099746F /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF13C12962B8110099746F /* PickerData.swift */; };
 		07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */; };
 		07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* HistoryPriceData.swift */; };
@@ -52,11 +54,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		07280782295817CB00CF65D9 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		073A324729840EF00097C9DD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		073D261A297F7FB700C46666 /* SettingCellManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellManager.swift; sourceTree = "<group>"; };
 		073F546D296D8D4F0099305A /* CalcResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcResultViewController.swift; sourceTree = "<group>"; };
+		0750C1782A43D7D40075327D /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
+		0750C17A2A4404350075327D /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		0750FD32295D2D85006B90B5 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0782894F2A43446E003E1282 /* new_icon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = new_icon_image.png; path = image/new_icon_image.png; sourceTree = SOURCE_ROOT; };
 		07846A212980FEDE00449A7D /* StatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCell.swift; sourceTree = "<group>"; };
@@ -87,6 +90,7 @@
 		07C616ED294AB0E500F057BE /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		07C616EF294AB0ED00F057BE /* DataPassManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPassManager.swift; sourceTree = "<group>"; };
 		07CBF1B52988D99000CABF26 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		07CD55252A44266E006F79A7 /* InvestmentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentResult.swift; sourceTree = "<group>"; };
 		07CF13C12962B8110099746F /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
 		07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceData.swift; sourceTree = "<group>"; };
 		07D3A582295C925C0079DB9E /* HistoryPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPriceData.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				07BED9692975801B009B7450 /* UILabel.swift */,
 				073A324729840EF00097C9DD /* UIColor.swift */,
 				07E7F7A8297AC3E8003878C7 /* GradientColor.swift */,
+				0750C17A2A4404350075327D /* NavigationBar.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -206,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				079411222949E84700A4F632 /* MainTabBarController.swift */,
-				070C1CC4296FA6BA008E85D0 /* HelpViewController.swift */,
 				073D261F2980145700C46666 /* Calculate */,
 				073D26202980147F00C46666 /* More */,
 			);
@@ -230,6 +234,7 @@
 				07CF13C12962B8110099746F /* PickerData.swift */,
 				07846A23298117F900449A7D /* CalcResultCellData.swift */,
 				07FCC2F0297D83E200A06EAD /* SettingCellData.swift */,
+				07CD55252A44266E006F79A7 /* InvestmentResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 				0784787F2968486800C87C1C /* CalcManager.swift */,
 				07846A25298118A200449A7D /* CalcResultCellManager.swift */,
 				073D261A297F7FB700C46666 /* SettingCellManager.swift */,
+				0750C1782A43D7D40075327D /* Enum.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -420,13 +426,14 @@
 				07CF13C22962B8110099746F /* PickerData.swift in Sources */,
 				079411232949E84700A4F632 /* MainTabBarController.swift in Sources */,
 				07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */,
-				070C1CC5296FA6BA008E85D0 /* HelpViewController.swift in Sources */,
 				07BE856429924217007C8BAC /* ThemeColorViewController.swift in Sources */,
+				07CD55262A44266E006F79A7 /* InvestmentResult.swift in Sources */,
 				07DE65F0296EDD610084B6A2 /* DelegateProtocol.swift in Sources */,
 				07C616EE294AB0E500F057BE /* NetworkManager.swift in Sources */,
 				07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */,
 				0794113D2949EC3200A4F632 /* CoinListViewController.swift in Sources */,
 				07FCC2F1297D83E200A06EAD /* SettingCellData.swift in Sources */,
+				0750C1792A43D7D40075327D /* Enum.swift in Sources */,
 				07BAB0B6298544F300269EE5 /* Int.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
 				07846A26298118A200449A7D /* CalcResultCellManager.swift in Sources */,
@@ -434,6 +441,7 @@
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
 				07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */,
 				07846A24298117F900449A7D /* CalcResultCellData.swift in Sources */,
+				0750C17B2A4404350075327D /* NavigationBar.swift in Sources */,
 				0794111F2949E84700A4F632 /* AppDelegate.swift in Sources */,
 				079411212949E84700A4F632 /* SceneDelegate.swift in Sources */,
 				0794113B2949E9D600A4F632 /* SettingViewController.swift in Sources */,
@@ -609,7 +617,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -647,7 +655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

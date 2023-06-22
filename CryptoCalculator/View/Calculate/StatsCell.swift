@@ -9,6 +9,8 @@ import UIKit
 
 final class StatsCell: UITableViewCell {
 
+    //MARK: - UI
+    
     // 메뉴 제목 Label
     var itemLabel: UILabel = {
         let label = UILabel()
@@ -39,11 +41,13 @@ final class StatsCell: UITableViewCell {
         return imageView
     }()
     
+    //MARK: - 생성자
+    
     // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
  
-        setupUI()
+        self.setupUI()
     }
     
     // TableViewCell 생성자 셋팅 (2)
@@ -51,7 +55,8 @@ final class StatsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // UI 설정
+    //MARK: - 하위 뷰 등록 및 오토레이아웃
+    
     private func setupUI() {
         _ = [itemIcon, itemLabel, valueLabel].map{ self.addSubview($0) }
         
@@ -60,8 +65,6 @@ final class StatsCell: UITableViewCell {
             itemIcon.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
             itemIcon.heightAnchor.constraint(equalToConstant: 20),
             itemIcon.widthAnchor.constraint(equalTo: itemIcon.heightAnchor),
-            //itemIcon.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 30),
-            //itemIcon.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -30),
             
             itemLabel.leadingAnchor.constraint(equalTo: itemIcon.trailingAnchor, constant: 15),
             itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -73,22 +76,13 @@ final class StatsCell: UITableViewCell {
         ])
     }
 
-    // Cell 업데이트
+    //MARK: - 셀 내용 업데이트
+    
     func prepareStats(segment: Int, mode: Int, icon: UIImage?, title: String?, value: String?) {
-        //var myColor = UIColor.clear
-        //if segment == 0 {
-        //    for i in 0..<7 where mode == i {
-        //        myColor = Constant.UIColorSetting.themeGradientSevenColorSet[i]
-        //    }
-        //} else {
-        //    for i in 0..<10 where mode == i {
-        //        myColor = Constant.UIColorSetting.themeGradientTenColorSet[i]
-        //    }
-        //}
-        
         //self.itemIcon.tintColor = myColor
         self.itemIcon.image = icon
         self.itemLabel.text = title ?? "N/A"
         self.valueLabel.text = value  ?? "N/A"
     }
+    
 }

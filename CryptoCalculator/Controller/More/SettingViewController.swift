@@ -86,25 +86,9 @@ final class SettingViewController: UIViewController {
     
     // NavigationBar 설정
     private func setupNavBar() {
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
-        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)]
-        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = .label
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
-        navigationController?.navigationBar.isTranslucent = false
-
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-        navigationItem.standardAppearance = navigationBarAppearance
-
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
+        self.navigationController?.applyDefaultSettings()
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = Constant.TitleSetting.tabName3
+        self.navigationItem.title = Constant.TitleSetting.moreVC
     }
     
     // View 설정

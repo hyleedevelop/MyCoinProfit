@@ -39,5 +39,5 @@ typealias CalcResultType2 = (Double, Double, Double, Double,
                              [Double], [Double], [Double])
 
 protocol CalcResultDelegate: AnyObject {
-    func receiveCalcResultData(segmentIndex index: Int, with data: Any)
+    func receiveCalcResultData(segmentIndex index: Int, with data: InvestmentResult)
 }

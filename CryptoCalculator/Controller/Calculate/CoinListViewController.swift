@@ -166,41 +166,20 @@ final class CoinListViewController: UIViewController {
         ])
     }
     
+    //MARK: - 네비게이션 바 설정
+    
     // NavigationBar 설정
     private func setupNavBar() {
-        let navigationBarAppearance = UINavigationBarAppearance()
-        navigationBarAppearance.configureWithOpaqueBackground()
-        navigationBarAppearance.shadowColor = .clear
-        navigationBarAppearance.backgroundColor = UIColor(named: "BGColor")
-        navigationBarAppearance.titleTextAttributes = [
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium),
-            NSAttributedString.Key.foregroundColor: UIColor.systemGray2
-        ]
-        
-        navigationController?.navigationBar.standardAppearance = navigationBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        navigationController?.navigationBar.tintColor = .systemGray2
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.setNeedsStatusBarAppearanceUpdate()
-        navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.applyDefaultSettings()
 
-        navigationItem.scrollEdgeAppearance = navigationBarAppearance
-        navigationItem.standardAppearance = navigationBarAppearance
-        navigationItem.compactAppearance = navigationBarAppearance
-        navigationItem.searchController = searchController
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
+        self.navigationItem.searchController = searchController
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "xmark"), style: .plain,
             target: self, action: #selector(buttonTapped(_:))
         )
-        navigationItem.rightBarButtonItem?.tintColor = .systemGray2
-        
-        navigationItem.title = "Select Your Coin"
-        
-        //navigationItem.preferredSearchBarPlacement = .stacked
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
-        self.extendedLayoutIncludesOpaqueBars = true
+        self.navigationItem.rightBarButtonItem?.tintColor = .systemGray2
+        self.navigationItem.hidesSearchBarWhenScrolling = false        
+        self.navigationItem.title = Constant.TitleSetting.coinListVC
     }
     
     // View 설정
@@ -314,37 +293,6 @@ final class CoinListViewController: UIViewController {
         if button == navigationItem.rightBarButtonItem {
             self.dismiss(animated: true)
         }
-    }
-    
-    @objc private func helpButtonTapped() {
-        // 도움말 VC 인스턴스 생성
-        let helpVC = HelpViewController()
-        // 도움말 VC에 Navigation VC 넣기
-        let nav = UINavigationController(rootViewController: helpVC)
-        
-        // Bottom Sheet 관련 설정
-        nav.modalPresentationStyle = .pageSheet
-        nav.isModalInPresentation = false  // true이면 dismiss 할 수 없음
-        
-        // sheetPresentationController는 iOS 15 이상부터 사용 가능
-        if let sheet = nav.sheetPresentationController {
-            // Bottom Sheet를 확장/축소 했을 때 화면 꼭대기가 걸리는 높이 지정
-            //sheet.largestUndimmedDetentIdentifier = .medium
-            //sheet.detents = [.medium(), .large()]
-            if #available(iOS 16.0, *) {
-                // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
-                // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
-                sheet.detents = [.custom(resolver: { context in
-                    return context.maximumDetentValue * 0.4
-                })]
-            } else {
-                sheet.detents = [.medium()]
-            }
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.preferredCornerRadius = 25
-            sheet.prefersGrabberVisible = true
-        }
-        self.present(nav, animated: true, completion: nil)
     }
     
     @objc private func sortMarketCapButtonTapped() {

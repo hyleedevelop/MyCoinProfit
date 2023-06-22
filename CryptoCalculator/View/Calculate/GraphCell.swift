@@ -10,6 +10,8 @@ import Charts
 
 final class GraphCell: UITableViewCell {
 
+    //MARK: - UI
+    
     // 메뉴 제목 Label
     var itemLabel: UILabel = {
         let label = UILabel()
@@ -32,6 +34,8 @@ final class GraphCell: UITableViewCell {
         return view
     }()
         
+    //MARK: - 생성자
+    
     // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
@@ -45,7 +49,9 @@ final class GraphCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // UI 설정
+    //MARK: - 하위 뷰 등록 및 오토레이아웃
+    
+    // 레이블
     private func setupUI() {
         _ = [itemLabel].map{ self.addSubview($0) }
         
@@ -56,6 +62,7 @@ final class GraphCell: UITableViewCell {
         ])
     }
 
+    // 차트
     func setupChart() {
         self.addSubview(lineChartView)
         
@@ -67,17 +74,20 @@ final class GraphCell: UITableViewCell {
         ])
     }
     
-    // Line Chart 그리기
-    func drawLineChart(segment: Int, mode: Int, dataPoints: [String], values: [Double]) {
+    //MARK: - 차트 그리기
+    
+    func drawLineChart(segment: Int, mode: Int, values: [Double]) {
         lineChartView.noDataText = "No Data"
         lineChartView.noDataFont = .systemFont(ofSize: 20)
         lineChartView.noDataTextColor = .systemGray2
         
         // 데이터 생성
-        var dataEntries: [ChartDataEntry] = []
-        for i in 0..<dataPoints.count {
-            let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
+        var dataEntries = [ChartDataEntry]()
+        var dataPoints = [String]()
+        for index in 0..<values.count {
+            let dataEntry = BarChartDataEntry(x: Double(index), y: values[index])
             dataEntries.append(dataEntry)
+            dataPoints.append("")
         }
         
         let chartDataSet = LineChartDataSet(entries: dataEntries, label: "chart")
@@ -89,9 +99,12 @@ final class GraphCell: UITableViewCell {
         // 앱의 테마 컬러 설정 가져오기
         let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
         
-        if mode == 0 { myColor = Constant.UIColorSetting.themeGradientStartColors[themeIndex] }
-        if mode == 1 { myColor = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex] }
-        if mode == 2 { myColor = Constant.UIColorSetting.themeGradientEndColors[themeIndex] }
+        switch mode {
+        case 0: myColor = Constant.UIColorSetting.themeGradientStartColors[themeIndex]
+        case 1: myColor = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex]
+        case 2: myColor = Constant.UIColorSetting.themeGradientEndColors[themeIndex]
+        default: break
+        }
         
         chartDataSet.colors = [myColor]
         chartDataSet.fill = ColorFill(color: myColor)
@@ -161,20 +174,11 @@ final class GraphCell: UITableViewCell {
         legend.yOffset = 30
     }
     
-    // Cell 업데이트
-    func prepareGraph(segment: Int, mode: Int, title: String?, data: [Double],
-                      buyStartDate: String, buyEndDate: String, sellDate: String, buyDays: Int?) {
+    //MARK: - 셀 내용 업데이트
+    
+    func prepareGraph(segment: Int, mode: Int, title: String?, data: [Double]) {
         self.itemLabel.text = title
-        
-        var xticks = [String](repeating: "", count: data.count)
-        
-        xticks[0] = "Buy"
-        if segment == 1, let buyEndIndex = buyDays {
-            xticks[0] = "Buy\n(Start)"
-            xticks[buyEndIndex-1] = "Buy\n(End)"
-        }
-        xticks[data.count-1] = "Sell"
-        
-        self.drawLineChart(segment: segment, mode: mode, dataPoints: xticks, values: data)
+        self.drawLineChart(segment: segment, mode: mode, values: data)
     }
+    
 }

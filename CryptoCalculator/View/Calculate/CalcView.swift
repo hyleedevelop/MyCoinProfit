@@ -32,7 +32,7 @@ final class CalcView: UIView {
         return control
     }()
     
-    //MARK: - 코인 속성
+    //MARK: - 코인 정보
     
     lazy var coinTypeContainerView: UIView = {
         let view = UIView()
@@ -98,7 +98,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - 매수 시작 날짜 관련 속성
+    //MARK: - 매수 시작 날짜
     
     lazy var buyStartDateContainerView: UIView = {
         let view = UIView()
@@ -169,7 +169,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - 매수 종료 날짜 관련 속성
+    //MARK: - 매수 종료 날짜
     
     lazy var buyEndDateContainerView: UIView = {
         let view = UIView()
@@ -240,7 +240,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - 매수 반복 주기 관련 속성
+    //MARK: - 매수 반복 주기
     
     lazy var frequencyContainerView: UIView = {
         let view = UIView()
@@ -305,7 +305,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - 매 회차 매수금액 관련 속성
+    //MARK: - 매 회차 매수금액
     
     lazy var amountContainerView: UIView = {
         let view = UIView()
@@ -363,7 +363,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - 매수 종료 날짜 관련 속성
+    //MARK: - 매수 종료 날짜
     
     lazy var sellDateContainerView: UIView = {
         let view = UIView()
@@ -434,7 +434,7 @@ final class CalcView: UIView {
         return sv
     }()
     
-    //MARK: - spacing을 위한 빈 공간 속성
+    //MARK: - spacing을 위한 빈 공간
     
     private let emptySpace: UIView = {
         let view = UIView()
@@ -444,7 +444,7 @@ final class CalcView: UIView {
         return view
     }()
     
-    //MARK: - 버튼 관련 속성
+    //MARK: - 제출 버튼
 
     let calcStartButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -458,7 +458,7 @@ final class CalcView: UIView {
         return button
     }()
     
-    //MARK: - 기타 속성
+    //MARK: - 기타
     
     // 스크롤 뷰 (내용이 추가되거나 기기에 따라 세로 화면이 부족해질 수 있으므로 일반 뷰가 아닌 스크롤 뷰를 사용하였음)
     private let scrollView: UIScrollView = {
@@ -658,7 +658,7 @@ final class CalcView: UIView {
 
 }
 
-//MARK: - Custom Segmented Control
+//MARK: - Custom Segmented Control의 델리게이트 메서드 구현
 
 extension CalcView: CustomSegmentedControlDelegate {
     
