@@ -1,5 +1,5 @@
 //
-//  CalcManager.swift
+//  CalculationManager.swift
 //  CryptoSimulator
 //
 //  Created by Eric on 2023/01/06.
@@ -27,10 +27,10 @@ enum DateError {
     case sellDateError  // 매도 날짜로 인한 에러
 }
 
-final class CalcManager {
+final class CalculationManager {
     
     // 싱글톤으로 만들기
-    static let shared = CalcManager()
+    static let shared = CalculationManager()
     // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
@@ -72,7 +72,7 @@ final class CalcManager {
     
     // 일괄매수 시 ROI(Rate On Investment: 투자이익률), Balance(평가금), Profit(수익금) 계산
     // 계산 후 달러나 퍼센트 형식의 문자열로 변환 후 반환
-    func calculateROIIntensive(with historyDict: [String: [[Double?]]], amount amountInvested: Double, buy buyStartDate: String, sell sellDate: String, completion: @escaping (DataTupleIntensive) -> Void) {
+    func calculateROIIntensive(with historyDict: [String: [[Double?]]], amount amountInvested: Double, buy buyStartDate: String, sell sellDate: String) async -> DataTupleIntensive {
         var historyTimeArray = [String]()  // "prices" key에서 시간 값을 담기 위한 배열
         var historyPriceArray = [Double]()  // "prices" key에서 가격 값을 담기 위한 배열
         var historyROIArray = [Double]()  // ROI 추이를 담기 위한 배열
@@ -91,8 +91,7 @@ final class CalcManager {
         
         // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else {
-            completion((0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError))
-            return
+            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError)
         }
         let sellTimeIndex = Int(sellTimeIDX.description)!
         
@@ -108,13 +107,13 @@ final class CalcManager {
         let amountReturned: Double = amountInvested * (1 + roi)  // 최종 평가금($)
         let profit: Double = amountReturned - amountInvested  // 최종 수익금($)
         
-        completion((amountInvested, roi, profit, amountReturned,
-                    historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError))
+        return (amountInvested, roi, profit, amountReturned,
+                historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError)
     }
     
     // 일괄매수 시 ROI(Rate On Investment: 투자이익률), Balance(평가금), Profit(수익금) 계산
     // 계산 후 달러나 퍼센트 형식의 문자열로 변환 후 반환
-    func calculateROIAveraged(with historyDict: [String: [[Double?]]], amount amountInvestedOneTime: Double, buyStart buyStartDate: String, buyEnd buyEndDate: String, sell sellDate: String, completion: @escaping (DataTupleAveraged) -> Void) {
+    func calculateROIAveraged(with historyDict: [String: [[Double?]]], amount amountInvestedOneTime: Double, buyStart buyStartDate: String, buyEnd buyEndDate: String, sell sellDate: String) async ->  DataTupleAveraged {
         var historyTimeArray = [String]()  // "prices" key에서 시간값만 담기 위한 배열
         var historyPriceArray = [Double]()  // "prices" key에서 가격값만 담기 위한 배열
         var historyCoinAmountArray = [Double]()  // 보유하고 있는 코인 개수를 담기 위한 배열
@@ -136,15 +135,13 @@ final class CalcManager {
         
         // 매수 종료 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let buyEndTimeIDX = historyTimeArray.firstIndex(of: buyEndDate) else {
-            completion((0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .buyEndDateError))
-            return
+            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .buyEndDateError)
         }
         let buyEndTimeIndex = Int(buyEndTimeIDX.description)!
         
         // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
         guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else {
-            completion((0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError))
-            return
+            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError)
         }
         let sellTimeIndex = Int(sellTimeIDX.description)!
         
@@ -182,8 +179,8 @@ final class CalcManager {
         let amountReturned: Double = amountInvested * (1 + roi)  // 최종 평가금($)
         let profit: Double = amountReturned - amountInvested  // 최종 수익금($)
         
-        completion((amountInvested, roi, profit, amountReturned,
-                    historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError))
+        return (amountInvested, roi, profit, amountReturned,
+                historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError)
     }
     
     // Unix Timestamp -> Date 변환

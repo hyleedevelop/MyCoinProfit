@@ -9,7 +9,7 @@ import UIKit
 
 enum InvestmentType: Int {
     case intensiveInvestment = 0
-    case averagedInvestment
+    case averagedInvestment = 1
 }
 
 protocol InvestmentResult { }
@@ -20,7 +20,7 @@ struct IntensiveInvestment: InvestmentResult {
     let profit: Double
     let balance: Double
     
-    let coinTypeString: String
+    let coinNameString: String
     let buyStartDateString: String
     let sellDateString: String
     
@@ -37,7 +37,7 @@ struct AveragedInvestment: InvestmentResult {
     let profit: Double
     let balance: Double
     
-    let coinTypeString: String
+    let coinNameString: String
     let buyStartDateString: String
     let buyEndDateString: String
     let sellDateString: String

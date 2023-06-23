@@ -158,7 +158,7 @@ extension CalcResultViewController: CalcResultDelegate {
             self.intensiveInvestment = data as? IntensiveInvestment
             guard let data = data as? IntensiveInvestment else { return }
             
-            let coinType = data.coinTypeString
+            let coinType = data.coinNameString
             var buyStartDate: String {
                 let range: PartialRangeThrough = ...data.buyStartDateString.index(
                     data.buyStartDateString.startIndex, offsetBy: 11
@@ -192,7 +192,7 @@ extension CalcResultViewController: CalcResultDelegate {
             self.averagedInvestment = data as? AveragedInvestment
             guard let data = data as? AveragedInvestment else { return }
 
-            let coinType = data.coinTypeString
+            let coinType = data.coinNameString
             var buyStartDate: String {
                 let range: PartialRangeThrough = ...data.buyStartDateString.index(
                     data.buyStartDateString.startIndex, offsetBy: 11

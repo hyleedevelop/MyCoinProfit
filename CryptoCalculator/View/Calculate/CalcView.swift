@@ -484,10 +484,12 @@ final class CalcView: UIView {
     
     // 로딩 아이콘
     lazy var activityIndicator: NVActivityIndicatorView = {
-        let activityIndicator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50),
-                                                        type: .audioEqualizer,
-                                                        color: .white,
-                                                        padding: .zero)
+        let activityIndicator = NVActivityIndicatorView(
+            frame: CGRect(x: 0, y: 0, width: 40, height: 40),
+            type: .ballPulse,
+            color: .white,
+            padding: .zero
+        )
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.color = UIColor.label
         activityIndicator.stopAnimating()
@@ -500,12 +502,12 @@ final class CalcView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        setupSegmentedControl()
-        setupScrollView()
-        setupInputStackView()
-        setupFinalStackView()
+        self.setupSegmentedControl()
+        self.setupScrollView()
+        self.setupInputStackView()
+        self.setupFinalStackView()
 
-        setupActivityIndicator()
+        self.setupActivityIndicator()
     }
         
     // UIView 필수생성자
@@ -647,13 +649,11 @@ final class CalcView: UIView {
     }
     
     func updateButtonColor(index: Int) {
-        DispatchQueue.main.async {
-            self.calcStartButton.setButtonBackgroundGradient(
-                color1: Constant.UIColorSetting.themeGradientStartColors[index],
-                color2: Constant.UIColorSetting.themeGradientMiddleColors[index],
-                color3: Constant.UIColorSetting.themeGradientEndColors[index])
-        }
-        layoutIfNeeded()
+        self.calcStartButton.setButtonBackgroundGradient(
+            color1: Constant.UIColorSetting.themeGradientStartColors[index],
+            color2: Constant.UIColorSetting.themeGradientMiddleColors[index],
+            color3: Constant.UIColorSetting.themeGradientEndColors[index]
+        )
     }
 
 }

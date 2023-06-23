@@ -7,11 +7,11 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForTesting = "NO"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0794111A2949E84700A4F632"
@@ -50,15 +50,6 @@
             ReferencedContainer = "container:CryptoCalculator.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0794111A2949E84700A4F632"
-            BuildableName = "CryptoSimulator.app"
-            BlueprintName = "CryptoSimulator"
-            ReferencedContainer = "container:CryptoSimulator.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-FIRDebugEnabled"
@@ -80,16 +71,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0794111A2949E84700A4F632"
-            BuildableName = "CryptoSimulator.app"
-            BlueprintName = "CryptoSimulator"
-            ReferencedContainer = "container:CryptoSimulator.xcodeproj">
+            BuildableName = "CryptoCalculator.app"
+            BlueprintName = "CryptoCalculator"
+            ReferencedContainer = "container:CryptoCalculator.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

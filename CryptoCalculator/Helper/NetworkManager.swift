@@ -72,57 +72,35 @@ final class NetworkManager {
     }
     
     //MARK: - Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
-    func fetchPriceHistory(with coinType: String, duration numberOfDays: Int, completion: @escaping (Result<[String: [[Double?]]], NetworkError>) -> Void) {
+    func fetchPriceHistory(with coinType: String, duration numberOfDays: Int) async -> Result<[String: [[Double?]]], NetworkError> {
         
         /*
          https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
          */
         
         // 1) URL 설정
-        //var startDate = String(firstDate)
-        //var endDate = String(lastDate)
         let baseURL = "https://api.coingecko.com/api/v3/"
         let categoryURL = "coins/" + coinType + "/market_chart?"
         let parameterURL = "vs_currency=usd&days=" + String(numberOfDays+1) + "&interval=daily"
+        var historyData = [String: [[Double?]]]()
         
-        guard let url = URL(string: baseURL + categoryURL + parameterURL) else { return }
+        guard let url = URL(string: baseURL + categoryURL + parameterURL) else {
+            return .failure(.networkingError)
+        }
                 
-        //2) 네트워킹을 위한 작업 설정
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            // 어떤 에러가 존재한다면 네트워킹 에러를 가지고 종료
-            if let error = error {
-                print("[DEBUG] Error \(error.localizedDescription)")
-                completion(.failure(.networkingError))
-                return
-            }
+        // 2) 네트워킹을 위한 작업 설정
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
             
-            //if let response = response as? HTTPURLResponse {
-            //    print("[DEBUG] Response code \(response.statusCode)")
-            //}
+            let historyInfo = try JSONDecoder().decode([String: [[Double?]]].self, from: data)
+            historyData = historyInfo
             
-            // 네트워킹은 성공했으나 데이터를 담아오는데 문제가 있다면 에러를 가지고 종료
-            guard let data = data else {
-                completion(.failure(.dataError))
-                return
-            }
-            //let dataAsString = String(data: data, encoding: .utf8)
-            //print("[DEBUG] Data \(dataAsString ?? "does not exist!")")
-            
-            // JSON parsing
-            do {
-                let historyInfo = try JSONDecoder().decode([String: [[Double?]]].self, from: data)
-                
-                //print("[DEBUG]: Coins \(historyInfo)")
-                completion(.success(historyInfo))
-            } catch {
-                print("[DEBUG] Failed to decode with error: \(error)")
-                completion(.failure(.parseError))
-            }
-            
+            return .success(historyData)
+        } catch {
+            print("[DEBUG] Failed to fetch price history with error: \(error)")
+            return .failure(.parseError)
         }
         
-        // 3) 네트워킹 작업 시작
-        task.resume()
     }
     
 }
