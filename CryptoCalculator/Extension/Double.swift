@@ -120,4 +120,17 @@ extension Double {
                         : "\(formatterOfPercentage.string(for: self) ?? "N/A")"
     }
     
+    // Unix Timestamp (Double) -> Date (String) 변환
+    func convertUnixTimestampToDate() -> String {
+        // 날짜 형식 지정
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = Constant.DateSetting.standardTimeZone
+        
+        // API에서 받아온 Unix Timestamp는 ms 단위를 가지기 떄문에 s 단위로 변환(/1000)
+        let date = Date(timeIntervalSince1970: self/1000)
+        let dateString = formatter.string(from: date)
+        return dateString
+    }
+    
 }

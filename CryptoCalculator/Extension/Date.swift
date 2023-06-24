@@ -9,11 +9,6 @@ import Foundation
 
 extension Date {
     
-//    func toString() -> String {
-//        let dateFormatter = DateFormatter()
-//        return dateFormatter.string(from: self)
-//    }
-    
     // 날짜 A와 B를 비교하고 A가 B보다 이전이면 true, 그 외의 경우이면 false를 반환
     func isValidDateOrder(with fromDate: Date) -> Bool {
         var isValid: Bool = true
@@ -35,5 +30,5 @@ extension Date {
         }
         return isValid
     }
-        
+    
 }

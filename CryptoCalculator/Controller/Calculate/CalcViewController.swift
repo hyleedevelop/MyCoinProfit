@@ -10,27 +10,32 @@ import GoogleMobileAds
 
 final class CalcViewController: UIViewController {
 
+    //MARK: - 인스턴스 관련 속성
+    
     internal let calcView = CalcView()  // UIView
-    internal let coinVC = CoinListViewController()  // UIViewController
     internal let coinListData = PickerData()  // structure
+    internal var historyDict = [String: [[Double?]]]()  // JSON parsing이 끝난 뒤 히스토리 데이터를 담을 딕셔너리
+    
+    //MARK: - UI 관련 속성
     
     // 구글 애드몹
-    lazy var bannerView: GADBannerView = {
+    private lazy var bannerView: GADBannerView = {
         let banner = GADBannerView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         return banner
     }()
     
-    var historyDict = [String: [[Double?]]]()  // JSON parsing이 끝난 뒤 히스토리 데이터를 담을 딕셔너리
+    //MARK: - 일반 속성
     
-    var buyStartDateStringToCalculate: String = ""
-    var buyEndDateStringToCalculate: String = ""
-    var sellDateStringToCalculate: String = ""
-    
-    var buyStartDateDefaultSetting: Bool = true
-    var buyEndDateDefaultSetting: Bool = true
-    var sellDateDefaultSetting: Bool = true
+    internal var buyStartDateStringToCalculate: String = ""
+    internal var buyEndDateStringToCalculate: String = ""
+    internal var sellDateStringToCalculate: String = ""
+    internal var buyStartDateDefaultSetting: Bool = true
+    internal var buyEndDateDefaultSetting: Bool = true
+    internal var sellDateDefaultSetting: Bool = true
     
     weak var calcResultDataDelegate: CalcResultDelegate?
+    
+    //MARK: - 뷰의 생명주기
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +67,8 @@ final class CalcViewController: UIViewController {
     override func loadView() {
         self.view = self.calcView
     }
+    
+    //MARK: - UI 관련 메서드
     
     // NavigationBar 설정
     private func setupNavigationBar() {
@@ -132,8 +139,8 @@ final class CalcViewController: UIViewController {
                             self.calcView.amountContainerView]
         
         DispatchQueue.main.async {
-            targetArray1.forEach({ $0.alpha = 0 })
-            targetArray2.forEach({ $0.alpha = 0 })
+            targetArray1.forEach { $0.alpha = 0 }
+            targetArray2.forEach { $0.alpha = 0 }
             self.calcView.calcStartButton.alpha = 0
             
             for i in 0..<targetArray1.count+1 {
@@ -197,8 +204,8 @@ final class CalcViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    // 계산 결과 화면 보여주기
     private func presentCalcResult(with calcResult: Any, segmentIndex index: Int) {
-        print(#function)
         // 계산결과 VC 인스턴스 생성
         let calcResultVC = CalcResultViewController()
         // 계산결과 VC에 Navigation VC 넣기
@@ -208,25 +215,6 @@ final class CalcViewController: UIViewController {
         nav.modalPresentationStyle = .pageSheet
         nav.isModalInPresentation = true  // true이면 dismiss 할 수 없음
         
-        // sheetPresentationController는 iOS 15 이상부터 사용 가능
-        if let sheet = nav.sheetPresentationController {
-            // Bottom Sheet를 확장/축소 했을 때 화면 꼭대기가 걸리는 높이 지정
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.detents = [.large()]
-            if #available(iOS 16.0, *) {
-                // iOS 16 이상부터 커스텀으로 높이를 결정할 수 있음
-                // iOS 15는 .medium()과 .large() 둘 중 하나만 가능
-                sheet.detents = [.custom(resolver: { context in
-                    return (index == 0) ? 430 : 500
-                })]
-            } else {
-                sheet.detents = [.large()]
-            }
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.preferredCornerRadius = 25
-            sheet.prefersGrabberVisible = false
-        }
-        
         // CalcResultVC의 대리자에게 데이터 전달
         //coinVC.coinTypeDataDelegate = self
         calcResultVC.receiveCalcResultData(
@@ -234,8 +222,7 @@ final class CalcViewController: UIViewController {
             with: calcResult as! InvestmentResult)
         
         // 화면 전환
-        //self.present(nav, animated: true, completion: nil)
-        navigationController?.pushViewController(calcResultVC, animated: true)
+        self.navigationController?.pushViewController(calcResultVC, animated: true)
     }
     
     //MARK: - 계산 수행
@@ -304,26 +291,27 @@ final class CalcViewController: UIViewController {
                 self.calcView.activityIndicator.startAnimating()
             }
             
-            // ⭐️
-            let priceHistoryData = await NetworkManager.shared.fetchPriceHistory(
+            // ⭐️ 코인 가격 히스토리 데이터 가져오기 (escaping closure -> async/await 코드 변경)
+            let priceHistoryData: Result<[String : [[Double?]]], NetworkError> =
+            await NetworkManager.shared.fetchPriceHistory(
                 with: coinTypeString, duration: buyToNowLength
             )
             
-            var calculatedData: (Double, Double, Double, Double, [Double], [Double], [Double], DateError) = (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .noDateError)
+            var calculatedData: CalcResultData?
             
             switch priceHistoryData {
             case .success(let historyInfo):
-                // ⭐️
+                // ⭐️ 투자 수익률 관련 통계치 계산하기 (escaping closure -> async/await 코드 변경)
                 calculatedData = segmentIndex == 0
                 ? await CalculationManager.shared.calculateROIIntensive(
                     with: historyInfo,
-                    amount: Double(amountString)!,
+                    principal: Double(amountString)!,
                     buy: self.buyStartDateStringToCalculate,
                     sell: self.sellDateStringToCalculate
                 )
                 : await CalculationManager.shared.calculateROIAveraged(
                     with: historyInfo,
-                    amount: Double(amountString)!,
+                    principalPerDay: Double(amountString)!,
                     buyStart: self.buyStartDateStringToCalculate,
                     buyEnd: self.buyEndDateStringToCalculate,
                     sell: self.sellDateStringToCalculate
@@ -333,48 +321,46 @@ final class CalcViewController: UIViewController {
             case .failure(.parseError): print("ERROR: parse")
             }
             
-            let amount = calculatedData.0
-            let roi = calculatedData.1
-            let profit = calculatedData.2
-            let balance = calculatedData.3
-            let historyPriceArray = calculatedData.4
-            let historyAmountInvestedArray = calculatedData.5
-            let historyROIArray = calculatedData.6
-            let errorCode = calculatedData.7
+            guard let stats = calculatedData else { return }
             
-            switch errorCode {
+            switch stats.errorCode {
             case .noDateError:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     self.calcView.activityIndicator.stopAnimating()
-                    if segmentIndex == 0 {
-                        let data = IntensiveInvestment(
-                            amount: amount, roi: roi, profit: profit, balance: balance,
-                            coinNameString: coinNameString,
-                            buyStartDateString: buyStartDateString,
-                            sellDateString: sellDateString,
-                            buyStartToSellLength: buyStartToSellLength,
-                            historyPriceArray: historyPriceArray,
-                            historyAmountInvestedArray: historyAmountInvestedArray,
-                            historyROIArray: historyROIArray
-                        )
-                        self.presentCalcResult(with: data, segmentIndex: segmentIndex)
-                    } else {
-                        let data = AveragedInvestment(
-                            amount: amount, roi: roi, profit: profit, balance: balance,
-                            coinNameString: coinNameString,
-                            buyStartDateString: buyStartDateString,
-                            buyEndDateString: buyEndDateString,
-                            sellDateString: sellDateString,
-                            frequencyString: frequencyString,
-                            amountString: amountString,
-                            buyStartTobuyEndLength: buyStartTobuyEndLength,
-                            buyStartToSellLength: buyStartToSellLength,
-                            historyPriceArray: historyPriceArray,
-                            historyAmountInvestedArray: historyAmountInvestedArray,
-                            historyROIArray: historyROIArray
-                        )
-                        self.presentCalcResult(with: data, segmentIndex: segmentIndex)
-                    }
+                    
+                    let data: InvestmentResult = segmentIndex == 0
+                    ? IntensiveInvestment(
+                        amount: stats.principal,
+                        roi: stats.roi,
+                        profit: stats.profit,
+                        balance: stats.balance,
+                        coinNameString: coinNameString,
+                        buyStartDateString: buyStartDateString,
+                        sellDateString: sellDateString,
+                        buyStartToSellLength: buyStartToSellLength,
+                        historyPriceArray: stats.historyPriceArray,
+                        historyAmountInvestedArray: stats.historyAmountInvestedArray,
+                        historyROIArray: stats.historyROIArray
+                    )
+                    : AveragedInvestment(
+                        amount: stats.principal,
+                        roi: stats.roi,
+                        profit: stats.profit,
+                        balance: stats.balance,
+                        coinNameString: coinNameString,
+                        buyStartDateString: buyStartDateString,
+                        buyEndDateString: buyEndDateString,
+                        sellDateString: sellDateString,
+                        frequencyString: frequencyString,
+                        amountString: amountString,
+                        buyStartTobuyEndLength: buyStartTobuyEndLength,
+                        buyStartToSellLength: buyStartToSellLength,
+                        historyPriceArray: stats.historyPriceArray,
+                        historyAmountInvestedArray: stats.historyAmountInvestedArray,
+                        historyROIArray: stats.historyROIArray
+                    )
+                    
+                    self.presentCalcResult(with: data, segmentIndex: segmentIndex)
                 }
             case .buyStartDateError:
                 DispatchQueue.main.async {

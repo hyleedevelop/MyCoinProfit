@@ -1,5 +1,5 @@
 //
-//  SummaryCell.swift
+//  StatsCell.swift
 //  CryptoSimulator
 //
 //  Created by Eric on 2023/01/25.
@@ -43,14 +43,12 @@ final class StatsCell: UITableViewCell {
     
     //MARK: - 생성자
     
-    // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
  
         self.setupUI()
     }
     
-    // TableViewCell 생성자 셋팅 (2)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,31 +56,32 @@ final class StatsCell: UITableViewCell {
     //MARK: - 하위 뷰 등록 및 오토레이아웃
     
     private func setupUI() {
-        _ = [itemIcon, itemLabel, valueLabel].map{ self.addSubview($0) }
+        [itemIcon, itemLabel, valueLabel].forEach {
+            self.addSubview($0)
+        }
         
         NSLayoutConstraint.activate([
-            itemIcon.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            itemIcon.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
-            itemIcon.heightAnchor.constraint(equalToConstant: 20),
-            itemIcon.widthAnchor.constraint(equalTo: itemIcon.heightAnchor),
+            self.itemIcon.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            self.itemIcon.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            self.itemIcon.heightAnchor.constraint(equalToConstant: 20),
+            self.itemIcon.widthAnchor.constraint(equalTo: self.itemIcon.heightAnchor),
             
-            itemLabel.leadingAnchor.constraint(equalTo: itemIcon.trailingAnchor, constant: 15),
-            itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
-            itemLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            self.itemLabel.leadingAnchor.constraint(equalTo: self.itemIcon.trailingAnchor, constant: 15),
+            self.itemLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            self.itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0),
+            self.itemLabel.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
             
-            valueLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            valueLabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
+            self.valueLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            self.valueLabel.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor),
         ])
     }
 
     //MARK: - 셀 내용 업데이트
     
     func prepareStats(segment: Int, mode: Int, icon: UIImage?, title: String?, value: String?) {
-        //self.itemIcon.tintColor = myColor
         self.itemIcon.image = icon
         self.itemLabel.text = title ?? "N/A"
-        self.valueLabel.text = value  ?? "N/A"
+        self.valueLabel.text = value ?? "N/A"
     }
     
 }

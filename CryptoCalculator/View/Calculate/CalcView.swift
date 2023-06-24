@@ -498,7 +498,6 @@ final class CalcView: UIView {
     
     //MARK: - 생성자
     
-    // UIView 초기생성자
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -510,7 +509,6 @@ final class CalcView: UIView {
         self.setupActivityIndicator()
     }
         
-    // UIView 필수생성자
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -518,7 +516,7 @@ final class CalcView: UIView {
     //MARK: - 하위 뷰 등록 및 제약조건 설정
     
     private func setupSegmentedControl() {
-        segmentedControl.delegate = self
+        self.segmentedControl.delegate = self
         self.addSubview(segmentedControl)
     }
     
@@ -526,25 +524,35 @@ final class CalcView: UIView {
         self.addSubview(scrollView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 0),
-            scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
-            scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
-            scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
+            self.scrollView.topAnchor.constraint(equalTo: self.segmentedControl.bottomAnchor, constant: 0),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            self.scrollView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            self.scrollView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -0),
         ])
     }
     
     // 각 요소별 StackView 설정
     private func setupInputStackView() {
-        let containerViewArray = [coinTypeContainerView, buyStartDateContainerView,
-                                  buyEndDateContainerView, frequencyContainerView,
-                                  amountContainerView, sellDateContainerView]
-        let textFieldArray = [coinTypeTextField, buyStartDateTextField, buyEndDateTextField,
-                              frequencyTextField, amountTextField, sellDateTextField]
-        let stackViewArray = [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,
-                              frequencyStackView, amountStackView, sellDateStackView]
+        let containerViewArray = [
+            self.coinTypeContainerView, self.buyStartDateContainerView,
+            self.buyEndDateContainerView, self.frequencyContainerView,
+            self.amountContainerView, self.sellDateContainerView
+        ]
+        let textFieldArray = [
+            self.coinTypeTextField, self.buyStartDateTextField, self.buyEndDateTextField,
+            self.frequencyTextField, self.amountTextField, self.sellDateTextField
+        ]
+        let stackViewArray = [
+            self.coinTypeStackView, self.buyStartDateStackView, self.buyEndDateStackView,
+            self.frequencyStackView, self.amountStackView, self.sellDateStackView
+        ]
         
-        stackViewArray.forEach { $0.heightAnchor.constraint(equalToConstant: 80).isActive = true }
-        containerViewArray.forEach { $0.heightAnchor.constraint(equalToConstant: 45).isActive = true }
+        stackViewArray.forEach {
+            $0.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        }
+        containerViewArray.forEach {
+            $0.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        }
 
         for i in 0..<containerViewArray.count {
             NSLayoutConstraint.activate([
@@ -567,82 +575,86 @@ final class CalcView: UIView {
     
     // FinalStackView(inputStackView + emptySpace + calcStartButton) 설정
     private func setupFinalStackView() {
-        scrollView.addSubview(finalStackView)
+        self.scrollView.addSubview(self.finalStackView)
         
-        let stackViewArray = [coinTypeStackView, buyStartDateStackView, sellDateStackView, amountStackView,
-                              emptySpace, calcStartButton]
-        let willHideArray = [buyEndDateStackView, frequencyStackView]
+        let stackViewArray = [
+            self.coinTypeStackView, self.buyStartDateStackView, self.sellDateStackView,
+            self.amountStackView, self.emptySpace, self.calcStartButton
+        ]
+        let willHideArray = [self.buyEndDateStackView, self.frequencyStackView]
         
-        stackViewArray.forEach { finalStackView.addArrangedSubview($0) }
+        stackViewArray.forEach { self.finalStackView.addArrangedSubview($0) }
         willHideArray.forEach { $0.removeFromSuperview() }
         
         NSLayoutConstraint.activate([
-            finalStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            finalStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -40),
-            finalStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 5),
-            finalStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -60),
+            self.finalStackView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
+            self.finalStackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, constant: -40),
+            self.finalStackView.topAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.topAnchor, constant: 5),
+            self.finalStackView.bottomAnchor.constraint(equalTo: self.scrollView.contentLayoutGuide.bottomAnchor, constant: -60),
             
-            emptySpace.heightAnchor.constraint(equalToConstant: 0),
+            self.emptySpace.heightAnchor.constraint(equalToConstant: 0),
             
-            calcStartButton.heightAnchor.constraint(equalToConstant: Constant.ShapeSetting.buttonHeight),
+            self.calcStartButton.heightAnchor.constraint(equalToConstant: Constant.ShapeSetting.buttonHeight),
         ])
         
         // 애니메이션을 위해 투명도를 0으로 초기화
-        [coinTypeLabel, coinTypeContainerView,
-         buyStartDateLabel, buyStartDateContainerView,
-         sellDateLabel, sellDateContainerView,
-         amountLabel, amountContainerView,
-         calcStartButton].forEach { $0.alpha = 0 }
+        [self.coinTypeLabel, self.coinTypeContainerView,
+         self.buyStartDateLabel, self.buyStartDateContainerView,
+         self.sellDateLabel, self.sellDateContainerView,
+         self.amountLabel, self.amountContainerView,
+         self.calcStartButton].forEach { $0.alpha = 0 }
     }
     
     // 첫번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupFirstFinalStackView() {
-        [coinTypeStackView, buyStartDateStackView, sellDateStackView,
-         amountStackView, emptySpace, calcStartButton]
-            .forEach { finalStackView.addArrangedSubview($0) }
-        [buyEndDateStackView, frequencyStackView]
+        [self.coinTypeStackView, self.buyStartDateStackView, self.sellDateStackView,
+         self.amountStackView, self.emptySpace, self.calcStartButton]
+            .forEach { self.finalStackView.addArrangedSubview($0) }
+        [self.buyEndDateStackView, self.frequencyStackView]
             .forEach { $0.removeFromSuperview() }
         
-        buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
-        buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
-        amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
-        amountLabel.text = Constant.TitleSetting.amountLabelName1
-        resetTextField()
+        self.buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
+        self.buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
+        self.amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
+        self.amountLabel.text = Constant.TitleSetting.amountLabelName1
+        self.resetTextField()
     }
     
     // 두번째 세그먼트를 선택했을 때의 FinalStackView 설정
     private func setupSecondFianlStackView() {
-        [coinTypeStackView, buyStartDateStackView, buyEndDateStackView,
-         sellDateStackView, frequencyStackView, amountStackView, emptySpace, calcStartButton]
-            .forEach { finalStackView.addArrangedSubview($0) }
+        [self.coinTypeStackView, self.buyStartDateStackView, self.buyEndDateStackView,
+         self.sellDateStackView, self.frequencyStackView, self.amountStackView,
+         self.emptySpace, self.calcStartButton]
+            .forEach { self.finalStackView.addArrangedSubview($0) }
         
-        buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
-        buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder2
-        amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder2
-        amountLabel.text = Constant.TitleSetting.amountLabelName2
-        resetTextField()
+        self.buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
+        self.buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder2
+        self.amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder2
+        self.amountLabel.text = Constant.TitleSetting.amountLabelName2
+        self.resetTextField()
     }
     
     // TextField 입력값 초기화
     private func resetTextField() {
-        [buyStartDateTextField, buyEndDateTextField, frequencyTextField, amountTextField, sellDateTextField]
+        [self.buyStartDateTextField, self.buyEndDateTextField,
+         self.frequencyTextField, self.amountTextField, self.sellDateTextField]
             .forEach { $0.text = "" }
     }
     
     // 로딩중임을 나타내는 Indicator 설정
     private func setupActivityIndicator() {
-        self.addSubview(activityIndicator)
+        self.addSubview(self.activityIndicator)
         
         NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
     
     // 로딩중임을 나타내는 Indicator 표시
     func presentLoadingIndicator() {
-        if activityIndicator.isAnimating {
-            activityIndicator.stopAnimating()
+        if self.activityIndicator.isAnimating {
+            self.activityIndicator.stopAnimating()
         } else {
             self.activityIndicator.startAnimating()
         }
@@ -663,14 +675,8 @@ final class CalcView: UIView {
 extension CalcView: CustomSegmentedControlDelegate {
     
     func change(to index: Int) {
-        if index == 0 {
-            setupFirstFinalStackView()
-            endEditing(true)
-        }
-        if index == 1 {
-            setupSecondFianlStackView()
-            endEditing(true)
-        }
+        _ = index == 0 ? self.setupFirstFinalStackView() : self.setupSecondFianlStackView()
+        self.endEditing(true)
     }
     
 }

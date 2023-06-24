@@ -9,13 +9,14 @@ import UIKit
 import Screenshots
 import GoogleMobileAds
 
+// 데이터 전달을 위한 커스텀 델리게이트 구현에 필요한 프로토콜
+protocol CalcResultDelegate: AnyObject {
+    func receiveCalcResultData(segmentIndex index: Int, with data: InvestmentResult)
+}
+
 final class CalcResultViewController: UIViewController {
     
-    //MARK: - 뷰컨트롤러 인스턴스
-    
-    let calcVC = CalcViewController()
-    
-    //MARK: - UI
+    //MARK: - UI 관련 속성
     
     // 구글 애드몹
     lazy var bannerView: GADBannerView = {
@@ -38,16 +39,19 @@ final class CalcResultViewController: UIViewController {
         return tv
     }()
 
-    //MARK: - 데이터
+    //MARK: - 인스턴스 관련 속성
     
-    var segmentIndex: Int = 0
-    var intensiveInvestment: IntensiveInvestment!
-    var averagedInvestment: AveragedInvestment!
-    var statsDataArrayLSI = [String]()
-
+    private let calcVC = CalcViewController()
     private var dataSource = [CalcResultCellData]()
+    private var intensiveInvestment: IntensiveInvestment!
+    private var averagedInvestment: AveragedInvestment!
+    private let statsDataArrayLSI = [String]()
     
-    //MARK: - Life cycle
+    //MARK: - 일반 속성
+    
+    private var segmentIndex: Int = 0
+    
+    //MARK: - 뷰의 생명주기
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +66,7 @@ final class CalcResultViewController: UIViewController {
         self.setupBannerViewToBottom()
     }
     
-    //MARK: - 네비게이션 바 설정
+    //MARK: - UI 관련 메서드
     
     private func setupNavBar() {
         self.navigationController?.applyDefaultSettings()
@@ -97,17 +101,20 @@ final class CalcResultViewController: UIViewController {
     // TableViewCell에 표출할 내용을 담은 Model
     private func setupTableViewDataSource() {
         switch segmentIndex {
-        case 0:
-            self.dataSource = [CalcResultCellManager.shared.getStatsDataLSI(),
-                               CalcResultCellManager.shared.getGraphData()]
-        case 1:
-            self.dataSource = [CalcResultCellManager.shared.getStatsDataDCA(),
-                               CalcResultCellManager.shared.getGraphData()]
-        default:
-            break
+        case 0: self.dataSource = [
+            CalcResultCellManager.shared.getStatsDataLSI(),
+            CalcResultCellManager.shared.getGraphData()
+        ]
+        case 1: self.dataSource = [
+            CalcResultCellManager.shared.getStatsDataDCA(),
+            CalcResultCellManager.shared.getGraphData()
+        ]
+        default: break
         }
         
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     // 스크린샷을 사진 앱에 저장 (1)
@@ -147,6 +154,8 @@ final class CalcResultViewController: UIViewController {
     
 }
 
+//MARK: - 데이터 전달을 위한 커스텀 델리게이트 메서드
+
 // CalcViewController로부터 데이터를 전달받기 위해 커스텀 프로토콜 채택
 extension CalcResultViewController: CalcResultDelegate {
     
@@ -183,7 +192,6 @@ extension CalcResultViewController: CalcResultDelegate {
             ]
             
             for (index, string) in strings.enumerated() {
-                print(index, string)
                 CalcResultCellManager.shared.updateStatsDataLSI(index: index, newValue: string)
             }
         }
@@ -226,7 +234,6 @@ extension CalcResultViewController: CalcResultDelegate {
             ]
             
             for (index, string) in strings.enumerated() {
-                print(index, string)
                 CalcResultCellManager.shared.updateStatsDataDCA(index: index, newValue: string)
             }
         }
@@ -234,7 +241,7 @@ extension CalcResultViewController: CalcResultDelegate {
     
 }
 
-//MARK: - UITableViewDataSource, UITableViewDelegate
+//MARK: - TableView에 대한 델리게이트 메서드
 
 extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -333,7 +340,7 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-//MARK: - 구글 애드몹 관련 메서드
+//MARK: - 구글 애드몹에 대한 델리게이트 메서드
 
 extension CalcResultViewController: GADBannerViewDelegate {
     

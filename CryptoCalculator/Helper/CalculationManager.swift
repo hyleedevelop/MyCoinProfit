@@ -7,7 +7,8 @@
 
 import Foundation
 
-//                                     <Timeline>
+//MARK: - Enum 선언
+//                             <Timeline (ex: Bitcoin)>
 //
 //     O-----------------O-----------------O-----------------O-----------------O
 // 2013-04-28       buyStartDate       buyEndDate         sellDate            Now
@@ -26,6 +27,8 @@ enum DateError {
     case buyEndDateError  // 매수 종료 날짜로 인한 에러
     case sellDateError  // 매도 날짜로 인한 에러
 }
+
+//MARK: - 각종 스탯 계산을 담당하는 매니저
 
 final class CalculationManager {
     
@@ -72,7 +75,7 @@ final class CalculationManager {
     
     // 일괄매수 시 ROI(Rate On Investment: 투자이익률), Balance(평가금), Profit(수익금) 계산
     // 계산 후 달러나 퍼센트 형식의 문자열로 변환 후 반환
-    func calculateROIIntensive(with historyDict: [String: [[Double?]]], amount amountInvested: Double, buy buyStartDate: String, sell sellDate: String) async -> DataTupleIntensive {
+    func calculateROIIntensive(with historyDict: [String: [[Double?]]], principal: Double, buy buyStartDate: String, sell sellDate: String) async -> CalcResultData? {
         var historyTimeArray = [String]()  // "prices" key에서 시간 값을 담기 위한 배열
         var historyPriceArray = [Double]()  // "prices" key에서 가격 값을 담기 위한 배열
         var historyROIArray = [Double]()  // ROI 추이를 담기 위한 배열
@@ -81,7 +84,7 @@ final class CalculationManager {
         // API에서 받아온 배열을 새로운 형태의 배열에 넣는 과정
         // 받아온 배열의 구조상 가장 마지막 인덱스의 값의 날짜가 직전 날짜와 중복되므로 for문 반복횟수 -1
         for i in 0..<historyDict["prices"]!.count-1 {
-            let historyDate = convertUnixTimestampToDate(from: historyDict["prices"]![i][0] ?? 0.0)
+            let historyDate = (historyDict["prices"]![i][0] ?? 0.0).convertUnixTimestampToDate()
             historyTimeArray.append(historyDate)
             historyPriceArray.append(historyDict["prices"]![i][1] ?? 0.0)
         }
@@ -90,9 +93,7 @@ final class CalculationManager {
         let buyTimeIndex = 0
         
         // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
-        guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else {
-            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError)
-        }
+        guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else { return nil }
         let sellTimeIndex = Int(sellTimeIDX.description)!
         
         let buyTimePrice: Double = historyPriceArray[buyTimeIndex]  // 매수 날짜 당시 가격
@@ -100,32 +101,39 @@ final class CalculationManager {
         
         for i in 0..<historyDict["prices"]!.count-1 {
             historyROIArray.append((historyPriceArray[i] - buyTimePrice) / buyTimePrice)
-            historyAmountInvestedArray.append(amountInvested)
+            historyAmountInvestedArray.append(principal)
         }
         
         let roi: Double = historyROIArray[sellTimeIndex]  // 최종 수익률(%)
-        let amountReturned: Double = amountInvested * (1 + roi)  // 최종 평가금($)
-        let profit: Double = amountReturned - amountInvested  // 최종 수익금($)
+        let balance: Double = principal * (1 + roi)  // 최종 평가금($)
+        let profit: Double = balance - principal  // 최종 수익금($)
         
-        return (amountInvested, roi, profit, amountReturned,
-                historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError)
+        return CalcResultData(
+            principal: principal,
+            roi: roi,
+            profit: profit,
+            balance: balance,
+            historyPriceArray: historyPriceArray,
+            historyAmountInvestedArray: historyAmountInvestedArray,
+            historyROIArray: historyROIArray,
+            errorCode: .noDateError
+        )
     }
     
     // 일괄매수 시 ROI(Rate On Investment: 투자이익률), Balance(평가금), Profit(수익금) 계산
     // 계산 후 달러나 퍼센트 형식의 문자열로 변환 후 반환
-    func calculateROIAveraged(with historyDict: [String: [[Double?]]], amount amountInvestedOneTime: Double, buyStart buyStartDate: String, buyEnd buyEndDate: String, sell sellDate: String) async ->  DataTupleAveraged {
+    func calculateROIAveraged(with historyDict: [String: [[Double?]]], principalPerDay: Double, buyStart buyStartDate: String, buyEnd buyEndDate: String, sell sellDate: String) async ->  CalcResultData? {
         var historyTimeArray = [String]()  // "prices" key에서 시간값만 담기 위한 배열
         var historyPriceArray = [Double]()  // "prices" key에서 가격값만 담기 위한 배열
         var historyCoinAmountArray = [Double]()  // 보유하고 있는 코인 개수를 담기 위한 배열
         var historyROIArray = [Double]()  // ROI 추이를 담기 위한 배열
-        //var historyAmountReturned = [Double]()  // 평가금 추이를 담기 위한 배열
         var historyAmountInvestedArray = [Double]()  // 투자원금 추이를 담기 위한 배열
         var historyAverageCost = [Double]()  // 매수기간동안 매일의 평균매수가를 담기 위한 배열
         
         // API에서 받아온 배열을 새로운 형태의 배열에 넣는 과정
         // 받아온 배열의 구조상 가장 마지막 인덱스의 값의 날짜가 직전 날짜와 중복되므로 for문 반복횟수 -1
         for i in 0..<historyDict["prices"]!.count-2 {
-            let historyDate = convertUnixTimestampToDate(from: historyDict["prices"]![i][0] ?? 0.0)
+            let historyDate = (historyDict["prices"]![i][0] ?? 0.0).convertUnixTimestampToDate()
             historyTimeArray.append( historyDate )
             historyPriceArray.append( historyDict["prices"]![i][1] ?? 0.0 )
         }
@@ -134,21 +142,17 @@ final class CalculationManager {
         let buyStartTimeIndex = 0
         
         // 매수 종료 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
-        guard let buyEndTimeIDX = historyTimeArray.firstIndex(of: buyEndDate) else {
-            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .buyEndDateError)
-        }
+        guard let buyEndTimeIDX = historyTimeArray.firstIndex(of: buyEndDate) else { return nil }
         let buyEndTimeIndex = Int(buyEndTimeIDX.description)!
         
         // 매도 날짜에 해당하는 히스토리 데이터 배열의 인덱스 구하기 (에러 발생 시 계산 중단)
-        guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else {
-            return (0.0, 0.0, 0.0, 0.0, [0.0], [0.0], [0.0], .sellDateError)
-        }
+        guard let sellTimeIDX = historyTimeArray.firstIndex(of: sellDate) else { return nil }
         let sellTimeIndex = Int(sellTimeIDX.description)!
         
         // 매수 시작 날짜부터 매수 종료 날짜까지 매일 매수에 사용된 누적 원금과 평균 매수가 구하기
         for i in buyStartTimeIndex...buyEndTimeIndex {
-            historyAmountInvestedArray.append( Double(i + 1) * amountInvestedOneTime )
-            historyCoinAmountArray.append( amountInvestedOneTime / historyPriceArray[i] )
+            historyAmountInvestedArray.append( Double(i + 1) * principalPerDay )
+            historyCoinAmountArray.append( principalPerDay / historyPriceArray[i] )
         }
         
         // (1) 매수 시작 날짜부터 매도 날짜까지의 계산
@@ -168,32 +172,21 @@ final class CalculationManager {
                                     / historyAverageCost.last! )
         }
         
-//        print("historyTimeArray: \(historyTimeArray)")
-//        print("historyPriceArray: \(historyPriceArray)")
-//        print("historyCoinAmountArray: \(historyCoinAmountArray)")
-//        print("historyAmountInvestedArray: \(historyAmountInvestedArray)")
-//        print("historyROIArray: \(historyROIArray)")
-        
         let roi: Double = historyROIArray.last!  // 최종 수익률(%)
         let amountInvested: Double = historyAmountInvestedArray.last!  // 최종 원금($)
-        let amountReturned: Double = amountInvested * (1 + roi)  // 최종 평가금($)
-        let profit: Double = amountReturned - amountInvested  // 최종 수익금($)
+        let balance: Double = amountInvested * (1 + roi)  // 최종 평가금($)
+        let profit: Double = balance - amountInvested  // 최종 수익금($)
         
-        return (amountInvested, roi, profit, amountReturned,
-                historyPriceArray, historyAmountInvestedArray, historyROIArray, .noDateError)
-    }
-    
-    // Unix Timestamp -> Date 변환
-    private func convertUnixTimestampToDate(from timestamp: Double) -> String {
-        // 날짜 형식 지정
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.timeZone = Constant.DateSetting.standardTimeZone
-        
-        // API에서 받아온 Unix Timestamp는 ms 단위를 가지기 떄문에 s 단위로 변환(/1000)
-        let date = Date(timeIntervalSince1970: timestamp/1000)
-        let dateString = formatter.string(from: date)
-        return dateString
+        return CalcResultData(
+            principal: amountInvested,
+            roi: roi,
+            profit: profit,
+            balance: balance,
+            historyPriceArray: historyPriceArray,
+            historyAmountInvestedArray: historyAmountInvestedArray,
+            historyROIArray: historyROIArray,
+            errorCode: .noDateError
+        )
     }
     
 }

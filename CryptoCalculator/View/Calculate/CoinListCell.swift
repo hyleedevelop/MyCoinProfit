@@ -1,5 +1,5 @@
 //
-//  PriceTableViewCell.swift
+//  CoinListCell.swift
 //  CryptoSimulator
 //
 //  Created by Eric on 2022/12/15.
@@ -108,8 +108,8 @@ final class CoinListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
  
-        registerUI()
-        updateConstraints()
+        self.setupUI()
+        self.setupConstraints()
     }
     
     // TableViewCell 생성자 셋팅 (2)
@@ -122,60 +122,55 @@ final class CoinListCell: UITableViewCell {
     }
     
     // 하위 뷰로 등록
-    private func registerUI() {
-        contentView.addSubview(cellSV)
+    private func setupUI() {
+        self.addSubview(self.cellSV)
         self.backgroundColor = UIColor(named: "BGColor")
     }
     
-    // AutoLayout 결정하는 시점
-    override func updateConstraints() {
-        setupConstraints()
-        super.updateConstraints()
-    }
+    //MARK: - 하위 뷰 등록 및 오토레이아웃
     
     // AutoLayout 설정
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            coinRank.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
-            coinRank.widthAnchor.constraint(equalToConstant: 30),
-            coinRank.heightAnchor.constraint(equalToConstant: 40),
+            self.coinRank.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 15),
+            self.coinRank.widthAnchor.constraint(equalToConstant: 30),
+            self.coinRank.heightAnchor.constraint(equalToConstant: 40),
         
-            coinImageView.heightAnchor.constraint(equalToConstant: 40),
-            coinImageView.widthAnchor.constraint(equalToConstant: 40),
-            //coinImageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
-            coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.coinImageView.heightAnchor.constraint(equalToConstant: 40),
+            self.coinImageView.widthAnchor.constraint(equalToConstant: 40),
+            self.coinImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         
-            nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
+            self.nameLabelSV.heightAnchor.constraint(equalToConstant: 40),
         
-            priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
-            priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
+            self.priceLabelSV.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -18),
+            self.priceLabelSV.heightAnchor.constraint(equalToConstant: 40),
         
-            cellSV.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            self.cellSV.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
         ])
     }
     
     // VC에서 처리한 결과값을 텍스트나 이미지의 값으로 넣기
     func configure(with coin: CurrentPriceData, arrayIndex index: Int, currency isUSD: Bool) {
         // 코인 랭크 넣기
-        coinRank.text = String(index + 1)
+        self.coinRank.text = String(index + 1)
         
         // 코인 이미지 넣기 (KingFisher 사용)
         let imageURL = URL(string: coin.image)
-        coinImageView.kf.setImage(with: imageURL)
-        coinImageView.kf.indicatorType = .activity
+        self.coinImageView.kf.setImage(with: imageURL)
+        self.coinImageView.kf.indicatorType = .activity
         
         // 코인 이름 넣기
-        coinNameLabel.text = coin.name
+        self.coinNameLabel.text = coin.name
         
         // 코인 심볼 넣기 (대문자로)
-        coinSymbolLabel.text = coin.symbol.uppercased()
+        self.coinSymbolLabel.text = coin.symbol.uppercased()
         
         // 코인 가격 넣기
-        coinPriceLabel.text = coin.currentPrice.toUSD()
+        self.coinPriceLabel.text = coin.currentPrice.toUSD()
         
         // 코인 가격 24시간 변화율 넣기
-        coinPriceChangeLabel.text = (coin.priceChangePercentage24H/100.0).toPercentage()
-        coinPriceChangeLabel.textColor = coin.priceChangePercentage24H >= 0
+        self.coinPriceChangeLabel.text = (coin.priceChangePercentage24H/100.0).toPercentage()
+        self.coinPriceChangeLabel.textColor = coin.priceChangePercentage24H >= 0
                                        ? Constant.UIColorSetting.positiveColor
                                        : Constant.UIColorSetting.negativeColor
     }

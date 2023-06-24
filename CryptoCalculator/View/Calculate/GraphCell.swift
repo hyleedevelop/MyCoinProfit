@@ -36,15 +36,13 @@ final class GraphCell: UITableViewCell {
         
     //MARK: - 생성자
     
-    // TableViewCell 생성자 셋팅 (1)
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
  
-        setupUI()
-        setupChart()
+        self.setupUI()
+        self.setupChart()
     }
     
-    // TableViewCell 생성자 셋팅 (2)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -53,59 +51,64 @@ final class GraphCell: UITableViewCell {
     
     // 레이블
     private func setupUI() {
-        _ = [itemLabel].map{ self.addSubview($0) }
+        self.addSubview(self.itemLabel)
         
         NSLayoutConstraint.activate([
-            itemLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
-            itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            itemLabel.heightAnchor.constraint(equalToConstant: 20),
+            self.itemLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor),
+            self.itemLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.itemLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 
     // 차트
     func setupChart() {
-        self.addSubview(lineChartView)
+        self.addSubview(self.lineChartView)
         
         NSLayoutConstraint.activate([
-            lineChartView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            lineChartView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15),
-            lineChartView.topAnchor.constraint(equalTo: itemLabel.bottomAnchor, constant: 0),
-            lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            self.lineChartView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            self.lineChartView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            self.lineChartView.topAnchor.constraint(equalTo: self.itemLabel.bottomAnchor, constant: 0),
+            self.lineChartView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -5),
         ])
     }
     
     //MARK: - 차트 그리기
     
     func drawLineChart(segment: Int, mode: Int, values: [Double]) {
-        lineChartView.noDataText = "No Data"
-        lineChartView.noDataFont = .systemFont(ofSize: 20)
-        lineChartView.noDataTextColor = .systemGray2
+        self.lineChartView.noDataText = "No Data"
+        self.lineChartView.noDataFont = .systemFont(ofSize: 20)
+        self.lineChartView.noDataTextColor = .systemGray2
         
         // 데이터 생성
         var dataEntries = [ChartDataEntry]()
         var dataPoints = [String]()
-        for index in 0..<values.count {
-            let dataEntry = BarChartDataEntry(x: Double(index), y: values[index])
+        for (index, value) in values.enumerated() {
+            let dataEntry = BarChartDataEntry(x: Double(index), y: value)
             dataEntries.append(dataEntry)
             dataPoints.append("")
+        }
+        
+        var myColor: UIColor {
+            // 앱의 테마 컬러 설정 가져오기
+            let themeIndex = UserDefaults.standard.integer(
+                forKey: Constant.UserDefaults.themeColorNumber
+            )
+            
+            var color: UIColor!
+            switch mode {
+            case 0: color = Constant.UIColorSetting.themeGradientStartColors[themeIndex]
+            case 1: color = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex]
+            case 2: color = Constant.UIColorSetting.themeGradientEndColors[themeIndex]
+            default: break
+            }
+            
+            return color
         }
         
         let chartDataSet = LineChartDataSet(entries: dataEntries, label: "chart")
         chartDataSet.mode = .linear
         chartDataSet.drawCirclesEnabled = false
         chartDataSet.lineWidth = 1.5
-        var myColor = UIColor.clear
-        
-        // 앱의 테마 컬러 설정 가져오기
-        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
-        
-        switch mode {
-        case 0: myColor = Constant.UIColorSetting.themeGradientStartColors[themeIndex]
-        case 1: myColor = Constant.UIColorSetting.themeGradientMiddleColors[themeIndex]
-        case 2: myColor = Constant.UIColorSetting.themeGradientEndColors[themeIndex]
-        default: break
-        }
-        
         chartDataSet.colors = [myColor]
         chartDataSet.fill = ColorFill(color: myColor)
         chartDataSet.fillAlpha = 0.5
@@ -129,16 +132,7 @@ final class GraphCell: UITableViewCell {
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: dataPoints)
         
-        // X축 레이블 갯수 설정 (이 코드 안쓸 시 Jan Mar May 이런식으로 띄엄띄엄 조금만 나옴)
-        //lineChartView.xAxis.setLabelCount(dataPoints.count, force: false)
-        //lineChartView.xAxis.setLabelCount(3, force: false)
-        //lineChartView.leftAxis.setLabelCount(5, force: true)
-        
-        // 옵션 애니메이션
-        //lineChartView.animate(xAxisDuration: 0, yAxisDuration: 3, easingOption: .easeInOutCirc)
-        
         // 왼쪽 축의 범위 설정
-        //lineChartView.leftAxis.axisMaximum = values.max()!
         if mode == 0 { lineChartView.leftAxis.axisMinimum = 0.0 }
         
         let xAxis = lineChartView.xAxis
