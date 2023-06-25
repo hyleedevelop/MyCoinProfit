@@ -37,13 +37,6 @@ final class CalculationManager {
     // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
-    typealias DataTupleIntensive = (Double, Double, Double, Double,
-                                    [Double], [Double], [Double],
-                                    DateError)
-    typealias DataTupleAveraged = (Double, Double, Double, Double,
-                                   [Double], [Double], [Double],
-                                   DateError)
-    
     // 주어진 두 날짜 사이의 차이(일) 계산
     func calculateDateInterval(type dateIntervalType: DateIntervalType, start startDateString: String, end endDateString: String?) -> Int {
         
