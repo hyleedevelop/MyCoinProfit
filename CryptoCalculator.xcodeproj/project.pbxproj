@@ -34,6 +34,7 @@
 		0794113D2949EC3200A4F632 /* CoinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113C2949EC3200A4F632 /* CoinListViewController.swift */; };
 		079411402949FA8D00A4F632 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794113F2949FA8D00A4F632 /* Constant.swift */; };
 		0794114A294A19C800A4F632 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07941149294A19C800A4F632 /* SettingCell.swift */; };
+		079ACB7F2A49C80800C8FD28 /* CalcView+TextFieldInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079ACB7E2A49C80800C8FD28 /* CalcView+TextFieldInput.swift */; };
 		079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF4295DB3AC0063625F /* CalcViewController.swift */; };
 		079DBFF7295DB53A0063625F /* CalcView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079DBFF6295DB53A0063625F /* CalcView.swift */; };
 		07B07E96298CFEA300E9F852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */; };
@@ -80,6 +81,7 @@
 		0794113C2949EC3200A4F632 /* CoinListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListViewController.swift; sourceTree = "<group>"; };
 		0794113F2949FA8D00A4F632 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07941149294A19C800A4F632 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		079ACB7E2A49C80800C8FD28 /* CalcView+TextFieldInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalcView+TextFieldInput.swift"; sourceTree = "<group>"; };
 		079DBFF4295DB3AC0063625F /* CalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcViewController.swift; sourceTree = "<group>"; };
 		079DBFF6295DB53A0063625F /* CalcView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcView.swift; sourceTree = "<group>"; };
 		07B07E95298CFEA300E9F852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				079DBFF6295DB53A0063625F /* CalcView.swift */,
+				079ACB7E2A49C80800C8FD28 /* CalcView+TextFieldInput.swift */,
 				07C616EB294AAD4B00F057BE /* CoinListCell.swift */,
 				07846A212980FEDE00449A7D /* StatsCell.swift */,
 				07846A27298127BF00449A7D /* GraphCell.swift */,
@@ -417,6 +420,7 @@
 			files = (
 				07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */,
 				073D261B297F7FB700C46666 /* SettingCellManager.swift in Sources */,
+				079ACB7F2A49C80800C8FD28 /* CalcView+TextFieldInput.swift in Sources */,
 				07846A222980FEDE00449A7D /* StatsCell.swift in Sources */,
 				07BE856629924414007C8BAC /* ThemeColorCell.swift in Sources */,
 				07846A28298127BF00449A7D /* GraphCell.swift in Sources */,
@@ -598,7 +602,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -617,7 +621,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -637,7 +641,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoCalculator/Info.plist;
@@ -655,7 +659,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

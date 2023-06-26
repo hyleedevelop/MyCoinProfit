@@ -32,9 +32,7 @@ enum DateError {
 
 final class CalculationManager {
     
-    // 싱글톤으로 만들기
     static let shared = CalculationManager()
-    // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
     // 주어진 두 날짜 사이의 차이(일) 계산

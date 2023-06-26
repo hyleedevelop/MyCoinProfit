@@ -8,12 +8,20 @@
 import UIKit
 import NVActivityIndicatorView
 
+protocol CalcViewDelegate: AnyObject {
+    func inputValidationDidComplete(error: InputError)
+}
+
 final class CalcView: UIView {
+    
+    //MARK: - 델리게이트
+    
+    weak var delegate: CalcViewDelegate?
     
     //MARK: - 커스텀 메뉴바
     
     // 투자방법 선택
-    let segmentedControl: CustomSegmentedControl = {
+    internal let segmentedControl: CustomSegmentedControl = {
         // status bar의 높이 구하기
         // (windows was deprecated in iOS 15.0에 대응)
         var topSafeAreaHeight: CGFloat {
@@ -650,6 +658,11 @@ final class CalcView: UIView {
             self.activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
+
+    // Submit 버튼의 투명도 조절
+    func setCalcStartButtonAlpha(to alpha: CGFloat) {
+        self.calcStartButton.alpha = alpha
+    }
     
     // 로딩중임을 나타내는 Indicator 표시
     func presentLoadingIndicator() {
@@ -660,14 +673,22 @@ final class CalcView: UIView {
         }
     }
     
+    // 버튼 색상 업데이트
     func updateButtonColor(index: Int) {
-        self.calcStartButton.setButtonBackgroundGradient(
-            color1: Constant.UIColorSetting.themeGradientStartColors[index],
-            color2: Constant.UIColorSetting.themeGradientMiddleColors[index],
-            color3: Constant.UIColorSetting.themeGradientEndColors[index]
-        )
+        DispatchQueue.main.async {
+            self.calcStartButton.setButtonBackgroundGradient(
+                color1: Constant.UIColorSetting.themeGradientStartColors[index],
+                color2: Constant.UIColorSetting.themeGradientMiddleColors[index],
+                color3: Constant.UIColorSetting.themeGradientEndColors[index]
+            )
+        }
     }
-
+    
+    // 코인 종류 TextField 업데이트
+    func updateCoinType(to name: String) {
+        self.coinTypeTextField.text = name
+    }
+    
 }
 
 //MARK: - Custom Segmented Control의 델리게이트 메서드 구현

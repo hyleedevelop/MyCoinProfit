@@ -9,9 +9,7 @@ import UIKit
 
 final class SettingCellManager {
     
-    // 싱글톤으로 만들기
     static let shared = SettingCellManager()
-    // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
     //MARK: - data 정의
@@ -33,17 +31,17 @@ final class SettingCellManager {
         AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: nil),
     ]
     
-    //MARK: - 메서드 정의
+    //MARK: - 셀 데이터 조회 및 업데이트 관련 메서드
     
-    func appSettingData() -> SettingCellData {
+    var appSettingData: SettingCellData {
         return SettingCellData.appSettings(appSettingsModel)
     }
     
-    func feedbackData() -> SettingCellData {
+    var feedbackData: SettingCellData {
         return SettingCellData.feedback(feedbackModel)
     }
     
-    func aboutTheAppData() -> SettingCellData {
+    var aboutTheAppData: SettingCellData {
         return SettingCellData.aboutTheApp(aboutTheAppModel)
     }
     

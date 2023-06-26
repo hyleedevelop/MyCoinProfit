@@ -35,11 +35,13 @@ final class SettingViewController: UIViewController {
         return tv
     }()
     
-    //MARK: - Property
+    //MARK: - 인스턴스 관련 속성
     
     private var dataSource = [SettingCellData]()
     private var feedbackModel = [FeedbackModel]()
     private var aboutTheAppModel = [AboutTheAppModel]()
+    
+    //MARK: - 일반 속성
     
     // 이 앱의 버전을 문자열로 가져오기
     private var currentAppVersion: String {
@@ -59,17 +61,7 @@ final class SettingViewController: UIViewController {
         return "nil"
     }
     
-    // 추후 업데이트 예정이라는 Alert Message 출력하기
-    private func showWillBeUpdatedMessage() {
-        let alert = UIAlertController(title: Constant.MessageSetting.sorryTitle,
-                                      message: Constant.MessageSetting.notifyLaterUpdate,
-                                      preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    //MARK: - Life cycle
+    //MARK: - 뷰의 생명주기
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +74,7 @@ final class SettingViewController: UIViewController {
         self.setupBannerViewToBottom()
     }
     
-    //MARK: - Method
+    //MARK: - UI 관련 메서드
     
     // NavigationBar 설정
     private func setupNavBar() {
@@ -119,11 +111,21 @@ final class SettingViewController: UIViewController {
         let appVersionString = "\(currentAppVersion) (\(currentBuildNumber))"
         SettingCellManager.shared.updateAboutTheAppData(index: 4, newValue: appVersionString)
         
-        self.dataSource = [SettingCellManager.shared.appSettingData(),
-                           SettingCellManager.shared.feedbackData(),
-                           SettingCellManager.shared.aboutTheAppData()]
+        self.dataSource = [SettingCellManager.shared.appSettingData,
+                           SettingCellManager.shared.feedbackData,
+                           SettingCellManager.shared.aboutTheAppData]
 
         self.tableView.reloadData()
+    }
+    
+    // 추후 업데이트 예정이라는 Alert Message 출력하기
+    private func showWillBeUpdatedMessage() {
+        let alert = UIAlertController(title: Constant.MessageSetting.sorryTitle,
+                                      message: Constant.MessageSetting.notifyLaterUpdate,
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }

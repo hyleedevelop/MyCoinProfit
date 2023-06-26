@@ -61,6 +61,7 @@ final class CalcViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         
         guard let coinName = DataPassManager.shared.selectedCoinName else { return }
+        self.calcView.updateCoinType(to: coinName)
         self.calcView.coinTypeTextField.text = coinName
     }
         
@@ -86,22 +87,19 @@ final class CalcViewController: UIViewController {
     
     // View 설정
     private func setupView() {
+        self.calcView.delegate = self
         self.view.backgroundColor = UIColor(named: "BGColor")
     }
     
     // Button 설정
     private func setupButton() {
-        self.calcView.calcStartButton.addTarget(self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside)
+        self.calcView.calcStartButton.addTarget(
+            self, action: #selector(calcStartButtonTapped(_:)), for: .touchUpInside
+        )
         
-        // 앱의 테마 컬러 설정 가져오기
+        // 앱의 테마 컬러 설정값 적용
         let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
-        
-        DispatchQueue.main.async {
-            self.calcView.calcStartButton.setButtonBackgroundGradient(
-                color1: Constant.UIColorSetting.themeGradientStartColors[themeIndex],
-                color2: Constant.UIColorSetting.themeGradientMiddleColors[themeIndex],
-                color3: Constant.UIColorSetting.themeGradientEndColors[themeIndex])
-        }
+        self.calcView.updateButtonColor(index: themeIndex)
     }
     
     // NotificationCenter Observer 만들기
@@ -141,7 +139,7 @@ final class CalcViewController: UIViewController {
         DispatchQueue.main.async {
             targetArray1.forEach { $0.alpha = 0 }
             targetArray2.forEach { $0.alpha = 0 }
-            self.calcView.calcStartButton.alpha = 0
+            self.calcView.setCalcStartButtonAlpha(to: 0.0)
             
             for i in 0..<targetArray1.count+1 {
                 UIView.animate(withDuration: durationTime, delay: Double(i)*0.3) {
@@ -149,47 +147,47 @@ final class CalcViewController: UIViewController {
                         targetArray1[i].alpha = 1
                         targetArray2[i].alpha = 1
                     } else {
-                        self.calcView.calcStartButton.alpha = 1
+                        self.calcView.setCalcStartButtonAlpha(to: 1.0)
                     }
                 }
             }
         }
     }
     
+    internal func showInputErrorMessage(error: InputError, message: String) {
+        // AlertController, AlertAction 생성
+        let alert = UIAlertController(
+            title: Constant.MessageSetting.errorTitle,
+            message: message,
+            preferredStyle: .alert
+        )
+        // 특정 TextField의 내용이 제대로 입력되지 않은 경우, 확인 버튼을 누르면 해당 TextField가 활성화되도록 설정
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.calcView.designateFirstResponder(error: error)
+        }
+        
+        // 액션 추가 및 팝업메세지 출력
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     internal func showPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?) {
-        if button == calcView.calcStartButton {
-            // AlertController, AlertAction 생성
-            let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
-            
-            // 특정 TextField의 내용이 제대로 입력되지 않은 경우, 확인 버튼을 누르면 해당 TextField가 활성화되도록 설정
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                guard let tf = textField else { return }
-                tf.becomeFirstResponder()
-            }
-                        
-            // 액션 추가 및 팝업메세지 출력
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
+        // AlertController, AlertAction 생성
+        let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: Constant.MessageSetting.cancelTitle,
+                                         style: .default, handler: nil)
+        let okAction = UIAlertAction(title: Constant.MessageSetting.resetTitle,
+                                     style: .destructive) { _ in
+            // 입력된 내용 모두 지우기
+            _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField,
+                 self.calcView.buyEndDateTextField, self.calcView.sellDateTextField,
+                 self.calcView.frequencyTextField, self.calcView.amountTextField].map { $0.text = "" }
         }
-
-        if button == navigationItem.rightBarButtonItem {
-            // AlertController, AlertAction 생성
-            let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: Constant.MessageSetting.cancelTitle,
-                                             style: .default, handler: nil)
-            let okAction = UIAlertAction(title: Constant.MessageSetting.resetTitle,
-                                         style: .destructive) { _ in
-                // 입력된 내용 모두 지우기
-                _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField,
-                     self.calcView.buyEndDateTextField, self.calcView.sellDateTextField,
-                     self.calcView.frequencyTextField, self.calcView.amountTextField].map { $0.text = "" }
-            }
-            
-            // 액션 추가 및 팝업메세지 출력
-            alert.addAction(cancelAction)
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
-        }
+        
+        // 액션 추가 및 팝업메세지 출력
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // 에러 메세지 보여주기
@@ -218,7 +216,7 @@ final class CalcViewController: UIViewController {
         // CalcResultVC의 대리자에게 데이터 전달
         //coinVC.coinTypeDataDelegate = self
         calcResultVC.receiveCalcResultData(
-            segmentIndex: calcView.segmentedControl.selectedSegmentIndex,
+            segmentIndex: self.calcView.segmentIndex,
             with: calcResult as! InvestmentResult)
         
         // 화면 전환
@@ -230,11 +228,16 @@ final class CalcViewController: UIViewController {
     // 버튼을 눌렀을 때
     @objc private func calcStartButtonTapped(_ button: UIButton) {
         // segmented control의 인덱스값 받아오기
-        let segmentIndex = calcView.segmentedControl.selectedSegmentIndex
+        let segmentIndex = self.calcView.segmentIndex
         
-        // TextField 입력값에 대한 유효성 검사 -> input error가 없다면 계속 진행
-        let errorType = self.validateTextfieldInput(type: segmentIndex, button: button)
-        guard errorType == .noInputError else { return }
+        // TextField 입력값에 대한 유효성 검사 수행
+        let error = self.calcView.validateTextfieldInput(button: button)
+        
+        // input error가 없다면 계속 진행
+        guard error == .noInputError else {
+            self.inputValidationDidComplete(error: error)
+            return
+        }
         
         // 투자 정보 관련 속성 초기화
         /*---------------------------------------------------------------------------*/
@@ -248,17 +251,6 @@ final class CalcViewController: UIViewController {
         var coinNameString: String {
             return DataPassManager.shared.selectedCoinName ?? ""
         }
-        
-        // 매수 및 매도 관련 날짜
-        let buyStartDateString: String = calcView.buyStartDateTextField.text!
-        let buyEndDateString: String = calcView.buyEndDateTextField.text!
-        let sellDateString: String = calcView.sellDateTextField.text!
-        
-        // 매수 주기
-        let frequencyString: String = calcView.frequencyTextField.text!
-        
-        // 매수 금액
-        let amountString: String = calcView.amountTextField.text!
         
         // 매수 및 매도 관련 기간
         var buyStartTobuyEndLength: Int = 0
@@ -305,13 +297,13 @@ final class CalcViewController: UIViewController {
                 calculatedData = segmentIndex == 0
                 ? await CalculationManager.shared.calculateROIIntensive(
                     with: historyInfo,
-                    principal: Double(amountString)!,
+                    principal: Double(self.calcView.amount)!,
                     buy: self.buyStartDateStringToCalculate,
                     sell: self.sellDateStringToCalculate
                 )
                 : await CalculationManager.shared.calculateROIAveraged(
                     with: historyInfo,
-                    principalPerDay: Double(amountString)!,
+                    principalPerDay: Double(self.calcView.amount)!,
                     buyStart: self.buyStartDateStringToCalculate,
                     buyEnd: self.buyEndDateStringToCalculate,
                     sell: self.sellDateStringToCalculate
@@ -335,8 +327,8 @@ final class CalcViewController: UIViewController {
                         profit: stats.profit,
                         balance: stats.balance,
                         coinNameString: coinNameString,
-                        buyStartDateString: buyStartDateString,
-                        sellDateString: sellDateString,
+                        buyStartDateString: self.calcView.buyStartDate,
+                        sellDateString: self.calcView.sellDate,
                         buyStartToSellLength: buyStartToSellLength,
                         historyPriceArray: stats.historyPriceArray,
                         historyAmountInvestedArray: stats.historyAmountInvestedArray,
@@ -348,11 +340,11 @@ final class CalcViewController: UIViewController {
                         profit: stats.profit,
                         balance: stats.balance,
                         coinNameString: coinNameString,
-                        buyStartDateString: buyStartDateString,
-                        buyEndDateString: buyEndDateString,
-                        sellDateString: sellDateString,
-                        frequencyString: frequencyString,
-                        amountString: amountString,
+                        buyStartDateString: self.calcView.buyStartDate,
+                        buyEndDateString: self.calcView.buyEndDate,
+                        sellDateString: self.calcView.sellDate,
+                        frequencyString: self.calcView.frequency,
+                        amountString: self.calcView.amount,
                         buyStartTobuyEndLength: buyStartTobuyEndLength,
                         buyStartToSellLength: buyStartToSellLength,
                         historyPriceArray: stats.historyPriceArray,
@@ -446,6 +438,75 @@ extension CalcViewController: GADBannerViewDelegate {
     private func adView(_ bannerView: GADBannerView,
                         didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+}
+
+//MARK: - 뷰의 델리게이트 메서드
+
+extension CalcViewController: CalcViewDelegate {
+    
+    // TextField 입력값 검증 결과 에러가 발생했을 때
+    func inputValidationDidComplete(error: InputError) {
+        switch error {
+        case .coinTypeInputError:
+            self.showInputErrorMessage(
+                error: error,message: Constant.MessageSetting.coinTypeErrorMessage
+            )
+        case .buyStartDateInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: self.calcView.segmentIndex == 0
+                ? Constant.MessageSetting.buyStartDateErrorMessage1
+                : Constant.MessageSetting.buyStartDateErrorMessage2
+            )
+        case .buyEndDateInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.buyEndDateErrorMessage1
+            )
+        case .sellDateInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.sellDateErrorMessage1
+            )
+        case .frequencyInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.frequencyErrorMessage
+            )
+        case .amountInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: self.calcView.segmentIndex == 0
+                ? Constant.MessageSetting.amountErrorMessage1
+                : Constant.MessageSetting.amountErrorMessage3
+            )
+        case .buyStartbuyEndInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.buyStartDateErrorMessage4
+            )
+        case .buyStartSellInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: self.calcView.segmentIndex == 0
+                ? Constant.MessageSetting.buyStartDateErrorMessage3
+                : Constant.MessageSetting.buyStartDateErrorMessage5
+            )
+        case .buyEndSellInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.buyEndDateErrorMessage3
+            )
+        case .decimalInputError:
+            self.showInputErrorMessage(
+                error: error,
+                message: Constant.MessageSetting.amountErrorMessage2
+            )
+        default:
+            break
+        }
     }
     
 }

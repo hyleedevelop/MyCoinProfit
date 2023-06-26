@@ -65,8 +65,10 @@ extension UIView {
         
         let shape = CAShapeLayer()
         shape.lineWidth = 2
-        shape.path = UIBezierPath(roundedRect: self.bounds,
-                                  cornerRadius: Constant.ShapeSetting.containerCornerRadius).cgPath
+        shape.path = UIBezierPath(
+            roundedRect: self.bounds,
+            cornerRadius: Constant.ShapeSetting.containerCornerRadius
+        ).cgPath
         shape.strokeColor = UIColor.black.cgColor
         shape.fillColor = UIColor.clear.cgColor
         
