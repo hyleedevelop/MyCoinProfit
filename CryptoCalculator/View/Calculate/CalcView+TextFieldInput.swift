@@ -102,4 +102,12 @@ extension CalcView {
         }
     }
     
+    // 입력된 내용 모두 지우기
+    func resetTextFieldInput() {
+        [self.coinTypeTextField, self.buyStartDateTextField, self.buyEndDateTextField,
+         self.sellDateTextField, self.frequencyTextField, self.amountTextField].forEach {
+            $0.text = ""
+        }
+    }
+    
 }

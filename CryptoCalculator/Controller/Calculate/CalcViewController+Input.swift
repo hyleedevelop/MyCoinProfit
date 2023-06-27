@@ -149,10 +149,6 @@ extension CalcViewController {
         }
     }
     
-    //MARK: - 입력값 유효성 검사
-    
-    
-    
 }
 
 //MARK: - UIPickerViewDelegate, UIPickerViewDataSource
@@ -164,17 +160,17 @@ extension CalcViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerView == calcView.frequencyPicker ? coinListData.frequencyArray.count : 0
+        return pickerView == self.calcView.frequencyPicker ? self.coinListData.frequencyArray.count : 0
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == calcView.frequencyPicker {
-            calcView.frequencyTextField.text = coinListData.frequencyArray[row]
+        if pickerView == self.calcView.frequencyPicker {
+            self.calcView.frequencyTextField.text = self.coinListData.frequencyArray[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerView == calcView.frequencyPicker ? coinListData.frequencyArray[row] : nil
+        return pickerView == self.calcView.frequencyPicker ? self.coinListData.frequencyArray[row] : nil
     }
     
 }
@@ -220,8 +216,8 @@ extension CalcViewController: UITextFieldDelegate {
             self.present(nav, animated: true, completion: nil)
         }
 
-        if textField == calcView.amountTextField {
-            calcView.amountTextField.text = calcView.amountTextField.text?.replacingOccurrences(of: ",", with: "")
+        if textField == self.calcView.amountTextField {
+            self.calcView.amountTextField.text = self.calcView.amountTextField.text?.replacingOccurrences(of: ",", with: "")
         }
     }
     

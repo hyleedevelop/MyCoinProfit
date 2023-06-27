@@ -9,7 +9,6 @@ import UIKit
 import SafariServices
 import MessageUI
 import GoogleMobileAds
-import StoreKit
 
 final class SettingViewController: UIViewController {
 

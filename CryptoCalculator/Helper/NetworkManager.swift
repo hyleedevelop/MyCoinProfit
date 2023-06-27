@@ -15,12 +15,10 @@ enum NetworkError: Error {
 
 final class NetworkManager {
     
-    // 싱글톤으로 만들기
     static let shared = NetworkManager()
-    // 여러 객체를 추가적으로 생성하지 못하도록 설정
     private init() {}
     
-    //MARK: - Coingecko API에서 네트워킹 요청을 통해 코인의 현재 가격 데이터 가져오기 (코인시세 탭)
+    // Coingecko API에서 네트워킹 요청을 통해 코인의 현재 가격 데이터 가져오기 (코인시세 탭)
     func fetchCurrentPrice(completion: @escaping (Result<[CurrentPriceData], NetworkError>) -> Void) {
         
         /*
@@ -52,6 +50,7 @@ final class NetworkManager {
                 completion(.failure(.dataError))
                 return
             }
+
             //let dataAsString = String(data: data, encoding: .utf8)
             //print("[DEBUG]: Data \(dataAsString ?? "does not exist!")")
             
@@ -71,31 +70,27 @@ final class NetworkManager {
         task.resume()
     }
     
-    //MARK: - Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
+    // Coingecko API에서 특정 기간에 해당하는 특정 코인의 가격 히스토리 데이터 가져오기 (수익계산 탭)
     func fetchPriceHistory(with coinType: String, duration numberOfDays: Int) async -> Result<[String: [[Double?]]], NetworkError> {
         
         /*
          https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily
          */
         
-        // 1) URL 설정
+        // 1) URL 생성
         let baseURL = "https://api.coingecko.com/api/v3/"
         let categoryURL = "coins/" + coinType + "/market_chart?"
         let parameterURL = "vs_currency=usd&days=" + String(numberOfDays+1) + "&interval=daily"
-        var historyData = [String: [[Double?]]]()
         
         guard let url = URL(string: baseURL + categoryURL + parameterURL) else {
             return .failure(.networkingError)
         }
                 
-        // 2) 네트워킹을 위한 작업 설정
+        // 2) API로 데이터를 받고 decoding을 수행한 결과를 Result 타입으로 리턴
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-            
             let historyInfo = try JSONDecoder().decode([String: [[Double?]]].self, from: data)
-            historyData = historyInfo
-            
-            return .success(historyData)
+            return .success(historyInfo)
         } catch {
             print("[DEBUG] Failed to fetch price history with error: \(error)")
             return .failure(.parseError)

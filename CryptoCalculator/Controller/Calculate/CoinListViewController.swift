@@ -24,7 +24,7 @@ final class CoinListViewController: UIViewController {
         sc.searchBar.searchTextField.keyboardType = .alphabet
         sc.searchBar.searchTextField.autocapitalizationType = .none
         sc.searchBar.searchTextField.autocorrectionType = .no
-        sc.searchBar.setValue("취소", forKey: "cancelButtonText")
+        sc.searchBar.setValue("Cancel", forKey: "cancelButtonText")
         return sc
     }()
     
@@ -38,7 +38,7 @@ final class CoinListViewController: UIViewController {
         button.layer.cornerRadius = 12.5
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         button.tag = 0
-        button.addTarget(self, action: #selector(sortMarketCapButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.sortMarketCapButtonTapped), for: .touchUpInside)
         button.layer.borderColor = UIColor.label.cgColor
         button.layer.borderWidth = 1.5
         return button
@@ -54,7 +54,7 @@ final class CoinListViewController: UIViewController {
         button.layer.cornerRadius = 12.5
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         button.tag = 1
-        button.addTarget(self, action: #selector(sortPriceChangeButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.sortPriceChangeButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -192,7 +192,10 @@ final class CoinListViewController: UIViewController {
         self.tableView.delegate = self
 
         // Cell 등록
-        self.tableView.register(CoinListCell.self, forCellReuseIdentifier: "CoinCell")
+        self.tableView.register(
+            CoinListCell.self, forCellReuseIdentifier: Constant.Identifier.coinCell
+        )
+        
         // Cell 사이의 구분선 설정
         self.tableView.separatorStyle = .singleLine
         self.tableView.separatorInset.left = 0
@@ -220,13 +223,11 @@ final class CoinListViewController: UIViewController {
     
     // SearchBar에서 검색한 단어로 필터링하여 TableView 표출
     private func filterContentForSearchText(searchText: String) {
-        self.filteredCoinArray = self.coinArray.filter { coin in
-            if self.isSearchBarEmpty {
-                return false
-            } else {
-                return coin.symbol.lowercased().contains(searchText.lowercased()) ||
-                       coin.name.lowercased().contains(searchText.lowercased())
-            }
+        self.filteredCoinArray = self.coinArray.filter {
+            return self.isSearchBarEmpty
+            ? false
+            : $0.symbol.lowercased().contains(searchText.lowercased()) ||
+              $0.name.lowercased().contains(searchText.lowercased())
         }
         
         // 변경사항을 반영하기 위해 TableView 갱신
@@ -337,7 +338,7 @@ final class CoinListViewController: UIViewController {
             self.activityIndicator.startAnimating()
         }
         
-        // 강한 참조가 일어나지 않도록 [weak self]를 사용하여 구현
+        // 현재 코인 가격 데이터 받아오기
         NetworkManager.shared.fetchCurrentPrice { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -374,7 +375,8 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
     
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CoinCell", for: indexPath) as! CoinListCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constant.Identifier.coinCell, for: indexPath) as? CoinListCell else { return UITableViewCell() }
+        
         let coin: CurrentPriceData = self.isResultFiltered
         ? filteredCoinArray[indexPath.row]
         : coinArray[indexPath.row]
@@ -424,9 +426,11 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - 서치바 관련 델리게이트 메서드
 
 extension CoinListViewController: UISearchBarDelegate, UISearchResultsUpdating {
-    // 검색 결과를 반영하여 TableView 업데이트
+    
+    // 검색 결과를 반영하여 TableView를 업데이트하는 메서드 실행
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         self.filterContentForSearchText(searchText: searchBar.text!)
     }
+    
 }

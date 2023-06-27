@@ -62,7 +62,6 @@ final class CalcViewController: UIViewController {
         
         guard let coinName = DataPassManager.shared.selectedCoinName else { return }
         self.calcView.updateCoinType(to: coinName)
-        self.calcView.coinTypeTextField.text = coinName
     }
         
     override func loadView() {
@@ -178,10 +177,7 @@ final class CalcViewController: UIViewController {
                                          style: .default, handler: nil)
         let okAction = UIAlertAction(title: Constant.MessageSetting.resetTitle,
                                      style: .destructive) { _ in
-            // 입력된 내용 모두 지우기
-            _ = [self.calcView.coinTypeTextField, self.calcView.buyStartDateTextField,
-                 self.calcView.buyEndDateTextField, self.calcView.sellDateTextField,
-                 self.calcView.frequencyTextField, self.calcView.amountTextField].map { $0.text = "" }
+            self.calcView.resetTextFieldInput()
         }
         
         // 액션 추가 및 팝업메세지 출력
@@ -239,7 +235,7 @@ final class CalcViewController: UIViewController {
             return
         }
         
-        // 투자 정보 관련 속성 초기화
+        // API 요청에 필요한 속성 초기화
         /*---------------------------------------------------------------------------*/
         // 코인 ID (소문자)
         var coinTypeString: String {
@@ -252,7 +248,7 @@ final class CalcViewController: UIViewController {
             return DataPassManager.shared.selectedCoinName ?? ""
         }
         
-        // 매수 및 매도 관련 기간
+        // 매수 시작 ~ 매수 종료의 날짜 간격
         var buyStartTobuyEndLength: Int = 0
         if segmentIndex == 1 {
             buyStartTobuyEndLength = CalculationManager.shared.calculateDateInterval(
@@ -262,12 +258,14 @@ final class CalcViewController: UIViewController {
             )
         }
         
+        // 매수 시작 ~ 매도의 날짜 간격
         let buyStartToSellLength: Int = CalculationManager.shared.calculateDateInterval(
             type: .buyStartToSell,
             start: self.buyStartDateStringToCalculate,
             end: self.sellDateStringToCalculate
         )
         
+        // 매수 시작 ~ 현재의 날짜 간격
         let buyToNowLength: Int = CalculationManager.shared.calculateDateInterval(
             type: .buyStartToNow,
             start: self.buyStartDateStringToCalculate,
@@ -280,7 +278,7 @@ final class CalcViewController: UIViewController {
         Task.init {
             // 작업 시작 -> activityIndicator 표시하기
             DispatchQueue.main.async {
-                self.calcView.activityIndicator.startAnimating()
+                self.calcView.setActivityIndicator(mode: .start)
             }
             
             // ⭐️ 코인 가격 히스토리 데이터 가져오기 (escaping closure -> async/await 코드 변경)
@@ -318,8 +316,6 @@ final class CalcViewController: UIViewController {
             switch stats.errorCode {
             case .noDateError:
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    self.calcView.activityIndicator.stopAnimating()
-                    
                     let data: InvestmentResult = segmentIndex == 0
                     ? IntensiveInvestment(
                         amount: stats.principal,
@@ -352,6 +348,7 @@ final class CalcViewController: UIViewController {
                         historyROIArray: stats.historyROIArray
                     )
                     
+                    self.calcView.setActivityIndicator(mode: .stop)
                     self.presentCalcResult(with: data, segmentIndex: segmentIndex)
                 }
             case .buyStartDateError:
@@ -361,7 +358,7 @@ final class CalcViewController: UIViewController {
                         message: Constant.MessageSetting.buyStartDateNoDataErrorMessage1,
                         textField: self.calcView.buyStartDateTextField
                     )
-                    self.calcView.activityIndicator.stopAnimating()
+                    self.calcView.setActivityIndicator(mode: .stop)
                 }
             case .buyEndDateError:
                 DispatchQueue.main.async {
@@ -370,7 +367,7 @@ final class CalcViewController: UIViewController {
                         message: Constant.MessageSetting.buyEndDateNoDataErrorMessage,
                         textField: self.calcView.buyEndDateTextField
                     )
-                    self.calcView.activityIndicator.stopAnimating()
+                    self.calcView.setActivityIndicator(mode: .stop)
                 }
             case .sellDateError:
                 DispatchQueue.main.async {
@@ -379,7 +376,7 @@ final class CalcViewController: UIViewController {
                         message: Constant.MessageSetting.sellDateNoDataErrorMessage,
                         textField: self.calcView.sellDateTextField
                     )
-                    self.calcView.activityIndicator.stopAnimating()
+                    self.calcView.setActivityIndicator(mode: .stop)
                 }
             }
             
@@ -390,15 +387,17 @@ final class CalcViewController: UIViewController {
     
     @objc private func calcResetButtonTapped(_ button: UIButton) {
         // Alert 메세지 표시
-        showPopUpMessage(with: button,
-                         title: Constant.MessageSetting.resetTitle,
-                         message: Constant.MessageSetting.resetMessage,
-                         responder: nil)
+        self.showPopUpMessage(
+            with: button,
+            title: Constant.MessageSetting.resetTitle,
+            message: Constant.MessageSetting.resetMessage,
+            responder: nil
+        )
     }
     
     @objc private func recentInputButtonTapped() {
         let settingVC = SettingViewController()
-        navigationController?.pushViewController(settingVC, animated: true)
+        self.navigationController?.pushViewController(settingVC, animated: true)
     }
     
 }

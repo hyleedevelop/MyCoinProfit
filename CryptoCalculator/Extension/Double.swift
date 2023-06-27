@@ -75,24 +75,17 @@ extension Double {
         return formatter
     }
     
-    // 숫자를 3자리마다 콤마로 나눠서 표시
-    private var formatterOfCommaSeparatedInt: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter
-    }
-    
     // 가격 숫자의 절대값 크기에 따라 소수점 아래 자리수를 다르게 설정
     // 값이 양수인 경우 부호 X, 값이 음수인 경우 부호 O
     func toUSD() -> String {
         if (10...).contains(abs(self)) {
             return formatterOfUSDGreatherThanTen.string(for: self) ?? "N/A"
-        } else if (1.01..<10).contains(abs(self)) {
+        } else if (1.00..<10).contains(abs(self)) {
             return formatterOfUSDFromOneToTen.string(for: self) ?? "N/A"
-        } else if (0.01..<1.01).contains(abs(self)) {
+        } else if (0.01..<1.00).contains(abs(self)) {
             return formatterOfUSDLessThanOne.string(for: self) ?? "N/A"
         } else {
-            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "$N/A"
+            return formatterOfUSDLessThanOneOverHundread.string(for: self) ?? "N/A"
         }
     }
     

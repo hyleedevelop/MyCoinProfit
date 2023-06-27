@@ -44,7 +44,7 @@ final class CalculationManager {
         formatter.dateFormat = "yyyy-MM-dd"
         let nowDateString = formatter.string(from: nowDate)
         
-        var startTime, endTime: Date?
+        var startTime, endTime: Date!
         
         switch dateIntervalType {
         case .buyStartTobuyEnd:
@@ -58,9 +58,8 @@ final class CalculationManager {
             if let end = formatter.date(from: nowDateString) { endTime = end }
         }
         
-        var dateInterval: Double = 0.0
         // startTime부터 endTime까지의 시간 간격을 86400(초)로 나누어 일 단위로 변환
-        dateInterval = endTime!.timeIntervalSince(startTime!) / Constant.UnitSetting.oneDayInSeconds
+        let dateInterval = endTime.timeIntervalSince(startTime) / Constant.UnitSetting.oneDayInSeconds
         return Int(dateInterval)
     }
     

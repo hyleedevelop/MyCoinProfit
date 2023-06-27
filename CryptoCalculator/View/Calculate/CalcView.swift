@@ -12,6 +12,11 @@ protocol CalcViewDelegate: AnyObject {
     func inputValidationDidComplete(error: InputError)
 }
 
+enum activityIndicatorStatus {
+    case start
+    case stop
+}
+
 final class CalcView: UIView {
     
     //MARK: - 델리게이트
@@ -687,6 +692,14 @@ final class CalcView: UIView {
     // 코인 종류 TextField 업데이트
     func updateCoinType(to name: String) {
         self.coinTypeTextField.text = name
+    }
+    
+    // activity indicator 동작 여부 설정
+    func setActivityIndicator(mode: activityIndicatorStatus) {
+        switch mode {
+        case .start: self.activityIndicator.startAnimating()
+        case .stop: self.activityIndicator.stopAnimating()
+        }
     }
     
 }
