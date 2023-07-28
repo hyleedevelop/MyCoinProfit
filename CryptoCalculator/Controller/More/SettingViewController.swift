@@ -79,7 +79,7 @@ final class SettingViewController: UIViewController {
     private func setupNavBar() {
         self.navigationController?.applyDefaultSettings()
         
-        self.navigationItem.title = Constant.TitleSetting.moreVC
+        self.navigationItem.title = LocalizedStringKey.more.localize
     }
     
     // View 설정
@@ -119,10 +119,12 @@ final class SettingViewController: UIViewController {
     
     // 추후 업데이트 예정이라는 Alert Message 출력하기
     private func showWillBeUpdatedMessage() {
-        let alert = UIAlertController(title: Constant.MessageSetting.sorryTitle,
-                                      message: Constant.MessageSetting.notifyLaterUpdate,
-                                      preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
+        let alert = UIAlertController(
+            title: LocalizedStringKey.error.localize,
+            message: LocalizedStringKey.laterUpdateMessage.localize,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(title: LocalizedStringKey.ok.localize, style: .default)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
@@ -153,9 +155,9 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     // Section Header의 제목 설정
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch self.dataSource[section] {
-        case .appSettings(_): return Constant.TitleSetting.settingSectionName1
-        case .feedback(_): return Constant.TitleSetting.settingSectionName2
-        case .aboutTheApp(_): return Constant.TitleSetting.settingSectionName3
+        case .appSettings(_): return LocalizedStringKey.setting.localize
+        case .feedback(_): return LocalizedStringKey.feedback.localize
+        case .aboutTheApp(_): return LocalizedStringKey.aboutTheApp.localize
         }
     }
 
@@ -165,9 +167,9 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         title.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         title.textColor = .label
         switch self.dataSource[section] {
-        case .appSettings(_): title.text = Constant.TitleSetting.settingSectionName1
-        case .feedback(_): title.text = Constant.TitleSetting.settingSectionName2
-        case .aboutTheApp(_): title.text = Constant.TitleSetting.settingSectionName3
+        case .appSettings(_): title.text = LocalizedStringKey.setting.localize
+        case .feedback(_): title.text = LocalizedStringKey.feedback.localize
+        case .aboutTheApp(_): title.text = LocalizedStringKey.aboutTheApp.localize
         }
 
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
@@ -308,10 +310,12 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
             self.present(compseVC, animated: true, completion: nil)
         }
         else {
-            let sendMailErrorAlert = UIAlertController(title: Constant.MessageSetting.errorTitle,
-                                                       message: Constant.MessageSetting.sendEmailErrorMessage,
-                                                       preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "OK", style: .default)
+            let sendMailErrorAlert = UIAlertController(
+                title: LocalizedStringKey.error.localize,
+                message: LocalizedStringKey.emailSettingMessage.localize,
+                preferredStyle: .alert
+            )
+            let confirmAction = UIAlertAction(title: LocalizedStringKey.ok.localize, style: .default)
             sendMailErrorAlert.addAction(confirmAction)
             self.present(sendMailErrorAlert, animated: true, completion: nil)
         }

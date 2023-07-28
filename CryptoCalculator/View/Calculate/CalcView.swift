@@ -39,8 +39,8 @@ final class CalcView: UIView {
         let control = CustomSegmentedControl(
             frame: CGRect(x: 0, y: topSafeAreaHeight + 30,
                           width: UIScreen.main.bounds.width, height: 80))
-        control.setButtonTitles(buttonTitles: [Constant.TitleSetting.segmentItemName1,
-                                               Constant.TitleSetting.segmentItemName2])
+        control.setButtonTitles(buttonTitles: [LocalizedStringKey.lumpSumInvesting.localize,
+                                               LocalizedStringKey.dollarCostAveraging.localize])
         control.setIndex(index: 0)
         return control
     }()
@@ -69,7 +69,7 @@ final class CalcView: UIView {
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
         label.textColor = .label
-        label.text = Constant.TitleSetting.coinTypeLabelName
+        label.text = LocalizedStringKey.coin.localize
         label.textAlignment = .left
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -87,7 +87,7 @@ final class CalcView: UIView {
         tf.clearButtonMode = .whileEditing
         tf.inputView = UIView()
         tf.inputAccessoryView = UIView()
-        tf.placeholder = Constant.TitleSetting.coinTypeTextFieldPlaceHolder
+        tf.placeholder = LocalizedStringKey.selectType.localize
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
@@ -134,7 +134,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.buyStartDateLabelName1
+        label.text = LocalizedStringKey.purchaseDate.localize
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -152,7 +152,7 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = buyStartDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
+        tf.placeholder = LocalizedStringKey.selectDate.localize
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
@@ -205,7 +205,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.buyEndDateLabelName
+        label.text = LocalizedStringKey.lastPurchaseDate.localize
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -223,7 +223,7 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = buyEndDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.buyEndDateTextFieldPlaceHolder
+        tf.placeholder = LocalizedStringKey.selectDate.localize
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
@@ -276,7 +276,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.frequencyLabelName
+        label.text = LocalizedStringKey.repeatPurchase.localize
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -294,7 +294,7 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = frequencyPicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.frequencyTextFieldPlaceHolder
+        tf.placeholder = LocalizedStringKey.selectFrequency.localize
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
@@ -341,7 +341,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.amountLabelName1
+        label.text = LocalizedStringKey.purchaseAmountTotal.localize
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -359,7 +359,7 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.keyboardType = .decimalPad
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
+        tf.placeholder = LocalizedStringKey.enterAmount.localize
         tf.textColor = .label
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
                                     weight: Constant.ShapeSetting.textfieldFontWeight)
@@ -399,7 +399,7 @@ final class CalcView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.labelFontSize,
                                        weight: Constant.ShapeSetting.labelFontWeight)
-        label.text = Constant.TitleSetting.sellDateLabelName
+        label.text = LocalizedStringKey.sellDate.localize
         label.textColor = .label
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -417,7 +417,7 @@ final class CalcView: UIView {
         tf.clearsOnBeginEditing = false
         tf.inputView = sellDatePicker
         tf.clearButtonMode = .whileEditing
-        tf.placeholder = Constant.TitleSetting.sellDateTextFieldPlaceHolder
+        tf.placeholder = LocalizedStringKey.selectDate.localize
         tf.textColor = .label
         tf.tintColor = .clear
         tf.font = UIFont.systemFont(ofSize: Constant.ShapeSetting.textfieldFontSize,
@@ -462,7 +462,7 @@ final class CalcView: UIView {
     let calcStartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(Constant.TitleSetting.calcStartButtonName, for: .normal)
+        button.setTitle(LocalizedStringKey.submit.localize, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Constant.UIColorSetting.lightModeInbox
@@ -626,10 +626,10 @@ final class CalcView: UIView {
         [self.buyEndDateStackView, self.frequencyStackView]
             .forEach { $0.removeFromSuperview() }
         
-        self.buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName1
-        self.buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder1
-        self.amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder1
-        self.amountLabel.text = Constant.TitleSetting.amountLabelName1
+        self.buyStartDateLabel.text = LocalizedStringKey.firstPurchaseDate.localize
+        self.buyStartDateTextField.placeholder = LocalizedStringKey.selectDate.localize
+        self.amountTextField.placeholder = LocalizedStringKey.enterAmount.localize
+        self.amountLabel.text = LocalizedStringKey.purchaseAmountTotal.localize
         self.resetTextField()
     }
     
@@ -640,10 +640,10 @@ final class CalcView: UIView {
          self.emptySpace, self.calcStartButton]
             .forEach { self.finalStackView.addArrangedSubview($0) }
         
-        self.buyStartDateLabel.text = Constant.TitleSetting.buyStartDateLabelName2
-        self.buyStartDateTextField.placeholder = Constant.TitleSetting.buyStartDateTextFieldPlaceHolder2
-        self.amountTextField.placeholder = Constant.TitleSetting.amountLabelTextFieldPlaceHolder2
-        self.amountLabel.text = Constant.TitleSetting.amountLabelName2
+        self.buyStartDateLabel.text = LocalizedStringKey.firstPurchaseDate.localize
+        self.buyStartDateTextField.placeholder = LocalizedStringKey.selectDate.localize
+        self.amountTextField.placeholder = LocalizedStringKey.enterAmount.localize
+        self.amountLabel.text = LocalizedStringKey.amountOfEachPurchase.localize
         self.resetTextField()
     }
     

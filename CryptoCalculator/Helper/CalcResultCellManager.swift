@@ -17,32 +17,32 @@ final class CalcResultCellManager {
     //MARK: - data 정의
     
     private var statsModelLSI = [
-        StatsModel(icon: UIImage(systemName: "bitcoinsign.circle"), title: "Coin", value: nil),
-        StatsModel(icon: UIImage(systemName: "calendar"), title: "Purchase Date", value: nil),
-        StatsModel(icon: UIImage(systemName: "calendar"), title: "Sell Date", value: nil),
-        StatsModel(icon: UIImage(systemName: "timer"), title: "Hold Time", value: nil),
-        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Invested", value: nil),
-        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Exit", value: nil),
-        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: "Profit\n(ROI)", value: nil),
+        StatsModel(icon: UIImage(systemName: "bitcoinsign.circle"), title: LocalizedStringKey.coin.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: LocalizedStringKey.purchaseDate.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: LocalizedStringKey.sellDate.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "timer"), title: LocalizedStringKey.holdTime.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: LocalizedStringKey.totalInvested.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: LocalizedStringKey.totalExit.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: LocalizedStringKey.profitROI.localize, value: nil),
     ]
     
     private var statsModelDCA = [
-        StatsModel(icon: UIImage(systemName: "bitcoinsign.circle"), title: "Coin", value: nil),
-        StatsModel(icon: UIImage(systemName: "calendar"), title: "First Purchase Date", value: nil),
-        StatsModel(icon: UIImage(systemName: "calendar"), title: "Last Purchase Date", value: nil),
-        StatsModel(icon: UIImage(systemName: "calendar"), title: "Sell Date", value: nil),
-        StatsModel(icon: UIImage(systemName: "arrow.clockwise"), title: "Repeat Purchase", value: nil),
-        StatsModel(icon: UIImage(systemName: "timer"), title: "Purchase Time", value: nil),
-        StatsModel(icon: UIImage(systemName: "timer"), title: "Hold Time", value: nil),
-        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Invested", value: nil),
-        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: "Total Exit", value: nil),
-        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: "Profit\n(ROI)", value: nil),
+        StatsModel(icon: UIImage(systemName: "bitcoinsign.circle"), title: LocalizedStringKey.coin.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: LocalizedStringKey.firstPurchaseDate.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: LocalizedStringKey.lastPurchaseDate.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "calendar"), title: LocalizedStringKey.sellDate.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "arrow.clockwise"), title: LocalizedStringKey.repeatPurchase.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "timer"), title: LocalizedStringKey.purchaseTime.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "timer"), title: LocalizedStringKey.holdTime.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: LocalizedStringKey.totalInvested.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "dollarsign.circle"), title: LocalizedStringKey.totalExit.localize, value: nil),
+        StatsModel(icon: UIImage(systemName: "plus.forwardslash.minus"), title: LocalizedStringKey.profitROI.localize, value: nil),
     ]
     
     private var graphModel = [
-        GraphModel(title: "Total Invested ($)"),
-        GraphModel(title: "Coin Price ($)"),
-        GraphModel(title: "ROI (%)"),
+        GraphModel(title: LocalizedStringKey.graphTotalInvested.localize),
+        GraphModel(title: LocalizedStringKey.graphCoinPrice.localize),
+        GraphModel(title: LocalizedStringKey.graphROI.localize),
     ]
 
     //MARK: - 메서드 정의

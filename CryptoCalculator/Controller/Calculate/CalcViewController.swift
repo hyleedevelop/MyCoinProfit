@@ -79,7 +79,7 @@ final class CalcViewController: UIViewController {
             target: self, action: #selector(calcResetButtonTapped(_:))
         )
         self.navigationItem.rightBarButtonItem?.tintColor = .label
-        self.navigationItem.title = Constant.TitleSetting.calcVC
+        self.navigationItem.title = LocalizedStringKey.calculate.localize
         
         self.extendedLayoutIncludesOpaqueBars = true
     }
@@ -156,12 +156,12 @@ final class CalcViewController: UIViewController {
     internal func showInputErrorMessage(error: InputError, message: String) {
         // AlertController, AlertAction 생성
         let alert = UIAlertController(
-            title: Constant.MessageSetting.errorTitle,
+            title: LocalizedStringKey.error.localize,
             message: message,
             preferredStyle: .alert
         )
         // 특정 TextField의 내용이 제대로 입력되지 않은 경우, 확인 버튼을 누르면 해당 TextField가 활성화되도록 설정
-        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+        let okAction = UIAlertAction(title: LocalizedStringKey.ok.localize, style: .default) { _ in
             self.calcView.designateFirstResponder(error: error)
         }
         
@@ -172,11 +172,20 @@ final class CalcViewController: UIViewController {
     
     internal func showPopUpMessage(with button: UIButton, title titleString: String, message messageString: String, responder textField: UITextField?) {
         // AlertController, AlertAction 생성
-        let alert = UIAlertController(title: titleString, message: messageString, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: Constant.MessageSetting.cancelTitle,
-                                         style: .default, handler: nil)
-        let okAction = UIAlertAction(title: Constant.MessageSetting.resetTitle,
-                                     style: .destructive) { _ in
+        let alert = UIAlertController(
+            title: titleString,
+            message: messageString,
+            preferredStyle: .alert
+        )
+        let cancelAction = UIAlertAction(
+            title: LocalizedStringKey.cancel.localize,
+            style: .default,
+            handler: nil
+        )
+        let okAction = UIAlertAction(
+            title: LocalizedStringKey.reset.localize,
+            style: .destructive
+        ) { _ in
             self.calcView.resetTextFieldInput()
         }
         
@@ -354,8 +363,8 @@ final class CalcViewController: UIViewController {
             case .buyStartDateError:
                 DispatchQueue.main.async {
                     self.showErrorMessage(
-                        title: Constant.MessageSetting.errorTitle,
-                        message: Constant.MessageSetting.buyStartDateNoDataErrorMessage1,
+                        title: LocalizedStringKey.error.localize,
+                        message: LocalizedStringKey.noDataOnFirstPurchaseDate.localize,
                         textField: self.calcView.buyStartDateTextField
                     )
                     self.calcView.setActivityIndicator(mode: .stop)
@@ -363,8 +372,8 @@ final class CalcViewController: UIViewController {
             case .buyEndDateError:
                 DispatchQueue.main.async {
                     self.showErrorMessage(
-                        title: Constant.MessageSetting.errorTitle,
-                        message: Constant.MessageSetting.buyEndDateNoDataErrorMessage,
+                        title: LocalizedStringKey.error.localize,
+                        message: LocalizedStringKey.noDataOnLastPurchaseDate.localize,
                         textField: self.calcView.buyEndDateTextField
                     )
                     self.calcView.setActivityIndicator(mode: .stop)
@@ -372,8 +381,8 @@ final class CalcViewController: UIViewController {
             case .sellDateError:
                 DispatchQueue.main.async {
                     self.showErrorMessage(
-                        title: Constant.MessageSetting.errorTitle,
-                        message: Constant.MessageSetting.sellDateNoDataErrorMessage,
+                        title: LocalizedStringKey.error.localize,
+                        message: LocalizedStringKey.noDataOnSellDate.localize,
                         textField: self.calcView.sellDateTextField
                     )
                     self.calcView.setActivityIndicator(mode: .stop)
@@ -389,8 +398,8 @@ final class CalcViewController: UIViewController {
         // Alert 메세지 표시
         self.showPopUpMessage(
             with: button,
-            title: Constant.MessageSetting.resetTitle,
-            message: Constant.MessageSetting.resetMessage,
+            title: LocalizedStringKey.confirm.localize,
+            message: LocalizedStringKey.resetMessage.localize,
             responder: nil
         )
     }
@@ -448,60 +457,62 @@ extension CalcViewController: CalcViewDelegate {
     // TextField 입력값 검증 결과 에러가 발생했을 때
     func inputValidationDidComplete(error: InputError) {
         switch error {
+        //case .coinTypeInputError:
         case .coinTypeInputError:
             self.showInputErrorMessage(
-                error: error,message: Constant.MessageSetting.coinTypeErrorMessage
+                error: error,
+                message: LocalizedStringKey.noCoinType.localize
             )
         case .buyStartDateInputError:
             self.showInputErrorMessage(
                 error: error,
                 message: self.calcView.segmentIndex == 0
-                ? Constant.MessageSetting.buyStartDateErrorMessage1
-                : Constant.MessageSetting.buyStartDateErrorMessage2
+                ? LocalizedStringKey.noPurchaseDate.localize
+                : LocalizedStringKey.noFirstPurchaseDate.localize
             )
         case .buyEndDateInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.buyEndDateErrorMessage1
+                message: LocalizedStringKey.noLastPurchaseDate.localize
             )
         case .sellDateInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.sellDateErrorMessage1
+                message: LocalizedStringKey.noSellDate.localize
             )
         case .frequencyInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.frequencyErrorMessage
+                message: LocalizedStringKey.noFrequency.localize
             )
         case .amountInputError:
             self.showInputErrorMessage(
                 error: error,
                 message: self.calcView.segmentIndex == 0
-                ? Constant.MessageSetting.amountErrorMessage1
-                : Constant.MessageSetting.amountErrorMessage3
+                ? LocalizedStringKey.noPurchaseAmount.localize
+                : LocalizedStringKey.noEachPurchaseAmount.localize
             )
         case .buyStartbuyEndInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.buyStartDateErrorMessage4
+                message: LocalizedStringKey.firstPurchaseAndLastPurchase.localize
             )
         case .buyStartSellInputError:
             self.showInputErrorMessage(
                 error: error,
                 message: self.calcView.segmentIndex == 0
-                ? Constant.MessageSetting.buyStartDateErrorMessage3
-                : Constant.MessageSetting.buyStartDateErrorMessage5
+                ? LocalizedStringKey.purchaseAndSell.localize
+                : LocalizedStringKey.firstPurchaseAndSell.localize
             )
         case .buyEndSellInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.buyEndDateErrorMessage3
+                message: LocalizedStringKey.lastPurchaseAndSell.localize
             )
         case .decimalInputError:
             self.showInputErrorMessage(
                 error: error,
-                message: Constant.MessageSetting.amountErrorMessage2
+                message: LocalizedStringKey.manyDecimalpoints.localize
             )
         default:
             break

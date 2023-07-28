@@ -1,0 +1,109 @@
+/* 
+  Localizable.strings
+  CryptoCalculator
+
+  Created by Eric on 2023/07/21.
+  
+*/
+
+// 탭바 및 네비게이션 바 제목
+"Calculate" = "Calculate";
+"Result" = "Result";
+"More" = "More";
+
+// 커스텀 Segmented Control 제목
+"Lump-Sum Investing" = "Lump-Sum Investing";
+"Dollar-Cost Averaging" = "Dollar-Cost Averaging";
+
+// 테이블뷰 섹션 제목
+"Stats" = "Stats";
+"Performance Charts" = "Performance Charts";
+"Setting" = "Setting";
+"Feedback" = "Feedback";
+"About The App" = "About The App";
+
+// 테이블뷰 셀 내용
+"Theme Color" = "Theme Color";
+"Rate The App" = "Rate The App";
+"Contact" = "Contact";
+"Help" = "Help";
+"Privacy Policy" = "Privacy Policy";
+"Terms & Conditions" = "Terms & Conditions";
+"Copyright" = "Copyright";
+"App Version" = "App Version";
+
+// 텍스트필드 위 제목, 수치 제목
+"Coin" = "Coin";
+"Purchase Date" = "Purchase Date";
+"First Purchase Date" = "First Purchase Date";
+"Last Purchase Date" = "Last Purchase Date";
+"Sell Date" = "Sell Date";
+"Repeat Purchase" = "Repeat Purchase";
+"Amount of Each Purchase" = "Amount of Each Purchase";
+"Purchase Amount Total" = "Purchase Amount Total";
+"Purchase Time" = "Purchase Time";
+"Hold Time" = "Hold Time";
+"Total Invested" = "Total Invested";
+"Total Exit" = "Total Exit";
+"Profit ROI" = "Profit\n(ROI)";
+
+// 그래프 제목
+"Graph Total Invested" = "Total Invested ($)";
+"Graph Coin Price" = "Coin Price ($)";
+"Graph ROI" = "ROI (%)";
+
+// 텍스트필드의 Placeholder
+"Select type" = "Select type";
+"Select date" = "Select date";
+"Select frequency" = "Select frequency";
+"Enter amount in dollars" = "Enter amount in dollars";
+"Enter coin name or symbol" = "Enter coin name or symbol";
+
+// 버튼 제목
+"Submit" = "Submit";
+"market Cap" = "Market Cap";
+"Market Cap Descending" = "Market Cap ▼";
+"Market Cap Ascending" = "Market Cap ▲";
+"24H Price Change" = "24H Price Change";
+"24H Price Change Descending" = "24H Price Change ▼";
+"24H Price Change Ascending" = "24H Price Change ▲";
+"Cancel" = "Cancel";
+"Current Theme Color" = "Current Theme Color";
+
+// 메세지 제목
+"Confirm" = "Confirm";
+"Yes" = "Yes";
+"No" = "No";
+"OK" = "OK";
+"Reset" = "Reset";
+"Error" = "Error";
+
+// 메세지 내용
+"Reset Message" = "Are you sure you want to\nreset all input?";
+"Export Message" = "Do you want to save the result\nas an image?";
+"New Theme Message" = "The new theme\nwill be applied.";
+"Email Setting Message" = "Check your e-mail settings.";
+"Later Update Message" = "This will be updated soon.";
+"Select Coin Message" = "Do you want to select";
+
+// 텍스트필드 입력값 에러메세지 내용
+"No Data On Purchase Date" = "There is no data for the selected purchase date. Please select another one.";
+"No Data On First Purchase Date" = "There is no data for the selected first purchase date. Please select another one.";
+"No Data On Last Purchase Date" = "There is no data for the selected last purchase date. Please select another one.";
+"No Data On Sell Date" = "There is no data for the selected sell date. Please select another one.";
+"No Coin Type" = "You must select the coin.";
+"No Purchase Date" = "You must select the purchase date.";
+"No First Purchase Date" = "You must select the first purchase date.";
+"No Last Purchase Date" = "You must select the last purchase date.";
+"No Sell Date" = "You must select the sell date.";
+"No Frequency" = "You must select the repeat purchase frequency.";
+"No Purchase Amount" = "You must enter the purchase amount in dollars.";
+"No Each Purchase Amount" = "You must enter the amount of each purchase in dollars.";
+"Purchase And Sell" = "The purchase date must be earlier than the sell date.";
+"First Purchase And Last Purchase" = "The first purchase date must be earlier than the last purchase date.";
+"First Purchase And Sell" = "The first purchase date must be earlier than the sell date.";
+"Last Purchase And Sell" = "The last purchase date must be earlier than the sell date.";
+"Many Decimal Points" = "Only one decimal point is allowed.";
+
+// 피커 옵션
+"Daily" = "Daily";

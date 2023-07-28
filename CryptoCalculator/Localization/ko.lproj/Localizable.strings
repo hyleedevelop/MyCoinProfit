@@ -1,0 +1,109 @@
+/* 
+  Localizable.strings
+  CryptoCalculator
+
+  Created by Eric on 2023/07/21.
+  
+*/
+
+// 탭바 및 네비게이션 바 제목
+"Calculate" = "계산";
+"Result" = "결과";
+"More" = "더보기";
+
+// 커스텀 Segmented Control 제목
+"Lump-Sum Investing" = "일괄매수";
+"Dollar-Cost Averaging" = "분할매수";
+
+// 테이블뷰 섹션 제목
+"Stats" = "수치";
+"Performance Charts" = "그래프";
+"Setting" = "설정";
+"Feedback" = "피드백";
+"About The App" = "앱 정보";
+
+// 테이블뷰 셀 내용
+"Theme Color" = "테마 색상";
+"Rate The App" = "앱 평가";
+"Contact" = "문의";
+"Help" = "도움말";
+"Privacy Policy" = "개인정보 정책";
+"Terms & Conditions" = "이용약관";
+"Copyright" = "개발자";
+"App Version" = "앱 버전";
+
+// 텍스트필드 위 제목, 수치 제목
+"Coin" = "코인 종류";
+"Purchase Date" = "매수 날짜";
+"First Purchase Date" = "매수 시작 날짜";
+"Last Purchase Date" = "매수 종료 날짜";
+"Sell Date" = "매도 날짜";
+"Repeat Purchase" = "매수 반복 주기";
+"Amount of Each Purchase" = "주기마다 매수할 금액";
+"Purchase Amount Total" = "총 매수 금액";
+"Purchase Time" = "매수 기간";
+"Hold Time" = "보유 기간";
+"Total Invested" = "원금";
+"Total Exit" = "평가금";
+"Profit ROI" = "수익\n(수익률)";
+
+// 그래프 제목
+"Graph Total Invested" = "원금 ($)";
+"Graph Coin Price" = "코인 가격 ($)";
+"Graph ROI" = "수익률 (%)";
+
+// 텍스트필드 Placeholder
+"Select type" = "종류를 선택하세요";
+"Select date" = "날짜를 선택하세요";
+"Select frequency" = "주기를 선택하세요";
+"Enter amount in dollars" = "금액($)을 입력하세요";
+"Enter coin name or symbol" = "코인 이름이나 심볼을 입력하세요";
+
+// 버튼 제목
+"Submit" = "계산하기";
+"Market Cap" = "시가총액 ";
+"Market Cap Descending" = "시가총액 ▼";
+"Market Cap Ascending" = "시가총액 ▲";
+"24H Price Change" = "24시간 가격 변화율";
+"24H Price Change Descending" = "24시간 가격 변화율 ▼";
+"24H Price Change Ascending" = "24시간 가격 변화율 ▲";
+"Cancel" = "취소";
+"Current Theme Color" = "현재 테마 색상";
+
+// 메세지 제목
+"Confirm" = "확인";
+"Yes" = "네";
+"No" = "아니오";
+"OK" = "닫기";
+"Reset" = "초기화";
+"Error" = "에러";
+
+// 메세지 내용
+"Reset Message" = "모든 입력값을\n초기화 하시겠습니까?";
+"Export Message" = "계산 결과를 이미지로 저장할까요?";
+"New Theme Message" = "새로운 테마 색상이 적용됩니다.";
+"Email Setting Message" = "이메일 설정을 확인해주세요";
+"Later Update Message" = "곧 업데이트 될 예정입니다.";
+"Select Coin Message" = "을 선택하시겠습니까?";
+
+// 텍스트필드 입력값 에러메세지 내용
+"No Data On Purchase Date" = "선택하신 매수 날짜의 데이터가 없습니다.\n다른 날짜를 선택해주세요";
+"No Data On First Purchase Date" = "선택하신 매수 시작 날짜의 데이터가 없습니다.\n다른 날짜를 선택해주세요";
+"No Data On Last Purchase Date" = "선택하신 매수 종료 날짜의 데이터가 없습니다.\n다른 날짜를 선택해주세요";
+"No Data On Sell Date" = "선택하신 매도 날짜의 데이터가 없습니다.\n다른 날짜를 선택해주세요";
+"No Coin Type" = "코인 종류를 반드시 선택해주세요";
+"No Purchase Date" = "매수 날짜를 반드시 선택해주세요";
+"No First Purchase Date" = "매수 시작 날짜를 반드시 선택해주세요";
+"No Last Purchase Date" = "매수 종료 날짜를 반드시 선택해주세요";
+"No Sell Date" = "매도 날짜를 반드시 선택해주세요";
+"No Frequency" = "매수 반복 주기를 반드시 선택해주세요";
+"No Purchase Amount" = "총 매수 금액($)을 반드시 입력해주세요";
+"No Each Purchase Amount" = "주기마다 매수할 금액($)을 반드시 입력해주세요";
+"Purchase And Sell" = "매수 날짜가 매도 날짜보다 빨라야 합니다.";
+"First Purchase And Last Purchase" = "매수 시작 날짜가 매수 종료 날짜보다 빨라야 합니다.";
+"First Purchase And Sell" = "매수 시작 날짜가 매도 날짜보다 빨라야 합니다.";
+"Last Purchase And Sell" = "매수 종료 날짜가 매도 날짜보다 빨라야 합니다.";
+"Many Decimal Points" = "소수점은 1개만 허용됩니다.";
+
+// 피커 옵션
+"Daily" = "매일";

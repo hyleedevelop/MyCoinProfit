@@ -71,9 +71,14 @@ final class CalcResultViewController: UIViewController {
     private func setupNavBar() {
         self.navigationController?.applyDefaultSettings()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(buttonTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "square.and.arrow.up"),
+            style: .plain,
+            target: self,
+            action: #selector(self.buttonTapped(_:))
+        )
         self.navigationItem.rightBarButtonItem?.tintColor = .label
-        self.navigationItem.title = Constant.TitleSetting.resultVC
+        self.navigationItem.title = LocalizedStringKey.result.localize
     }
     
     // View 설정
@@ -139,9 +144,20 @@ final class CalcResultViewController: UIViewController {
     @objc private func buttonTapped(_ button: UIButton) {
         if button == navigationItem.rightBarButtonItem {
             // AlertController, AlertAction 생성
-            let alert = UIAlertController(title: "Confirm", message: Constant.MessageSetting.exportAsImageMessage, preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
-            let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
+            let alert = UIAlertController(
+                title: LocalizedStringKey.confirm.localize,
+                message: LocalizedStringKey.exportMessage.localize,
+                preferredStyle: .alert
+            )
+            let cancelAction = UIAlertAction(
+                title: LocalizedStringKey.no.localize,
+                style: .default,
+                handler: nil
+            )
+            let okAction = UIAlertAction(
+                title: LocalizedStringKey.yes.localize,
+                style: .default
+            ) { _ in
                 self.takeScreenshot(of: self.view)
             }
             
@@ -261,16 +277,16 @@ extension CalcResultViewController: UITableViewDataSource, UITableViewDelegate {
     // Section Header의 제목 설정
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch self.dataSource[section] {
-        case .stats(_): return "Stats"
-        case .graph(_): return "Performance Chart"
+        case .stats(_): return LocalizedStringKey.stats.localize
+        case .graph(_): return LocalizedStringKey.performanceCharts.localize
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let title = UILabel()
         switch self.dataSource[section] {
-        case .stats(_): title.text = "Stats"
-        case .graph(_): title.text = "Performance Charts"
+        case .stats(_): title.text = LocalizedStringKey.stats.localize
+        case .graph(_): title.text = LocalizedStringKey.performanceCharts.localize
         }
         
         title.font = UIFont.systemFont(ofSize: 18,

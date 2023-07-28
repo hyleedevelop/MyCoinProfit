@@ -18,6 +18,7 @@ final class ThemeColorCell: UITableViewCell {
         button.backgroundColor = Constant.UIColorSetting.lightModeInbox
         button.layer.cornerRadius = Constant.ShapeSetting.buttonCornerRadius
         button.clipsToBounds = true
+        button.setTitle(LocalizedStringKey.currentThemeColor.localize, for: .normal)
         return button
     }()
     
@@ -25,7 +26,7 @@ final class ThemeColorCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
  
-        setupUI()
+        self.setupUI()
     }
     
     // TableViewCell 생성자 셋팅 (2)
@@ -34,13 +35,13 @@ final class ThemeColorCell: UITableViewCell {
     }
     
     private func setupUI() {
-        self.addSubview(sampleButton)
+        self.addSubview(self.sampleButton)
         
         NSLayoutConstraint.activate([
-            sampleButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            sampleButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            sampleButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
-            sampleButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            self.sampleButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            self.sampleButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            self.sampleButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10),
+            self.sampleButton.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -10),
         ])
         
     }

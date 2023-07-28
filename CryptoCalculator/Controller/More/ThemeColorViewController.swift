@@ -34,16 +34,16 @@ final class ThemeColorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavBar()
-        setupView()
-        setupTableView()
+        self.setupNavBar()
+        self.setupView()
+        self.setupTableView()
     }
     
     // NavigationBar 설정
     private func setupNavBar() {
         self.navigationController?.applyDefaultSettings()
 
-        self.navigationItem.title = "Theme Color"
+        self.navigationItem.title = LocalizedStringKey.themeColor.localize
     }
 
     // View 설정
@@ -79,9 +79,11 @@ final class ThemeColorViewController: UIViewController {
     
     // 팝업 메세지 보여주기
     private func showPopupMessage() {
-        let alert = UIAlertController(title: nil,
-                                      message: Constant.MessageSetting.themeColorMessage,
-                                      preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: nil,
+            message: LocalizedStringKey.newThemeMessage.localize,
+            preferredStyle: .alert
+        )
         self.present(alert, animated: true, completion: nil)
         Timer.scheduledTimer(withTimeInterval: 1.2, repeats: false,
                              block: { _ in alert.dismiss(animated: true) {
@@ -118,9 +120,7 @@ extension ThemeColorViewController: UITableViewDataSource, UITableViewDelegate {
     // TableViewCell에 표출할 내용
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ThemeColorCell", for: indexPath) as! ThemeColorCell
-        
-        //let defaults = UserDefaults.standard
-        //let themeIndex = defaults.integer(forKey: Constant.UIColorSetting.themeColorNumberKey)
+        let themeIndex = UserDefaults.standard.integer(forKey: Constant.UserDefaults.themeColorNumber)
         
         //cell.accessoryType = cell.isSelected ? .checkmark : .none
         cell.selectionStyle = .none
@@ -134,10 +134,11 @@ extension ThemeColorViewController: UITableViewDataSource, UITableViewDelegate {
                 color3: Constant.UIColorSetting.themeGradientEndColors[indexPath.row])
         }
         
-//        if themeIndex == indexPath.row {
-//            cell.accessoryType = .checkmark
-//            cell.isSelected = true
-//        }
+        if themeIndex == indexPath.row {
+            cell.sampleButton.setTitle(LocalizedStringKey.currentThemeColor.localize, for: .normal)
+        } else {
+            cell.sampleButton.setTitle("", for: .normal)
+        }
         
         return cell
     }
@@ -156,7 +157,7 @@ extension ThemeColorViewController: UITableViewDataSource, UITableViewDelegate {
         
         // 테마 컬러 정보가 바뀌었음을 NotificationCenter를 통해 알리기
         NotificationCenter.default.post(name: Notification.Name("colorChanged"), object: nil)
-        showPopupMessage()
+        self.showPopupMessage()
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

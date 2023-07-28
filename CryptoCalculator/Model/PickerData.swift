@@ -8,6 +8,6 @@
 import Foundation
 
 struct PickerData {
-    let frequencyArray = ["Daily"]
+    let frequencyArray = [LocalizedStringKey.daily.localize]
     //let frequencyArray = ["Daily", "Weekly", "Monthly"]
 }

@@ -15,20 +15,20 @@ final class SettingCellManager {
     //MARK: - data 정의
     
     private var appSettingsModel = [
-        AppSettingsModel(icon: UIImage(systemName: "paintbrush"), title: "Theme Color", value: nil),
+        AppSettingsModel(icon: UIImage(systemName: "paintbrush"), title: LocalizedStringKey.themeColor.localize, value: nil),
     ]
 
     private var feedbackModel = [
-        FeedbackModel(icon: UIImage(systemName: "star"), title: "Rate The App", value: nil),
-        FeedbackModel(icon: UIImage(systemName: "envelope"), title: "Contact", value: nil),
+        FeedbackModel(icon: UIImage(systemName: "star"), title: LocalizedStringKey.rateTheApp.localize, value: nil),
+        FeedbackModel(icon: UIImage(systemName: "envelope"), title: LocalizedStringKey.contact.localize, value: nil),
     ]
     
     private var aboutTheAppModel = [
-        AboutTheAppModel(icon: UIImage(systemName: "questionmark.circle"), title: "Help", value: nil),
-        AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Privacy Policy", value: nil),
-        AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: "Terms & Conditions", value: nil),
-        AboutTheAppModel(icon: UIImage(systemName: "c.circle"), title: "Copyright", value: "HOYEON LEE"),
-        AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: "App Version", value: nil),
+        AboutTheAppModel(icon: UIImage(systemName: "questionmark.circle"), title: LocalizedStringKey.help.localize, value: nil),
+        AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: LocalizedStringKey.privacyPolicy.localize, value: nil),
+        AboutTheAppModel(icon: UIImage(systemName: "doc.text"), title: LocalizedStringKey.termsAndConditions.localize, value: nil),
+        AboutTheAppModel(icon: UIImage(systemName: "c.circle"), title: LocalizedStringKey.copyright.localize, value: "HOYEON LEE"),
+        AboutTheAppModel(icon: UIImage(systemName: "number.circle"), title: LocalizedStringKey.appVersion.localize, value: nil),
     ]
     
     //MARK: - 셀 데이터 조회 및 업데이트 관련 메서드

@@ -19,19 +19,19 @@ final class CoinListViewController: UIViewController {
         sc.searchBar.delegate = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.searchBar.sizeToFit()
-        sc.searchBar.placeholder = "Enter coin name or symbol"
+        sc.searchBar.placeholder = LocalizedStringKey.enterCoinNameOrSymbol.localize
         sc.searchBar.searchBarStyle = .prominent
         sc.searchBar.searchTextField.keyboardType = .alphabet
         sc.searchBar.searchTextField.autocapitalizationType = .none
         sc.searchBar.searchTextField.autocorrectionType = .no
-        sc.searchBar.setValue("Cancel", forKey: "cancelButtonText")
+        sc.searchBar.setValue(LocalizedStringKey.cancel.localize, forKey: "cancelButtonText")
         return sc
     }()
     
     // 시가총액 기준 정렬 버튼
     private lazy var sortMarketCapButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("Market Cap ▼", for: .normal)
+        button.setTitle(LocalizedStringKey.marketCapDescending.localize, for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemGray5
         button.clipsToBounds = true
@@ -47,7 +47,7 @@ final class CoinListViewController: UIViewController {
     // 가격 24시간 변화율 기준 정렬 버튼
     private lazy var sortPriceChangeButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("24H Price Change", for: .normal)
+        button.setTitle(LocalizedStringKey.priceChange.localize, for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .systemGray5
         button.clipsToBounds = true
@@ -131,11 +131,11 @@ final class CoinListViewController: UIViewController {
     
     // 로딩중임을 나타내는 Indicator 설정
     private func setupActivityIndicator() {
-        self.tableView.addSubview(activityIndicator)
+        self.tableView.addSubview(self.activityIndicator)
         
         NSLayoutConstraint.activate([
-            self.activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            self.activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+            self.activityIndicator.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.tableView.centerYAnchor),
             self.activityIndicator.widthAnchor.constraint(equalToConstant: 50),
             self.activityIndicator.heightAnchor.constraint(equalToConstant: 50),
         ])
@@ -152,7 +152,7 @@ final class CoinListViewController: UIViewController {
         )
         self.navigationItem.rightBarButtonItem?.tintColor = .systemGray2
         self.navigationItem.hidesSearchBarWhenScrolling = false        
-        self.navigationItem.title = Constant.TitleSetting.coinListVC
+        self.navigationItem.title = LocalizedStringKey.selectType.localize
     }
     
     // View 설정
@@ -163,7 +163,7 @@ final class CoinListViewController: UIViewController {
     // 화면 상단의 필터링/정렬 버튼 설정
     private func setupButton() {
         // 시가총액 기준 정렬 버튼
-        self.view.addSubview(sortMarketCapButton)
+        self.view.addSubview(self.sortMarketCapButton)
         self.sortMarketCapButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.sortMarketCapButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
@@ -173,7 +173,7 @@ final class CoinListViewController: UIViewController {
         ])
         
         // 24시간 가격 변화율 기준 정렬 버튼
-        self.view.addSubview(sortPriceChangeButton)
+        self.view.addSubview(self.sortPriceChangeButton)
         sortPriceChangeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.sortPriceChangeButton.leadingAnchor.constraint(equalTo: self.sortMarketCapButton.trailingAnchor, constant: 10),
@@ -265,12 +265,14 @@ final class CoinListViewController: UIViewController {
         self.sortMarketCapButton.layer.borderColor = UIColor.label.cgColor
         self.sortMarketCapButton.layer.borderWidth = 1.5
         
-        self.sortPriceChangeButton.setTitle("24H Price Change", for: .normal)
+        self.sortPriceChangeButton.setTitle(LocalizedStringKey.priceChange.localize, for: .normal)
         self.sortPriceChangeButton.layer.borderWidth = 0
         
         self.isMarketCap.toggle()
         self.sortMarketCapButton.setTitle(
-            self.isMarketCap ? "Market Cap ▼" : "Market Cap ▲",
+            self.isMarketCap
+            ? LocalizedStringKey.marketCapDescending.localize
+            : LocalizedStringKey.marketCapAscending.localize,
             for: .normal
         )
         
@@ -290,7 +292,7 @@ final class CoinListViewController: UIViewController {
     }
     
     @objc private func sortPriceChangeButtonTapped() {
-        self.sortMarketCapButton.setTitle("Market Cap", for: .normal)
+        self.sortMarketCapButton.setTitle(LocalizedStringKey.marketCap.localize, for: .normal)
         self.sortMarketCapButton.layer.borderWidth = 0
         
         self.sortPriceChangeButton.layer.borderColor = UIColor.label.cgColor
@@ -298,7 +300,9 @@ final class CoinListViewController: UIViewController {
         
         self.isPriceChange.toggle()
         self.sortPriceChangeButton.setTitle(
-            self.isPriceChange ? "24H Price Change ▼" : "24H Price Change ▲",
+            self.isPriceChange
+            ? LocalizedStringKey.priceChangeDescending.localize
+            : LocalizedStringKey.priceChangeAscending.localize,
             for: .normal
         )
         
@@ -401,11 +405,24 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
         : self.coinArray[indexPath.row].symbol.uppercased()
         
         // AlertController, AlertAction 생성
-        let alert = UIAlertController(title: Constant.MessageSetting.confirmTitle,
-                                      message: Constant.MessageSetting.coinSelectMessage +
-                                      "\n\(coinName)(\(coinSymbol))?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        let okAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+        let languageCode = String(NSLocale.preferredLanguages[0]).dropLast(3)  // 언어코드-지역코드 (ko-KR => ko, en-US => en)
+        let message = languageCode == "en"
+        ? LocalizedStringKey.selectCoinMessage.localize + "\n\(coinName)(\(coinSymbol))?"
+        : "\(coinName)(\(coinSymbol))" + LocalizedStringKey.selectCoinMessage.localize
+        
+        let alert = UIAlertController(
+            title: LocalizedStringKey.confirm.localize,
+            message: message, preferredStyle: .alert
+        )
+        let cancelAction = UIAlertAction(
+            title: LocalizedStringKey.no.localize,
+            style: .default,
+            handler: nil
+        )
+        let okAction = UIAlertAction(
+            title: LocalizedStringKey.yes.localize,
+            style: .default
+        ) { [weak self] _ in
             // Singleton 패턴으로 CalcVC의 coinTypeTextField에게 데이터 전달하기
             DataPassManager.shared.selectedCoinID = coinID
             DataPassManager.shared.selectedCoinName = coinName

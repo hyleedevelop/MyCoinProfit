@@ -51,6 +51,9 @@
 		07CF8F5D294DBE7F007D8C33 /* CurrentPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */; };
 		07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3A582295C925C0079DB9E /* HistoryPriceData.swift */; };
 		07E7F7A9297AC3E8003878C7 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E7F7A8297AC3E8003878C7 /* GradientColor.swift */; };
+		07EB91452A6A21F6001C4AAE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07EB91472A6A21F6001C4AAE /* Localizable.strings */; };
+		07EB914A2A6A36D8001C4AAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB91492A6A36D8001C4AAE /* String.swift */; };
+		07EB914C2A6A3B3F001C4AAE /* LocalizedStringKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EB914B2A6A3B3F001C4AAE /* LocalizedStringKey.swift */; };
 		07FCC2F1297D83E200A06EAD /* SettingCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FCC2F0297D83E200A06EAD /* SettingCellData.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +101,12 @@
 		07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceData.swift; sourceTree = "<group>"; };
 		07D3A582295C925C0079DB9E /* HistoryPriceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPriceData.swift; sourceTree = "<group>"; };
 		07E7F7A8297AC3E8003878C7 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
+		07EB91462A6A21F6001C4AAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		07EB91482A6A27AD001C4AAE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		07EB91492A6A36D8001C4AAE /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		07EB914B2A6A3B3F001C4AAE /* LocalizedStringKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringKey.swift; sourceTree = "<group>"; };
+		07EB914E2A6A6A72001C4AAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		07EB91502A6A6A73001C4AAE /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		07FCC2F0297D83E200A06EAD /* SettingCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellData.swift; sourceTree = "<group>"; };
 		41ECAE53BD4778714C5B7914 /* Pods-CryptoCalculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoCalculator.debug.xcconfig"; path = "Target Support Files/Pods-CryptoCalculator/Pods-CryptoCalculator.debug.xcconfig"; sourceTree = "<group>"; };
 		5C5E5D73C8DA7B2F71B37031 /* Pods_CryptoCalculator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoCalculator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +132,7 @@
 			children = (
 				07BAB0B5298544F300269EE5 /* Int.swift */,
 				07280782295817CB00CF65D9 /* Double.swift */,
+				07EB91492A6A36D8001C4AAE /* String.swift */,
 				0750FD32295D2D85006B90B5 /* Date.swift */,
 				07BED9692975801B009B7450 /* UILabel.swift */,
 				073A324729840EF00097C9DD /* UIColor.swift */,
@@ -202,6 +212,7 @@
 				0794112C2949E84700A4F632 /* LaunchScreen.storyboard */,
 				0794112A2949E84700A4F632 /* Assets.xcassets */,
 				0782894F2A43446E003E1282 /* new_icon_image.png */,
+				07EB91512A6A862C001C4AAE /* Localization */,
 				07280781295817BA00CF65D9 /* Extension */,
 				0794113E2949FA8000A4F632 /* Helper */,
 				079411372949E86500A4F632 /* Model */,
@@ -256,6 +267,15 @@
 				073D261A297F7FB700C46666 /* SettingCellManager.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		07EB91512A6A862C001C4AAE /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				07EB914B2A6A3B3F001C4AAE /* LocalizedStringKey.swift */,
+				07EB91472A6A21F6001C4AAE /* Localizable.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 		8850A8556DDC0043D8A6FA14 /* Frameworks */ = {
@@ -324,6 +344,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 079411122949E84700A4F632;
 			packageReferences = (
@@ -345,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0794112E2949E84700A4F632 /* LaunchScreen.storyboard in Resources */,
+				07EB91452A6A21F6001C4AAE /* Localizable.strings in Resources */,
 				078289502A43446E003E1282 /* new_icon_image.png in Resources */,
 				0794112B2949E84700A4F632 /* Assets.xcassets in Resources */,
 				07B07E96298CFEA300E9F852 /* GoogleService-Info.plist in Resources */,
@@ -418,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EB914A2A6A36D8001C4AAE /* String.swift in Sources */,
 				07D3A583295C925C0079DB9E /* HistoryPriceData.swift in Sources */,
 				073D261B297F7FB700C46666 /* SettingCellManager.swift in Sources */,
 				079ACB7F2A49C80800C8FD28 /* CalcView+TextFieldInput.swift in Sources */,
@@ -439,6 +462,7 @@
 				07BAB0B6298544F300269EE5 /* Int.swift in Sources */,
 				07BED96A2975801B009B7450 /* UILabel.swift in Sources */,
 				07846A26298118A200449A7D /* CalcResultCellManager.swift in Sources */,
+				07EB914C2A6A3B3F001C4AAE /* LocalizedStringKey.swift in Sources */,
 				079DBFF5295DB3AC0063625F /* CalcViewController.swift in Sources */,
 				079411402949FA8D00A4F632 /* Constant.swift in Sources */,
 				07C616EC294AAD4B00F057BE /* CoinListCell.swift in Sources */,
@@ -473,8 +497,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				0794112D2949E84700A4F632 /* Base */,
+				07EB914E2A6A6A72001C4AAE /* en */,
+				07EB91502A6A6A73001C4AAE /* ko */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		07EB91472A6A21F6001C4AAE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07EB91462A6A21F6001C4AAE /* en */,
+				07EB91482A6A27AD001C4AAE /* ko */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -484,6 +519,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -544,6 +580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -602,7 +639,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -621,7 +658,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -641,7 +678,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = YJF2RZ2K47;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptoCalculator/Info.plist;
@@ -659,7 +696,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.4;
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hyleedevelop.CryptoCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
