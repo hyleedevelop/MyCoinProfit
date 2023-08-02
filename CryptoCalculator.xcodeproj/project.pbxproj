@@ -247,9 +247,9 @@
 				07CF8F5C294DBE7F007D8C33 /* CurrentPriceData.swift */,
 				07D3A582295C925C0079DB9E /* HistoryPriceData.swift */,
 				07CF13C12962B8110099746F /* PickerData.swift */,
-				07846A23298117F900449A7D /* CalcResultCellData.swift */,
 				07FCC2F0297D83E200A06EAD /* SettingCellData.swift */,
 				07CD55252A44266E006F79A7 /* InvestmentResult.swift */,
+				07846A23298117F900449A7D /* CalcResultCellData.swift */,
 				073A7FC72A46843700A1A2AC /* CalcResultData.swift */,
 			);
 			path = Model;
