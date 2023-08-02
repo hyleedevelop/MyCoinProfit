@@ -405,7 +405,8 @@ extension CoinListViewController: UITableViewDataSource, UITableViewDelegate {
         : self.coinArray[indexPath.row].symbol.uppercased()
         
         // AlertController, AlertAction 생성
-        let languageCode = String(NSLocale.preferredLanguages[0]).dropLast(3)  // 언어코드-지역코드 (ko-KR => ko, en-US => en)
+        // 언어코드-지역코드 (ko-KR => ko, en-US => en)
+        let languageCode = String(NSLocale.preferredLanguages[0]).dropLast(3)
         let message = languageCode == "en"
         ? LocalizedStringKey.selectCoinMessage.localize + "\n\(coinName)(\(coinSymbol))?"
         : "\(coinName)(\(coinSymbol))" + LocalizedStringKey.selectCoinMessage.localize
